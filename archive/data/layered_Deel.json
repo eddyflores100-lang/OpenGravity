@@ -1,0 +1,21 @@
+{
+  "result": {
+    "probability_raw": 1.0,
+    "probability_adjusted": 1.0,
+    "logit_raw": 14.4586,
+    "logit_adjusted": 14.4586,
+    "agent_adj": 0.0,
+    "math_status": "WINNER",
+    "verdict": "WINNER",
+    "verdict_source": "BAYESIAN_ADJUSTED",
+    "is_fatal": false,
+    "calibrations": {
+      "bias_adj": 0.0,
+      "ltv_weight_adj": 1.0,
+      "growth_weight_adj": 1.0,
+      "runway_weight_adj": 1.0
+    }
+  },
+  "agent_report": null,
+  "thesis": "**Final VC Thesis:**\n\n**Candidate:** [Insert Candidate Name]\n**Investment Opportunity:** [Insert Opportunity Name]\n\n**Verdict:** WINNER\n\n**Probability of Success:** 100% (adjusted and raw)\n\n**Adjusted Logit Score:** 14.4586\n\n**Key Factors:**\n\n- **Agent Adjustment:** 0.0 (no adjustment necessary)\n- **Mathematical Status:** WINNER\n- **Calibrations:**\n  - **Bias Adjustment:** 0.0 (no bias adjustment necessary)\n  - **LTV Weight Adjustment:** 1.0 (LTV weight is fully utilized)\n  - **Growth Weight Adjustment:** 1.0 (growth weight is fully utilized)\n  - **Runway Weight Adjustment:** 1.0 (runway weight is fully utilized)\n\n**Conclusion:**\n\nBased on the Bayesian-adjusted model, we conclude that [Insert Candidate Name] has a 100% probability of success for [Insert Opportunity Name]. The adjusted logit score of 14.4586 further supports this conclusion. The agent adjustment, mathematical status, and calibrations all indicate a strong investment opportunity with minimal risk. Therefore, we recommend investing in [Insert Opportunity Name] with confidence.\n\n**Recommendation:"
+}

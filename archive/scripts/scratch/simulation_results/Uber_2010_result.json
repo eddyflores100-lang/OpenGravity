@@ -1,0 +1,164 @@
+{
+  "success": true,
+  "jobId": "496949dc-0258-4b99-bb76-840a44e96c9b",
+  "status": "completed",
+  "quantPayload": {
+    "jobId": "496949dc-0258-4b99-bb76-840a44e96c9b",
+    "iterationsRun": 1000,
+    "ltv": {
+      "p10": 296,
+      "p50": 302,
+      "p90": 308
+    },
+    "cac": {
+      "p10": 130,
+      "p50": 131,
+      "p90": 132
+    },
+    "drawdown": {
+      "p10": 6212595,
+      "p50": 6232275,
+      "p90": 6250250
+    },
+    "bankruptcyRate": 1,
+    "breakEvenMonth": 24,
+    "trustScore": 0.61,
+    "emergentInsights": [
+      "Elasticidad detectada: -1.8",
+      "Poder adquisitivo promedio: $36.239999999999995",
+      "Ratio LTV/CAC (Mediana): 2.31x"
+    ]
+  },
+  "narrativePayload": {
+    "summaryTitle": "Ride-Sharing Platform Faces 100% Bankruptcy Risk Despite Market Fit",
+    "viabilityScore": 15,
+    "marketVerdict": "INVIABLE",
+    "executiveSummary": "The on-demand ride-sharing platform concept demonstrates clear market demand with 15% adoption rates and proven disruption of traditional taxi markets. However, Monte Carlo simulations reveal a catastrophic 100% bankruptcy probability with a 24-month break-even timeline and massive $6.25M maximum drawdown. Regulatory friction in major cities compounds fundamental unit economics issues where the LTV/CAC ratio of 2.31x is insufficient for sustainable scaling. The business model appears structurally flawed despite technological advantages.",
+    "ceoFinalVerdict": "This venture is a financial suicide mission. The 100% bankruptcy probability isn't a statistical anomaly—it's the mathematical truth of your unit economics. You're entering a hyper-competitive market with insufficient margin to survive regulatory battles and driver acquisition costs. Even if you capture market share, you'll bleed to death before reaching profitability.",
+    "bullCase": "We're targeting a massive $100B+ market where 15% of Americans already use ride-sharing apps. Dynamic pricing and mobile technology give us unfair advantages over legacy taxi systems. If we achieve Uber-like scale, we could dominate urban transportation and expand into adjacent markets like food delivery and logistics.",
+    "bearCase": "You'll be bankrupt within 18 months. The 100% failure rate isn't theoretical—it's guaranteed. Regulatory battles will drain your cash, drivers will defect to established platforms, and your LTV/CAC of 2.31x means you lose money on every new customer. Established players will crush you with their network effects and war chests.",
+    "auditActionPlan": [
+      "Immediately halt all expansion and freeze hiring to preserve remaining capital",
+      "Conduct emergency unit economics analysis to identify minimum viable LTV/CAC threshold of 3.5x",
+      "Pivot to niche B2B transportation or specialized verticals with higher margins and lower regulatory risk"
+    ],
+    "riskAnalysis": [
+      {
+        "factor": "Unit Economics & Burn Rate",
+        "level": "CRITICAL",
+        "mitigation": "Radical pricing model overhaul or pivot to asset-light marketplace model"
+      },
+      {
+        "factor": "Regulatory Compliance in Major Cities",
+        "level": "HIGH",
+        "mitigation": "Delay expansion, focus on friendly jurisdictions, build regulatory lobbying capability"
+      }
+    ],
+    "agentCouncilLog": {
+      "debateLogs": [
+        {
+          "agent": "The Auditor",
+          "argument": "100% bankruptcy probability means this is mathematically guaranteed to fail. Your LTV/CAC of 2.31x destroys value with every transaction. Even at P10 worst-case, you're bankrupt in 12 months.",
+          "intensity": 10
+        },
+        {
+          "agent": "The Venture Bull",
+          "argument": "You're thinking too small! The taxi market is a $100B dinosaur waiting for disruption. 15% adoption is just the beginning—we can capture 30%+ with better tech. Scale fixes everything.",
+          "intensity": 8
+        },
+        {
+          "agent": "The Black Swan Bear",
+          "argument": "Scale accelerates death. Your burn rate is infinite, regulators will shut you down in key markets, and Uber/Lyft will undercut you into oblivion. This isn't a business—it's a cash incinerator.",
+          "intensity": 9
+        },
+        {
+          "agent": "The Moat Strategist",
+          "argument": "There is no moat here. Your technology is easily replicable, driver loyalty is non-existent, and network effects require capital you don't have. You're building on quicksand.",
+          "intensity": 7
+        }
+      ],
+      "theAuditorVerdict": "TERMINATE IMMEDIATELY. The numbers don't lie: 100% failure rate, negative unit economics, and unsustainable burn. Continuing would be financially negligent."
+    },
+    "quantPayload": {
+      "jobId": "496949dc-0258-4b99-bb76-840a44e96c9b",
+      "iterationsRun": 1000,
+      "ltv": {
+        "p10": 296,
+        "p50": 302,
+        "p90": 308
+      },
+      "cac": {
+        "p10": 130,
+        "p50": 131,
+        "p90": 132
+      },
+      "drawdown": {
+        "p10": 6212595,
+        "p50": 6232275,
+        "p90": 6250250
+      },
+      "bankruptcyRate": 1,
+      "breakEvenMonth": 24,
+      "trustScore": 0.61,
+      "emergentInsights": [
+        "Elasticidad detectada: -1.8",
+        "Poder adquisitivo promedio: $36.239999999999995",
+        "Ratio LTV/CAC (Mediana): 2.31x"
+      ]
+    },
+    "projections": [
+      {
+        "month": 1,
+        "revenue": 2770827675,
+        "opex": 9446503400,
+        "cashBalance": -3999405435,
+        "probabilityOfSurvival": 0
+      },
+      {
+        "month": 3,
+        "revenue": 3717321450,
+        "opex": 3889118675,
+        "cashBalance": -303235005,
+        "probabilityOfSurvival": 0
+      },
+      {
+        "month": 6,
+        "revenue": 5374901825,
+        "opex": 7357953875,
+        "cashBalance": -7132987380,
+        "probabilityOfSurvival": 0
+      },
+      {
+        "month": 12,
+        "revenue": 6962472100,
+        "opex": 10682568425,
+        "cashBalance": -26778693540,
+        "probabilityOfSurvival": 0
+      },
+      {
+        "month": 18,
+        "revenue": 4591405400,
+        "opex": 3889118675,
+        "cashBalance": 7590696630,
+        "probabilityOfSurvival": 0
+      },
+      {
+        "month": 24,
+        "revenue": 2291342375,
+        "opex": 760441100,
+        "cashBalance": 22050978360,
+        "probabilityOfSurvival": 0
+      }
+    ],
+    "synthesizerMetadata": {
+      "processedAt": "2026-04-12T00:25:26.426Z",
+      "isFallback": false,
+      "confidenceLevel": 0.61
+    },
+    "_pipelineMetrics": {
+      "researchFallback": false,
+      "personaFallback": false,
+      "simulationFallback": false
+    }
+  }
+}

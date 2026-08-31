@@ -1,0 +1,37 @@
+{
+  "result": {
+    "probability": 0.2975,
+    "status": "REVIEW",
+    "logit": -0.8591,
+    "calibrations": {
+      "bias_adj": 1.8,
+      "ltv_weight_adj": 0.3,
+      "growth_weight_adj": 1.5,
+      "runway_weight_adj": 0.25
+    }
+  },
+  "agent_report": {
+    "startup_name": "SpaceX",
+    "analysis": "Historical analysis of SpaceX based on contextual validation of DeepTech/Institutional signals up to 2024.",
+    "recommended_prior_adj": 0.45,
+    "critical_findings": [
+      {
+        "finding_type": "Technical Moat",
+        "description": "IP, launch infrastructure, and hardware milestones are key engineering assets.",
+        "impact_weight": 0.9
+      },
+      {
+        "finding_type": "Technical Promise",
+        "description": "Critical engineering hires from Tier-1 firms, hardware milestones, and government contracts.",
+        "impact_weight": 1.0
+      },
+      {
+        "finding_type": "Backlog/Contracts",
+        "description": "NASA contracts, Starlink, and lunar missions demonstrate strong government and commercial interest.",
+        "impact_weight": 0.95
+      }
+    ],
+    "is_fatal": false
+  },
+  "thesis": "**Final VC Thesis:**\n\n**Company:** SpaceX\n**Analysis:** Historical analysis of SpaceX based on contextual validation of DeepTech/Institutional signals up to 2024.\n**Probability of Success:** 29.75%\n**Status:** Under Review\n\n**Key Findings:**\n\n1. **Technical Moat:** SpaceX's IP, launch infrastructure, and hardware milestones are key engineering assets, providing a strong foundation for future growth. (Impact Weight: 0.9)\n2. **Technical Promise:** Critical engineering hires from Tier-1 firms, hardware milestones, and government contracts demonstrate the company's ability to execute on its vision. (Impact Weight: 1.0)\n3. **Backlog/Contracts:** NASA contracts, Starlink, and lunar missions demonstrate strong government and commercial interest in SpaceX's products and services. (Impact Weight: 0.95)\n\n**Calibration Adjustments:**\n\n1. **Bias Adjustment:** 1.8 (indicating a slight bias towards the company's favor)\n2. **LTV Weight Adjustment:** 0.3 (indicating a moderate adjustment to the company's lifetime value)\n3. **Growth Weight Adjustment:** 1.5 (indicating a significant adjustment to the company's growth potential)\n"
+}

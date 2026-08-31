@@ -1,0 +1,5002 @@
+[
+  {
+    "id": 0,
+    "inputs": {
+      "initialCapital": 59666.28511205773,
+      "fixedOpEx": 12364.00963646274,
+      "monthlyRevenue": 1171.7611783040602,
+      "ltv_cac": 3.4554639533155886
+    },
+    "outcome": 1
+  },
+  {
+    "id": 1,
+    "inputs": {
+      "initialCapital": 48498.39397132208,
+      "fixedOpEx": 11535.410718143881,
+      "monthlyRevenue": 1102.2674313484947,
+      "ltv_cac": 5.048807117815045
+    },
+    "outcome": 1
+  },
+  {
+    "id": 2,
+    "inputs": {
+      "initialCapital": 476905.47159881337,
+      "fixedOpEx": 35912.26600828772,
+      "monthlyRevenue": 3606.21689797839,
+      "ltv_cac": 14.76545115245816
+    },
+    "outcome": 0
+  },
+  {
+    "id": 3,
+    "inputs": {
+      "initialCapital": 61626.788968673936,
+      "fixedOpEx": 12219.654824627823,
+      "monthlyRevenue": 384.7448988839228,
+      "ltv_cac": 5.1646407590134915
+    },
+    "outcome": 1
+  },
+  {
+    "id": 4,
+    "inputs": {
+      "initialCapital": 71185.57467077197,
+      "fixedOpEx": 11701.400054226044,
+      "monthlyRevenue": 2061.9304707561555,
+      "ltv_cac": 2.7942410340349886
+    },
+    "outcome": 1
+  },
+  {
+    "id": 5,
+    "inputs": {
+      "initialCapital": 49532.24669549189,
+      "fixedOpEx": 10106.826170496715,
+      "monthlyRevenue": 1555.8206278200225,
+      "ltv_cac": 2.5240271496059368
+    },
+    "outcome": 1
+  },
+  {
+    "id": 6,
+    "inputs": {
+      "initialCapital": 569683.9268278821,
+      "fixedOpEx": 36966.684890778175,
+      "monthlyRevenue": 10598.557154040202,
+      "ltv_cac": 5.90266807047999
+    },
+    "outcome": 0
+  },
+  {
+    "id": 7,
+    "inputs": {
+      "initialCapital": 34876.99480926188,
+      "fixedOpEx": 10170.24160048214,
+      "monthlyRevenue": 1373.3473092650968,
+      "ltv_cac": 3.3758360877083513
+    },
+    "outcome": 1
+  },
+  {
+    "id": 8,
+    "inputs": {
+      "initialCapital": 69206.83989424999,
+      "fixedOpEx": 7992.316488646144,
+      "monthlyRevenue": 1854.3638594409126,
+      "ltv_cac": 6.311907017382375
+    },
+    "outcome": 0
+  },
+  {
+    "id": 9,
+    "inputs": {
+      "initialCapital": 391595.7710313936,
+      "fixedOpEx": 33406.426696637456,
+      "monthlyRevenue": 12880.081608428598,
+      "ltv_cac": 13.457716976282388
+    },
+    "outcome": 0
+  },
+  {
+    "id": 10,
+    "inputs": {
+      "initialCapital": 71495.63565327438,
+      "fixedOpEx": 12608.7199002622,
+      "monthlyRevenue": 1629.4595712979958,
+      "ltv_cac": 2.5083573102824928
+    },
+    "outcome": 1
+  },
+  {
+    "id": 11,
+    "inputs": {
+      "initialCapital": 40664.98041080289,
+      "fixedOpEx": 8546.076838018242,
+      "monthlyRevenue": 1826.926052496061,
+      "ltv_cac": 1.555392691845839
+    },
+    "outcome": 1
+  },
+  {
+    "id": 12,
+    "inputs": {
+      "initialCapital": 6187.600592112423,
+      "fixedOpEx": 10491.346002706978,
+      "monthlyRevenue": 647.5047589948178,
+      "ltv_cac": 4.029425444323133
+    },
+    "outcome": 1
+  },
+  {
+    "id": 13,
+    "inputs": {
+      "initialCapital": 104079.21935533179,
+      "fixedOpEx": 13579.685687002408,
+      "monthlyRevenue": 1313.2816777120083,
+      "ltv_cac": 2.6453079410960187
+    },
+    "outcome": 1
+  },
+  {
+    "id": 14,
+    "inputs": {
+      "initialCapital": 73166.4467505883,
+      "fixedOpEx": 9881.200822774814,
+      "monthlyRevenue": 2138.4726988484117,
+      "ltv_cac": 2.8368081862636503
+    },
+    "outcome": 1
+  },
+  {
+    "id": 15,
+    "inputs": {
+      "initialCapital": 58165.661174089924,
+      "fixedOpEx": 11996.477409712124,
+      "monthlyRevenue": 1246.2032161043614,
+      "ltv_cac": 5.363505993326634
+    },
+    "outcome": 1
+  },
+  {
+    "id": 16,
+    "inputs": {
+      "initialCapital": 50195.72658698528,
+      "fixedOpEx": 12886.546328643113,
+      "monthlyRevenue": 1373.1264556365093,
+      "ltv_cac": 6.190763205721625
+    },
+    "outcome": 1
+  },
+  {
+    "id": 17,
+    "inputs": {
+      "initialCapital": 84521.27188526317,
+      "fixedOpEx": 15370.825064127741,
+      "monthlyRevenue": 1589.3132143878768,
+      "ltv_cac": 5.587556956901038
+    },
+    "outcome": 1
+  },
+  {
+    "id": 18,
+    "inputs": {
+      "initialCapital": 47074.81363962263,
+      "fixedOpEx": 11307.365415699065,
+      "monthlyRevenue": 1780.7810061326343,
+      "ltv_cac": 5.610416963209107
+    },
+    "outcome": 1
+  },
+  {
+    "id": 19,
+    "inputs": {
+      "initialCapital": 60181.821956047475,
+      "fixedOpEx": 13954.379168163576,
+      "monthlyRevenue": 1978.4493582664193,
+      "ltv_cac": 1.2293553948749225
+    },
+    "outcome": 1
+  },
+  {
+    "id": 20,
+    "inputs": {
+      "initialCapital": 40981.073385129406,
+      "fixedOpEx": 10306.683417494516,
+      "monthlyRevenue": 1434.6337263030684,
+      "ltv_cac": 1.0732977341684755
+    },
+    "outcome": 1
+  },
+  {
+    "id": 21,
+    "inputs": {
+      "initialCapital": 90566.46791629118,
+      "fixedOpEx": 10574.427889728844,
+      "monthlyRevenue": 1535.6210394765906,
+      "ltv_cac": 5.191386318810015
+    },
+    "outcome": 1
+  },
+  {
+    "id": 22,
+    "inputs": {
+      "initialCapital": 76948.1696120222,
+      "fixedOpEx": 15808.553347326188,
+      "monthlyRevenue": 1176.9132750038925,
+      "ltv_cac": 4.837620961165834
+    },
+    "outcome": 1
+  },
+  {
+    "id": 23,
+    "inputs": {
+      "initialCapital": 69230.31223111406,
+      "fixedOpEx": 11841.332158151887,
+      "monthlyRevenue": 1547.7662153586782,
+      "ltv_cac": 6.148971554428467
+    },
+    "outcome": 1
+  },
+  {
+    "id": 24,
+    "inputs": {
+      "initialCapital": 39085.04985720146,
+      "fixedOpEx": 9460.991524616335,
+      "monthlyRevenue": 1067.8853484769918,
+      "ltv_cac": 4.292200752420114
+    },
+    "outcome": 1
+  },
+  {
+    "id": 25,
+    "inputs": {
+      "initialCapital": 38502.208341889724,
+      "fixedOpEx": 10540.171720074552,
+      "monthlyRevenue": 1534.968257541129,
+      "ltv_cac": 3.3375481608275273
+    },
+    "outcome": 1
+  },
+  {
+    "id": 26,
+    "inputs": {
+      "initialCapital": 39396.47971534226,
+      "fixedOpEx": 13699.476392496135,
+      "monthlyRevenue": 1818.9450138116688,
+      "ltv_cac": 5.310175096200956
+    },
+    "outcome": 1
+  },
+  {
+    "id": 27,
+    "inputs": {
+      "initialCapital": 451458.0032184236,
+      "fixedOpEx": 34833.83305312125,
+      "monthlyRevenue": 9729.725177286948,
+      "ltv_cac": 12.950928446375205
+    },
+    "outcome": 0
+  },
+  {
+    "id": 28,
+    "inputs": {
+      "initialCapital": 49406.26699528085,
+      "fixedOpEx": 10637.871107076913,
+      "monthlyRevenue": 1174.8071358107118,
+      "ltv_cac": 3.0049580328629864
+    },
+    "outcome": 1
+  },
+  {
+    "id": 29,
+    "inputs": {
+      "initialCapital": 77534.95265704814,
+      "fixedOpEx": 11217.832046700216,
+      "monthlyRevenue": 953.5409905471146,
+      "ltv_cac": 2.29072316054358
+    },
+    "outcome": 1
+  },
+  {
+    "id": 30,
+    "inputs": {
+      "initialCapital": 90303.31263578145,
+      "fixedOpEx": 12878.256931063228,
+      "monthlyRevenue": 1778.8534302370776,
+      "ltv_cac": 1.343745493738625
+    },
+    "outcome": 1
+  },
+  {
+    "id": 31,
+    "inputs": {
+      "initialCapital": 80851.8872548559,
+      "fixedOpEx": 11084.543882185337,
+      "monthlyRevenue": 1642.0321715784044,
+      "ltv_cac": 6.524201064876237
+    },
+    "outcome": 1
+  },
+  {
+    "id": 32,
+    "inputs": {
+      "initialCapital": 355680.6441051755,
+      "fixedOpEx": 35438.80689892785,
+      "monthlyRevenue": 7947.880126242941,
+      "ltv_cac": 9.410333785678702
+    },
+    "outcome": 0
+  },
+  {
+    "id": 33,
+    "inputs": {
+      "initialCapital": 70926.17698423119,
+      "fixedOpEx": 10785.785095325256,
+      "monthlyRevenue": 1953.7035227269073,
+      "ltv_cac": 6.905938568802071
+    },
+    "outcome": 0
+  },
+  {
+    "id": 34,
+    "inputs": {
+      "initialCapital": 403970.2290365301,
+      "fixedOpEx": 29644.72719838887,
+      "monthlyRevenue": 6867.372585725789,
+      "ltv_cac": 11.148225957111283
+    },
+    "outcome": 0
+  },
+  {
+    "id": 35,
+    "inputs": {
+      "initialCapital": 94561.4000230419,
+      "fixedOpEx": 14572.60049737239,
+      "monthlyRevenue": 2120.020088825486,
+      "ltv_cac": 4.261541162260737
+    },
+    "outcome": 1
+  },
+  {
+    "id": 36,
+    "inputs": {
+      "initialCapital": 397910.9828001008,
+      "fixedOpEx": 34119.47749911958,
+      "monthlyRevenue": 12055.621604957332,
+      "ltv_cac": 15.608110921152363
+    },
+    "outcome": 0
+  },
+  {
+    "id": 37,
+    "inputs": {
+      "initialCapital": 48003.979791809594,
+      "fixedOpEx": 12497.850247844583,
+      "monthlyRevenue": 743.3467713949857,
+      "ltv_cac": 5.689821757860157
+    },
+    "outcome": 1
+  },
+  {
+    "id": 38,
+    "inputs": {
+      "initialCapital": 540405.703929272,
+      "fixedOpEx": 32796.68643320712,
+      "monthlyRevenue": 5206.2109778208305,
+      "ltv_cac": 4.535809065410231
+    },
+    "outcome": 1
+  },
+  {
+    "id": 39,
+    "inputs": {
+      "initialCapital": 76278.55487663484,
+      "fixedOpEx": 10351.91137603271,
+      "monthlyRevenue": 2014.1955075784063,
+      "ltv_cac": 3.970265117055751
+    },
+    "outcome": 1
+  },
+  {
+    "id": 40,
+    "inputs": {
+      "initialCapital": 27680.16911251052,
+      "fixedOpEx": 9115.601886805329,
+      "monthlyRevenue": 905.724632757938,
+      "ltv_cac": 2.1268960063989413
+    },
+    "outcome": 1
+  },
+  {
+    "id": 41,
+    "inputs": {
+      "initialCapital": 58273.378302937206,
+      "fixedOpEx": 11632.169999281125,
+      "monthlyRevenue": 1697.7318776941045,
+      "ltv_cac": 4.596420607739489
+    },
+    "outcome": 1
+  },
+  {
+    "id": 42,
+    "inputs": {
+      "initialCapital": 64477.936751367844,
+      "fixedOpEx": 12784.302084411245,
+      "monthlyRevenue": 1998.7082923920357,
+      "ltv_cac": 2.6283141606325673
+    },
+    "outcome": 1
+  },
+  {
+    "id": 43,
+    "inputs": {
+      "initialCapital": 46890.9565511177,
+      "fixedOpEx": 11686.55529325821,
+      "monthlyRevenue": 683.6577825331808,
+      "ltv_cac": 3.8050594005391303
+    },
+    "outcome": 1
+  },
+  {
+    "id": 44,
+    "inputs": {
+      "initialCapital": 77347.31412315439,
+      "fixedOpEx": 14456.075067583783,
+      "monthlyRevenue": 1545.470087326333,
+      "ltv_cac": 6.140597348659883
+    },
+    "outcome": 1
+  },
+  {
+    "id": 45,
+    "inputs": {
+      "initialCapital": 34651.39313983903,
+      "fixedOpEx": 12694.34322300206,
+      "monthlyRevenue": 2599.7134854240308,
+      "ltv_cac": 4.699273706312985
+    },
+    "outcome": 1
+  },
+  {
+    "id": 46,
+    "inputs": {
+      "initialCapital": 56721.71552531177,
+      "fixedOpEx": 10920.91878127231,
+      "monthlyRevenue": 1048.2374202400454,
+      "ltv_cac": 3.7575679073441934
+    },
+    "outcome": 1
+  },
+  {
+    "id": 47,
+    "inputs": {
+      "initialCapital": 69810.51277753664,
+      "fixedOpEx": 14078.09709415957,
+      "monthlyRevenue": 1511.5006853439245,
+      "ltv_cac": 6.868920937613501
+    },
+    "outcome": 1
+  },
+  {
+    "id": 48,
+    "inputs": {
+      "initialCapital": 24656.250633833522,
+      "fixedOpEx": 8993.388039281834,
+      "monthlyRevenue": 1572.0530250469765,
+      "ltv_cac": 5.96754125171574
+    },
+    "outcome": 1
+  },
+  {
+    "id": 49,
+    "inputs": {
+      "initialCapital": 597547.0484318552,
+      "fixedOpEx": 33208.47182099127,
+      "monthlyRevenue": 7562.773369136509,
+      "ltv_cac": 14.797639929404546
+    },
+    "outcome": 0
+  },
+  {
+    "id": 50,
+    "inputs": {
+      "initialCapital": 79528.99895822567,
+      "fixedOpEx": 8056.050755089499,
+      "monthlyRevenue": 1504.1560788985216,
+      "ltv_cac": 3.3278152363093136
+    },
+    "outcome": 1
+  },
+  {
+    "id": 51,
+    "inputs": {
+      "initialCapital": 72620.88006797864,
+      "fixedOpEx": 8305.700157734267,
+      "monthlyRevenue": 1249.3070640179135,
+      "ltv_cac": 2.631052078947575
+    },
+    "outcome": 1
+  },
+  {
+    "id": 52,
+    "inputs": {
+      "initialCapital": 450523.4765731875,
+      "fixedOpEx": 34025.852655609095,
+      "monthlyRevenue": 10533.33929454255,
+      "ltv_cac": 11.736719814508763
+    },
+    "outcome": 0
+  },
+  {
+    "id": 53,
+    "inputs": {
+      "initialCapital": 61861.42429207169,
+      "fixedOpEx": 11955.550432541575,
+      "monthlyRevenue": 894.167225057269,
+      "ltv_cac": 6.942521420254655
+    },
+    "outcome": 1
+  },
+  {
+    "id": 54,
+    "inputs": {
+      "initialCapital": 610150.6149609638,
+      "fixedOpEx": 37802.69943737386,
+      "monthlyRevenue": 9270.98510198785,
+      "ltv_cac": 14.781609782811172
+    },
+    "outcome": 0
+  },
+  {
+    "id": 55,
+    "inputs": {
+      "initialCapital": 542531.2235822843,
+      "fixedOpEx": 27995.50773432053,
+      "monthlyRevenue": 6931.1982045031145,
+      "ltv_cac": 15.75412066318033
+    },
+    "outcome": 0
+  },
+  {
+    "id": 56,
+    "inputs": {
+      "initialCapital": 50550.545988805694,
+      "fixedOpEx": 13822.308871354442,
+      "monthlyRevenue": 1654.2082178174187,
+      "ltv_cac": 5.741815245221762
+    },
+    "outcome": 1
+  },
+  {
+    "id": 57,
+    "inputs": {
+      "initialCapital": 84199.43770357329,
+      "fixedOpEx": 13651.232585587448,
+      "monthlyRevenue": 1639.9598695391169,
+      "ltv_cac": 6.9987630127642895
+    },
+    "outcome": 1
+  },
+  {
+    "id": 58,
+    "inputs": {
+      "initialCapital": 73583.86933463173,
+      "fixedOpEx": 16542.927726591908,
+      "monthlyRevenue": 1929.3111339050852,
+      "ltv_cac": 2.9722855872932774
+    },
+    "outcome": 1
+  },
+  {
+    "id": 59,
+    "inputs": {
+      "initialCapital": 63180.11846662282,
+      "fixedOpEx": 9638.298946487696,
+      "monthlyRevenue": 1457.9036588259087,
+      "ltv_cac": 6.42664393319791
+    },
+    "outcome": 1
+  },
+  {
+    "id": 60,
+    "inputs": {
+      "initialCapital": 518648.18443393474,
+      "fixedOpEx": 33950.828554938234,
+      "monthlyRevenue": 8739.036256918343,
+      "ltv_cac": 3.954379530049316
+    },
+    "outcome": 1
+  },
+  {
+    "id": 61,
+    "inputs": {
+      "initialCapital": 78340.38787085937,
+      "fixedOpEx": 15184.550307517115,
+      "monthlyRevenue": 2173.998858872786,
+      "ltv_cac": 5.086659994247295
+    },
+    "outcome": 1
+  },
+  {
+    "id": 62,
+    "inputs": {
+      "initialCapital": 65888.64991754557,
+      "fixedOpEx": 12259.214516926584,
+      "monthlyRevenue": 1302.5728253441275,
+      "ltv_cac": 2.6013903406909415
+    },
+    "outcome": 1
+  },
+  {
+    "id": 63,
+    "inputs": {
+      "initialCapital": 57231.12696948777,
+      "fixedOpEx": 14169.513537768984,
+      "monthlyRevenue": 1288.562601533404,
+      "ltv_cac": 3.5037074563364907
+    },
+    "outcome": 1
+  },
+  {
+    "id": 64,
+    "inputs": {
+      "initialCapital": 63137.09516493525,
+      "fixedOpEx": 10516.215542301556,
+      "monthlyRevenue": 658.1145019839848,
+      "ltv_cac": 4.795890003301732
+    },
+    "outcome": 1
+  },
+  {
+    "id": 65,
+    "inputs": {
+      "initialCapital": 314020.35273535457,
+      "fixedOpEx": 40133.845534038825,
+      "monthlyRevenue": 6782.465141931909,
+      "ltv_cac": 10.023057080381125
+    },
+    "outcome": 0
+  },
+  {
+    "id": 66,
+    "inputs": {
+      "initialCapital": 39213.41357112216,
+      "fixedOpEx": 15260.019902079439,
+      "monthlyRevenue": 1772.9956235331774,
+      "ltv_cac": 6.315976051641789
+    },
+    "outcome": 1
+  },
+  {
+    "id": 67,
+    "inputs": {
+      "initialCapital": 553004.821290873,
+      "fixedOpEx": 32211.946172382828,
+      "monthlyRevenue": 4973.918642808722,
+      "ltv_cac": 10.448923272324599
+    },
+    "outcome": 0
+  },
+  {
+    "id": 68,
+    "inputs": {
+      "initialCapital": 63493.41407051714,
+      "fixedOpEx": 13497.452080968613,
+      "monthlyRevenue": 2289.4230683147157,
+      "ltv_cac": 2.548502585173224
+    },
+    "outcome": 1
+  },
+  {
+    "id": 69,
+    "inputs": {
+      "initialCapital": 77916.31983965456,
+      "fixedOpEx": 11526.733634589285,
+      "monthlyRevenue": 1086.8536165976843,
+      "ltv_cac": 6.254945328069864
+    },
+    "outcome": 1
+  },
+  {
+    "id": 70,
+    "inputs": {
+      "initialCapital": 53138.048106583534,
+      "fixedOpEx": 13565.25330827724,
+      "monthlyRevenue": 1470.1787718312808,
+      "ltv_cac": 2.3011241543264704
+    },
+    "outcome": 1
+  },
+  {
+    "id": 71,
+    "inputs": {
+      "initialCapital": 46670.87890402841,
+      "fixedOpEx": 13854.03492228305,
+      "monthlyRevenue": 1175.3337854353085,
+      "ltv_cac": 2.4391481035225926
+    },
+    "outcome": 1
+  },
+  {
+    "id": 72,
+    "inputs": {
+      "initialCapital": 710335.9247692027,
+      "fixedOpEx": 42460.750643916654,
+      "monthlyRevenue": 5555.166939698829,
+      "ltv_cac": 9.31305801659731
+    },
+    "outcome": 0
+  },
+  {
+    "id": 73,
+    "inputs": {
+      "initialCapital": 704878.4995885601,
+      "fixedOpEx": 33535.913863662376,
+      "monthlyRevenue": 8616.355751358418,
+      "ltv_cac": 4.014630139822673
+    },
+    "outcome": 1
+  },
+  {
+    "id": 74,
+    "inputs": {
+      "initialCapital": 61966.38782426844,
+      "fixedOpEx": 13364.301133937655,
+      "monthlyRevenue": 1873.0054560394556,
+      "ltv_cac": 3.1862214276667187
+    },
+    "outcome": 1
+  },
+  {
+    "id": 75,
+    "inputs": {
+      "initialCapital": 70030.774332465,
+      "fixedOpEx": 11150.64595723873,
+      "monthlyRevenue": 957.6289058907511,
+      "ltv_cac": 2.371945052025975
+    },
+    "outcome": 1
+  },
+  {
+    "id": 76,
+    "inputs": {
+      "initialCapital": 112633.63706817171,
+      "fixedOpEx": 14810.752731842915,
+      "monthlyRevenue": 947.6401323464968,
+      "ltv_cac": 1.7809800207376847
+    },
+    "outcome": 1
+  },
+  {
+    "id": 77,
+    "inputs": {
+      "initialCapital": 52978.319193592906,
+      "fixedOpEx": 10663.107653262794,
+      "monthlyRevenue": 880.1518169473554,
+      "ltv_cac": 3.4201166170831243
+    },
+    "outcome": 1
+  },
+  {
+    "id": 78,
+    "inputs": {
+      "initialCapital": 50425.25969814382,
+      "fixedOpEx": 13435.451962047096,
+      "monthlyRevenue": 1234.833808961168,
+      "ltv_cac": 3.2866760141643585
+    },
+    "outcome": 1
+  },
+  {
+    "id": 79,
+    "inputs": {
+      "initialCapital": 41928.14659495835,
+      "fixedOpEx": 9984.8576100007,
+      "monthlyRevenue": 2040.5810663177042,
+      "ltv_cac": 2.822260021415148
+    },
+    "outcome": 1
+  },
+  {
+    "id": 80,
+    "inputs": {
+      "initialCapital": 391996.0309768612,
+      "fixedOpEx": 37270.32381958183,
+      "monthlyRevenue": 11669.39485258082,
+      "ltv_cac": 15.327448025759315
+    },
+    "outcome": 0
+  },
+  {
+    "id": 81,
+    "inputs": {
+      "initialCapital": 510407.3136169175,
+      "fixedOpEx": 34806.819248256186,
+      "monthlyRevenue": 8377.395968436485,
+      "ltv_cac": 11.636601322330304
+    },
+    "outcome": 0
+  },
+  {
+    "id": 82,
+    "inputs": {
+      "initialCapital": 49300.075324974765,
+      "fixedOpEx": 12881.003030419672,
+      "monthlyRevenue": 2204.422778881052,
+      "ltv_cac": 5.005804740006716
+    },
+    "outcome": 1
+  },
+  {
+    "id": 83,
+    "inputs": {
+      "initialCapital": 457149.19438887306,
+      "fixedOpEx": 32437.35578303541,
+      "monthlyRevenue": 8592.976862875223,
+      "ltv_cac": 4.550472272199785
+    },
+    "outcome": 0
+  },
+  {
+    "id": 84,
+    "inputs": {
+      "initialCapital": 664759.3365863559,
+      "fixedOpEx": 33324.669722895735,
+      "monthlyRevenue": 6184.662522651518,
+      "ltv_cac": 12.09219753272102
+    },
+    "outcome": 0
+  },
+  {
+    "id": 85,
+    "inputs": {
+      "initialCapital": 440687.4291231891,
+      "fixedOpEx": 28327.615901426143,
+      "monthlyRevenue": 4504.233504582546,
+      "ltv_cac": 9.265167323435179
+    },
+    "outcome": 0
+  },
+  {
+    "id": 86,
+    "inputs": {
+      "initialCapital": 40042.12900899189,
+      "fixedOpEx": 11541.51661936256,
+      "monthlyRevenue": 573.4565484323925,
+      "ltv_cac": 1.6570827394152188
+    },
+    "outcome": 1
+  },
+  {
+    "id": 87,
+    "inputs": {
+      "initialCapital": 49971.06844496903,
+      "fixedOpEx": 10034.161698242628,
+      "monthlyRevenue": 1902.6791934171877,
+      "ltv_cac": 6.807598376917231
+    },
+    "outcome": 1
+  },
+  {
+    "id": 88,
+    "inputs": {
+      "initialCapital": 62704.35419903953,
+      "fixedOpEx": 11337.900590521043,
+      "monthlyRevenue": 1490.5387252472158,
+      "ltv_cac": 4.018856216803796
+    },
+    "outcome": 1
+  },
+  {
+    "id": 89,
+    "inputs": {
+      "initialCapital": 612010.6166046693,
+      "fixedOpEx": 39161.785367922734,
+      "monthlyRevenue": 7384.87240798835,
+      "ltv_cac": 7.857535039036083
+    },
+    "outcome": 0
+  },
+  {
+    "id": 90,
+    "inputs": {
+      "initialCapital": 83191.07892635737,
+      "fixedOpEx": 13504.017556193907,
+      "monthlyRevenue": 2987.081218958946,
+      "ltv_cac": 5.553647923082525
+    },
+    "outcome": 1
+  },
+  {
+    "id": 91,
+    "inputs": {
+      "initialCapital": 30703.289255120126,
+      "fixedOpEx": 12526.575772623697,
+      "monthlyRevenue": 1267.985219070399,
+      "ltv_cac": 2.40110915237143
+    },
+    "outcome": 1
+  },
+  {
+    "id": 92,
+    "inputs": {
+      "initialCapital": 67943.71444755641,
+      "fixedOpEx": 16472.46450359364,
+      "monthlyRevenue": 1849.5944854616778,
+      "ltv_cac": 3.822796895684139
+    },
+    "outcome": 1
+  },
+  {
+    "id": 93,
+    "inputs": {
+      "initialCapital": 87798.88340486106,
+      "fixedOpEx": 14678.479572800781,
+      "monthlyRevenue": 1674.0194819861083,
+      "ltv_cac": 2.4018534946822125
+    },
+    "outcome": 1
+  },
+  {
+    "id": 94,
+    "inputs": {
+      "initialCapital": 73890.61200122916,
+      "fixedOpEx": 8725.289101963233,
+      "monthlyRevenue": 944.1147254626666,
+      "ltv_cac": 6.015817932179238
+    },
+    "outcome": 1
+  },
+  {
+    "id": 95,
+    "inputs": {
+      "initialCapital": 67422.63534745664,
+      "fixedOpEx": 13093.7181863185,
+      "monthlyRevenue": 1929.4277074221864,
+      "ltv_cac": 5.9592854133230855
+    },
+    "outcome": 1
+  },
+  {
+    "id": 96,
+    "inputs": {
+      "initialCapital": 37420.79728704404,
+      "fixedOpEx": 10080.811627340296,
+      "monthlyRevenue": 2150.1922108126955,
+      "ltv_cac": 2.05859546871849
+    },
+    "outcome": 1
+  },
+  {
+    "id": 97,
+    "inputs": {
+      "initialCapital": 66826.96878744868,
+      "fixedOpEx": 12738.265884276561,
+      "monthlyRevenue": 1386.4840246695005,
+      "ltv_cac": 3.9068454902951104
+    },
+    "outcome": 1
+  },
+  {
+    "id": 98,
+    "inputs": {
+      "initialCapital": 75462.55109199576,
+      "fixedOpEx": 12403.033644318315,
+      "monthlyRevenue": 1159.5407324102684,
+      "ltv_cac": 4.333133566558143
+    },
+    "outcome": 1
+  },
+  {
+    "id": 99,
+    "inputs": {
+      "initialCapital": 79266.97356875495,
+      "fixedOpEx": 15703.131350607031,
+      "monthlyRevenue": 924.6202247016882,
+      "ltv_cac": 6.20685371162744
+    },
+    "outcome": 1
+  },
+  {
+    "id": 100,
+    "inputs": {
+      "initialCapital": 77313.73683444483,
+      "fixedOpEx": 10783.312184552433,
+      "monthlyRevenue": 1160.9635846603392,
+      "ltv_cac": 4.7467007101009475
+    },
+    "outcome": 1
+  },
+  {
+    "id": 101,
+    "inputs": {
+      "initialCapital": 93251.69800320425,
+      "fixedOpEx": 11507.813000236041,
+      "monthlyRevenue": 1566.7036207043514,
+      "ltv_cac": 5.103544305912775
+    },
+    "outcome": 1
+  },
+  {
+    "id": 102,
+    "inputs": {
+      "initialCapital": 415491.4306794965,
+      "fixedOpEx": 33199.82772914077,
+      "monthlyRevenue": 10070.943220709583,
+      "ltv_cac": 7.526491768229812
+    },
+    "outcome": 0
+  },
+  {
+    "id": 103,
+    "inputs": {
+      "initialCapital": 49162.68108867995,
+      "fixedOpEx": 13732.582411529123,
+      "monthlyRevenue": 815.9418873039208,
+      "ltv_cac": 6.37331315355282
+    },
+    "outcome": 1
+  },
+  {
+    "id": 104,
+    "inputs": {
+      "initialCapital": 40614.67474731931,
+      "fixedOpEx": 9379.908748800748,
+      "monthlyRevenue": 2072.85441713419,
+      "ltv_cac": 2.813535969850637
+    },
+    "outcome": 1
+  },
+  {
+    "id": 105,
+    "inputs": {
+      "initialCapital": 496355.15809787833,
+      "fixedOpEx": 39393.442289989594,
+      "monthlyRevenue": 8626.547840554924,
+      "ltv_cac": 7.231499893050114
+    },
+    "outcome": 0
+  },
+  {
+    "id": 106,
+    "inputs": {
+      "initialCapital": 78636.0941359918,
+      "fixedOpEx": 11733.780418505945,
+      "monthlyRevenue": 1671.9761081678728,
+      "ltv_cac": 5.1974284402117625
+    },
+    "outcome": 1
+  },
+  {
+    "id": 107,
+    "inputs": {
+      "initialCapital": 366563.01770759124,
+      "fixedOpEx": 30259.193778743625,
+      "monthlyRevenue": 9383.518175472482,
+      "ltv_cac": 12.248314258325532
+    },
+    "outcome": 0
+  },
+  {
+    "id": 108,
+    "inputs": {
+      "initialCapital": 77409.94627453256,
+      "fixedOpEx": 13818.035985413026,
+      "monthlyRevenue": 1285.678571658173,
+      "ltv_cac": 3.752981732335707
+    },
+    "outcome": 1
+  },
+  {
+    "id": 109,
+    "inputs": {
+      "initialCapital": 68416.80709148124,
+      "fixedOpEx": 7101.962970235917,
+      "monthlyRevenue": 1014.9069066497129,
+      "ltv_cac": 6.776284851269517
+    },
+    "outcome": 0
+  },
+  {
+    "id": 110,
+    "inputs": {
+      "initialCapital": 377850.92741235084,
+      "fixedOpEx": 41316.73350497422,
+      "monthlyRevenue": 9404.949173064684,
+      "ltv_cac": 12.315848890602407
+    },
+    "outcome": 0
+  },
+  {
+    "id": 111,
+    "inputs": {
+      "initialCapital": 65020.82439229615,
+      "fixedOpEx": 9566.611114163778,
+      "monthlyRevenue": 1628.202890462236,
+      "ltv_cac": 2.0742914795958387
+    },
+    "outcome": 1
+  },
+  {
+    "id": 112,
+    "inputs": {
+      "initialCapital": 54861.08505268594,
+      "fixedOpEx": 10716.549123412746,
+      "monthlyRevenue": 1447.4884770980636,
+      "ltv_cac": 2.209554820536764
+    },
+    "outcome": 1
+  },
+  {
+    "id": 113,
+    "inputs": {
+      "initialCapital": 46498.79905647272,
+      "fixedOpEx": 9498.592653523398,
+      "monthlyRevenue": 1845.563932157633,
+      "ltv_cac": 3.022704885327955
+    },
+    "outcome": 1
+  },
+  {
+    "id": 114,
+    "inputs": {
+      "initialCapital": 45396.0298431269,
+      "fixedOpEx": 11998.706075627426,
+      "monthlyRevenue": 1597.9024997793922,
+      "ltv_cac": 1.7188849874770613
+    },
+    "outcome": 1
+  },
+  {
+    "id": 115,
+    "inputs": {
+      "initialCapital": 45697.07852817053,
+      "fixedOpEx": 15983.123615684905,
+      "monthlyRevenue": 1379.0152317004488,
+      "ltv_cac": 1.6330604083127829
+    },
+    "outcome": 1
+  },
+  {
+    "id": 116,
+    "inputs": {
+      "initialCapital": 406589.6617071809,
+      "fixedOpEx": 27318.653451627823,
+      "monthlyRevenue": 9274.170979108414,
+      "ltv_cac": 4.8740672404357746
+    },
+    "outcome": 0
+  },
+  {
+    "id": 117,
+    "inputs": {
+      "initialCapital": 560610.6981890079,
+      "fixedOpEx": 28730.226372599842,
+      "monthlyRevenue": 6905.975614367109,
+      "ltv_cac": 7.013581635684304
+    },
+    "outcome": 0
+  },
+  {
+    "id": 118,
+    "inputs": {
+      "initialCapital": 70255.99212636921,
+      "fixedOpEx": 10925.155628385417,
+      "monthlyRevenue": 1112.5650093552672,
+      "ltv_cac": 6.2336235584683095
+    },
+    "outcome": 1
+  },
+  {
+    "id": 119,
+    "inputs": {
+      "initialCapital": 58592.61234358422,
+      "fixedOpEx": 14388.817412885934,
+      "monthlyRevenue": 1931.0154360052918,
+      "ltv_cac": 6.172819213985084
+    },
+    "outcome": 1
+  },
+  {
+    "id": 120,
+    "inputs": {
+      "initialCapital": 39667.37280868718,
+      "fixedOpEx": 11664.82074034423,
+      "monthlyRevenue": 1473.7873019876408,
+      "ltv_cac": 1.6276922061904437
+    },
+    "outcome": 1
+  },
+  {
+    "id": 121,
+    "inputs": {
+      "initialCapital": 528350.347570803,
+      "fixedOpEx": 31177.623844528243,
+      "monthlyRevenue": 10869.415609167132,
+      "ltv_cac": 6.871041072251723
+    },
+    "outcome": 0
+  },
+  {
+    "id": 122,
+    "inputs": {
+      "initialCapital": 53678.70950498403,
+      "fixedOpEx": 14540.242498858015,
+      "monthlyRevenue": 1942.6199626826444,
+      "ltv_cac": 5.499065258806277
+    },
+    "outcome": 1
+  },
+  {
+    "id": 123,
+    "inputs": {
+      "initialCapital": 47252.209588802725,
+      "fixedOpEx": 12398.890505706688,
+      "monthlyRevenue": 1723.87161820513,
+      "ltv_cac": 1.6361935745169822
+    },
+    "outcome": 1
+  },
+  {
+    "id": 124,
+    "inputs": {
+      "initialCapital": 28718.536991053297,
+      "fixedOpEx": 11753.199108616825,
+      "monthlyRevenue": 1710.5961325927299,
+      "ltv_cac": 3.9989617925300123
+    },
+    "outcome": 1
+  },
+  {
+    "id": 125,
+    "inputs": {
+      "initialCapital": 309064.3067127635,
+      "fixedOpEx": 29327.184172386023,
+      "monthlyRevenue": 5785.609849619972,
+      "ltv_cac": 16.793740025287864
+    },
+    "outcome": 0
+  },
+  {
+    "id": 126,
+    "inputs": {
+      "initialCapital": 583126.8766580067,
+      "fixedOpEx": 32060.194491351438,
+      "monthlyRevenue": 6142.3082622248585,
+      "ltv_cac": 3.323852509979226
+    },
+    "outcome": 1
+  },
+  {
+    "id": 127,
+    "inputs": {
+      "initialCapital": 64744.82809221957,
+      "fixedOpEx": 12257.989887320875,
+      "monthlyRevenue": 1505.9782529460415,
+      "ltv_cac": 1.2067540442524638
+    },
+    "outcome": 1
+  },
+  {
+    "id": 128,
+    "inputs": {
+      "initialCapital": 491133.96095333475,
+      "fixedOpEx": 33017.11221646045,
+      "monthlyRevenue": 8100.115665602521,
+      "ltv_cac": 4.051066182005858
+    },
+    "outcome": 1
+  },
+  {
+    "id": 129,
+    "inputs": {
+      "initialCapital": 33807.19420729383,
+      "fixedOpEx": 15301.81092481298,
+      "monthlyRevenue": 887.0054951196256,
+      "ltv_cac": 5.2012169969933275
+    },
+    "outcome": 1
+  },
+  {
+    "id": 130,
+    "inputs": {
+      "initialCapital": 429231.2365765871,
+      "fixedOpEx": 28524.77496080955,
+      "monthlyRevenue": 7618.957747917836,
+      "ltv_cac": 8.472509600175107
+    },
+    "outcome": 0
+  },
+  {
+    "id": 131,
+    "inputs": {
+      "initialCapital": 53856.92610366124,
+      "fixedOpEx": 12617.993725025175,
+      "monthlyRevenue": 2088.2274713906854,
+      "ltv_cac": 2.303831451382231
+    },
+    "outcome": 1
+  },
+  {
+    "id": 132,
+    "inputs": {
+      "initialCapital": 76060.86755053827,
+      "fixedOpEx": 9436.370835868664,
+      "monthlyRevenue": 1776.6254249395877,
+      "ltv_cac": 3.9045260887978896
+    },
+    "outcome": 1
+  },
+  {
+    "id": 133,
+    "inputs": {
+      "initialCapital": 433118.57651018805,
+      "fixedOpEx": 29790.018925404696,
+      "monthlyRevenue": 8376.252102501801,
+      "ltv_cac": 9.619259760629383
+    },
+    "outcome": 0
+  },
+  {
+    "id": 134,
+    "inputs": {
+      "initialCapital": 62558.1108483518,
+      "fixedOpEx": 13167.035526127527,
+      "monthlyRevenue": 1027.9404489484414,
+      "ltv_cac": 3.013372891522498
+    },
+    "outcome": 1
+  },
+  {
+    "id": 135,
+    "inputs": {
+      "initialCapital": 78381.73260357046,
+      "fixedOpEx": 10958.1230367307,
+      "monthlyRevenue": 103.05559001068809,
+      "ltv_cac": 4.803413740087635
+    },
+    "outcome": 1
+  },
+  {
+    "id": 136,
+    "inputs": {
+      "initialCapital": 66162.12631686247,
+      "fixedOpEx": 11596.880906285098,
+      "monthlyRevenue": 413.867884549308,
+      "ltv_cac": 3.7252451759507244
+    },
+    "outcome": 1
+  },
+  {
+    "id": 137,
+    "inputs": {
+      "initialCapital": 71589.33661022366,
+      "fixedOpEx": 14099.65193593848,
+      "monthlyRevenue": 1759.968161839738,
+      "ltv_cac": 3.00577879460929
+    },
+    "outcome": 1
+  },
+  {
+    "id": 138,
+    "inputs": {
+      "initialCapital": 54452.927730238414,
+      "fixedOpEx": 11982.860162883646,
+      "monthlyRevenue": 1635.8161906855628,
+      "ltv_cac": 3.3986848482957335
+    },
+    "outcome": 1
+  },
+  {
+    "id": 139,
+    "inputs": {
+      "initialCapital": 61666.1905953517,
+      "fixedOpEx": 11981.276251409683,
+      "monthlyRevenue": 1569.960445327244,
+      "ltv_cac": 4.206223868780787
+    },
+    "outcome": 1
+  },
+  {
+    "id": 140,
+    "inputs": {
+      "initialCapital": 55387.660440094834,
+      "fixedOpEx": 13138.901959264327,
+      "monthlyRevenue": 2068.813145868489,
+      "ltv_cac": 1.4234292637710664
+    },
+    "outcome": 1
+  },
+  {
+    "id": 141,
+    "inputs": {
+      "initialCapital": 4790.448896643866,
+      "fixedOpEx": 13689.00872250715,
+      "monthlyRevenue": 1769.8781265132984,
+      "ltv_cac": 4.718109803107053
+    },
+    "outcome": 1
+  },
+  {
+    "id": 142,
+    "inputs": {
+      "initialCapital": 63916.54998733263,
+      "fixedOpEx": 10083.770694989416,
+      "monthlyRevenue": 1494.4571004311392,
+      "ltv_cac": 4.7869190177795815
+    },
+    "outcome": 1
+  },
+  {
+    "id": 143,
+    "inputs": {
+      "initialCapital": 44081.49421049171,
+      "fixedOpEx": 12112.214891154705,
+      "monthlyRevenue": 1277.203243674094,
+      "ltv_cac": 6.657863075621787
+    },
+    "outcome": 1
+  },
+  {
+    "id": 144,
+    "inputs": {
+      "initialCapital": 66495.61511173489,
+      "fixedOpEx": 12300.581690476345,
+      "monthlyRevenue": 1411.6073898311747,
+      "ltv_cac": 4.769180824681426
+    },
+    "outcome": 1
+  },
+  {
+    "id": 145,
+    "inputs": {
+      "initialCapital": 384356.777715085,
+      "fixedOpEx": 38137.15111772239,
+      "monthlyRevenue": 4851.308967244642,
+      "ltv_cac": 14.25717407321454
+    },
+    "outcome": 0
+  },
+  {
+    "id": 146,
+    "inputs": {
+      "initialCapital": 79219.00671937937,
+      "fixedOpEx": 16290.253545606265,
+      "monthlyRevenue": 2053.2032744748794,
+      "ltv_cac": 1.2247127305323375
+    },
+    "outcome": 1
+  },
+  {
+    "id": 147,
+    "inputs": {
+      "initialCapital": 38281.10278302313,
+      "fixedOpEx": 14943.263911711263,
+      "monthlyRevenue": 1387.6580617961117,
+      "ltv_cac": 1.985218560627166
+    },
+    "outcome": 1
+  },
+  {
+    "id": 148,
+    "inputs": {
+      "initialCapital": 43071.416173906844,
+      "fixedOpEx": 9840.121362777278,
+      "monthlyRevenue": 1961.4540094240367,
+      "ltv_cac": 1.3813682405580676
+    },
+    "outcome": 1
+  },
+  {
+    "id": 149,
+    "inputs": {
+      "initialCapital": 506887.23567803175,
+      "fixedOpEx": 37431.36687890815,
+      "monthlyRevenue": 6829.622645518936,
+      "ltv_cac": 10.027947340328295
+    },
+    "outcome": 0
+  },
+  {
+    "id": 150,
+    "inputs": {
+      "initialCapital": 29477.24488250658,
+      "fixedOpEx": 9896.575069013821,
+      "monthlyRevenue": 1957.959712511063,
+      "ltv_cac": 4.688192580661822
+    },
+    "outcome": 1
+  },
+  {
+    "id": 151,
+    "inputs": {
+      "initialCapital": 492396.428805542,
+      "fixedOpEx": 34138.661857035186,
+      "monthlyRevenue": 9178.702157993592,
+      "ltv_cac": 8.107073942791153
+    },
+    "outcome": 0
+  },
+  {
+    "id": 152,
+    "inputs": {
+      "initialCapital": 9145.560131109953,
+      "fixedOpEx": 10885.13351488962,
+      "monthlyRevenue": 1448.5692145126939,
+      "ltv_cac": 2.9859626360591713
+    },
+    "outcome": 1
+  },
+  {
+    "id": 153,
+    "inputs": {
+      "initialCapital": 56116.49231185771,
+      "fixedOpEx": 9584.941802946367,
+      "monthlyRevenue": 2082.721146884459,
+      "ltv_cac": 6.471833300894106
+    },
+    "outcome": 1
+  },
+  {
+    "id": 154,
+    "inputs": {
+      "initialCapital": 46303.38858613142,
+      "fixedOpEx": 14720.0087567648,
+      "monthlyRevenue": 1162.8831079352522,
+      "ltv_cac": 1.987311709154817
+    },
+    "outcome": 1
+  },
+  {
+    "id": 155,
+    "inputs": {
+      "initialCapital": 59970.20691635113,
+      "fixedOpEx": 13699.151377869899,
+      "monthlyRevenue": 1640.9485521562945,
+      "ltv_cac": 2.4787248623746154
+    },
+    "outcome": 1
+  },
+  {
+    "id": 156,
+    "inputs": {
+      "initialCapital": 510169.374672681,
+      "fixedOpEx": 38739.6724159961,
+      "monthlyRevenue": 8018.193086477166,
+      "ltv_cac": 16.729278683950167
+    },
+    "outcome": 0
+  },
+  {
+    "id": 157,
+    "inputs": {
+      "initialCapital": 546252.4985410386,
+      "fixedOpEx": 23044.353480639984,
+      "monthlyRevenue": 7729.622230986043,
+      "ltv_cac": 8.39508907424931
+    },
+    "outcome": 0
+  },
+  {
+    "id": 158,
+    "inputs": {
+      "initialCapital": 57956.7000072013,
+      "fixedOpEx": 10989.069395705284,
+      "monthlyRevenue": 1397.6845816350205,
+      "ltv_cac": 2.6959750349479172
+    },
+    "outcome": 1
+  },
+  {
+    "id": 159,
+    "inputs": {
+      "initialCapital": 32919.016747722424,
+      "fixedOpEx": 10820.47490310726,
+      "monthlyRevenue": 1357.408680147649,
+      "ltv_cac": 4.4797686815888955
+    },
+    "outcome": 1
+  },
+  {
+    "id": 160,
+    "inputs": {
+      "initialCapital": 424115.3593614473,
+      "fixedOpEx": 39312.257322108555,
+      "monthlyRevenue": 8239.934957302165,
+      "ltv_cac": 6.963608102921494
+    },
+    "outcome": 0
+  },
+  {
+    "id": 161,
+    "inputs": {
+      "initialCapital": 583126.0717240472,
+      "fixedOpEx": 36851.99493021834,
+      "monthlyRevenue": 7560.691371121788,
+      "ltv_cac": 9.582427004022088
+    },
+    "outcome": 0
+  },
+  {
+    "id": 162,
+    "inputs": {
+      "initialCapital": 458232.1101105574,
+      "fixedOpEx": 32668.67923379191,
+      "monthlyRevenue": 6716.671493651178,
+      "ltv_cac": 6.113283772663389
+    },
+    "outcome": 0
+  },
+  {
+    "id": 163,
+    "inputs": {
+      "initialCapital": 68607.96228625538,
+      "fixedOpEx": 10200.177565538002,
+      "monthlyRevenue": 1143.2158711843322,
+      "ltv_cac": 6.271539046811304
+    },
+    "outcome": 1
+  },
+  {
+    "id": 164,
+    "inputs": {
+      "initialCapital": 61275.40329397313,
+      "fixedOpEx": 14683.802043749954,
+      "monthlyRevenue": 776.0064439091761,
+      "ltv_cac": 2.52676343433812
+    },
+    "outcome": 1
+  },
+  {
+    "id": 165,
+    "inputs": {
+      "initialCapital": 99806.86291015055,
+      "fixedOpEx": 15090.700458733385,
+      "monthlyRevenue": 1120.9500766417123,
+      "ltv_cac": 3.0496617074533012
+    },
+    "outcome": 1
+  },
+  {
+    "id": 166,
+    "inputs": {
+      "initialCapital": 544155.2042149396,
+      "fixedOpEx": 31188.954022540554,
+      "monthlyRevenue": 8639.80562188115,
+      "ltv_cac": 13.392625794513208
+    },
+    "outcome": 0
+  },
+  {
+    "id": 167,
+    "inputs": {
+      "initialCapital": 80438.23956922119,
+      "fixedOpEx": 10172.86078159347,
+      "monthlyRevenue": 846.5504325349876,
+      "ltv_cac": 2.0192421984262157
+    },
+    "outcome": 1
+  },
+  {
+    "id": 168,
+    "inputs": {
+      "initialCapital": 67271.55148823033,
+      "fixedOpEx": 13060.008197811008,
+      "monthlyRevenue": 1471.7721574376674,
+      "ltv_cac": 3.0636101313473354
+    },
+    "outcome": 1
+  },
+  {
+    "id": 169,
+    "inputs": {
+      "initialCapital": 80826.39392212221,
+      "fixedOpEx": 6408.751976220172,
+      "monthlyRevenue": 116.91608524031358,
+      "ltv_cac": 2.5368541273197662
+    },
+    "outcome": 1
+  },
+  {
+    "id": 170,
+    "inputs": {
+      "initialCapital": 275591.89341771964,
+      "fixedOpEx": 32892.896631065036,
+      "monthlyRevenue": 5025.803930857432,
+      "ltv_cac": 8.628677614172231
+    },
+    "outcome": 0
+  },
+  {
+    "id": 171,
+    "inputs": {
+      "initialCapital": 59838.70720101844,
+      "fixedOpEx": 8317.38136192843,
+      "monthlyRevenue": 1675.0204231139862,
+      "ltv_cac": 3.275289735738986
+    },
+    "outcome": 1
+  },
+  {
+    "id": 172,
+    "inputs": {
+      "initialCapital": 61026.23492802489,
+      "fixedOpEx": 12275.381401001097,
+      "monthlyRevenue": 2231.336228825318,
+      "ltv_cac": 3.8942592449310682
+    },
+    "outcome": 1
+  },
+  {
+    "id": 173,
+    "inputs": {
+      "initialCapital": 459075.57375108317,
+      "fixedOpEx": 33612.13449605381,
+      "monthlyRevenue": 7504.668947556219,
+      "ltv_cac": 12.183960970593155
+    },
+    "outcome": 0
+  },
+  {
+    "id": 174,
+    "inputs": {
+      "initialCapital": 25243.35939169008,
+      "fixedOpEx": 11980.95073276421,
+      "monthlyRevenue": 1485.1658242176168,
+      "ltv_cac": 6.253100668865855
+    },
+    "outcome": 1
+  },
+  {
+    "id": 175,
+    "inputs": {
+      "initialCapital": 75606.75185206383,
+      "fixedOpEx": 11140.0731804975,
+      "monthlyRevenue": 1065.171961561238,
+      "ltv_cac": 1.9829730518164004
+    },
+    "outcome": 1
+  },
+  {
+    "id": 176,
+    "inputs": {
+      "initialCapital": 84880.99876730822,
+      "fixedOpEx": 13035.908011914275,
+      "monthlyRevenue": 1509.179798004596,
+      "ltv_cac": 3.7659784785153954
+    },
+    "outcome": 1
+  },
+  {
+    "id": 177,
+    "inputs": {
+      "initialCapital": 59610.1017448069,
+      "fixedOpEx": 7612.444364772684,
+      "monthlyRevenue": 2067.776958044481,
+      "ltv_cac": 6.4313034340722055
+    },
+    "outcome": 0
+  },
+  {
+    "id": 178,
+    "inputs": {
+      "initialCapital": 519052.68005000765,
+      "fixedOpEx": 35911.31284479577,
+      "monthlyRevenue": 9501.544376040247,
+      "ltv_cac": 11.296149808841932
+    },
+    "outcome": 0
+  },
+  {
+    "id": 179,
+    "inputs": {
+      "initialCapital": 527158.5280081893,
+      "fixedOpEx": 37858.27698264379,
+      "monthlyRevenue": 4414.128543071058,
+      "ltv_cac": 5.412907636596298
+    },
+    "outcome": 0
+  },
+  {
+    "id": 180,
+    "inputs": {
+      "initialCapital": 48397.90547289288,
+      "fixedOpEx": 13796.585278961644,
+      "monthlyRevenue": 2458.50414795112,
+      "ltv_cac": 6.913371206044642
+    },
+    "outcome": 1
+  },
+  {
+    "id": 181,
+    "inputs": {
+      "initialCapital": 43451.270640466886,
+      "fixedOpEx": 12787.64072752276,
+      "monthlyRevenue": 1205.4596447271622,
+      "ltv_cac": 3.900664665208575
+    },
+    "outcome": 1
+  },
+  {
+    "id": 182,
+    "inputs": {
+      "initialCapital": 28337.532201951228,
+      "fixedOpEx": 11625.75885416593,
+      "monthlyRevenue": 1875.057189008432,
+      "ltv_cac": 2.0343768182642554
+    },
+    "outcome": 1
+  },
+  {
+    "id": 183,
+    "inputs": {
+      "initialCapital": 393477.49371647125,
+      "fixedOpEx": 37089.43739812705,
+      "monthlyRevenue": 7382.336051268869,
+      "ltv_cac": 15.96474575698233
+    },
+    "outcome": 0
+  },
+  {
+    "id": 184,
+    "inputs": {
+      "initialCapital": 632570.8420677267,
+      "fixedOpEx": 28552.997479437836,
+      "monthlyRevenue": 7195.139959644769,
+      "ltv_cac": 3.9080800959692636
+    },
+    "outcome": 1
+  },
+  {
+    "id": 185,
+    "inputs": {
+      "initialCapital": 45755.81261583356,
+      "fixedOpEx": 12362.101443865393,
+      "monthlyRevenue": 1165.752258261853,
+      "ltv_cac": 6.560107188677454
+    },
+    "outcome": 1
+  },
+  {
+    "id": 186,
+    "inputs": {
+      "initialCapital": 473610.0720691218,
+      "fixedOpEx": 30692.398746053826,
+      "monthlyRevenue": 5766.237757692463,
+      "ltv_cac": 12.204745214033103
+    },
+    "outcome": 0
+  },
+  {
+    "id": 187,
+    "inputs": {
+      "initialCapital": 30164.951806168105,
+      "fixedOpEx": 14773.461478846997,
+      "monthlyRevenue": 1439.9294442523176,
+      "ltv_cac": 1.121498462165223
+    },
+    "outcome": 1
+  },
+  {
+    "id": 188,
+    "inputs": {
+      "initialCapital": 52167.70494542513,
+      "fixedOpEx": 11226.920415913379,
+      "monthlyRevenue": 1855.0957894964133,
+      "ltv_cac": 1.8331423423415878
+    },
+    "outcome": 1
+  },
+  {
+    "id": 189,
+    "inputs": {
+      "initialCapital": 27768.62849116364,
+      "fixedOpEx": 14187.983891691154,
+      "monthlyRevenue": 1535.0423506764132,
+      "ltv_cac": 3.4759474167363287
+    },
+    "outcome": 1
+  },
+  {
+    "id": 190,
+    "inputs": {
+      "initialCapital": 57818.441633513896,
+      "fixedOpEx": 10867.33106595965,
+      "monthlyRevenue": 1327.6405238161833,
+      "ltv_cac": 5.955602249734291
+    },
+    "outcome": 1
+  },
+  {
+    "id": 191,
+    "inputs": {
+      "initialCapital": 91107.00742906827,
+      "fixedOpEx": 11914.126145032338,
+      "monthlyRevenue": 1498.2803592438372,
+      "ltv_cac": 4.35651216993386
+    },
+    "outcome": 1
+  },
+  {
+    "id": 192,
+    "inputs": {
+      "initialCapital": 34357.71691280413,
+      "fixedOpEx": 10204.927411607021,
+      "monthlyRevenue": 1949.0589252918282,
+      "ltv_cac": 6.728156623109979
+    },
+    "outcome": 1
+  },
+  {
+    "id": 193,
+    "inputs": {
+      "initialCapital": 62610.3438955686,
+      "fixedOpEx": 10675.349175337935,
+      "monthlyRevenue": 1723.656627599798,
+      "ltv_cac": 5.343186561433317
+    },
+    "outcome": 1
+  },
+  {
+    "id": 194,
+    "inputs": {
+      "initialCapital": 40688.68997865004,
+      "fixedOpEx": 11879.842215492,
+      "monthlyRevenue": 317.57774153838545,
+      "ltv_cac": 2.17593743519744
+    },
+    "outcome": 1
+  },
+  {
+    "id": 195,
+    "inputs": {
+      "initialCapital": 531990.8160238686,
+      "fixedOpEx": 39364.563829848674,
+      "monthlyRevenue": 10109.51184114867,
+      "ltv_cac": 7.417827602536152
+    },
+    "outcome": 0
+  },
+  {
+    "id": 196,
+    "inputs": {
+      "initialCapital": 563607.2348786823,
+      "fixedOpEx": 35596.460007291775,
+      "monthlyRevenue": 9013.85295371647,
+      "ltv_cac": 10.47716188701167
+    },
+    "outcome": 0
+  },
+  {
+    "id": 197,
+    "inputs": {
+      "initialCapital": 436913.60836688615,
+      "fixedOpEx": 30310.27665583202,
+      "monthlyRevenue": 8770.280394378855,
+      "ltv_cac": 7.704728696756048
+    },
+    "outcome": 0
+  },
+  {
+    "id": 198,
+    "inputs": {
+      "initialCapital": 71030.97427121497,
+      "fixedOpEx": 10366.673450435117,
+      "monthlyRevenue": 1132.8545423078217,
+      "ltv_cac": 6.492534800011525
+    },
+    "outcome": 1
+  },
+  {
+    "id": 199,
+    "inputs": {
+      "initialCapital": 79544.69088884823,
+      "fixedOpEx": 10870.411984239283,
+      "monthlyRevenue": 1095.519874740435,
+      "ltv_cac": 6.597550017865076
+    },
+    "outcome": 1
+  },
+  {
+    "id": 200,
+    "inputs": {
+      "initialCapital": 698324.1064803463,
+      "fixedOpEx": 37162.71268232077,
+      "monthlyRevenue": 8423.865779829186,
+      "ltv_cac": 6.055711349596104
+    },
+    "outcome": 0
+  },
+  {
+    "id": 201,
+    "inputs": {
+      "initialCapital": 46673.19963816633,
+      "fixedOpEx": 12007.626789187003,
+      "monthlyRevenue": 1679.408541812097,
+      "ltv_cac": 2.3768510168577155
+    },
+    "outcome": 1
+  },
+  {
+    "id": 202,
+    "inputs": {
+      "initialCapital": 82542.12870485595,
+      "fixedOpEx": 13480.732184466755,
+      "monthlyRevenue": 2926.3274348659834,
+      "ltv_cac": 3.73769097515258
+    },
+    "outcome": 1
+  },
+  {
+    "id": 203,
+    "inputs": {
+      "initialCapital": 78871.71626442223,
+      "fixedOpEx": 13188.265487945595,
+      "monthlyRevenue": 1084.0590678372714,
+      "ltv_cac": 1.2751809398617906
+    },
+    "outcome": 1
+  },
+  {
+    "id": 204,
+    "inputs": {
+      "initialCapital": 81734.13041890392,
+      "fixedOpEx": 10650.325612685658,
+      "monthlyRevenue": 2137.3539233445836,
+      "ltv_cac": 3.550431602795847
+    },
+    "outcome": 1
+  },
+  {
+    "id": 205,
+    "inputs": {
+      "initialCapital": 54775.66191779323,
+      "fixedOpEx": 12607.625407644156,
+      "monthlyRevenue": 2521.377633237448,
+      "ltv_cac": 4.976698642356235
+    },
+    "outcome": 1
+  },
+  {
+    "id": 206,
+    "inputs": {
+      "initialCapital": 465973.517992501,
+      "fixedOpEx": 40178.3992684925,
+      "monthlyRevenue": 9240.583492064521,
+      "ltv_cac": 14.638649322658733
+    },
+    "outcome": 0
+  },
+  {
+    "id": 207,
+    "inputs": {
+      "initialCapital": 462371.072617612,
+      "fixedOpEx": 37615.73879635036,
+      "monthlyRevenue": 9738.179312457534,
+      "ltv_cac": 11.57177529260687
+    },
+    "outcome": 0
+  },
+  {
+    "id": 208,
+    "inputs": {
+      "initialCapital": 58465.76853527392,
+      "fixedOpEx": 10702.253069791985,
+      "monthlyRevenue": 1089.284116415266,
+      "ltv_cac": 6.3887881380236715
+    },
+    "outcome": 1
+  },
+  {
+    "id": 209,
+    "inputs": {
+      "initialCapital": 64592.15584041361,
+      "fixedOpEx": 10267.761372695179,
+      "monthlyRevenue": 1081.5298188772408,
+      "ltv_cac": 5.866381860631955
+    },
+    "outcome": 1
+  },
+  {
+    "id": 210,
+    "inputs": {
+      "initialCapital": 77469.8301819055,
+      "fixedOpEx": 12624.982031423217,
+      "monthlyRevenue": 3726.2780938777814,
+      "ltv_cac": 4.476950711131339
+    },
+    "outcome": 1
+  },
+  {
+    "id": 211,
+    "inputs": {
+      "initialCapital": 60130.107791949704,
+      "fixedOpEx": 11611.952638054732,
+      "monthlyRevenue": 1141.4796805719443,
+      "ltv_cac": 4.205410132008558
+    },
+    "outcome": 1
+  },
+  {
+    "id": 212,
+    "inputs": {
+      "initialCapital": 95090.33059012816,
+      "fixedOpEx": 15819.504560414869,
+      "monthlyRevenue": 1240.8760057623954,
+      "ltv_cac": 2.540367112420913
+    },
+    "outcome": 1
+  },
+  {
+    "id": 213,
+    "inputs": {
+      "initialCapital": 605063.8113737445,
+      "fixedOpEx": 37796.14830435458,
+      "monthlyRevenue": 7737.751510546606,
+      "ltv_cac": 11.178012767333808
+    },
+    "outcome": 0
+  },
+  {
+    "id": 214,
+    "inputs": {
+      "initialCapital": 42271.296150928,
+      "fixedOpEx": 9209.391380585683,
+      "monthlyRevenue": 2134.799722888264,
+      "ltv_cac": 3.6553990809199863
+    },
+    "outcome": 1
+  },
+  {
+    "id": 215,
+    "inputs": {
+      "initialCapital": 35145.674340113066,
+      "fixedOpEx": 14561.735695138876,
+      "monthlyRevenue": 1272.0186112704498,
+      "ltv_cac": 6.855990378240017
+    },
+    "outcome": 1
+  },
+  {
+    "id": 216,
+    "inputs": {
+      "initialCapital": 76539.62592790104,
+      "fixedOpEx": 12893.650033812244,
+      "monthlyRevenue": 1067.6543574633365,
+      "ltv_cac": 2.197658662062029
+    },
+    "outcome": 1
+  },
+  {
+    "id": 217,
+    "inputs": {
+      "initialCapital": 28439.67211543664,
+      "fixedOpEx": 12079.257704959311,
+      "monthlyRevenue": 1926.745831384388,
+      "ltv_cac": 5.711609472413483
+    },
+    "outcome": 1
+  },
+  {
+    "id": 218,
+    "inputs": {
+      "initialCapital": 62882.21988607271,
+      "fixedOpEx": 12179.36802346485,
+      "monthlyRevenue": 1241.0602507446827,
+      "ltv_cac": 6.5469591914597
+    },
+    "outcome": 1
+  },
+  {
+    "id": 219,
+    "inputs": {
+      "initialCapital": 60333.45223355263,
+      "fixedOpEx": 14391.321968646962,
+      "monthlyRevenue": 1331.4294170276596,
+      "ltv_cac": 3.534544524902649
+    },
+    "outcome": 1
+  },
+  {
+    "id": 220,
+    "inputs": {
+      "initialCapital": 70507.23813123669,
+      "fixedOpEx": 14396.957711742705,
+      "monthlyRevenue": 1227.8050647336358,
+      "ltv_cac": 1.2096777953146238
+    },
+    "outcome": 1
+  },
+  {
+    "id": 221,
+    "inputs": {
+      "initialCapital": 63119.58496160079,
+      "fixedOpEx": 10426.167089082997,
+      "monthlyRevenue": 1258.9112933582637,
+      "ltv_cac": 3.993658173781906
+    },
+    "outcome": 1
+  },
+  {
+    "id": 222,
+    "inputs": {
+      "initialCapital": 46468.316370437155,
+      "fixedOpEx": 12348.209505099925,
+      "monthlyRevenue": 1753.0459480280874,
+      "ltv_cac": 4.795820302828944
+    },
+    "outcome": 1
+  },
+  {
+    "id": 223,
+    "inputs": {
+      "initialCapital": 36693.30941757503,
+      "fixedOpEx": 12768.026274673884,
+      "monthlyRevenue": 1146.435840048712,
+      "ltv_cac": 1.0949814743137551
+    },
+    "outcome": 1
+  },
+  {
+    "id": 224,
+    "inputs": {
+      "initialCapital": 85853.69250034708,
+      "fixedOpEx": 11287.494419407118,
+      "monthlyRevenue": 1404.6648390772475,
+      "ltv_cac": 6.273434433312037
+    },
+    "outcome": 1
+  },
+  {
+    "id": 225,
+    "inputs": {
+      "initialCapital": 78546.38640561372,
+      "fixedOpEx": 10209.514696047056,
+      "monthlyRevenue": 369.0690818092762,
+      "ltv_cac": 4.749210336463721
+    },
+    "outcome": 1
+  },
+  {
+    "id": 226,
+    "inputs": {
+      "initialCapital": 684450.1572447396,
+      "fixedOpEx": 30839.227158287882,
+      "monthlyRevenue": 9099.829398984843,
+      "ltv_cac": 16.935785062274228
+    },
+    "outcome": 0
+  },
+  {
+    "id": 227,
+    "inputs": {
+      "initialCapital": 358433.0256709538,
+      "fixedOpEx": 42118.588118462045,
+      "monthlyRevenue": 9489.22969892857,
+      "ltv_cac": 3.9519285050433997
+    },
+    "outcome": 1
+  },
+  {
+    "id": 228,
+    "inputs": {
+      "initialCapital": 568722.5606279031,
+      "fixedOpEx": 43932.57857594283,
+      "monthlyRevenue": 11079.061734073282,
+      "ltv_cac": 8.561740357345627
+    },
+    "outcome": 0
+  },
+  {
+    "id": 229,
+    "inputs": {
+      "initialCapital": 74878.8521196514,
+      "fixedOpEx": 9839.01175364622,
+      "monthlyRevenue": 1684.9822856455721,
+      "ltv_cac": 4.18524529019819
+    },
+    "outcome": 1
+  },
+  {
+    "id": 230,
+    "inputs": {
+      "initialCapital": 444305.4289191628,
+      "fixedOpEx": 33845.17512912076,
+      "monthlyRevenue": 7118.559413428588,
+      "ltv_cac": 14.230543707907186
+    },
+    "outcome": 0
+  },
+  {
+    "id": 231,
+    "inputs": {
+      "initialCapital": 57205.45229150817,
+      "fixedOpEx": 11497.712369561386,
+      "monthlyRevenue": 1542.7967696819483,
+      "ltv_cac": 4.795799772151332
+    },
+    "outcome": 1
+  },
+  {
+    "id": 232,
+    "inputs": {
+      "initialCapital": 76381.83981364864,
+      "fixedOpEx": 13883.445706194483,
+      "monthlyRevenue": 704.648705515681,
+      "ltv_cac": 4.609770430842993
+    },
+    "outcome": 1
+  },
+  {
+    "id": 233,
+    "inputs": {
+      "initialCapital": 66531.38039776754,
+      "fixedOpEx": 12245.271612627052,
+      "monthlyRevenue": 738.5138830604877,
+      "ltv_cac": 2.177512256858739
+    },
+    "outcome": 1
+  },
+  {
+    "id": 234,
+    "inputs": {
+      "initialCapital": 76938.02787929628,
+      "fixedOpEx": 13671.00514906984,
+      "monthlyRevenue": 1812.4818371128376,
+      "ltv_cac": 5.687932060141984
+    },
+    "outcome": 1
+  },
+  {
+    "id": 235,
+    "inputs": {
+      "initialCapital": 52964.42109757641,
+      "fixedOpEx": 13990.512875180504,
+      "monthlyRevenue": 960.5874112048525,
+      "ltv_cac": 3.7568163429565127
+    },
+    "outcome": 1
+  },
+  {
+    "id": 236,
+    "inputs": {
+      "initialCapital": 45153.429162471526,
+      "fixedOpEx": 13950.062377348837,
+      "monthlyRevenue": 388.08755520441036,
+      "ltv_cac": 1.6669663597103486
+    },
+    "outcome": 1
+  },
+  {
+    "id": 237,
+    "inputs": {
+      "initialCapital": 100626.67242140081,
+      "fixedOpEx": 12731.552081756758,
+      "monthlyRevenue": 1231.3212755374811,
+      "ltv_cac": 4.189335154593568
+    },
+    "outcome": 1
+  },
+  {
+    "id": 238,
+    "inputs": {
+      "initialCapital": 68276.49832635981,
+      "fixedOpEx": 12844.712048952824,
+      "monthlyRevenue": 1111.980728858785,
+      "ltv_cac": 3.5595822699354116
+    },
+    "outcome": 1
+  },
+  {
+    "id": 239,
+    "inputs": {
+      "initialCapital": 105636.606544652,
+      "fixedOpEx": 10584.788527864814,
+      "monthlyRevenue": 2337.7762073076256,
+      "ltv_cac": 1.23486647820359
+    },
+    "outcome": 1
+  },
+  {
+    "id": 240,
+    "inputs": {
+      "initialCapital": 39876.19437983261,
+      "fixedOpEx": 11788.705583988289,
+      "monthlyRevenue": 2150.5114864644797,
+      "ltv_cac": 2.86389842175898
+    },
+    "outcome": 1
+  },
+  {
+    "id": 241,
+    "inputs": {
+      "initialCapital": 621990.6510930118,
+      "fixedOpEx": 37512.62972592564,
+      "monthlyRevenue": 8001.051869280394,
+      "ltv_cac": 13.528482680077442
+    },
+    "outcome": 0
+  },
+  {
+    "id": 242,
+    "inputs": {
+      "initialCapital": 76801.85391960724,
+      "fixedOpEx": 13176.545944918425,
+      "monthlyRevenue": 1799.1660839046267,
+      "ltv_cac": 2.031847196453192
+    },
+    "outcome": 1
+  },
+  {
+    "id": 243,
+    "inputs": {
+      "initialCapital": 40775.90841045654,
+      "fixedOpEx": 11628.48170540457,
+      "monthlyRevenue": 639.2763964264509,
+      "ltv_cac": 1.248023132306529
+    },
+    "outcome": 1
+  },
+  {
+    "id": 244,
+    "inputs": {
+      "initialCapital": 93221.71339912784,
+      "fixedOpEx": 14315.84752327343,
+      "monthlyRevenue": 1279.279256457878,
+      "ltv_cac": 5.689937541731172
+    },
+    "outcome": 1
+  },
+  {
+    "id": 245,
+    "inputs": {
+      "initialCapital": 358476.16114719317,
+      "fixedOpEx": 38945.005332217755,
+      "monthlyRevenue": 5964.9639567184895,
+      "ltv_cac": 11.333299749415659
+    },
+    "outcome": 0
+  },
+  {
+    "id": 246,
+    "inputs": {
+      "initialCapital": 545582.75970165,
+      "fixedOpEx": 31783.341442019384,
+      "monthlyRevenue": 12582.71616250834,
+      "ltv_cac": 6.441793001899796
+    },
+    "outcome": 0
+  },
+  {
+    "id": 247,
+    "inputs": {
+      "initialCapital": 573201.1810531525,
+      "fixedOpEx": 31351.783222081536,
+      "monthlyRevenue": 7513.055650131691,
+      "ltv_cac": 9.510281159011903
+    },
+    "outcome": 0
+  },
+  {
+    "id": 248,
+    "inputs": {
+      "initialCapital": 75919.6687561064,
+      "fixedOpEx": 13810.76938061753,
+      "monthlyRevenue": 1017.5406157904774,
+      "ltv_cac": 1.2077095059261687
+    },
+    "outcome": 1
+  },
+  {
+    "id": 249,
+    "inputs": {
+      "initialCapital": 45253.55128764437,
+      "fixedOpEx": 12586.381989088995,
+      "monthlyRevenue": 1698.2610874950199,
+      "ltv_cac": 4.931563848277053
+    },
+    "outcome": 1
+  },
+  {
+    "id": 250,
+    "inputs": {
+      "initialCapital": 79207.80704280408,
+      "fixedOpEx": 12345.349881652102,
+      "monthlyRevenue": 2128.296396122444,
+      "ltv_cac": 2.69217533061789
+    },
+    "outcome": 1
+  },
+  {
+    "id": 251,
+    "inputs": {
+      "initialCapital": 61198.87162016407,
+      "fixedOpEx": 11950.412891454695,
+      "monthlyRevenue": 964.8062335385079,
+      "ltv_cac": 1.9457031079302383
+    },
+    "outcome": 1
+  },
+  {
+    "id": 252,
+    "inputs": {
+      "initialCapital": 59796.1205847412,
+      "fixedOpEx": 10310.647976617578,
+      "monthlyRevenue": 1619.698020039108,
+      "ltv_cac": 2.291181732670813
+    },
+    "outcome": 1
+  },
+  {
+    "id": 253,
+    "inputs": {
+      "initialCapital": 55386.12390374846,
+      "fixedOpEx": 9095.904207339341,
+      "monthlyRevenue": 1886.9074108167279,
+      "ltv_cac": 6.920894634927225
+    },
+    "outcome": 0
+  },
+  {
+    "id": 254,
+    "inputs": {
+      "initialCapital": 44171.27069668745,
+      "fixedOpEx": 12537.754557093982,
+      "monthlyRevenue": 1787.552586572133,
+      "ltv_cac": 5.174914069117111
+    },
+    "outcome": 1
+  },
+  {
+    "id": 255,
+    "inputs": {
+      "initialCapital": 49086.16138955587,
+      "fixedOpEx": 14528.049245994669,
+      "monthlyRevenue": 2348.7147603958815,
+      "ltv_cac": 2.414612756454672
+    },
+    "outcome": 1
+  },
+  {
+    "id": 256,
+    "inputs": {
+      "initialCapital": 57668.439946140905,
+      "fixedOpEx": 10671.539453467916,
+      "monthlyRevenue": 1276.7970945188079,
+      "ltv_cac": 2.012391780440236
+    },
+    "outcome": 1
+  },
+  {
+    "id": 257,
+    "inputs": {
+      "initialCapital": 40863.36743774537,
+      "fixedOpEx": 13069.276303331604,
+      "monthlyRevenue": 2925.8674962509067,
+      "ltv_cac": 2.9670000345808214
+    },
+    "outcome": 1
+  },
+  {
+    "id": 258,
+    "inputs": {
+      "initialCapital": 38292.83776179183,
+      "fixedOpEx": 11020.086760565366,
+      "monthlyRevenue": 1116.3586642213818,
+      "ltv_cac": 5.166548840457609
+    },
+    "outcome": 1
+  },
+  {
+    "id": 259,
+    "inputs": {
+      "initialCapital": 38771.261988151586,
+      "fixedOpEx": 10835.304182267928,
+      "monthlyRevenue": 1401.4512038614248,
+      "ltv_cac": 6.196545095046474
+    },
+    "outcome": 1
+  },
+  {
+    "id": 260,
+    "inputs": {
+      "initialCapital": 66068.6771907137,
+      "fixedOpEx": 9272.60114146837,
+      "monthlyRevenue": 1399.8332518994284,
+      "ltv_cac": 3.3962595504849618
+    },
+    "outcome": 1
+  },
+  {
+    "id": 261,
+    "inputs": {
+      "initialCapital": 38525.700321021766,
+      "fixedOpEx": 12992.533493412073,
+      "monthlyRevenue": 1594.0017895581723,
+      "ltv_cac": 6.354462409320835
+    },
+    "outcome": 1
+  },
+  {
+    "id": 262,
+    "inputs": {
+      "initialCapital": 63300.342232537616,
+      "fixedOpEx": 10645.786395082656,
+      "monthlyRevenue": 1632.0915131759232,
+      "ltv_cac": 4.686398905216432
+    },
+    "outcome": 1
+  },
+  {
+    "id": 263,
+    "inputs": {
+      "initialCapital": 42489.847590329606,
+      "fixedOpEx": 14896.18476901753,
+      "monthlyRevenue": 1094.833090456267,
+      "ltv_cac": 1.1862882604921343
+    },
+    "outcome": 1
+  },
+  {
+    "id": 264,
+    "inputs": {
+      "initialCapital": 432691.43294108345,
+      "fixedOpEx": 34019.19485958622,
+      "monthlyRevenue": 8685.395136667565,
+      "ltv_cac": 7.774455847736741
+    },
+    "outcome": 0
+  },
+  {
+    "id": 265,
+    "inputs": {
+      "initialCapital": 70146.32468063163,
+      "fixedOpEx": 8835.909348612511,
+      "monthlyRevenue": 1283.5046758460264,
+      "ltv_cac": 3.1289044791213794
+    },
+    "outcome": 1
+  },
+  {
+    "id": 266,
+    "inputs": {
+      "initialCapital": 488054.05870307196,
+      "fixedOpEx": 27317.353781515543,
+      "monthlyRevenue": 7990.168813366592,
+      "ltv_cac": 3.175738408772216
+    },
+    "outcome": 1
+  },
+  {
+    "id": 267,
+    "inputs": {
+      "initialCapital": 355877.5541953702,
+      "fixedOpEx": 38305.305309533716,
+      "monthlyRevenue": 7127.555109792267,
+      "ltv_cac": 13.543171041168922
+    },
+    "outcome": 0
+  },
+  {
+    "id": 268,
+    "inputs": {
+      "initialCapital": 80913.69121390214,
+      "fixedOpEx": 10993.432608458683,
+      "monthlyRevenue": 1730.7559505857478,
+      "ltv_cac": 3.3575302462331313
+    },
+    "outcome": 1
+  },
+  {
+    "id": 269,
+    "inputs": {
+      "initialCapital": 64364.26502409787,
+      "fixedOpEx": 13171.850504624897,
+      "monthlyRevenue": 621.0315376207914,
+      "ltv_cac": 3.9976759875464367
+    },
+    "outcome": 1
+  },
+  {
+    "id": 270,
+    "inputs": {
+      "initialCapital": 66695.59852417327,
+      "fixedOpEx": 10559.684074438062,
+      "monthlyRevenue": 1127.4540997583847,
+      "ltv_cac": 2.572177049632158
+    },
+    "outcome": 1
+  },
+  {
+    "id": 271,
+    "inputs": {
+      "initialCapital": 64415.69430044805,
+      "fixedOpEx": 13879.527772914696,
+      "monthlyRevenue": 2273.1544575303556,
+      "ltv_cac": 1.2111611910815618
+    },
+    "outcome": 1
+  },
+  {
+    "id": 272,
+    "inputs": {
+      "initialCapital": 533788.3126669122,
+      "fixedOpEx": 36668.92115100299,
+      "monthlyRevenue": 6464.140358634597,
+      "ltv_cac": 4.453091826830812
+    },
+    "outcome": 1
+  },
+  {
+    "id": 273,
+    "inputs": {
+      "initialCapital": 42067.78979196068,
+      "fixedOpEx": 15176.381289940378,
+      "monthlyRevenue": 1913.8757451443375,
+      "ltv_cac": 5.876746063090401
+    },
+    "outcome": 1
+  },
+  {
+    "id": 274,
+    "inputs": {
+      "initialCapital": 37347.38761395298,
+      "fixedOpEx": 14942.166807569905,
+      "monthlyRevenue": 2055.497327320535,
+      "ltv_cac": 1.929381076283238
+    },
+    "outcome": 1
+  },
+  {
+    "id": 275,
+    "inputs": {
+      "initialCapital": 61361.420612129885,
+      "fixedOpEx": 14886.353910845432,
+      "monthlyRevenue": 1397.029056179466,
+      "ltv_cac": 2.768337705470903
+    },
+    "outcome": 1
+  },
+  {
+    "id": 276,
+    "inputs": {
+      "initialCapital": 45514.12989237396,
+      "fixedOpEx": 13464.956184902676,
+      "monthlyRevenue": 1300.2984490645285,
+      "ltv_cac": 3.6971991196908283
+    },
+    "outcome": 1
+  },
+  {
+    "id": 277,
+    "inputs": {
+      "initialCapital": 81415.97424086597,
+      "fixedOpEx": 12107.482058964486,
+      "monthlyRevenue": 1392.9451038649245,
+      "ltv_cac": 5.455668887742374
+    },
+    "outcome": 1
+  },
+  {
+    "id": 278,
+    "inputs": {
+      "initialCapital": 67167.30301572938,
+      "fixedOpEx": 11991.904848230692,
+      "monthlyRevenue": 777.1620924208627,
+      "ltv_cac": 4.466397015250682
+    },
+    "outcome": 1
+  },
+  {
+    "id": 279,
+    "inputs": {
+      "initialCapital": 313991.85424018325,
+      "fixedOpEx": 25763.10526945541,
+      "monthlyRevenue": 4470.897067547104,
+      "ltv_cac": 16.21768823404648
+    },
+    "outcome": 0
+  },
+  {
+    "id": 280,
+    "inputs": {
+      "initialCapital": 699766.4221074973,
+      "fixedOpEx": 43417.19452744707,
+      "monthlyRevenue": 11971.822851076475,
+      "ltv_cac": 15.576831037000874
+    },
+    "outcome": 0
+  },
+  {
+    "id": 281,
+    "inputs": {
+      "initialCapital": 27305.788159808355,
+      "fixedOpEx": 11710.766047528505,
+      "monthlyRevenue": 1095.296086444701,
+      "ltv_cac": 1.1513238079734667
+    },
+    "outcome": 1
+  },
+  {
+    "id": 282,
+    "inputs": {
+      "initialCapital": 32717.70188534365,
+      "fixedOpEx": 11399.296249341854,
+      "monthlyRevenue": 2132.314651632701,
+      "ltv_cac": 2.2627100391622403
+    },
+    "outcome": 1
+  },
+  {
+    "id": 283,
+    "inputs": {
+      "initialCapital": 319867.1945204892,
+      "fixedOpEx": 32193.680116744956,
+      "monthlyRevenue": 4130.870554995033,
+      "ltv_cac": 15.65634433804208
+    },
+    "outcome": 0
+  },
+  {
+    "id": 284,
+    "inputs": {
+      "initialCapital": 48270.102149371676,
+      "fixedOpEx": 11199.769642061356,
+      "monthlyRevenue": 2005.742791633417,
+      "ltv_cac": 6.017607488072466
+    },
+    "outcome": 1
+  },
+  {
+    "id": 285,
+    "inputs": {
+      "initialCapital": 45587.79647299215,
+      "fixedOpEx": 9701.798884376713,
+      "monthlyRevenue": 1502.3927920803706,
+      "ltv_cac": 6.268925051246402
+    },
+    "outcome": 1
+  },
+  {
+    "id": 286,
+    "inputs": {
+      "initialCapital": 74465.74300707974,
+      "fixedOpEx": 10550.681481734611,
+      "monthlyRevenue": 1474.4645051126993,
+      "ltv_cac": 2.424780461917031
+    },
+    "outcome": 1
+  },
+  {
+    "id": 287,
+    "inputs": {
+      "initialCapital": 63895.15615410401,
+      "fixedOpEx": 11724.287547783986,
+      "monthlyRevenue": 1189.517712101393,
+      "ltv_cac": 5.262053891247426
+    },
+    "outcome": 1
+  },
+  {
+    "id": 288,
+    "inputs": {
+      "initialCapital": 63472.103080452776,
+      "fixedOpEx": 12327.341341754101,
+      "monthlyRevenue": 721.0233255868083,
+      "ltv_cac": 4.710229813386239
+    },
+    "outcome": 1
+  },
+  {
+    "id": 289,
+    "inputs": {
+      "initialCapital": 618287.5745555302,
+      "fixedOpEx": 31797.09785732814,
+      "monthlyRevenue": 7487.075164651562,
+      "ltv_cac": 8.875217024250599
+    },
+    "outcome": 0
+  },
+  {
+    "id": 290,
+    "inputs": {
+      "initialCapital": 621114.6771895345,
+      "fixedOpEx": 36047.1305332357,
+      "monthlyRevenue": 4412.929726762559,
+      "ltv_cac": 10.710180799890901
+    },
+    "outcome": 0
+  },
+  {
+    "id": 291,
+    "inputs": {
+      "initialCapital": 437259.00540738064,
+      "fixedOpEx": 50204.625468354,
+      "monthlyRevenue": 4557.1596914552165,
+      "ltv_cac": 12.375764289873546
+    },
+    "outcome": 0
+  },
+  {
+    "id": 292,
+    "inputs": {
+      "initialCapital": 65496.799356850475,
+      "fixedOpEx": 11113.553862553417,
+      "monthlyRevenue": 2277.1810937792116,
+      "ltv_cac": 1.4866128769920584
+    },
+    "outcome": 1
+  },
+  {
+    "id": 293,
+    "inputs": {
+      "initialCapital": 72769.21359818587,
+      "fixedOpEx": 9278.486619132316,
+      "monthlyRevenue": 1814.5834317077174,
+      "ltv_cac": 4.8215250883703265
+    },
+    "outcome": 1
+  },
+  {
+    "id": 294,
+    "inputs": {
+      "initialCapital": 41329.41584108586,
+      "fixedOpEx": 12787.526629750291,
+      "monthlyRevenue": 1777.6684607405273,
+      "ltv_cac": 6.877649345389537
+    },
+    "outcome": 1
+  },
+  {
+    "id": 295,
+    "inputs": {
+      "initialCapital": 33016.84999283611,
+      "fixedOpEx": 9181.149765836246,
+      "monthlyRevenue": 1755.161639605613,
+      "ltv_cac": 5.217894679224053
+    },
+    "outcome": 1
+  },
+  {
+    "id": 296,
+    "inputs": {
+      "initialCapital": 63862.769627338224,
+      "fixedOpEx": 12571.89340506856,
+      "monthlyRevenue": 1933.00528281187,
+      "ltv_cac": 2.7011909554787223
+    },
+    "outcome": 1
+  },
+  {
+    "id": 297,
+    "inputs": {
+      "initialCapital": 55187.43035238281,
+      "fixedOpEx": 12900.15607844523,
+      "monthlyRevenue": 135.91781144871447,
+      "ltv_cac": 3.0443469154121034
+    },
+    "outcome": 1
+  },
+  {
+    "id": 298,
+    "inputs": {
+      "initialCapital": 61515.15718331881,
+      "fixedOpEx": 15992.20556769669,
+      "monthlyRevenue": 593.0247028190198,
+      "ltv_cac": 1.52273017081164
+    },
+    "outcome": 1
+  },
+  {
+    "id": 299,
+    "inputs": {
+      "initialCapital": 28590.5073917081,
+      "fixedOpEx": 13787.680791555318,
+      "monthlyRevenue": 1879.4262409783682,
+      "ltv_cac": 6.180349532554154
+    },
+    "outcome": 1
+  },
+  {
+    "id": 300,
+    "inputs": {
+      "initialCapital": 34652.067251333734,
+      "fixedOpEx": 12813.44260325683,
+      "monthlyRevenue": 1562.7571097498276,
+      "ltv_cac": 1.0057859181768785
+    },
+    "outcome": 1
+  },
+  {
+    "id": 301,
+    "inputs": {
+      "initialCapital": 47193.428061477476,
+      "fixedOpEx": 13935.220538002317,
+      "monthlyRevenue": 1762.7907465106948,
+      "ltv_cac": 2.571688360046585
+    },
+    "outcome": 1
+  },
+  {
+    "id": 302,
+    "inputs": {
+      "initialCapital": 51813.53579381234,
+      "fixedOpEx": 12183.024496771326,
+      "monthlyRevenue": -58.451358150152146,
+      "ltv_cac": 4.755405085989303
+    },
+    "outcome": 1
+  },
+  {
+    "id": 303,
+    "inputs": {
+      "initialCapital": 38090.63466028209,
+      "fixedOpEx": 12512.862594594975,
+      "monthlyRevenue": 742.6990066860018,
+      "ltv_cac": 3.5750849185915463
+    },
+    "outcome": 1
+  },
+  {
+    "id": 304,
+    "inputs": {
+      "initialCapital": 91491.55468418529,
+      "fixedOpEx": 12677.931279553839,
+      "monthlyRevenue": 2200.336424047753,
+      "ltv_cac": 3.20246051677107
+    },
+    "outcome": 1
+  },
+  {
+    "id": 305,
+    "inputs": {
+      "initialCapital": 89467.43955451642,
+      "fixedOpEx": 13316.894905400062,
+      "monthlyRevenue": 712.3753749088194,
+      "ltv_cac": 1.1365497060946759
+    },
+    "outcome": 1
+  },
+  {
+    "id": 306,
+    "inputs": {
+      "initialCapital": 44586.83079422952,
+      "fixedOpEx": 9886.784140333744,
+      "monthlyRevenue": 2869.672057013874,
+      "ltv_cac": 5.492097638312187
+    },
+    "outcome": 1
+  },
+  {
+    "id": 307,
+    "inputs": {
+      "initialCapital": 99845.57802517817,
+      "fixedOpEx": 8282.865118378377,
+      "monthlyRevenue": 1371.8396540450572,
+      "ltv_cac": 5.702990202381705
+    },
+    "outcome": 0
+  },
+  {
+    "id": 308,
+    "inputs": {
+      "initialCapital": 28852.9903468903,
+      "fixedOpEx": 15606.201396679207,
+      "monthlyRevenue": 2453.036663298013,
+      "ltv_cac": 4.882779691236783
+    },
+    "outcome": 1
+  },
+  {
+    "id": 309,
+    "inputs": {
+      "initialCapital": 45806.057839900415,
+      "fixedOpEx": 12463.336439136185,
+      "monthlyRevenue": 1203.9149973846063,
+      "ltv_cac": 1.7858550137748184
+    },
+    "outcome": 1
+  },
+  {
+    "id": 310,
+    "inputs": {
+      "initialCapital": 52703.679451417476,
+      "fixedOpEx": 8882.068558549474,
+      "monthlyRevenue": 1241.0766729392612,
+      "ltv_cac": 3.1922395532567487
+    },
+    "outcome": 1
+  },
+  {
+    "id": 311,
+    "inputs": {
+      "initialCapital": 642554.0628309636,
+      "fixedOpEx": 41480.32083336399,
+      "monthlyRevenue": 7829.6287074636175,
+      "ltv_cac": 14.123472909277151
+    },
+    "outcome": 0
+  },
+  {
+    "id": 312,
+    "inputs": {
+      "initialCapital": 85081.00359322509,
+      "fixedOpEx": 15012.696573206995,
+      "monthlyRevenue": 2451.9705323035896,
+      "ltv_cac": 1.14114700502504
+    },
+    "outcome": 1
+  },
+  {
+    "id": 313,
+    "inputs": {
+      "initialCapital": 520910.907890108,
+      "fixedOpEx": 33447.44963739002,
+      "monthlyRevenue": 7748.747188627293,
+      "ltv_cac": 3.172911092658465
+    },
+    "outcome": 1
+  },
+  {
+    "id": 314,
+    "inputs": {
+      "initialCapital": 25105.400336190178,
+      "fixedOpEx": 13888.845666872678,
+      "monthlyRevenue": 1453.0112482733664,
+      "ltv_cac": 4.644080732740543
+    },
+    "outcome": 1
+  },
+  {
+    "id": 315,
+    "inputs": {
+      "initialCapital": 20122.19005682638,
+      "fixedOpEx": 15929.833546446675,
+      "monthlyRevenue": 2074.14994086389,
+      "ltv_cac": 3.8905517155552305
+    },
+    "outcome": 1
+  },
+  {
+    "id": 316,
+    "inputs": {
+      "initialCapital": 546910.5204299247,
+      "fixedOpEx": 36610.30132208008,
+      "monthlyRevenue": 7634.6755923739875,
+      "ltv_cac": 7.426071002210397
+    },
+    "outcome": 0
+  },
+  {
+    "id": 317,
+    "inputs": {
+      "initialCapital": 55782.83039990249,
+      "fixedOpEx": 14992.904491609948,
+      "monthlyRevenue": 2642.871297277644,
+      "ltv_cac": 4.558231655501096
+    },
+    "outcome": 1
+  },
+  {
+    "id": 318,
+    "inputs": {
+      "initialCapital": 88435.57779528749,
+      "fixedOpEx": 11499.592227237496,
+      "monthlyRevenue": 1245.6466264492578,
+      "ltv_cac": 2.1384509229865567
+    },
+    "outcome": 1
+  },
+  {
+    "id": 319,
+    "inputs": {
+      "initialCapital": 508684.80163840513,
+      "fixedOpEx": 35424.353367534146,
+      "monthlyRevenue": 7475.721250003378,
+      "ltv_cac": 5.670948269534422
+    },
+    "outcome": 0
+  },
+  {
+    "id": 320,
+    "inputs": {
+      "initialCapital": 433022.92730050127,
+      "fixedOpEx": 33519.185800822284,
+      "monthlyRevenue": 9253.263446525772,
+      "ltv_cac": 3.7215761354206567
+    },
+    "outcome": 1
+  },
+  {
+    "id": 321,
+    "inputs": {
+      "initialCapital": 105662.83265714976,
+      "fixedOpEx": 10838.60526946869,
+      "monthlyRevenue": 2298.4409107341194,
+      "ltv_cac": 3.645669311417992
+    },
+    "outcome": 1
+  },
+  {
+    "id": 322,
+    "inputs": {
+      "initialCapital": 60057.259015593496,
+      "fixedOpEx": 10596.901997504154,
+      "monthlyRevenue": 608.8442811620009,
+      "ltv_cac": 4.418435894080063
+    },
+    "outcome": 1
+  },
+  {
+    "id": 323,
+    "inputs": {
+      "initialCapital": 47933.611989637604,
+      "fixedOpEx": 10200.236858170025,
+      "monthlyRevenue": 1442.8087525645506,
+      "ltv_cac": 4.098270283665059
+    },
+    "outcome": 1
+  },
+  {
+    "id": 324,
+    "inputs": {
+      "initialCapital": 45484.96039689411,
+      "fixedOpEx": 13790.183864674727,
+      "monthlyRevenue": 1179.6647659206228,
+      "ltv_cac": 3.980706298756844
+    },
+    "outcome": 1
+  },
+  {
+    "id": 325,
+    "inputs": {
+      "initialCapital": 52369.003534075804,
+      "fixedOpEx": 13365.768730289605,
+      "monthlyRevenue": 973.2371202523999,
+      "ltv_cac": 2.712396596301095
+    },
+    "outcome": 1
+  },
+  {
+    "id": 326,
+    "inputs": {
+      "initialCapital": 35457.35468828378,
+      "fixedOpEx": 10036.109566624506,
+      "monthlyRevenue": 1266.4548127934338,
+      "ltv_cac": 2.557872869697163
+    },
+    "outcome": 1
+  },
+  {
+    "id": 327,
+    "inputs": {
+      "initialCapital": 81543.19290896213,
+      "fixedOpEx": 12364.502506657862,
+      "monthlyRevenue": 2364.6821220153915,
+      "ltv_cac": 1.9006707007746901
+    },
+    "outcome": 1
+  },
+  {
+    "id": 328,
+    "inputs": {
+      "initialCapital": 58441.80444054819,
+      "fixedOpEx": 12336.236236315868,
+      "monthlyRevenue": 1849.7007609925686,
+      "ltv_cac": 4.384790439427393
+    },
+    "outcome": 1
+  },
+  {
+    "id": 329,
+    "inputs": {
+      "initialCapital": 47008.184968801244,
+      "fixedOpEx": 11926.780484926294,
+      "monthlyRevenue": 1204.5489546822332,
+      "ltv_cac": 1.1762580758627368
+    },
+    "outcome": 1
+  },
+  {
+    "id": 330,
+    "inputs": {
+      "initialCapital": 80475.4229318825,
+      "fixedOpEx": 11651.940174734864,
+      "monthlyRevenue": 2138.8850075454807,
+      "ltv_cac": 1.2780682714322755
+    },
+    "outcome": 1
+  },
+  {
+    "id": 331,
+    "inputs": {
+      "initialCapital": 79309.46797598475,
+      "fixedOpEx": 14035.893476868754,
+      "monthlyRevenue": 1675.0543697071282,
+      "ltv_cac": 5.174454922350439
+    },
+    "outcome": 1
+  },
+  {
+    "id": 332,
+    "inputs": {
+      "initialCapital": 71981.46516276537,
+      "fixedOpEx": 12885.277128287384,
+      "monthlyRevenue": 2042.0005477591812,
+      "ltv_cac": 2.913340658241384
+    },
+    "outcome": 1
+  },
+  {
+    "id": 333,
+    "inputs": {
+      "initialCapital": 62387.351493751645,
+      "fixedOpEx": 13051.205787822766,
+      "monthlyRevenue": 1540.2277026991528,
+      "ltv_cac": 3.650728002554706
+    },
+    "outcome": 1
+  },
+  {
+    "id": 334,
+    "inputs": {
+      "initialCapital": 63627.03215493752,
+      "fixedOpEx": 13651.469208215774,
+      "monthlyRevenue": 1716.393572491522,
+      "ltv_cac": 3.529326105341876
+    },
+    "outcome": 1
+  },
+  {
+    "id": 335,
+    "inputs": {
+      "initialCapital": 61965.799443455246,
+      "fixedOpEx": 12824.114659653893,
+      "monthlyRevenue": 2162.8778495230877,
+      "ltv_cac": 6.858421109356337
+    },
+    "outcome": 1
+  },
+  {
+    "id": 336,
+    "inputs": {
+      "initialCapital": 40651.62785700626,
+      "fixedOpEx": 14721.623124370677,
+      "monthlyRevenue": 1536.7201115721498,
+      "ltv_cac": 6.10401414871994
+    },
+    "outcome": 1
+  },
+  {
+    "id": 337,
+    "inputs": {
+      "initialCapital": 82550.0870829196,
+      "fixedOpEx": 14228.662124382123,
+      "monthlyRevenue": 1276.5308359216272,
+      "ltv_cac": 3.0598844880765776
+    },
+    "outcome": 1
+  },
+  {
+    "id": 338,
+    "inputs": {
+      "initialCapital": 626034.8040022788,
+      "fixedOpEx": 43328.912082708215,
+      "monthlyRevenue": 4766.747571481042,
+      "ltv_cac": 15.778040693223774
+    },
+    "outcome": 0
+  },
+  {
+    "id": 339,
+    "inputs": {
+      "initialCapital": 30158.366473738886,
+      "fixedOpEx": 12739.33987807297,
+      "monthlyRevenue": 906.2553197284053,
+      "ltv_cac": 6.18137693751643
+    },
+    "outcome": 1
+  },
+  {
+    "id": 340,
+    "inputs": {
+      "initialCapital": 43562.67891144143,
+      "fixedOpEx": 16310.371415495929,
+      "monthlyRevenue": 1699.325023787735,
+      "ltv_cac": 2.6959498037906044
+    },
+    "outcome": 1
+  },
+  {
+    "id": 341,
+    "inputs": {
+      "initialCapital": 64572.814315511365,
+      "fixedOpEx": 13039.76838255545,
+      "monthlyRevenue": 1488.0728438362644,
+      "ltv_cac": 6.817595217242671
+    },
+    "outcome": 1
+  },
+  {
+    "id": 342,
+    "inputs": {
+      "initialCapital": 49986.29000483602,
+      "fixedOpEx": 11784.794094449318,
+      "monthlyRevenue": 1896.5410640317534,
+      "ltv_cac": 1.841041520053829
+    },
+    "outcome": 1
+  },
+  {
+    "id": 343,
+    "inputs": {
+      "initialCapital": 78520.3459731602,
+      "fixedOpEx": 10527.799321907833,
+      "monthlyRevenue": 1604.9607145884736,
+      "ltv_cac": 3.3696418776841752
+    },
+    "outcome": 1
+  },
+  {
+    "id": 344,
+    "inputs": {
+      "initialCapital": 406056.1311840556,
+      "fixedOpEx": 43291.89184692653,
+      "monthlyRevenue": 6311.356161487457,
+      "ltv_cac": 7.292158411254684
+    },
+    "outcome": 0
+  },
+  {
+    "id": 345,
+    "inputs": {
+      "initialCapital": 50137.89484658155,
+      "fixedOpEx": 12738.969642023036,
+      "monthlyRevenue": 1575.9512345062976,
+      "ltv_cac": 1.9837968304916784
+    },
+    "outcome": 1
+  },
+  {
+    "id": 346,
+    "inputs": {
+      "initialCapital": 375317.3022331014,
+      "fixedOpEx": 35222.58724372025,
+      "monthlyRevenue": 8815.09023756777,
+      "ltv_cac": 4.033705882516958
+    },
+    "outcome": 1
+  },
+  {
+    "id": 347,
+    "inputs": {
+      "initialCapital": 492009.2755798059,
+      "fixedOpEx": 44328.567766851455,
+      "monthlyRevenue": 4158.978909406114,
+      "ltv_cac": 8.226835478699703
+    },
+    "outcome": 0
+  },
+  {
+    "id": 348,
+    "inputs": {
+      "initialCapital": 82103.49408322274,
+      "fixedOpEx": 10725.737327664643,
+      "monthlyRevenue": 1029.5982910450575,
+      "ltv_cac": 6.630764174395154
+    },
+    "outcome": 1
+  },
+  {
+    "id": 349,
+    "inputs": {
+      "initialCapital": 62183.15417075785,
+      "fixedOpEx": 11560.739136784014,
+      "monthlyRevenue": 1093.653550136732,
+      "ltv_cac": 5.527479439419589
+    },
+    "outcome": 1
+  },
+  {
+    "id": 350,
+    "inputs": {
+      "initialCapital": 466386.1278506743,
+      "fixedOpEx": 34073.10693409897,
+      "monthlyRevenue": 9777.405861945967,
+      "ltv_cac": 3.433513529324423
+    },
+    "outcome": 1
+  },
+  {
+    "id": 351,
+    "inputs": {
+      "initialCapital": 47464.142755368266,
+      "fixedOpEx": 6696.603954706346,
+      "monthlyRevenue": 1879.441940240112,
+      "ltv_cac": 3.0279384777643132
+    },
+    "outcome": 1
+  },
+  {
+    "id": 352,
+    "inputs": {
+      "initialCapital": 74562.02423361338,
+      "fixedOpEx": 13879.603726671825,
+      "monthlyRevenue": 761.3773806200805,
+      "ltv_cac": 3.1526119336549447
+    },
+    "outcome": 1
+  },
+  {
+    "id": 353,
+    "inputs": {
+      "initialCapital": 43298.3435434212,
+      "fixedOpEx": 12550.318329479802,
+      "monthlyRevenue": 2442.570384316873,
+      "ltv_cac": 2.92836705686853
+    },
+    "outcome": 1
+  },
+  {
+    "id": 354,
+    "inputs": {
+      "initialCapital": 24307.644075551943,
+      "fixedOpEx": 14823.235960307873,
+      "monthlyRevenue": 1509.8610696759793,
+      "ltv_cac": 1.1208719284433561
+    },
+    "outcome": 1
+  },
+  {
+    "id": 355,
+    "inputs": {
+      "initialCapital": 73505.62591289243,
+      "fixedOpEx": 14770.420447068258,
+      "monthlyRevenue": 1711.9263394828283,
+      "ltv_cac": 3.5767076320321447
+    },
+    "outcome": 1
+  },
+  {
+    "id": 356,
+    "inputs": {
+      "initialCapital": 75258.61737978716,
+      "fixedOpEx": 13437.81856872494,
+      "monthlyRevenue": 1261.8943892205032,
+      "ltv_cac": 3.2996336154363823
+    },
+    "outcome": 1
+  },
+  {
+    "id": 357,
+    "inputs": {
+      "initialCapital": 52253.304227219916,
+      "fixedOpEx": 9896.984169288255,
+      "monthlyRevenue": 1765.0387432291072,
+      "ltv_cac": 4.604807380798504
+    },
+    "outcome": 1
+  },
+  {
+    "id": 358,
+    "inputs": {
+      "initialCapital": 403943.091036106,
+      "fixedOpEx": 32761.93644116717,
+      "monthlyRevenue": 5589.198066777314,
+      "ltv_cac": 13.453935861674458
+    },
+    "outcome": 0
+  },
+  {
+    "id": 359,
+    "inputs": {
+      "initialCapital": 68532.76862496388,
+      "fixedOpEx": 13624.20616639133,
+      "monthlyRevenue": 1332.0216623364377,
+      "ltv_cac": 1.7411342742466405
+    },
+    "outcome": 1
+  },
+  {
+    "id": 360,
+    "inputs": {
+      "initialCapital": 542948.410916791,
+      "fixedOpEx": 35612.97007818856,
+      "monthlyRevenue": 3478.1808398486937,
+      "ltv_cac": 7.638773992867653
+    },
+    "outcome": 0
+  },
+  {
+    "id": 361,
+    "inputs": {
+      "initialCapital": 428629.44275447435,
+      "fixedOpEx": 33075.88049162728,
+      "monthlyRevenue": 7656.4770388360475,
+      "ltv_cac": 9.060540130978731
+    },
+    "outcome": 0
+  },
+  {
+    "id": 362,
+    "inputs": {
+      "initialCapital": 21974.719288160748,
+      "fixedOpEx": 10817.808469071035,
+      "monthlyRevenue": 1236.5662486102647,
+      "ltv_cac": 5.276885897697685
+    },
+    "outcome": 1
+  },
+  {
+    "id": 363,
+    "inputs": {
+      "initialCapital": 51386.81231842822,
+      "fixedOpEx": 12385.519570479217,
+      "monthlyRevenue": 2043.4203351447218,
+      "ltv_cac": 6.855776938977732
+    },
+    "outcome": 1
+  },
+  {
+    "id": 364,
+    "inputs": {
+      "initialCapital": 96057.38715100178,
+      "fixedOpEx": 10183.087395431034,
+      "monthlyRevenue": 1428.752241336946,
+      "ltv_cac": 3.3401882044381948
+    },
+    "outcome": 1
+  },
+  {
+    "id": 365,
+    "inputs": {
+      "initialCapital": 384952.38116554497,
+      "fixedOpEx": 31971.007658666626,
+      "monthlyRevenue": 10074.73497132414,
+      "ltv_cac": 10.59022488567961
+    },
+    "outcome": 0
+  },
+  {
+    "id": 366,
+    "inputs": {
+      "initialCapital": 35025.53962744621,
+      "fixedOpEx": 10819.081981817868,
+      "monthlyRevenue": 1597.0988278866785,
+      "ltv_cac": 5.343149270799994
+    },
+    "outcome": 1
+  },
+  {
+    "id": 367,
+    "inputs": {
+      "initialCapital": 74639.82394544955,
+      "fixedOpEx": 10626.730433490104,
+      "monthlyRevenue": 296.88969995409684,
+      "ltv_cac": 3.688836558095441
+    },
+    "outcome": 1
+  },
+  {
+    "id": 368,
+    "inputs": {
+      "initialCapital": 578431.7232176139,
+      "fixedOpEx": 29631.421191125468,
+      "monthlyRevenue": 5001.997746825775,
+      "ltv_cac": 14.148689281335733
+    },
+    "outcome": 0
+  },
+  {
+    "id": 369,
+    "inputs": {
+      "initialCapital": 666342.2527460894,
+      "fixedOpEx": 37924.207130918716,
+      "monthlyRevenue": 7439.806330274443,
+      "ltv_cac": 13.88091107090943
+    },
+    "outcome": 0
+  },
+  {
+    "id": 370,
+    "inputs": {
+      "initialCapital": 35572.90508111907,
+      "fixedOpEx": 13416.000682865159,
+      "monthlyRevenue": 1721.067537282972,
+      "ltv_cac": 4.677721726211083
+    },
+    "outcome": 1
+  },
+  {
+    "id": 371,
+    "inputs": {
+      "initialCapital": 47008.29977993968,
+      "fixedOpEx": 14186.468988393535,
+      "monthlyRevenue": 1703.905393649307,
+      "ltv_cac": 6.431249719347545
+    },
+    "outcome": 1
+  },
+  {
+    "id": 372,
+    "inputs": {
+      "initialCapital": 364779.89326069574,
+      "fixedOpEx": 35955.496723556855,
+      "monthlyRevenue": 7073.015959702133,
+      "ltv_cac": 2.5001704814528147
+    },
+    "outcome": 1
+  },
+  {
+    "id": 373,
+    "inputs": {
+      "initialCapital": 68467.76888750144,
+      "fixedOpEx": 11640.533115511178,
+      "monthlyRevenue": 2118.7039827437966,
+      "ltv_cac": 3.924890617866569
+    },
+    "outcome": 1
+  },
+  {
+    "id": 374,
+    "inputs": {
+      "initialCapital": 60203.21869192332,
+      "fixedOpEx": 9998.883339547443,
+      "monthlyRevenue": 1253.807305460151,
+      "ltv_cac": 3.86110150709857
+    },
+    "outcome": 1
+  },
+  {
+    "id": 375,
+    "inputs": {
+      "initialCapital": 51548.16415335825,
+      "fixedOpEx": 15795.96330431564,
+      "monthlyRevenue": 2141.1819565937994,
+      "ltv_cac": 6.7789355632387505
+    },
+    "outcome": 1
+  },
+  {
+    "id": 376,
+    "inputs": {
+      "initialCapital": 278649.7207880418,
+      "fixedOpEx": 37276.620384452726,
+      "monthlyRevenue": 5587.197463447634,
+      "ltv_cac": 14.9206613048474
+    },
+    "outcome": 0
+  },
+  {
+    "id": 377,
+    "inputs": {
+      "initialCapital": 93376.390194999,
+      "fixedOpEx": 12280.606734189196,
+      "monthlyRevenue": 1464.535541592256,
+      "ltv_cac": 3.608133124334966
+    },
+    "outcome": 1
+  },
+  {
+    "id": 378,
+    "inputs": {
+      "initialCapital": 708866.6967225813,
+      "fixedOpEx": 26150.85073203447,
+      "monthlyRevenue": 7744.017458790061,
+      "ltv_cac": 11.150089490509119
+    },
+    "outcome": 0
+  },
+  {
+    "id": 379,
+    "inputs": {
+      "initialCapital": 41929.23174258924,
+      "fixedOpEx": 9271.158131192427,
+      "monthlyRevenue": 1650.036315199549,
+      "ltv_cac": 3.291147940984316
+    },
+    "outcome": 1
+  },
+  {
+    "id": 380,
+    "inputs": {
+      "initialCapital": 52281.392215299624,
+      "fixedOpEx": 11452.153364896632,
+      "monthlyRevenue": 635.4120436985156,
+      "ltv_cac": 6.231463026514738
+    },
+    "outcome": 1
+  },
+  {
+    "id": 381,
+    "inputs": {
+      "initialCapital": 672079.2894455402,
+      "fixedOpEx": 39320.63450755853,
+      "monthlyRevenue": 10082.388477280509,
+      "ltv_cac": 5.279660329272833
+    },
+    "outcome": 0
+  },
+  {
+    "id": 382,
+    "inputs": {
+      "initialCapital": 67147.3464204626,
+      "fixedOpEx": 12806.688283601872,
+      "monthlyRevenue": 1252.612935092329,
+      "ltv_cac": 3.2129529892770767
+    },
+    "outcome": 1
+  },
+  {
+    "id": 383,
+    "inputs": {
+      "initialCapital": 38458.527158970144,
+      "fixedOpEx": 13706.441743911251,
+      "monthlyRevenue": 815.4360076737792,
+      "ltv_cac": 4.6428730896756285
+    },
+    "outcome": 1
+  },
+  {
+    "id": 384,
+    "inputs": {
+      "initialCapital": 58619.83468739234,
+      "fixedOpEx": 10127.598577722238,
+      "monthlyRevenue": 1000.8433703720573,
+      "ltv_cac": 3.585891575322222
+    },
+    "outcome": 1
+  },
+  {
+    "id": 385,
+    "inputs": {
+      "initialCapital": 36419.29686869153,
+      "fixedOpEx": 11596.887066675721,
+      "monthlyRevenue": 1163.7814066108285,
+      "ltv_cac": 1.3320194082580314
+    },
+    "outcome": 1
+  },
+  {
+    "id": 386,
+    "inputs": {
+      "initialCapital": 74522.59174087884,
+      "fixedOpEx": 16314.514721690586,
+      "monthlyRevenue": 1523.0324505610727,
+      "ltv_cac": 2.765978749930785
+    },
+    "outcome": 1
+  },
+  {
+    "id": 387,
+    "inputs": {
+      "initialCapital": 53881.55503391104,
+      "fixedOpEx": 10442.359410527057,
+      "monthlyRevenue": 2162.653266055866,
+      "ltv_cac": 6.890566293074148
+    },
+    "outcome": 1
+  },
+  {
+    "id": 388,
+    "inputs": {
+      "initialCapital": 452648.843938251,
+      "fixedOpEx": 35222.8076670567,
+      "monthlyRevenue": 6607.655213594842,
+      "ltv_cac": 7.979995997891182
+    },
+    "outcome": 0
+  },
+  {
+    "id": 389,
+    "inputs": {
+      "initialCapital": 66384.77051810955,
+      "fixedOpEx": 12256.092444745567,
+      "monthlyRevenue": 1452.0215283356192,
+      "ltv_cac": 4.271129665990084
+    },
+    "outcome": 1
+  },
+  {
+    "id": 390,
+    "inputs": {
+      "initialCapital": 65436.381426738575,
+      "fixedOpEx": 9781.865954154357,
+      "monthlyRevenue": 608.5730830753122,
+      "ltv_cac": 1.3467962330709338
+    },
+    "outcome": 1
+  },
+  {
+    "id": 391,
+    "inputs": {
+      "initialCapital": 54045.51351705836,
+      "fixedOpEx": 14104.242775265138,
+      "monthlyRevenue": 1553.4612412073213,
+      "ltv_cac": 1.3134960783846643
+    },
+    "outcome": 1
+  },
+  {
+    "id": 392,
+    "inputs": {
+      "initialCapital": 25612.34431491282,
+      "fixedOpEx": 16068.36452065944,
+      "monthlyRevenue": 1317.8490962338803,
+      "ltv_cac": 5.387920254565046
+    },
+    "outcome": 1
+  },
+  {
+    "id": 393,
+    "inputs": {
+      "initialCapital": 589233.4046657258,
+      "fixedOpEx": 32670.853579918235,
+      "monthlyRevenue": 6764.587667901926,
+      "ltv_cac": 13.255495125951288
+    },
+    "outcome": 0
+  },
+  {
+    "id": 394,
+    "inputs": {
+      "initialCapital": 60436.840120666726,
+      "fixedOpEx": 11770.425326189683,
+      "monthlyRevenue": 633.210385463591,
+      "ltv_cac": 3.623594646788133
+    },
+    "outcome": 1
+  },
+  {
+    "id": 395,
+    "inputs": {
+      "initialCapital": 51930.52065118336,
+      "fixedOpEx": 8267.682303393163,
+      "monthlyRevenue": 1795.0439567662197,
+      "ltv_cac": 4.566202984567667
+    },
+    "outcome": 1
+  },
+  {
+    "id": 396,
+    "inputs": {
+      "initialCapital": 69367.11918236276,
+      "fixedOpEx": 11959.627061212877,
+      "monthlyRevenue": 1605.1528869933586,
+      "ltv_cac": 4.677908413964595
+    },
+    "outcome": 1
+  },
+  {
+    "id": 397,
+    "inputs": {
+      "initialCapital": 76193.9145413023,
+      "fixedOpEx": 12079.515058728144,
+      "monthlyRevenue": 1908.6280833269725,
+      "ltv_cac": 5.481759606733367
+    },
+    "outcome": 1
+  },
+  {
+    "id": 398,
+    "inputs": {
+      "initialCapital": 42838.7532036398,
+      "fixedOpEx": 15521.05243531543,
+      "monthlyRevenue": 1106.3657819853604,
+      "ltv_cac": 1.5842178553738204
+    },
+    "outcome": 1
+  },
+  {
+    "id": 399,
+    "inputs": {
+      "initialCapital": 74049.72743502118,
+      "fixedOpEx": 13024.834484290372,
+      "monthlyRevenue": 1401.2655305019773,
+      "ltv_cac": 5.724101663589808
+    },
+    "outcome": 1
+  },
+  {
+    "id": 400,
+    "inputs": {
+      "initialCapital": 654967.0112149345,
+      "fixedOpEx": 42959.10345523998,
+      "monthlyRevenue": 13138.92909089087,
+      "ltv_cac": 9.597146834133234
+    },
+    "outcome": 0
+  },
+  {
+    "id": 401,
+    "inputs": {
+      "initialCapital": 71578.85872701836,
+      "fixedOpEx": 12691.69985919763,
+      "monthlyRevenue": 1198.5388916152285,
+      "ltv_cac": 1.622361848509368
+    },
+    "outcome": 1
+  },
+  {
+    "id": 402,
+    "inputs": {
+      "initialCapital": 29912.063187348722,
+      "fixedOpEx": 10717.673405021771,
+      "monthlyRevenue": 436.25283122937367,
+      "ltv_cac": 2.430479037182746
+    },
+    "outcome": 1
+  },
+  {
+    "id": 403,
+    "inputs": {
+      "initialCapital": 523526.8166483223,
+      "fixedOpEx": 24485.81060372759,
+      "monthlyRevenue": 5776.617156878205,
+      "ltv_cac": 2.2945766342517517
+    },
+    "outcome": 1
+  },
+  {
+    "id": 404,
+    "inputs": {
+      "initialCapital": 31721.602991427786,
+      "fixedOpEx": 9756.690786395382,
+      "monthlyRevenue": 1934.1183516276878,
+      "ltv_cac": 6.3451342841999905
+    },
+    "outcome": 1
+  },
+  {
+    "id": 405,
+    "inputs": {
+      "initialCapital": 65476.8714776086,
+      "fixedOpEx": 12517.100608096527,
+      "monthlyRevenue": 1818.0273231848134,
+      "ltv_cac": 4.550868613446946
+    },
+    "outcome": 1
+  },
+  {
+    "id": 406,
+    "inputs": {
+      "initialCapital": 469164.96701059723,
+      "fixedOpEx": 33543.97082340452,
+      "monthlyRevenue": 7989.657560543357,
+      "ltv_cac": 7.688752246254402
+    },
+    "outcome": 0
+  },
+  {
+    "id": 407,
+    "inputs": {
+      "initialCapital": 63013.897696435975,
+      "fixedOpEx": 12552.00965723819,
+      "monthlyRevenue": 1483.2100739477985,
+      "ltv_cac": 1.1322295891498657
+    },
+    "outcome": 1
+  },
+  {
+    "id": 408,
+    "inputs": {
+      "initialCapital": 40918.843593903635,
+      "fixedOpEx": 10494.83407607634,
+      "monthlyRevenue": 2075.5383533929585,
+      "ltv_cac": 5.223981245876873
+    },
+    "outcome": 1
+  },
+  {
+    "id": 409,
+    "inputs": {
+      "initialCapital": 620677.8277280919,
+      "fixedOpEx": 42435.64439993244,
+      "monthlyRevenue": 7213.137509507384,
+      "ltv_cac": 7.472856828991503
+    },
+    "outcome": 0
+  },
+  {
+    "id": 410,
+    "inputs": {
+      "initialCapital": 38124.75387471929,
+      "fixedOpEx": 9082.400265497305,
+      "monthlyRevenue": 1315.8466248305167,
+      "ltv_cac": 2.482164141191591
+    },
+    "outcome": 1
+  },
+  {
+    "id": 411,
+    "inputs": {
+      "initialCapital": 363485.4699951117,
+      "fixedOpEx": 25420.800773782546,
+      "monthlyRevenue": 6827.0378084385,
+      "ltv_cac": 5.816080559636596
+    },
+    "outcome": 0
+  },
+  {
+    "id": 412,
+    "inputs": {
+      "initialCapital": 442948.564949833,
+      "fixedOpEx": 36536.38158232302,
+      "monthlyRevenue": 7183.148068852742,
+      "ltv_cac": 5.139527392909167
+    },
+    "outcome": 0
+  },
+  {
+    "id": 413,
+    "inputs": {
+      "initialCapital": 484781.3033436469,
+      "fixedOpEx": 39525.067602479394,
+      "monthlyRevenue": 7286.102493812184,
+      "ltv_cac": 7.369200682036236
+    },
+    "outcome": 0
+  },
+  {
+    "id": 414,
+    "inputs": {
+      "initialCapital": 80652.66698139829,
+      "fixedOpEx": 10852.818235802752,
+      "monthlyRevenue": 959.3050585590131,
+      "ltv_cac": 5.588683813815521
+    },
+    "outcome": 1
+  },
+  {
+    "id": 415,
+    "inputs": {
+      "initialCapital": 387329.02183128364,
+      "fixedOpEx": 44261.95237033183,
+      "monthlyRevenue": 10929.802007793885,
+      "ltv_cac": 2.8536619565992276
+    },
+    "outcome": 1
+  },
+  {
+    "id": 416,
+    "inputs": {
+      "initialCapital": 81143.13353161071,
+      "fixedOpEx": 10411.879159664746,
+      "monthlyRevenue": 774.9610891935741,
+      "ltv_cac": 1.0924109380671985
+    },
+    "outcome": 1
+  },
+  {
+    "id": 417,
+    "inputs": {
+      "initialCapital": 632730.9437599661,
+      "fixedOpEx": 33257.46699580973,
+      "monthlyRevenue": 11262.691173362547,
+      "ltv_cac": 13.832939779468926
+    },
+    "outcome": 0
+  },
+  {
+    "id": 418,
+    "inputs": {
+      "initialCapital": 53754.78822013975,
+      "fixedOpEx": 9826.406635125382,
+      "monthlyRevenue": 1707.479805417929,
+      "ltv_cac": 4.368077240405948
+    },
+    "outcome": 1
+  },
+  {
+    "id": 419,
+    "inputs": {
+      "initialCapital": 67370.0395617662,
+      "fixedOpEx": 10668.898051638604,
+      "monthlyRevenue": 1562.0052642097337,
+      "ltv_cac": 3.7295293588619476
+    },
+    "outcome": 1
+  },
+  {
+    "id": 420,
+    "inputs": {
+      "initialCapital": 39601.50960713037,
+      "fixedOpEx": 13331.890871532103,
+      "monthlyRevenue": 1331.198785374897,
+      "ltv_cac": 2.884929127074952
+    },
+    "outcome": 1
+  },
+  {
+    "id": 421,
+    "inputs": {
+      "initialCapital": 49401.45847973296,
+      "fixedOpEx": 9318.992119714794,
+      "monthlyRevenue": 1194.9165297804307,
+      "ltv_cac": 1.4761570280314034
+    },
+    "outcome": 1
+  },
+  {
+    "id": 422,
+    "inputs": {
+      "initialCapital": 31996.418022827755,
+      "fixedOpEx": 18352.489496937334,
+      "monthlyRevenue": 2079.3945422545444,
+      "ltv_cac": 1.947928669970444
+    },
+    "outcome": 1
+  },
+  {
+    "id": 423,
+    "inputs": {
+      "initialCapital": 62810.716181729804,
+      "fixedOpEx": 15061.762276595498,
+      "monthlyRevenue": 1266.172563341217,
+      "ltv_cac": 4.968887049285824
+    },
+    "outcome": 1
+  },
+  {
+    "id": 424,
+    "inputs": {
+      "initialCapital": 64691.36225358844,
+      "fixedOpEx": 12761.04048113345,
+      "monthlyRevenue": 2072.258107651417,
+      "ltv_cac": 3.3519983329051173
+    },
+    "outcome": 1
+  },
+  {
+    "id": 425,
+    "inputs": {
+      "initialCapital": 537759.2436462818,
+      "fixedOpEx": 29734.48716965743,
+      "monthlyRevenue": 10068.281610865164,
+      "ltv_cac": 6.023649598914904
+    },
+    "outcome": 0
+  },
+  {
+    "id": 426,
+    "inputs": {
+      "initialCapital": 565960.2967059255,
+      "fixedOpEx": 36422.07699291443,
+      "monthlyRevenue": 5989.005856719418,
+      "ltv_cac": 12.145171723337342
+    },
+    "outcome": 0
+  },
+  {
+    "id": 427,
+    "inputs": {
+      "initialCapital": 57796.71866754735,
+      "fixedOpEx": 10741.870352952164,
+      "monthlyRevenue": 1846.850452009427,
+      "ltv_cac": 6.886849899225922
+    },
+    "outcome": 1
+  },
+  {
+    "id": 428,
+    "inputs": {
+      "initialCapital": 69460.29298503618,
+      "fixedOpEx": 12566.916453364849,
+      "monthlyRevenue": 1633.385334445205,
+      "ltv_cac": 2.64433623180952
+    },
+    "outcome": 1
+  },
+  {
+    "id": 429,
+    "inputs": {
+      "initialCapital": 570103.8460119977,
+      "fixedOpEx": 32163.010553304415,
+      "monthlyRevenue": 8878.326715629646,
+      "ltv_cac": 13.275344693296619
+    },
+    "outcome": 0
+  },
+  {
+    "id": 430,
+    "inputs": {
+      "initialCapital": 59506.45237389255,
+      "fixedOpEx": 6375.959055122125,
+      "monthlyRevenue": 1511.7775225252346,
+      "ltv_cac": 1.3840201530046374
+    },
+    "outcome": 1
+  },
+  {
+    "id": 431,
+    "inputs": {
+      "initialCapital": 58897.68565134256,
+      "fixedOpEx": 13014.563388880091,
+      "monthlyRevenue": 1771.2378204206457,
+      "ltv_cac": 6.802225595459337
+    },
+    "outcome": 1
+  },
+  {
+    "id": 432,
+    "inputs": {
+      "initialCapital": 79858.58749953659,
+      "fixedOpEx": 11968.40952793367,
+      "monthlyRevenue": 1003.5060111980979,
+      "ltv_cac": 2.2170189472473916
+    },
+    "outcome": 1
+  },
+  {
+    "id": 433,
+    "inputs": {
+      "initialCapital": 16961.84682506817,
+      "fixedOpEx": 11493.034293811828,
+      "monthlyRevenue": 1744.1736518410323,
+      "ltv_cac": 2.22868465695494
+    },
+    "outcome": 1
+  },
+  {
+    "id": 434,
+    "inputs": {
+      "initialCapital": 477735.1928616591,
+      "fixedOpEx": 32437.832122780706,
+      "monthlyRevenue": 6880.545709804358,
+      "ltv_cac": 7.506509031009563
+    },
+    "outcome": 0
+  },
+  {
+    "id": 435,
+    "inputs": {
+      "initialCapital": 63870.828089099894,
+      "fixedOpEx": 12098.086632014709,
+      "monthlyRevenue": 1543.154954174993,
+      "ltv_cac": 1.710877819490442
+    },
+    "outcome": 1
+  },
+  {
+    "id": 436,
+    "inputs": {
+      "initialCapital": 589435.7470849436,
+      "fixedOpEx": 33992.29456971588,
+      "monthlyRevenue": 6180.966677589844,
+      "ltv_cac": 14.36103356948517
+    },
+    "outcome": 0
+  },
+  {
+    "id": 437,
+    "inputs": {
+      "initialCapital": 81788.91812393579,
+      "fixedOpEx": 11754.720494423864,
+      "monthlyRevenue": 1442.095626706099,
+      "ltv_cac": 6.1231025260941045
+    },
+    "outcome": 1
+  },
+  {
+    "id": 438,
+    "inputs": {
+      "initialCapital": 62615.9668368181,
+      "fixedOpEx": 13725.000114932056,
+      "monthlyRevenue": 1593.574122442567,
+      "ltv_cac": 6.89410283493337
+    },
+    "outcome": 1
+  },
+  {
+    "id": 439,
+    "inputs": {
+      "initialCapital": 72362.76751175986,
+      "fixedOpEx": 10782.243043837252,
+      "monthlyRevenue": 599.8916140613572,
+      "ltv_cac": 1.9511036395880221
+    },
+    "outcome": 1
+  },
+  {
+    "id": 440,
+    "inputs": {
+      "initialCapital": 78168.79358778964,
+      "fixedOpEx": 13802.971893179441,
+      "monthlyRevenue": 1166.0229610025904,
+      "ltv_cac": 6.794208326341604
+    },
+    "outcome": 1
+  },
+  {
+    "id": 441,
+    "inputs": {
+      "initialCapital": 46987.0020281757,
+      "fixedOpEx": 11249.94956886845,
+      "monthlyRevenue": 866.2509878062236,
+      "ltv_cac": 6.373430195830641
+    },
+    "outcome": 1
+  },
+  {
+    "id": 442,
+    "inputs": {
+      "initialCapital": 24975.381053111472,
+      "fixedOpEx": 12579.152655695432,
+      "monthlyRevenue": 1142.9753463421775,
+      "ltv_cac": 6.3711692143786
+    },
+    "outcome": 1
+  },
+  {
+    "id": 443,
+    "inputs": {
+      "initialCapital": 64205.309039349435,
+      "fixedOpEx": 9400.471635166847,
+      "monthlyRevenue": 2461.008471055792,
+      "ltv_cac": 6.844790887085363
+    },
+    "outcome": 0
+  },
+  {
+    "id": 444,
+    "inputs": {
+      "initialCapital": 467649.9289464746,
+      "fixedOpEx": 35562.73582643264,
+      "monthlyRevenue": 7388.658319937789,
+      "ltv_cac": 5.481072243702741
+    },
+    "outcome": 0
+  },
+  {
+    "id": 445,
+    "inputs": {
+      "initialCapital": 523955.59798846184,
+      "fixedOpEx": 40533.277539813585,
+      "monthlyRevenue": 5434.049576684336,
+      "ltv_cac": 15.461719452699949
+    },
+    "outcome": 0
+  },
+  {
+    "id": 446,
+    "inputs": {
+      "initialCapital": 24747.82126728102,
+      "fixedOpEx": 13885.434217392329,
+      "monthlyRevenue": 1713.2652954158284,
+      "ltv_cac": 5.809360375932467
+    },
+    "outcome": 1
+  },
+  {
+    "id": 447,
+    "inputs": {
+      "initialCapital": 521670.8594951023,
+      "fixedOpEx": 34624.2801713588,
+      "monthlyRevenue": 9126.827216851703,
+      "ltv_cac": 2.427038730273388
+    },
+    "outcome": 1
+  },
+  {
+    "id": 448,
+    "inputs": {
+      "initialCapital": 554917.1764252719,
+      "fixedOpEx": 30945.763744157353,
+      "monthlyRevenue": 6326.302010887201,
+      "ltv_cac": 13.7691591870053
+    },
+    "outcome": 0
+  },
+  {
+    "id": 449,
+    "inputs": {
+      "initialCapital": 47146.84232869904,
+      "fixedOpEx": 9674.786871318138,
+      "monthlyRevenue": 2412.325882177928,
+      "ltv_cac": 3.145301233145669
+    },
+    "outcome": 1
+  },
+  {
+    "id": 450,
+    "inputs": {
+      "initialCapital": 60165.18737506426,
+      "fixedOpEx": 12853.442779386693,
+      "monthlyRevenue": 788.3256507727094,
+      "ltv_cac": 4.910661414404101
+    },
+    "outcome": 1
+  },
+  {
+    "id": 451,
+    "inputs": {
+      "initialCapital": 44499.57191347115,
+      "fixedOpEx": 6439.253998674481,
+      "monthlyRevenue": 2501.1242432251915,
+      "ltv_cac": 5.9901239525752175
+    },
+    "outcome": 0
+  },
+  {
+    "id": 452,
+    "inputs": {
+      "initialCapital": 51067.73485743789,
+      "fixedOpEx": 11367.370916734322,
+      "monthlyRevenue": 1712.4710042648426,
+      "ltv_cac": 1.9993637225008785
+    },
+    "outcome": 1
+  },
+  {
+    "id": 453,
+    "inputs": {
+      "initialCapital": 51113.28074504775,
+      "fixedOpEx": 12994.303627099833,
+      "monthlyRevenue": 1290.9914813182518,
+      "ltv_cac": 4.881848886513364
+    },
+    "outcome": 1
+  },
+  {
+    "id": 454,
+    "inputs": {
+      "initialCapital": 53716.69465564349,
+      "fixedOpEx": 10758.030253616509,
+      "monthlyRevenue": 1720.9301008323973,
+      "ltv_cac": 4.600896686423491
+    },
+    "outcome": 1
+  },
+  {
+    "id": 455,
+    "inputs": {
+      "initialCapital": 74273.27458184236,
+      "fixedOpEx": 12012.375794251946,
+      "monthlyRevenue": 2016.4072190793763,
+      "ltv_cac": 1.2171641888347569
+    },
+    "outcome": 1
+  },
+  {
+    "id": 456,
+    "inputs": {
+      "initialCapital": 64121.03468588011,
+      "fixedOpEx": 14286.885269521072,
+      "monthlyRevenue": 2286.266308878887,
+      "ltv_cac": 3.992291548534787
+    },
+    "outcome": 1
+  },
+  {
+    "id": 457,
+    "inputs": {
+      "initialCapital": 64249.195236933236,
+      "fixedOpEx": 12526.992724673259,
+      "monthlyRevenue": 1267.6657001156393,
+      "ltv_cac": 3.8511541413129393
+    },
+    "outcome": 1
+  },
+  {
+    "id": 458,
+    "inputs": {
+      "initialCapital": 55739.19323499356,
+      "fixedOpEx": 11734.990002302253,
+      "monthlyRevenue": 800.822321632629,
+      "ltv_cac": 2.2383123066559425
+    },
+    "outcome": 1
+  },
+  {
+    "id": 459,
+    "inputs": {
+      "initialCapital": 52206.28427174085,
+      "fixedOpEx": 16792.294094944496,
+      "monthlyRevenue": 840.5461608816654,
+      "ltv_cac": 2.9455048564180952
+    },
+    "outcome": 1
+  },
+  {
+    "id": 460,
+    "inputs": {
+      "initialCapital": 526916.1622968337,
+      "fixedOpEx": 35556.12068981055,
+      "monthlyRevenue": 11241.680497987603,
+      "ltv_cac": 3.5278775221698386
+    },
+    "outcome": 1
+  },
+  {
+    "id": 461,
+    "inputs": {
+      "initialCapital": 545087.282228922,
+      "fixedOpEx": 39341.411282365494,
+      "monthlyRevenue": 3116.0412884534644,
+      "ltv_cac": 16.40712187512431
+    },
+    "outcome": 0
+  },
+  {
+    "id": 462,
+    "inputs": {
+      "initialCapital": 70056.55439832693,
+      "fixedOpEx": 10279.818749536162,
+      "monthlyRevenue": 1423.5422100146113,
+      "ltv_cac": 6.78559033910472
+    },
+    "outcome": 1
+  },
+  {
+    "id": 463,
+    "inputs": {
+      "initialCapital": 53550.949746676706,
+      "fixedOpEx": 9907.033956018407,
+      "monthlyRevenue": 1332.9864154611773,
+      "ltv_cac": 4.336420782131257
+    },
+    "outcome": 1
+  },
+  {
+    "id": 464,
+    "inputs": {
+      "initialCapital": 92534.73632127343,
+      "fixedOpEx": 12224.317686426153,
+      "monthlyRevenue": 1950.9042734421778,
+      "ltv_cac": 2.3612523187502807
+    },
+    "outcome": 1
+  },
+  {
+    "id": 465,
+    "inputs": {
+      "initialCapital": 453595.17483553407,
+      "fixedOpEx": 33331.8918130717,
+      "monthlyRevenue": 5054.922071504643,
+      "ltv_cac": 3.775444977435628
+    },
+    "outcome": 1
+  },
+  {
+    "id": 466,
+    "inputs": {
+      "initialCapital": 496863.37683594855,
+      "fixedOpEx": 25644.107659216337,
+      "monthlyRevenue": 10527.094952354524,
+      "ltv_cac": 13.824240233880111
+    },
+    "outcome": 0
+  },
+  {
+    "id": 467,
+    "inputs": {
+      "initialCapital": 430997.5215427658,
+      "fixedOpEx": 30242.24121660109,
+      "monthlyRevenue": 8684.002493038655,
+      "ltv_cac": 8.782691632844735
+    },
+    "outcome": 0
+  },
+  {
+    "id": 468,
+    "inputs": {
+      "initialCapital": 64225.04512286975,
+      "fixedOpEx": 13206.828121048093,
+      "monthlyRevenue": 1727.2888035421977,
+      "ltv_cac": 1.9235404093861408
+    },
+    "outcome": 1
+  },
+  {
+    "id": 469,
+    "inputs": {
+      "initialCapital": 60038.44532138813,
+      "fixedOpEx": 10114.177943391405,
+      "monthlyRevenue": 1845.69450006603,
+      "ltv_cac": 1.6011346937497475
+    },
+    "outcome": 1
+  },
+  {
+    "id": 470,
+    "inputs": {
+      "initialCapital": 20319.61804337224,
+      "fixedOpEx": 8639.983094097352,
+      "monthlyRevenue": 1226.8252905827655,
+      "ltv_cac": 6.7333068038734005
+    },
+    "outcome": 1
+  },
+  {
+    "id": 471,
+    "inputs": {
+      "initialCapital": 79360.21589643197,
+      "fixedOpEx": 14549.538600019867,
+      "monthlyRevenue": 1473.3095908576427,
+      "ltv_cac": 1.2486455257955607
+    },
+    "outcome": 1
+  },
+  {
+    "id": 472,
+    "inputs": {
+      "initialCapital": 69272.84897496145,
+      "fixedOpEx": 14717.38141999049,
+      "monthlyRevenue": 1482.3877308347353,
+      "ltv_cac": 6.1272236076965
+    },
+    "outcome": 1
+  },
+  {
+    "id": 473,
+    "inputs": {
+      "initialCapital": 57288.333149935526,
+      "fixedOpEx": 15725.388790601657,
+      "monthlyRevenue": 1792.8693296650852,
+      "ltv_cac": 3.7979040086976075
+    },
+    "outcome": 1
+  },
+  {
+    "id": 474,
+    "inputs": {
+      "initialCapital": 95417.05775041899,
+      "fixedOpEx": 12527.679898869073,
+      "monthlyRevenue": 1776.7741305767317,
+      "ltv_cac": 2.3889574727953553
+    },
+    "outcome": 1
+  },
+  {
+    "id": 475,
+    "inputs": {
+      "initialCapital": 39691.5602891137,
+      "fixedOpEx": 11074.173306480841,
+      "monthlyRevenue": 1825.6694993807682,
+      "ltv_cac": 6.43255462324773
+    },
+    "outcome": 1
+  },
+  {
+    "id": 476,
+    "inputs": {
+      "initialCapital": 466966.2691459426,
+      "fixedOpEx": 34174.1460130161,
+      "monthlyRevenue": 9010.618474734934,
+      "ltv_cac": 12.678593487322573
+    },
+    "outcome": 0
+  },
+  {
+    "id": 477,
+    "inputs": {
+      "initialCapital": 35931.97103569681,
+      "fixedOpEx": 11416.375668040248,
+      "monthlyRevenue": 1720.8276021690874,
+      "ltv_cac": 3.8971550129897916
+    },
+    "outcome": 1
+  },
+  {
+    "id": 478,
+    "inputs": {
+      "initialCapital": 52956.48623107253,
+      "fixedOpEx": 10149.851212541233,
+      "monthlyRevenue": 2394.760219698669,
+      "ltv_cac": 5.413739073657425
+    },
+    "outcome": 1
+  },
+  {
+    "id": 479,
+    "inputs": {
+      "initialCapital": 48387.51089789369,
+      "fixedOpEx": 15190.33003413186,
+      "monthlyRevenue": 1068.8680945288697,
+      "ltv_cac": 2.908098903449629
+    },
+    "outcome": 1
+  },
+  {
+    "id": 480,
+    "inputs": {
+      "initialCapital": 55597.39626993974,
+      "fixedOpEx": 12712.274017896641,
+      "monthlyRevenue": 1810.0473044079,
+      "ltv_cac": 6.784839732279723
+    },
+    "outcome": 1
+  },
+  {
+    "id": 481,
+    "inputs": {
+      "initialCapital": 35985.490825495246,
+      "fixedOpEx": 10700.299180881611,
+      "monthlyRevenue": 1985.9193796652642,
+      "ltv_cac": 3.369366548532116
+    },
+    "outcome": 1
+  },
+  {
+    "id": 482,
+    "inputs": {
+      "initialCapital": 54566.56880363282,
+      "fixedOpEx": 11570.043074320367,
+      "monthlyRevenue": 1603.9507401189035,
+      "ltv_cac": 3.06937916368565
+    },
+    "outcome": 1
+  },
+  {
+    "id": 483,
+    "inputs": {
+      "initialCapital": 72822.37402655408,
+      "fixedOpEx": 11362.102963331563,
+      "monthlyRevenue": 1003.7127073492479,
+      "ltv_cac": 3.3373652972891814
+    },
+    "outcome": 1
+  },
+  {
+    "id": 484,
+    "inputs": {
+      "initialCapital": 63589.126109546116,
+      "fixedOpEx": 12044.495356513915,
+      "monthlyRevenue": 1008.2372582180444,
+      "ltv_cac": 5.791358866209897
+    },
+    "outcome": 1
+  },
+  {
+    "id": 485,
+    "inputs": {
+      "initialCapital": 44546.09910658205,
+      "fixedOpEx": 8883.271053354572,
+      "monthlyRevenue": 1841.8260368293381,
+      "ltv_cac": 5.718731206043491
+    },
+    "outcome": 1
+  },
+  {
+    "id": 486,
+    "inputs": {
+      "initialCapital": 568026.1101658877,
+      "fixedOpEx": 27089.412355133398,
+      "monthlyRevenue": 8493.902697919308,
+      "ltv_cac": 10.0194280249117
+    },
+    "outcome": 0
+  },
+  {
+    "id": 487,
+    "inputs": {
+      "initialCapital": 48415.36944770956,
+      "fixedOpEx": 12472.643799490312,
+      "monthlyRevenue": 737.9495497884917,
+      "ltv_cac": 2.263910535825997
+    },
+    "outcome": 1
+  },
+  {
+    "id": 488,
+    "inputs": {
+      "initialCapital": 57260.76461319899,
+      "fixedOpEx": 12701.747982392752,
+      "monthlyRevenue": 1319.2335917990256,
+      "ltv_cac": 3.760884316126206
+    },
+    "outcome": 1
+  },
+  {
+    "id": 489,
+    "inputs": {
+      "initialCapital": 66605.24441559288,
+      "fixedOpEx": 14235.2813187858,
+      "monthlyRevenue": 1786.0682388502748,
+      "ltv_cac": 6.90351010311368
+    },
+    "outcome": 1
+  },
+  {
+    "id": 490,
+    "inputs": {
+      "initialCapital": 77493.89570059675,
+      "fixedOpEx": 15392.455274732532,
+      "monthlyRevenue": 1342.8981532919536,
+      "ltv_cac": 1.0587007669037813
+    },
+    "outcome": 1
+  },
+  {
+    "id": 491,
+    "inputs": {
+      "initialCapital": 79752.0437839127,
+      "fixedOpEx": 12761.052405671897,
+      "monthlyRevenue": 636.8854845973759,
+      "ltv_cac": 2.3076845724199773
+    },
+    "outcome": 1
+  },
+  {
+    "id": 492,
+    "inputs": {
+      "initialCapital": 82716.2593903435,
+      "fixedOpEx": 12170.206033993833,
+      "monthlyRevenue": 1052.9184749775818,
+      "ltv_cac": 5.05211855436356
+    },
+    "outcome": 1
+  },
+  {
+    "id": 493,
+    "inputs": {
+      "initialCapital": 47715.74347808277,
+      "fixedOpEx": 12558.38975297874,
+      "monthlyRevenue": 1022.9015734524492,
+      "ltv_cac": 4.592828284474173
+    },
+    "outcome": 1
+  },
+  {
+    "id": 494,
+    "inputs": {
+      "initialCapital": 65982.08128281138,
+      "fixedOpEx": 12148.50513650839,
+      "monthlyRevenue": 1895.3523651158362,
+      "ltv_cac": 2.5585466301175313
+    },
+    "outcome": 1
+  },
+  {
+    "id": 495,
+    "inputs": {
+      "initialCapital": 83398.38835874792,
+      "fixedOpEx": 12285.387814091888,
+      "monthlyRevenue": 1685.2117575774164,
+      "ltv_cac": 4.62591930481997
+    },
+    "outcome": 1
+  },
+  {
+    "id": 496,
+    "inputs": {
+      "initialCapital": 61125.08704634761,
+      "fixedOpEx": 10601.801475184187,
+      "monthlyRevenue": 1272.1655086987923,
+      "ltv_cac": 6.838851228908619
+    },
+    "outcome": 1
+  },
+  {
+    "id": 497,
+    "inputs": {
+      "initialCapital": 72768.83768356589,
+      "fixedOpEx": 12178.367666552695,
+      "monthlyRevenue": 553.2705184063083,
+      "ltv_cac": 2.4375471501618247
+    },
+    "outcome": 1
+  },
+  {
+    "id": 498,
+    "inputs": {
+      "initialCapital": 378309.25746350526,
+      "fixedOpEx": 34498.27766274474,
+      "monthlyRevenue": 9576.551324572596,
+      "ltv_cac": 2.1005430464371155
+    },
+    "outcome": 1
+  },
+  {
+    "id": 499,
+    "inputs": {
+      "initialCapital": 85626.01195656213,
+      "fixedOpEx": 9744.67782494334,
+      "monthlyRevenue": 1838.891326930658,
+      "ltv_cac": 2.056772330051963
+    },
+    "outcome": 1
+  }
+]

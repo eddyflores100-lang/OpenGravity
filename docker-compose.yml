@@ -1,0 +1,54 @@
+# OpenGravity V10.5 — full stack: Dashboard (UI) + Oracle (FastAPI) + Core (Telegram bot)
+services:
+
+  # Institutional Dashboard (ALICE OS)
+  ui:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      # Browser reaches the Oracle through the host-mapped port
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+    restart: always
+    networks:
+      - opengravity-net
+
+  # Bayesian Oracle (FastAPI scoring engine + agent callbacks)
+  oracle:
+    build:
+      context: .
+      dockerfile: Dockerfile.oracle
+    ports:
+      - "8000:8000"
+    environment:
+      - CORS_ORIGINS=${CORS_ORIGINS:-*}
+      - PUBLIC_BASE_URL=${PUBLIC_BASE_URL:-http://host.docker.internal:8000}
+      - DEERFLOW_URL=${DEERFLOW_URL:-http://host.docker.internal:2026/api/langgraph/investigate}
+    restart: always
+    networks:
+      - opengravity-net
+
+  # Intelligence Core (Telegram bot, Lead Sniper, Memory Hub)
+  core:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./leads_output:/app/leads_output
+      - alice_db:/app/data
+    env_file:
+      - .env
+    environment:
+      - ALICE_DB_PATH=/app/data
+    restart: always
+    networks:
+      - opengravity-net
+
+networks:
+  opengravity-net:
+    driver: bridge
+
+volumes:
+  alice_db:

@@ -1,0 +1,52 @@
+{
+  "result": {
+    "probability_raw": 0.7605,
+    "probability_adjusted": 0.5213,
+    "logit_raw": 0.5851,
+    "logit_adjusted": 0.0851,
+    "agent_adj": -0.5,
+    "math_status": "WINNER",
+    "verdict": "DROP",
+    "verdict_source": "POLICY_FATAL_VETO",
+    "is_fatal": true,
+    "calibrations": {
+      "bias_adj": 1.8,
+      "ltv_weight_adj": 0.3,
+      "growth_weight_adj": 1.5,
+      "runway_weight_adj": 0.25
+    },
+    "monte_carlo": {
+      "prob_mean": 0.7605,
+      "prob_std": 0.0,
+      "ci_95_low": 0.7605,
+      "ci_95_high": 0.7605,
+      "ci_width": 0.0,
+      "uncertainty_flag": "STABLE",
+      "n_simulations": 1000
+    }
+  },
+  "agent_report": {
+    "startup_name": "Nikola Motor",
+    "analysis": "DeepTech/Institutional signals validation for Nikola Motor required contextual analysis;  utilizing internal knowledge engine for historical facts, news, and founder reputation up to 2024.",
+    "recommended_prior_adj": -0.5,
+    "critical_findings": [
+      {
+        "finding_type": "Technical Promise",
+        "description": "Deceptive technical promise;  overhyping of electric semi-truck's capabilities and production targets.",
+        "impact_weight": -0.5
+      },
+      {
+        "finding_type": "Fundraising",
+        "description": "Raises multiple rounds of funding with minimal revenue and operational milestones.",
+        "impact_weight": -0.3
+      },
+      {
+        "finding_type": "Founder Reputation",
+        "description": "Tucker Byrd, Nikola's CEO, involved in controversial disputes and lack of industry experience.",
+        "impact_weight": -0.7
+      }
+    ],
+    "is_fatal": true
+  },
+  "thesis": "**Final VC Thesis for Nikola Motor**\n\n**Executive Summary:**\n\nBased on our comprehensive analysis, we conclude that Nikola Motor is not a viable investment opportunity at this time. Despite its initial promise, the company's technical capabilities, fundraising strategies, and founder reputation have raised significant red flags.\n\n**Key Findings:**\n\n1. **Technical Promise:** Our analysis suggests that Nikola Motor has overhyped its electric semi-truck's capabilities and production targets, indicating a deceptive technical promise.\n2. **Fundraising:** The company has raised multiple rounds of funding with minimal revenue and operational milestones, raising concerns about its financial sustainability.\n3. **Founder Reputation:** Nikola's CEO, Tucker Byrd, has been involved in controversial disputes and lacks industry experience, which may impact the company's ability to execute its vision.\n\n**Metrics Analysis:**\n\nOur metrics analysis indicates a low probability of success (0.5213) and a high uncertainty flag (STABLE), suggesting that the investment is not suitable for our portfolio.\n\n**Recommendation:**\n\nBased on our analysis, we recommend **DROPPING** Nikola Motor from our investment consideration. The company's fatal flaws in technical promise, fundraising, and founder reputation outweigh any potential benefits, making it a high-risk investment opportunity.\n\n**Conclusion:"
+}

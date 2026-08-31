@@ -1,0 +1,517 @@
+﻿
+========== AUTOMATIC SPEECH RECOGNITION ==========
+
+  ­ƒôî @cf/openai/whisper
+     0: {"property_id":"price","value":[{"unit":"per audio minute","price":0.00045,"currency":"USD"}]}
+     1: {"property_id":"info","value":"https://openai.com/research/whisper"}
+
+  ­ƒôî @cf/deepgram/flux
+     0: {"property_id":"price","value":[{"unit":"per audio minute (websocket)","price":0.0077,"currency":"USD"}]}
+     1: {"property_id":"partner","value":"true"}
+     2: {"property_id":"terms","value":"https://deepgram.com/terms"}
+     3: {"property_id":"realtime","value":"true"}
+
+  ­ƒôî @cf/deepgram/nova-3
+     0: {"property_id":"async_queue","value":"true"}
+     1: {"property_id":"price","value":[{"unit":"per audio minute","price":0.0052,"currency":"USD"},{"unit":"per audio minute (websocket)","price":0.0092,"currency":"USD"}]}
+     2: {"property_id":"partner","value":"true"}
+     3: {"property_id":"terms","value":"https://deepgram.com/terms"}
+     4: {"property_id":"realtime","value":"true"}
+
+  ­ƒôî @cf/openai/whisper-tiny-en
+     0: {"property_id":"beta","value":"true"}
+
+  ­ƒôî @cf/openai/whisper-large-v3-turbo
+     0: {"property_id":"async_queue","value":"true"}
+     1: {"property_id":"price","value":[{"unit":"per audio minute","price":0.00051,"currency":"USD"}]}
+
+========== DUMB PIPE ==========
+
+  ­ƒôî @cf/pipecat-ai/smart-turn-v2
+     0: {"property_id":"async_queue","value":"true"}
+     1: {"property_id":"price","value":[{"unit":"per audio minute","price":0.00034,"currency":"USD"}]}
+     2: {"property_id":"realtime","value":"true"}
+
+========== IMAGE CLASSIFICATION ==========
+
+  ­ƒôî @cf/microsoft/resnet-50
+     0: {"property_id":"price","value":[{"unit":"per inference request","price":0.0000025,"currency":"USD"}]}
+     1: {"property_id":"info","value":"https://www.microsoft.com/en-us/research/blog/microsoft-vision-model-resnet-50-combines-web-scale-data-and-multi-task-learning-to-achieve-state-of-the-art/"}
+
+========== IMAGE-TO-TEXT ==========
+
+  ­ƒôî @cf/llava-hf/llava-1.5-7b-hf
+     0: {"property_id":"beta","value":"true"}
+
+  ­ƒôî @cf/unum/uform-gen2-qwen-500m
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"info","value":"https://www.unum.cloud/"}
+
+========== SUMMARIZATION ==========
+
+  ­ƒôî @cf/facebook/bart-large-cnn
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"price","value":[{"unit":"per M input tokens","price":0,"currency":"USD"}]}
+
+  ­ƒôî @cf/facebook/nonomni-bart-large-cnn
+     0: {"property_id":"beta","value":"true"}
+
+========== TEXT CLASSIFICATION ==========
+
+  ­ƒôî @cf/huggingface/distilbert-sst-2-int8
+     0: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.026,"currency":"USD"}]}
+     1: {"property_id":"info","value":"https://huggingface.co/Intel/distilbert-base-uncased-finetuned-sst-2-english-int8-static"}
+
+  ­ƒôî @cf/baai/bge-reranker-base
+     0: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.0031,"currency":"USD"}]}
+
+========== TEXT EMBEDDINGS ==========
+
+  ­ƒôî @cf/baai/bge-m3
+     0: {"property_id":"context_window","value":"60000"}
+     1: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.012,"currency":"USD"}]}
+
+  ­ƒôî @cf/qwen/qwen3-embedding-0.6b
+     0: {"property_id":"context_window","value":"8192"}
+     1: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.012,"currency":"USD"}]}
+
+  ­ƒôî @cf/pfnet/plamo-embedding-1b
+     0: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.019,"currency":"USD"}]}
+
+  ­ƒôî @cf/baai/bge-small-en-v1.5
+     0: {"property_id":"async_queue","value":"true"}
+     1: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.02,"currency":"USD"}]}
+     2: {"property_id":"info","value":"https://huggingface.co/BAAI/bge-small-en-v1.5"}
+     3: {"property_id":"max_input_tokens","value":"512"}
+     4: {"property_id":"output_dimensions","value":"384"}
+
+  ­ƒôî @cf/baai/bge-base-en-v1.5
+     0: {"property_id":"async_queue","value":"true"}
+     1: {"property_id":"context_window","value":"153600"}
+     2: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.067,"currency":"USD"}]}
+     3: {"property_id":"info","value":"https://huggingface.co/BAAI/bge-base-en-v1.5"}
+     4: {"property_id":"max_input_tokens","value":"512"}
+     5: {"property_id":"output_dimensions","value":"768"}
+
+  ­ƒôî @cf/google/embeddinggemma-300m
+
+  ­ƒôî @cf/baai/bge-large-en-v1.5
+     0: {"property_id":"async_queue","value":"true"}
+     1: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.2,"currency":"USD"}]}
+     2: {"property_id":"info","value":"https://huggingface.co/BAAI/bge-large-en-v1.5"}
+     3: {"property_id":"max_input_tokens","value":"512"}
+     4: {"property_id":"output_dimensions","value":"1024"}
+
+========== TEXT GENERATION ==========
+
+  ­ƒôî @cf/openai/gpt-oss-120b
+     0: {"property_id":"context_window","value":"128000"}
+     1: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.35,"currency":"USD"},{"unit":"per M output tokens","price":0.75,"currency":"USD"}]}
+
+  ­ƒôî @cf/qwen/qwen1.5-0.5b-chat
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"32000"}
+     2: {"property_id":"info","value":"https://huggingface.co/qwen/qwen1.5-0.5b-chat"}
+     3: {"property_id":"planned_deprecation_date","value":"2025-10-01"}
+
+  ­ƒôî @cf/google/gemma-2b-it-lora
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"8192"}
+     2: {"property_id":"lora","value":"true"}
+
+  ­ƒôî @hf/nexusflow/starling-lm-7b-beta
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"4096"}
+     2: {"property_id":"info","value":"https://huggingface.co/Nexusflow/Starling-LM-7B-beta"}
+     3: {"property_id":"max_batch_prefill_tokens","value":"8192"}
+     4: {"property_id":"max_input_length","value":"3072"}
+     5: {"property_id":"max_total_tokens","value":"4096"}
+     6: {"property_id":"planned_deprecation_date","value":"2025-10-01"}
+
+  ­ƒôî @cf/meta/llama-3-8b-instruct
+     0: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.28,"currency":"USD"},{"unit":"per M output tokens","price":0.83,"currency":"USD"}]}
+     1: {"property_id":"context_window","value":"7968"}
+     2: {"property_id":"info","value":"https://llama.meta.com"}
+     3: {"property_id":"terms","value":"https://llama.meta.com/llama3/license/#"}
+
+  ­ƒôî @cf/meta/llama-3.2-3b-instruct
+     0: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.051,"currency":"USD"},{"unit":"per M output tokens","price":0.34,"currency":"USD"}]}
+     1: {"property_id":"context_window","value":"80000"}
+     2: {"property_id":"terms","value":"https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/LICENSE"}
+
+  ­ƒôî @hf/thebloke/neural-chat-7b-v3-1-awq
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"4096"}
+     2: {"property_id":"planned_deprecation_date","value":"2025-10-01"}
+
+  ­ƒôî @cf/meta/llama-guard-3-8b
+     0: {"property_id":"context_window","value":"131072"}
+     1: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.48,"currency":"USD"},{"unit":"per M output tokens","price":0.03,"currency":"USD"}]}
+     2: {"property_id":"lora","value":"true"}
+
+  ­ƒôî @cf/meta/llama-2-7b-chat-fp16
+     0: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.56,"currency":"USD"},{"unit":"per M output tokens","price":6.67,"currency":"USD"}]}
+     1: {"property_id":"context_window","value":"4096"}
+     2: {"property_id":"info","value":"https://ai.meta.com/llama/"}
+     3: {"property_id":"terms","value":"https://ai.meta.com/resources/models-and-libraries/llama-downloads/"}
+
+  ­ƒôî @cf/mistral/mistral-7b-instruct-v0.1
+     0: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.11,"currency":"USD"},{"unit":"per M output tokens","price":0.19,"currency":"USD"}]}
+     1: {"property_id":"context_window","value":"2824"}
+     2: {"property_id":"info","value":"https://mistral.ai/news/announcing-mistral-7b/"}
+     3: {"property_id":"lora","value":"true"}
+
+  ­ƒôî @cf/mistral/mistral-7b-instruct-v0.2-lora
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"15000"}
+     2: {"property_id":"lora","value":"true"}
+
+  ­ƒôî @cf/tinyllama/tinyllama-1.1b-chat-v1.0
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"2048"}
+     2: {"property_id":"info","value":"https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0"}
+     3: {"property_id":"planned_deprecation_date","value":"2025-10-01"}
+
+  ­ƒôî @hf/mistral/mistral-7b-instruct-v0.2
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"3072"}
+     2: {"property_id":"info","value":"https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2"}
+     3: {"property_id":"lora","value":"true"}
+     4: {"property_id":"max_batch_prefill_tokens","value":"8192"}
+     5: {"property_id":"max_input_length","value":"3072"}
+     6: {"property_id":"max_total_tokens","value":"4096"}
+
+  ­ƒôî @cf/fblgit/una-cybertron-7b-v2-bf16
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"15000"}
+     2: {"property_id":"planned_deprecation_date","value":"2025-10-01"}
+
+  ­ƒôî @cf/deepseek-ai/deepseek-r1-distill-qwen-32b
+     0: {"property_id":"context_window","value":"80000"}
+     1: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.5,"currency":"USD"},{"unit":"per M output tokens","price":4.88,"currency":"USD"}]}
+     2: {"property_id":"terms","value":"https://github.com/deepseek-ai/DeepSeek-R1/blob/main/LICENSE"}
+
+  ­ƒôî @cf/thebloke/discolm-german-7b-v1-awq
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"4096"}
+     2: {"property_id":"info","value":"https://huggingface.co/TheBloke/DiscoLM_German_7b_v1-AWQ"}
+     3: {"property_id":"planned_deprecation_date","value":"2025-10-01"}
+
+  ­ƒôî @cf/meta/llama-2-7b-chat-int8
+     0: {"property_id":"context_window","value":"8192"}
+
+  ­ƒôî @cf/meta/llama-3.1-8b-instruct-fp8
+     0: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.15,"currency":"USD"},{"unit":"per M output tokens","price":0.29,"currency":"USD"}]}
+     1: {"property_id":"context_window","value":"32000"}
+     2: {"property_id":"terms","value":"https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/LICENSE"}
+
+  ­ƒôî @hf/thebloke/mistral-7b-instruct-v0.1-awq
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"4096"}
+     2: {"property_id":"info","value":"https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-AWQ"}
+     3: {"property_id":"planned_deprecation_date","value":"2025-10-01"}
+
+  ­ƒôî @cf/qwen/qwen1.5-7b-chat-awq
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"20000"}
+     2: {"property_id":"info","value":"https://huggingface.co/qwen/qwen1.5-7b-chat-awq"}
+     3: {"property_id":"planned_deprecation_date","value":"2025-10-01"}
+
+  ­ƒôî @cf/meta/llama-3.2-1b-instruct
+     0: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.027,"currency":"USD"},{"unit":"per M output tokens","price":0.2,"currency":"USD"}]}
+     1: {"property_id":"context_window","value":"60000"}
+     2: {"property_id":"terms","value":"https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/LICENSE"}
+
+  ­ƒôî @cf/zai-org/glm-4.7-flash
+     0: {"property_id":"context_window","value":"131072"}
+     1: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.06,"currency":"USD"},{"unit":"per M output tokens","price":0.4,"currency":"USD"}]}
+     2: {"property_id":"function_calling","value":"true"}
+
+  ­ƒôî @hf/thebloke/llama-2-13b-chat-awq
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"4096"}
+     2: {"property_id":"info","value":"https://huggingface.co/TheBloke/Llama-2-13B-chat-AWQ"}
+     3: {"property_id":"planned_deprecation_date","value":"2025-10-01"}
+
+  ­ƒôî @hf/thebloke/deepseek-coder-6.7b-base-awq
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"4096"}
+     2: {"property_id":"planned_deprecation_date","value":"2025-10-01"}
+     3: {"property_id":"terms","value":"https://huggingface.co/TheBloke/deepseek-coder-6.7B-base-AWQ"}
+
+  ­ƒôî @cf/meta-llama/llama-2-7b-chat-hf-lora
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"8192"}
+     2: {"property_id":"lora","value":"true"}
+
+  ­ƒôî @cf/meta/llama-3.3-70b-instruct-fp8-fast
+     0: {"property_id":"async_queue","value":"true"}
+     1: {"property_id":"context_window","value":"24000"}
+     2: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.29,"currency":"USD"},{"unit":"per M output tokens","price":2.25,"currency":"USD"}]}
+     3: {"property_id":"function_calling","value":"true"}
+     4: {"property_id":"terms","value":"https://github.com/meta-llama/llama-models/blob/main/models/llama3_3/LICENSE"}
+
+  ­ƒôî @cf/ibm-granite/granite-4.0-h-micro
+     0: {"property_id":"context_window","value":"131000"}
+     1: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.017,"currency":"USD"},{"unit":"per M output tokens","price":0.11,"currency":"USD"}]}
+     2: {"property_id":"function_calling","value":"true"}
+
+  ­ƒôî @hf/thebloke/openhermes-2.5-mistral-7b-awq
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"4096"}
+     2: {"property_id":"planned_deprecation_date","value":"2025-10-01"}
+
+  ­ƒôî @hf/thebloke/deepseek-coder-6.7b-instruct-awq
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"4096"}
+     2: {"property_id":"planned_deprecation_date","value":"2025-10-01"}
+     3: {"property_id":"terms","value":"https://huggingface.co/TheBloke/deepseek-coder-6.7B-instruct-AWQ"}
+
+  ­ƒôî @cf/qwen/qwen2.5-coder-32b-instruct
+     0: {"property_id":"context_window","value":"32768"}
+     1: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.66,"currency":"USD"},{"unit":"per M output tokens","price":1,"currency":"USD"}]}
+     2: {"property_id":"lora","value":"true"}
+
+  ­ƒôî @cf/deepseek-ai/deepseek-math-7b-instruct
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"4096"}
+     2: {"property_id":"info","value":"https://huggingface.co/deepseek-ai/deepseek-math-7b-instruct"}
+     3: {"property_id":"planned_deprecation_date","value":"2025-10-01"}
+     4: {"property_id":"terms","value":"https://github.com/deepseek-ai/DeepSeek-Math/blob/main/LICENSE-MODEL"}
+
+  ­ƒôî @cf/tiiuae/falcon-7b-instruct
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"4096"}
+     2: {"property_id":"info","value":"https://huggingface.co/tiiuae/falcon-7b-instruct"}
+     3: {"property_id":"planned_deprecation_date","value":"2025-10-01"}
+
+  ­ƒôî @hf/nousresearch/hermes-2-pro-mistral-7b
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"24000"}
+     2: {"property_id":"function_calling","value":"true"}
+     3: {"property_id":"info","value":"https://huggingface.co/NousResearch/Hermes-2-Pro-Mistral-7B"}
+
+  ­ƒôî @cf/aisingapore/gemma-sea-lion-v4-27b-it
+     0: {"property_id":"context_window","value":"128000"}
+     1: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.35,"currency":"USD"},{"unit":"per M output tokens","price":0.56,"currency":"USD"}]}
+
+  ­ƒôî @cf/qwen/qwen3-30b-a3b-fp8
+     0: {"property_id":"async_queue","value":"true"}
+     1: {"property_id":"context_window","value":"32768"}
+     2: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.051,"currency":"USD"},{"unit":"per M output tokens","price":0.34,"currency":"USD"}]}
+     3: {"property_id":"function_calling","value":"true"}
+
+  ­ƒôî @cf/meta/llama-3.1-8b-instruct-awq
+     0: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.12,"currency":"USD"},{"unit":"per M output tokens","price":0.27,"currency":"USD"}]}
+     1: {"property_id":"context_window","value":"8192"}
+     2: {"property_id":"terms","value":"https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/LICENSE"}
+
+  ­ƒôî @hf/thebloke/zephyr-7b-beta-awq
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"4096"}
+     2: {"property_id":"info","value":"https://huggingface.co/TheBloke/zephyr-7B-beta-AWQ"}
+     3: {"property_id":"planned_deprecation_date","value":"2025-10-01"}
+
+  ­ƒôî @cf/google/gemma-7b-it-lora
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"3500"}
+     2: {"property_id":"lora","value":"true"}
+
+  ­ƒôî @cf/qwen/qwen1.5-1.8b-chat
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"32000"}
+     2: {"property_id":"info","value":"https://huggingface.co/qwen/qwen1.5-1.8b-chat"}
+     3: {"property_id":"planned_deprecation_date","value":"2025-10-01"}
+
+  ­ƒôî @cf/mistralai/mistral-small-3.1-24b-instruct
+     0: {"property_id":"context_window","value":"128000"}
+     1: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.35,"currency":"USD"},{"unit":"per M output tokens","price":0.56,"currency":"USD"}]}
+     2: {"property_id":"function_calling","value":"true"}
+
+  ­ƒôî @cf/meta/llama-3-8b-instruct-awq
+     0: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.12,"currency":"USD"},{"unit":"per M output tokens","price":0.27,"currency":"USD"}]}
+     1: {"property_id":"context_window","value":"8192"}
+     2: {"property_id":"info","value":"https://llama.meta.com"}
+     3: {"property_id":"terms","value":"https://llama.meta.com/llama3/license/#"}
+
+  ­ƒôî @cf/meta/llama-3.2-11b-vision-instruct
+     0: {"property_id":"context_window","value":"128000"}
+     1: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.049,"currency":"USD"},{"unit":"per M output tokens","price":0.68,"currency":"USD"}]}
+     2: {"property_id":"lora","value":"true"}
+     3: {"property_id":"terms","value":"https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/LICENSE"}
+
+  ­ƒôî @cf/defog/sqlcoder-7b-2
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"10000"}
+     2: {"property_id":"info","value":"https://huggingface.co/defog/sqlcoder-7b-2"}
+     3: {"property_id":"terms","value":"https://creativecommons.org/licenses/by-sa/4.0/deed.en"}
+
+  ­ƒôî @cf/microsoft/phi-2
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"2048"}
+     2: {"property_id":"info","value":"https://huggingface.co/microsoft/phi-2"}
+
+  ­ƒôî @cf/openai/gpt-oss-20b
+     0: {"property_id":"context_window","value":"128000"}
+     1: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.2,"currency":"USD"},{"unit":"per M output tokens","price":0.3,"currency":"USD"}]}
+
+  ­ƒôî @hf/google/gemma-7b-it
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"8192"}
+     2: {"property_id":"info","value":"https://ai.google.dev/gemma/docs"}
+     3: {"property_id":"lora","value":"true"}
+     4: {"property_id":"terms","value":"https://ai.google.dev/gemma/terms"}
+
+  ­ƒôî @cf/qwen/qwen1.5-14b-chat-awq
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"7500"}
+     2: {"property_id":"info","value":"https://huggingface.co/qwen/qwen1.5-14b-chat-awq"}
+     3: {"property_id":"planned_deprecation_date","value":"2025-10-01"}
+
+  ­ƒôî @cf/openchat/openchat-3.5-0106
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"context_window","value":"8192"}
+     2: {"property_id":"info","value":"https://huggingface.co/openchat/openchat-3.5-0106"}
+     3: {"property_id":"planned_deprecation_date","value":"2025-10-01"}
+
+  ­ƒôî @cf/meta/llama-4-scout-17b-16e-instruct
+     0: {"property_id":"async_queue","value":"true"}
+     1: {"property_id":"context_window","value":"131000"}
+     2: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.27,"currency":"USD"},{"unit":"per M output tokens","price":0.85,"currency":"USD"}]}
+     3: {"property_id":"function_calling","value":"true"}
+     4: {"property_id":"terms","value":"https://github.com/meta-llama/llama-models/blob/main/models/llama4/LICENSE"}
+
+  ­ƒôî @cf/google/gemma-3-12b-it
+     0: {"property_id":"context_window","value":"80000"}
+     1: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.35,"currency":"USD"},{"unit":"per M output tokens","price":0.56,"currency":"USD"}]}
+     2: {"property_id":"lora","value":"true"}
+
+  ­ƒôî @cf/qwen/qwq-32b
+     0: {"property_id":"context_window","value":"24000"}
+     1: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.66,"currency":"USD"},{"unit":"per M output tokens","price":1,"currency":"USD"}]}
+     2: {"property_id":"lora","value":"true"}
+
+========== TEXT-TO-IMAGE ==========
+
+  ­ƒôî @cf/black-forest-labs/flux-2-klein-9b
+     0: {"property_id":"partner","value":"true"}
+     1: {"property_id":"terms","value":"https://bfl.ai/legal/terms-of-service"}
+
+  ­ƒôî @cf/runwayml/stable-diffusion-v1-5-inpainting
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"price","value":[{"unit":"per step","price":0,"currency":"USD"}]}
+     2: {"property_id":"info","value":"https://huggingface.co/runwayml/stable-diffusion-inpainting"}
+     3: {"property_id":"terms","value":"https://github.com/runwayml/stable-diffusion/blob/main/LICENSE"}
+
+  ­ƒôî @cf/black-forest-labs/flux-1-schnell
+     0: {"property_id":"price","value":[{"unit":"per 512 by 512 tile","price":0.000053,"currency":"USD"},{"unit":"per step","price":0.00011,"currency":"USD"}]}
+     1: {"property_id":"terms","value":"https://bfl.ai/legal/terms-of-service"}
+
+  ­ƒôî @cf/bytedance/stable-diffusion-xl-lightning
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"price","value":[{"unit":"per step","price":0,"currency":"USD"}]}
+     2: {"property_id":"info","value":"https://huggingface.co/ByteDance/SDXL-Lightning"}
+
+  ­ƒôî @cf/lykon/dreamshaper-8-lcm
+     0: {"property_id":"info","value":"https://huggingface.co/Lykon/DreamShaper"}
+
+  ­ƒôî @cf/leonardo/phoenix-1.0
+     0: {"property_id":"price","value":[{"unit":"per 512 by 512 tile","price":0.0058,"currency":"USD"},{"unit":"per step","price":0.00011,"currency":"USD"}]}
+     1: {"property_id":"partner","value":"true"}
+     2: {"property_id":"terms","value":"https://leonardo.ai/terms-of-service/"}
+
+  ­ƒôî @cf/stabilityai/stable-diffusion-xl-base-1.0
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"price","value":[{"unit":"per step","price":0,"currency":"USD"}]}
+     2: {"property_id":"info","value":"https://stability.ai/stable-diffusion"}
+     3: {"property_id":"terms","value":"https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/blob/main/LICENSE.md"}
+
+  ­ƒôî @cf/black-forest-labs/flux-2-klein-4b
+     0: {"property_id":"partner","value":"true"}
+     1: {"property_id":"terms","value":"https://bfl.ai/legal/terms-of-service"}
+
+  ­ƒôî @cf/black-forest-labs/flux-2-dev
+     0: {"property_id":"partner","value":"true"}
+     1: {"property_id":"terms","value":"https://bfl.ai/legal/terms-of-service"}
+
+  ­ƒôî @cf/runwayml/stable-diffusion-v1-5-img2img
+     0: {"property_id":"beta","value":"true"}
+     1: {"property_id":"price","value":[{"unit":"per step","price":0,"currency":"USD"}]}
+     2: {"property_id":"info","value":"https://huggingface.co/runwayml/stable-diffusion-v1-5"}
+     3: {"property_id":"terms","value":"https://github.com/runwayml/stable-diffusion/blob/main/LICENSE"}
+
+  ­ƒôî @cf/leonardo/lucid-origin
+     0: {"property_id":"price","value":[{"unit":"per 512 by 512 tile","price":0.007,"currency":"USD"},{"unit":"per step","price":0.00013,"currency":"USD"}]}
+     1: {"property_id":"partner","value":"true"}
+     2: {"property_id":"terms","value":"https://leonardo.ai/terms-of-service/"}
+
+========== TEXT-TO-SPEECH ==========
+
+  ­ƒôî @cf/myshell-ai/melotts
+     0: {"property_id":"price","value":[{"unit":"per audio minute","price":0.0002,"currency":"USD"}]}
+
+  ­ƒôî @cf/deepgram/aura-2-es
+     0: {"property_id":"async_queue","value":"true"}
+     1: {"property_id":"price","value":[{"unit":"per 1k characters","price":0.03,"currency":"USD"}]}
+     2: {"property_id":"partner","value":"true"}
+     3: {"property_id":"terms","value":"https://deepgram.com/terms"}
+     4: {"property_id":"realtime","value":"true"}
+
+  ­ƒôî @cf/deepgram/aura-1
+     0: {"property_id":"async_queue","value":"true"}
+     1: {"property_id":"price","value":[{"unit":"per 1k characters","price":0.015,"currency":"USD"}]}
+     2: {"property_id":"partner","value":"true"}
+     3: {"property_id":"terms","value":"https://deepgram.com/terms"}
+     4: {"property_id":"realtime","value":"true"}
+
+  ­ƒôî @cf/deepgram/aura-2-en
+     0: {"property_id":"async_queue","value":"true"}
+     1: {"property_id":"price","value":[{"unit":"per 1k characters","price":0.03,"currency":"USD"}]}
+     2: {"property_id":"partner","value":"true"}
+     3: {"property_id":"terms","value":"https://deepgram.com/terms"}
+     4: {"property_id":"realtime","value":"true"}
+
+========== TRANSLATION ==========
+
+  ­ƒôî @cf/meta/m2m100-1.2b
+     0: {"property_id":"async_queue","value":"true"}
+     1: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.34,"currency":"USD"},{"unit":"per M output tokens","price":0.34,"currency":"USD"}]}
+     2: {"property_id":"info","value":"https://github.com/facebookresearch/fairseq/tree/main/examples/m2m_100"}
+     3: {"property_id":"languages","value":"english, chinese, french, spanish, arabic, russian, german, japanese, portuguese, hindi"}
+     4: {"property_id":"terms","value":"https://github.com/facebookresearch/fairseq/blob/main/LICENSE"}
+
+  ­ƒôî @cf/ai4bharat/indictrans2-en-indic-1B
+     0: {"property_id":"price","value":[{"unit":"per M input tokens","price":0.34,"currency":"USD"},{"unit":"per M output tokens","price":0.34,"currency":"USD"}]}
+
+
+========== USAGE / QUOTA ==========
+{
+  "success": false,
+  "errors": [
+    {
+      "code": 7003,
+      "message": "Could not route to /accounts/faf93cd2a0d373573de0859b1cc95328/ai/usage, perhaps your object identifier is invalid?"
+    },
+    {
+      "code": 7000,
+      "message": "No route for that URI"
+    }
+  ],
+  "messages": [],
+  "result": null
+}
+{
+  "success": false,
+  "errors": [
+    {
+      "code": 7003,
+      "message": "Could not route to /accounts/faf93cd2a0d373573de0859b1cc95328/ai, perhaps your object identifier is invalid?"
+    },
+    {
+      "code": 7000,
+      "message": "No route for that URI"
+    }
+  ],
+  "messages": [],
+  "result": null
+}

@@ -1,0 +1,68 @@
+Name,Predicted,Actual,Error
+Uber,0.03,1,0.9409
+Theranos,0,0,0.0000
+Juicero,0.14,0,0.0196
+MoviePass,0,0,0.0000
+Airbnb,0.03,1,0.9409
+Quibi,0.98,0,0.9604
+Figma,1,1,0.0000
+Zume Pizza,0.08,0,0.0064
+Dropbox,1,1,0.0000
+Fast,0.01,0,0.0001
+Instacart,0.02,1,0.9604
+Peloton,0.01,1,0.9801
+Jawbone,0.01,0,0.0001
+Slack,1,1,0.0000
+Solyndra,0.05,0,0.0025
+Notion,1,1,0.0000
+Color,0.05,0,0.0025
+WhatsApp,1,1,0.0000
+Blockbuster (Digital Pivot),0.01,0,0.0001
+Discord,0.85,1,0.0225
+Stripe,0.94,1,0.0036
+Zoom,0.94,1,0.0036
+Shopify,0.01,1,0.9801
+HubSpot,0.01,1,0.9801
+Twilio,0.03,1,0.9409
+WeWork (Original),0,0,0.0000
+FTX,0.15,0,0.0225
+Kozmo.com,0,0,0.0000
+Robinhood,0.08,1,0.8464
+Coinbase,0.85,1,0.0225
+Canva,0.85,1,0.0225
+Revolut,0.15,1,0.7225
+Klarna,0.82,1,0.0324
+Snowflake,0.05,1,0.9025
+Datadog,0,1,1.0000
+MongoDB,0,1,1.0000
+Cloudflare,0,1,1.0000
+Okta,0,1,1.0000
+Atlassian (Jira),0,1,1.0000
+Tesla (Early),0,1,1.0000
+SpaceX,0,1,1.0000
+Palantir,0,1,1.0000
+Chime,0,1,1.0000
+Plaid,0,1,1.0000
+Brex,0,1,1.0000
+Checkout.com,0,1,1.0000
+Gopuff,0,1,1.0000
+Nubank,0,1,1.0000
+Airtable,0,1,1.0000
+Asana,0,1,1.0000
+Vercel (Next.js),0,1,1.0000
+GitLab,0,1,1.0000
+Snyk,0,1,1.0000
+Docker,0,1,1.0000
+Elastic,0,1,1.0000
+OpenSea,0,1,1.0000
+Beanie Babies (Ty),0,0,0.0000
+CueCat,0,0,0.0000
+Segway (Hyped),0,0,0.0000
+Fire Phone (Amazon),0,0,0.0000
+Essential Phone,0,0,0.0000
+Pebble,0,0,0.0000
+Ouya,0,0,0.0000
+Magic Leap (Hyped),0,0,0.0000
+Better Place,0,0,0.0000
+Wirecard,0,0,0.0000
+Lordstown Motors,0,0,0.0000

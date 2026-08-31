@@ -1,0 +1,164 @@
+{
+  "success": true,
+  "jobId": "6c0516bf-bb95-451f-a9aa-143edcc887ed",
+  "status": "completed",
+  "quantPayload": {
+    "jobId": "6c0516bf-bb95-451f-a9aa-143edcc887ed",
+    "iterationsRun": 1000,
+    "ltv": {
+      "p10": -214,
+      "p50": -210,
+      "p90": -207
+    },
+    "cac": {
+      "p10": 302,
+      "p50": 304,
+      "p90": 306
+    },
+    "drawdown": {
+      "p10": 120089712,
+      "p50": 120091848,
+      "p90": 120093927
+    },
+    "bankruptcyRate": 1,
+    "breakEvenMonth": 24,
+    "trustScore": 0.63,
+    "emergentInsights": [
+      "Elasticidad detectada: -1.8",
+      "Poder adquisitivo promedio: $-16.8",
+      "Ratio LTV/CAC (Mediana): -0.69x"
+    ]
+  },
+  "narrativePayload": {
+    "summaryTitle": "Pet E-commerce Suicide Mission: Negative LTV/CAC Guarantees Bankruptcy",
+    "viabilityScore": 5,
+    "marketVerdict": "INVIABLE",
+    "executiveSummary": "This business model is mathematically guaranteed to fail with a negative LTV/CAC ratio of -0.69x and 100% bankruptcy probability in Monte Carlo simulations. Selling below cost while incurring high shipping expenses creates an irreversible cash burn spiral. The 'first-mover' narrative is irrelevant when competing against established giants like Chewy and Amazon who have already captured the market. Massive marketing expenditure will only accelerate financial collapse rather than create sustainable advantage.",
+    "ceoFinalVerdict": "This is financial suicide, not a business. The negative LTV/CAC ratio means you lose money on every customer acquired, making scale irrelevant. Even with perfect execution, the unit economics guarantee failure. The only rational move is to abandon this model entirely or fundamentally redesign the economics before spending a single dollar.",
+    "bullCase": "The pet e-commerce market is growing rapidly with massive opportunity for online retailers who can effectively market to pet owners. First-mover advantage could create brand loyalty and customer lifetime value that justifies initial losses. With enough scale, we could negotiate better shipping rates and supplier terms to eventually achieve profitability.",
+    "bearCase": "This business will die within months. Selling below cost while paying high shipping for heavy items creates a double-negative margin structure. Established players like Chewy have already captured the market with superior logistics and customer loyalty programs. Any marketing spend just accelerates cash burn without creating sustainable customer relationships in this commoditized space.",
+    "auditActionPlan": [
+      "Immediately halt all marketing expenditure to stop cash hemorrhage",
+      "Conduct emergency pricing analysis to identify minimum viable price points that cover COGS + shipping",
+      "Explore strategic partnerships with existing retailers rather than competing directly"
+    ],
+    "riskAnalysis": [
+      {
+        "factor": "Negative Unit Economics",
+        "level": "CRITICAL",
+        "mitigation": "Complete business model redesign required before any further investment"
+      },
+      {
+        "factor": "Established Competition",
+        "level": "CRITICAL",
+        "mitigation": "Impossible to compete with Chewy/Amazon logistics and pricing without billions in capital"
+      }
+    ],
+    "agentCouncilLog": {
+      "debateLogs": [
+        {
+          "agent": "The Auditor",
+          "argument": "Negative LTV/CAC of -0.69x means we lose money on every customer. With 100% bankruptcy probability and $120M maximum drawdown, this is mathematically guaranteed failure. Stop everything immediately.",
+          "intensity": 10
+        },
+        {
+          "agent": "The Venture Bull",
+          "argument": "First-mover advantage in pet e-commerce could create massive enterprise value. The market is growing and we can out-market incumbents with aggressive customer acquisition. Scale will solve the unit economics problem.",
+          "intensity": 8
+        },
+        {
+          "agent": "The Black Swan Bear",
+          "argument": "This business will be dead within 6 months. Selling below cost while shipping heavy items guarantees catastrophic cash burn. Chewy's logistics network and Amazon's pricing power make competition impossible.",
+          "intensity": 9
+        },
+        {
+          "agent": "The Moat Strategist",
+          "argument": "There is zero defensible moat here. Pet food is a commodity, shipping costs are structural, and customer loyalty in this space goes to whoever has the best price and delivery. This is a race to the bottom we cannot win.",
+          "intensity": 7
+        }
+      ],
+      "theAuditorVerdict": "ABORT MISSION. The numbers don't lie: negative LTV/CAC, 100% bankruptcy probability, and catastrophic drawdown potential. This isn't a business - it's a mechanism for converting investor capital into losses. Cease all operations immediately."
+    },
+    "quantPayload": {
+      "jobId": "6c0516bf-bb95-451f-a9aa-143edcc887ed",
+      "iterationsRun": 1000,
+      "ltv": {
+        "p10": -214,
+        "p50": -210,
+        "p90": -207
+      },
+      "cac": {
+        "p10": 302,
+        "p50": 304,
+        "p90": 306
+      },
+      "drawdown": {
+        "p10": 120089712,
+        "p50": 120091848,
+        "p90": 120093927
+      },
+      "bankruptcyRate": 1,
+      "breakEvenMonth": 24,
+      "trustScore": 0.63,
+      "emergentInsights": [
+        "Elasticidad detectada: -1.8",
+        "Poder adquisitivo promedio: $-16.8",
+        "Ratio LTV/CAC (Mediana): -0.69x"
+      ]
+    },
+    "projections": [
+      {
+        "month": 1,
+        "revenue": 782145,
+        "opex": 13778400,
+        "cashBalance": 112202247,
+        "probabilityOfSurvival": 0
+      },
+      {
+        "month": 3,
+        "revenue": 1146870,
+        "opex": 11555400,
+        "cashBalance": 101264646,
+        "probabilityOfSurvival": 0
+      },
+      {
+        "month": 6,
+        "revenue": 1894815,
+        "opex": 12943000,
+        "cashBalance": 80226534,
+        "probabilityOfSurvival": 0
+      },
+      {
+        "month": 12,
+        "revenue": 3204720,
+        "opex": 14272800,
+        "cashBalance": 40309824,
+        "probabilityOfSurvival": 0
+      },
+      {
+        "month": 18,
+        "revenue": 2759310,
+        "opex": 11555400,
+        "cashBalance": 25002228,
+        "probabilityOfSurvival": 0
+      },
+      {
+        "month": 24,
+        "revenue": 1797930,
+        "opex": 10304000,
+        "cashBalance": -2487408,
+        "probabilityOfSurvival": 0
+      }
+    ],
+    "synthesizerMetadata": {
+      "processedAt": "2026-04-12T00:26:40.124Z",
+      "isFallback": false,
+      "confidenceLevel": 0.63
+    },
+    "_pipelineMetrics": {
+      "researchFallback": false,
+      "personaFallback": false,
+      "simulationFallback": false
+    }
+  }
+}

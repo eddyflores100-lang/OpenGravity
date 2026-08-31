@@ -1,0 +1,38 @@
+{
+  "result": {
+    "probability_raw": 0.2126,
+    "probability_adjusted": 0.2126,
+    "logit_raw": -1.3091,
+    "logit_adjusted": -1.3091,
+    "agent_adj": 0.0,
+    "math_status": "REVIEW",
+    "verdict": "REVIEW",
+    "verdict_source": "BAYESIAN_ADJUSTED",
+    "is_fatal": false,
+    "calibrations": {
+      "bias_adj": 1.8,
+      "ltv_weight_adj": 0.3,
+      "growth_weight_adj": 1.5,
+      "runway_weight_adj": 0.25
+    }
+  },
+  "agent_report": {
+    "startup_name": "SpaceX",
+    "analysis": "Contextual validation of DeepTech and institutional signals in light of historical facts, news, and founder reputation up to 2024.",
+    "recommended_prior_adj": 0.0,
+    "critical_findings": [
+      {
+        "finding_type": "Technical Moat",
+        "description": "SpaceX leverages significant government contracts (NASA, DoD) and proprietary technologies (reusability, Starship) to build a substantial capex-driven moat.",
+        "impact_weight": 0.4
+      },
+      {
+        "finding_type": "Technical Promise",
+        "description": "Successful demonstration of Raptor engine, Starlink satellite constellation deployment, and Starship prototype testing represent notable technical achievements and milestones.",
+        "impact_weight": 0.6
+      }
+    ],
+    "is_fatal": false
+  },
+  "thesis": "**Final VC Thesis:**\n\nBased on the provided metrics and agent data, I would like to present the following final VC thesis:\n\n**Company:** SpaceX\n**Analysis:** Contextual validation of DeepTech and institutional signals in light of historical facts, news, and founder reputation up to 2024.\n**Probability of Success:** 21.26% (raw) and 21.26% (adjusted)\n**Technical Moat:** Significant government contracts (NASA, DoD) and proprietary technologies (reusability, Starship) provide a substantial capex-driven moat.\n**Technical Promise:** Successful demonstration of Raptor engine, Starlink satellite constellation deployment, and Starship prototype testing represent notable technical achievements and milestones.\n\n**Key Findings:**\n\n1. **Technical Moat:** SpaceX's strategic partnerships with government agencies and proprietary technologies create a substantial barrier to entry, providing a competitive advantage in the market.\n2. **Technical Promise:** The company's recent achievements in Raptor engine testing, Starlink satellite deployment, and Starship prototype testing demonstrate significant technical progress and potential for future growth.\n3. **Founder Reputation:** Elon Musk's reputation as a visionary entrepreneur and innovator contributes to the company's credibility and potential for success.\n\n**Calibration Adjustments:**\n\n1"
+}

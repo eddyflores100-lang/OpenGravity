@@ -1,0 +1,52 @@
+{
+  "result": {
+    "probability_raw": 0.7605,
+    "probability_adjusted": 0.7134,
+    "logit_raw": 0.5119,
+    "logit_adjusted": 0.9119,
+    "agent_adj": 0.4,
+    "math_status": "WINNER",
+    "verdict": "WINNER",
+    "verdict_source": "BAYESIAN_ADJUSTED",
+    "is_fatal": false,
+    "calibrations": {
+      "bias_adj": 1.8,
+      "ltv_weight_adj": 0.3,
+      "growth_weight_adj": 1.5,
+      "runway_weight_adj": 0.25
+    },
+    "monte_carlo": {
+      "prob_mean": 0.7604,
+      "prob_std": 0.0022,
+      "ci_95_low": 0.7605,
+      "ci_95_high": 0.7605,
+      "ci_width": 0.0,
+      "uncertainty_flag": "STABLE",
+      "n_simulations": 1000
+    }
+  },
+  "agent_report": {
+    "startup_name": "SpaceX",
+    "analysis": "As a high-profile DeepTech company, SpaceX's technical moat primarily stems from its significant capital expenditure in satellite and rocket manufacturing infrastructure. This includes the development of innovative technologies such as reusable rockets, with its key example being the Raptor engine. ",
+    "recommended_prior_adj": 0.4,
+    "critical_findings": [
+      {
+        "finding_type": "Technical Moat",
+        "description": "SpaceX's significant investment in manufacturing infrastructure and research and development supports its competitive advantage.",
+        "impact_weight": 1.0
+      },
+      {
+        "finding_type": "Technical Promise",
+        "description": "The company has achieved impressive milestones such as landing reusable rockets and deploying a satellite constellation through Starlink.",
+        "impact_weight": 0.8
+      },
+      {
+        "finding_type": "Backlog/Contracts",
+        "description": "SpaceX has signed major contracts with government entities, including NASA, for various projects such as the Starship program.",
+        "impact_weight": 0.9
+      }
+    ],
+    "is_fatal": false
+  },
+  "thesis": "**Final VC Thesis:**\n\nBased on our comprehensive analysis of SpaceX's technical moat, growth prospects, and financial performance, we firmly believe that the company has a high potential for success. Our Bayesian-adjusted probability of success stands at 71.34%, indicating a robust confidence in the company's ability to deliver on its ambitious goals.\n\n**Key Findings:**\n\n1. **Technical Moat:** SpaceX's significant investment in manufacturing infrastructure and research and development has created a strong technical moat, making it difficult for competitors to replicate its innovative technologies, such as reusable rockets.\n2. **Growth Prospects:** The company's impressive milestones, including landing reusable rockets and deploying a satellite constellation through Starlink, demonstrate its ability to execute on its vision and drive growth.\n3. **Backlog/Contracts:** SpaceX's major contracts with government entities, including NASA, provide a stable source of revenue and support its growth prospects.\n4. **Calibration:** Our calibration process, which adjusts for biases and weights various factors, has resulted in a robust and stable estimate of the company's probability of success.\n\n**Recommendations:**\n\nBased on our analysis, we recommend that investors consider allocating a significant portion of their portfolio to SpaceX, given its strong technical moat, growth prospects,"
+}

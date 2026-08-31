@@ -1,0 +1,413 @@
+{
+  "timestamp": "2026-04-12T05:14:49.067Z",
+  "metrics": {
+    "brierScore": 0.4823298507462687,
+    "accuracy": 0.5074626865671642,
+    "precision": 0.9166666666666666,
+    "recall": 0.2558139534883721
+  },
+  "results": [
+    {
+      "name": "Uber",
+      "predicted": 0.03,
+      "actual": 1,
+      "error": 0.9409
+    },
+    {
+      "name": "Theranos",
+      "predicted": 0,
+      "actual": 0,
+      "error": 0
+    },
+    {
+      "name": "Juicero",
+      "predicted": 0.14,
+      "actual": 0,
+      "error": 0.019600000000000003
+    },
+    {
+      "name": "MoviePass",
+      "predicted": 0,
+      "actual": 0,
+      "error": 0
+    },
+    {
+      "name": "Airbnb",
+      "predicted": 0.03,
+      "actual": 1,
+      "error": 0.9409
+    },
+    {
+      "name": "Quibi",
+      "predicted": 0.98,
+      "actual": 0,
+      "error": 0.9603999999999999
+    },
+    {
+      "name": "Figma",
+      "predicted": 1,
+      "actual": 1,
+      "error": 0
+    },
+    {
+      "name": "Zume Pizza",
+      "predicted": 0.08,
+      "actual": 0,
+      "error": 0.0064
+    },
+    {
+      "name": "Dropbox",
+      "predicted": 1,
+      "actual": 1,
+      "error": 0
+    },
+    {
+      "name": "Fast",
+      "predicted": 0.01,
+      "actual": 0,
+      "error": 0.0001
+    },
+    {
+      "name": "Instacart",
+      "predicted": 0.02,
+      "actual": 1,
+      "error": 0.9603999999999999
+    },
+    {
+      "name": "Peloton",
+      "predicted": 0.01,
+      "actual": 1,
+      "error": 0.9801
+    },
+    {
+      "name": "Jawbone",
+      "predicted": 0.01,
+      "actual": 0,
+      "error": 0.0001
+    },
+    {
+      "name": "Slack",
+      "predicted": 1,
+      "actual": 1,
+      "error": 0
+    },
+    {
+      "name": "Solyndra",
+      "predicted": 0.05,
+      "actual": 0,
+      "error": 0.0025000000000000005
+    },
+    {
+      "name": "Notion",
+      "predicted": 1,
+      "actual": 1,
+      "error": 0
+    },
+    {
+      "name": "Color",
+      "predicted": 0.05,
+      "actual": 0,
+      "error": 0.0025000000000000005
+    },
+    {
+      "name": "WhatsApp",
+      "predicted": 1,
+      "actual": 1,
+      "error": 0
+    },
+    {
+      "name": "Blockbuster (Digital Pivot)",
+      "predicted": 0.01,
+      "actual": 0,
+      "error": 0.0001
+    },
+    {
+      "name": "Discord",
+      "predicted": 0.85,
+      "actual": 1,
+      "error": 0.022500000000000006
+    },
+    {
+      "name": "Stripe",
+      "predicted": 0.94,
+      "actual": 1,
+      "error": 0.0036000000000000064
+    },
+    {
+      "name": "Zoom",
+      "predicted": 0.94,
+      "actual": 1,
+      "error": 0.0036000000000000064
+    },
+    {
+      "name": "Shopify",
+      "predicted": 0.01,
+      "actual": 1,
+      "error": 0.9801
+    },
+    {
+      "name": "HubSpot",
+      "predicted": 0.01,
+      "actual": 1,
+      "error": 0.9801
+    },
+    {
+      "name": "Twilio",
+      "predicted": 0.03,
+      "actual": 1,
+      "error": 0.9409
+    },
+    {
+      "name": "WeWork (Original)",
+      "predicted": 0,
+      "actual": 0,
+      "error": 0
+    },
+    {
+      "name": "FTX",
+      "predicted": 0.15,
+      "actual": 0,
+      "error": 0.0225
+    },
+    {
+      "name": "Kozmo.com",
+      "predicted": 0,
+      "actual": 0,
+      "error": 0
+    },
+    {
+      "name": "Robinhood",
+      "predicted": 0.08,
+      "actual": 1,
+      "error": 0.8464
+    },
+    {
+      "name": "Coinbase",
+      "predicted": 0.85,
+      "actual": 1,
+      "error": 0.022500000000000006
+    },
+    {
+      "name": "Canva",
+      "predicted": 0.85,
+      "actual": 1,
+      "error": 0.022500000000000006
+    },
+    {
+      "name": "Revolut",
+      "predicted": 0.15,
+      "actual": 1,
+      "error": 0.7224999999999999
+    },
+    {
+      "name": "Klarna",
+      "predicted": 0.82,
+      "actual": 1,
+      "error": 0.03240000000000002
+    },
+    {
+      "name": "Snowflake",
+      "predicted": 0.05,
+      "actual": 1,
+      "error": 0.9025
+    },
+    {
+      "name": "Datadog",
+      "predicted": 0,
+      "actual": 1,
+      "error": 1
+    },
+    {
+      "name": "MongoDB",
+      "predicted": 0,
+      "actual": 1,
+      "error": 1
+    },
+    {
+      "name": "Cloudflare",
+      "predicted": 0,
+      "actual": 1,
+      "error": 1
+    },
+    {
+      "name": "Okta",
+      "predicted": 0,
+      "actual": 1,
+      "error": 1
+    },
+    {
+      "name": "Atlassian (Jira)",
+      "predicted": 0,
+      "actual": 1,
+      "error": 1
+    },
+    {
+      "name": "Tesla (Early)",
+      "predicted": 0,
+      "actual": 1,
+      "error": 1
+    },
+    {
+      "name": "SpaceX",
+      "predicted": 0,
+      "actual": 1,
+      "error": 1
+    },
+    {
+      "name": "Palantir",
+      "predicted": 0,
+      "actual": 1,
+      "error": 1
+    },
+    {
+      "name": "Chime",
+      "predicted": 0,
+      "actual": 1,
+      "error": 1
+    },
+    {
+      "name": "Plaid",
+      "predicted": 0,
+      "actual": 1,
+      "error": 1
+    },
+    {
+      "name": "Brex",
+      "predicted": 0,
+      "actual": 1,
+      "error": 1
+    },
+    {
+      "name": "Checkout.com",
+      "predicted": 0,
+      "actual": 1,
+      "error": 1
+    },
+    {
+      "name": "Gopuff",
+      "predicted": 0,
+      "actual": 1,
+      "error": 1
+    },
+    {
+      "name": "Nubank",
+      "predicted": 0,
+      "actual": 1,
+      "error": 1
+    },
+    {
+      "name": "Airtable",
+      "predicted": 0,
+      "actual": 1,
+      "error": 1
+    },
+    {
+      "name": "Asana",
+      "predicted": 0,
+      "actual": 1,
+      "error": 1
+    },
+    {
+      "name": "Vercel (Next.js)",
+      "predicted": 0,
+      "actual": 1,
+      "error": 1
+    },
+    {
+      "name": "GitLab",
+      "predicted": 0,
+      "actual": 1,
+      "error": 1
+    },
+    {
+      "name": "Snyk",
+      "predicted": 0,
+      "actual": 1,
+      "error": 1
+    },
+    {
+      "name": "Docker",
+      "predicted": 0,
+      "actual": 1,
+      "error": 1
+    },
+    {
+      "name": "Elastic",
+      "predicted": 0,
+      "actual": 1,
+      "error": 1
+    },
+    {
+      "name": "OpenSea",
+      "predicted": 0,
+      "actual": 1,
+      "error": 1
+    },
+    {
+      "name": "Beanie Babies (Ty)",
+      "predicted": 0,
+      "actual": 0,
+      "error": 0
+    },
+    {
+      "name": "CueCat",
+      "predicted": 0,
+      "actual": 0,
+      "error": 0
+    },
+    {
+      "name": "Segway (Hyped)",
+      "predicted": 0,
+      "actual": 0,
+      "error": 0
+    },
+    {
+      "name": "Fire Phone (Amazon)",
+      "predicted": 0,
+      "actual": 0,
+      "error": 0
+    },
+    {
+      "name": "Essential Phone",
+      "predicted": 0,
+      "actual": 0,
+      "error": 0
+    },
+    {
+      "name": "Pebble",
+      "predicted": 0,
+      "actual": 0,
+      "error": 0
+    },
+    {
+      "name": "Ouya",
+      "predicted": 0,
+      "actual": 0,
+      "error": 0
+    },
+    {
+      "name": "Magic Leap (Hyped)",
+      "predicted": 0,
+      "actual": 0,
+      "error": 0
+    },
+    {
+      "name": "Better Place",
+      "predicted": 0,
+      "actual": 0,
+      "error": 0
+    },
+    {
+      "name": "Wirecard",
+      "predicted": 0,
+      "actual": 0,
+      "error": 0
+    },
+    {
+      "name": "Lordstown Motors",
+      "predicted": 0,
+      "actual": 0,
+      "error": 0
+    }
+  ]
+}

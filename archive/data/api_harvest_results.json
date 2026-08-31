@@ -1,0 +1,89 @@
+{
+  "timestamp": "2026-04-12T20:23:12.412Z",
+  "sources": {
+    "yc_api": "https://yc-oss.github.io/api/",
+    "sec_edgar": "https://data.sec.gov/"
+  },
+  "sec_filings": [
+    {
+      "name": "DROPBOX, INC.",
+      "cik": "0001467623",
+      "sic": "7372",
+      "sicDesc": "Services-Prepackaged Software",
+      "category": "Large accelerated filer",
+      "filings": 1000,
+      "latestFiling": "2026-04-07",
+      "latestType": "ARS"
+    },
+    {
+      "name": "Uber Technologies, Inc",
+      "cik": "0001543151",
+      "sic": "7389",
+      "sicDesc": "Services-Business Services, NEC",
+      "category": "Large accelerated filer",
+      "filings": 1002,
+      "latestFiling": "2026-03-30",
+      "latestType": "SCHEDULE 13G"
+    },
+    {
+      "name": "Zoom Communications, Inc.",
+      "cik": "0001585521",
+      "sic": "7370",
+      "sicDesc": "Services-Computer Programming, Data Processing, Etc.",
+      "category": "Large accelerated filer",
+      "filings": 1000,
+      "latestFiling": "2026-04-10",
+      "latestType": "4"
+    },
+    {
+      "name": "SHOPIFY INC.",
+      "cik": "0001594805",
+      "sic": "7372",
+      "sicDesc": "Services-Prepackaged Software",
+      "category": "Large accelerated filer",
+      "filings": 507,
+      "latestFiling": "2026-04-06",
+      "latestType": "144"
+    },
+    {
+      "name": "PELOTON INTERACTIVE, INC.",
+      "cik": "0001639825",
+      "sic": "3949",
+      "sicDesc": "Sporting & Athletic Goods, NEC",
+      "category": "Large accelerated filer",
+      "filings": 1012,
+      "latestFiling": "2026-04-03",
+      "latestType": "4"
+    },
+    {
+      "name": "Blue Apron Holdings, Inc.",
+      "cik": "0001701114",
+      "sic": "5961",
+      "sicDesc": "Retail-Catalog & Mail-Order Houses",
+      "category": "Accelerated filer<br>Smaller reporting company",
+      "filings": 688,
+      "latestFiling": "2024-02-08",
+      "latestType": "SC 13G/A"
+    },
+    {
+      "name": "Slack Technologies, Inc.",
+      "cik": "0001764925",
+      "sic": "7372",
+      "sicDesc": "Services-Prepackaged Software",
+      "category": "Large accelerated filer",
+      "filings": 881,
+      "latestFiling": "2021-08-02",
+      "latestType": "15-12B"
+    },
+    {
+      "name": "We Co.",
+      "cik": "0001533523",
+      "sic": "7380",
+      "sicDesc": "Services-Miscellaneous Business Services",
+      "category": "",
+      "filings": 20,
+      "latestFiling": "2019-09-30",
+      "latestType": "RW"
+    }
+  ]
+}

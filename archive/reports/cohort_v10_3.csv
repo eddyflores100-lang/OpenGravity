@@ -1,0 +1,102 @@
+startup_name,ltv_cac,months_runway,moe_growth,sector,zirp_index
+SpaceX,0.5,12,300,DeepTech,5.0
+Rivian,0.8,18,150,DeepTech,5.0
+Anduril,1.2,24,100,DeepTech,3.0
+Theranos,0.01,6,10,HealthTech,1.0
+FTX,0.1,12,50,Fintech,1.0
+Nikola,0.05,8,5,DeepTech,1.0
+Basecamp,15,120,5,Cockroach,1.0
+Zapier,12,120,15,Cockroach,1.0
+Zoho,10,120,10,Cockroach,1.0
+Hubspot,4.5,36,40,B2B SaaS,1.0
+Stripe,5.5,48,60,Fintech,1.0
+Canva,6.5,48,80,B2B SaaS,1.0
+Zenefits,0.8,9,20,B2B SaaS,1.0
+WeWork,0.3,6,100,Normal SaaS,5.0
+Peloton,0.5,12,-20,Normal SaaS,5.0
+Oculus,0.2,10,400,DeepTech,1.0
+Commonwealth Fusion,0.1,60,10,DeepTech,1.0
+OpenAI,0.5,12,500,DeepTech,5.0
+Mistral,0.6,18,300,DeepTech,3.0
+Juicero,0.1,4,5,Consumer,1.0
+Quibi,0.05,3,10,Consumer,1.0
+Scale AI,3.5,24,150,B2B SaaS,1.0
+Databricks,4.2,30,80,B2B SaaS,1.0
+Snowflake,3.8,24,60,B2B SaaS,1.0
+Aptiv,0.9,18,20,DeepTech,3.0
+Joby Aviation,0.2,24,10,DeepTech,3.0
+Lilium,0.1,12,5,DeepTech,5.0
+Relativity Space,0.4,18,50,DeepTech,3.0
+Varda Space,0.3,24,10,DeepTech,3.0
+Zipline,2.5,36,80,DeepTech,1.0
+Nuro,0.5,24,20,DeepTech,3.0
+Cruise,0.2,12,10,DeepTech,5.0
+Waymo,0.5,36,30,DeepTech,3.0
+Flexport,1.2,18,40,Fintech,5.0
+Klarna,1.5,12,30,Fintech,5.0
+Bolt,0.8,6,150,Fintech,5.0
+Fast,0.2,4,200,Fintech,1.0
+Plaid,4.0,36,50,Fintech,1.0
+Ramp,4.5,30,120,Fintech,1.0
+Brex,3.8,24,100,Fintech,1.0
+Mercury,5.0,48,60,Fintech,1.0
+Deel,4.5,24,200,B2B SaaS,1.0
+Rippling,4.2,30,150,B2B SaaS,1.0
+Gusto,3.5,36,40,B2B SaaS,1.0
+Checkr,3.0,24,30,B2B SaaS,1.0
+Snyk,3.2,18,80,B2B SaaS,3.0
+Wiz,4.5,24,300,B2B SaaS,1.0
+Lacework,1.5,12,100,B2B SaaS,5.0
+Rubrik,3.0,24,40,B2B SaaS,1.0
+Cohesity,2.8,18,30,B2B SaaS,1.0
+Veeam,5.0,48,20,B2B SaaS,1.0
+GitLab,3.5,24,40,B2B SaaS,1.0
+HashiCorp,2.5,18,30,B2B SaaS,1.0
+Confluent,2.2,12,40,B2B SaaS,1.0
+MongoDB,3.0,24,40,B2B SaaS,1.0
+Twilio,1.8,12,20,B2B SaaS,5.0
+Unity,1.5,18,25,Normal SaaS,5.0
+Toast,2.5,24,50,Fintech,3.0
+DoorDash,1.8,36,40,Normal SaaS,3.0
+Uber,2.2,48,30,Normal SaaS,3.0
+Lyft,1.2,12,15,Normal SaaS,5.0
+Instacart,1.5,24,20,Normal SaaS,5.0
+Postmates,1.0,6,50,Normal SaaS,1.0
+Grubhub,1.2,12,10,Normal SaaS,1.0
+Blue Apron,0.5,4,-10,Consumer,1.0
+Casper,0.8,6,5,Consumer,1.0
+Peloton,0.5,12,-20,Consumer,5.0
+Bird,0.3,3,10,Consumer,5.0
+Lime,1.2,12,30,Consumer,3.0
+DraftKings,1.5,24,40,Consumer,1.0
+Robinhood,1.2,18,20,Fintech,3.0
+Coinbase,3.0,48,100,Fintech,1.0
+Gemini,2.5,36,40,Fintech,1.0
+Kraken,2.2,24,30,Fintech,1.0
+Chainalysis,4.5,36,80,B2B SaaS,1.0
+Fireblocks,4.8,30,120,Fintech,1.0
+Anchorage Digital,3.5,24,40,Fintech,1.0
+Circle,2.8,24,60,Fintech,1.0
+Paxos,2.5,36,30,Fintech,1.0
+Figment,3.0,24,50,Fintech,1.0
+OpenSea,1.5,12,-50,Fintech,5.0
+Dapper Labs,1.2,18,-30,Fintech,5.0
+Sorare,2.0,24,40,Fintech,3.0
+Axie Infinity,0.5,12,-80,Consumer,5.0
+Magic Leap,0.2,6,10,DeepTech,1.0
+Jawbone,0.1,3,0,Consumer,1.0
+Solera,2.5,24,10,B2B SaaS,1.0
+Infor,5.0,48,5,B2B SaaS,1.0
+Epicor,4.5,48,8,B2B SaaS,1.0
+IFS,4.2,48,12,B2B SaaS,1.0
+Deltek,4.0,48,10,B2B SaaS,1.0
+Unit4,3.8,48,15,B2B SaaS,1.0
+Cegid,3.5,48,18,B2B SaaS,1.0
+Visma,6.0,60,20,Cockroach,1.0
+Access Group,5.5,60,22,Cockroach,1.0
+IRIS Software,5.2,60,20,Cockroach,1.0
+Kaseya,3.0,24,30,B2B SaaS,1.0
+ConnectWise,3.2,24,25,B2B SaaS,1.0
+SolarWinds,4.0,36,10,B2B SaaS,1.0
+Ivanti,2.8,18,15,B2B SaaS,3.0
+Forcepoint,2.5,12,10,B2B SaaS,5.0

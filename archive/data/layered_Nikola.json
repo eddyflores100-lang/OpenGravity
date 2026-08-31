@@ -1,0 +1,43 @@
+{
+  "result": {
+    "probability_raw": 0.2252,
+    "probability_adjusted": 0.1498,
+    "logit_raw": -1.2359,
+    "logit_adjusted": -1.7359,
+    "agent_adj": -0.5,
+    "math_status": "DROP",
+    "verdict": "DROP",
+    "verdict_source": "POLICY_FATAL_VETO",
+    "is_fatal": true,
+    "calibrations": {
+      "bias_adj": 1.8,
+      "ltv_weight_adj": 0.3,
+      "growth_weight_adj": 1.5,
+      "runway_weight_adj": 0.25
+    }
+  },
+  "agent_report": {
+    "startup_name": "Nikola Motor",
+    "analysis": "Contextual validation required for DeepTech/Institutional signals given historical facts and news up to 2024",
+    "recommended_prior_adj": -0.5,
+    "critical_findings": [
+      {
+        "finding_type": "Technical Moat",
+        "description": "Nikola Motor's technical moat is composed of Opex rather than IP or Infrastructure, indicating a lack of sustainable competitive advantage",
+        "impact_weight": 0.5
+      },
+      {
+        "finding_type": "Technical Promise",
+        "description": "Nikola Motor has made exaggerated technical promises, including a 1,000-mile range for their Nikola One truck, which has not been achieved in real-world testing",
+        "impact_weight": -1.0
+      },
+      {
+        "finding_type": "Backlog/Contracts",
+        "description": "Nikola Motor has failed to deliver on major contracts and partnerships, including a deal with Anheuser-Busch",
+        "impact_weight": 0.5
+      }
+    ],
+    "is_fatal": true
+  },
+  "thesis": "**Final VC Thesis:**\n\nBased on the provided metrics and agent data, we conclude that Nikola Motor is not a viable investment opportunity for our venture capital firm. The analysis indicates a high degree of risk, with several critical findings that undermine the company's technical moat, technical promise, and ability to deliver on major contracts and partnerships.\n\n**Key Findings:**\n\n1. **Technical Moat:** Nikola Motor's technical moat is composed of operational expenses (Opex) rather than intellectual property (IP) or infrastructure, indicating a lack of sustainable competitive advantage.\n2. **Technical Promise:** The company has made exaggerated technical promises, including a 1,000-mile range for their Nikola One truck, which has not been achieved in real-world testing.\n3. **Backlog/Contracts:** Nikola Motor has failed to deliver on major contracts and partnerships, including a deal with Anheuser-Busch.\n\n**Metrics Analysis:**\n\nThe metrics provided indicate a low probability of success (0.1498) and a high degree of risk (logit_raw = -1.2359, logit_adjusted = -1.7359). The agent_adj of -0.5 further reinforces the negative assessment.\n\n**Conclusion:**\n\nGiven the critical findings and metrics analysis, we"
+}

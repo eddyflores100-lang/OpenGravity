@@ -1,0 +1,21 @@
+{
+  "result": {
+    "probability": 0.1498,
+    "status": "DROP (FATAL_TECHNICAL_FRAUD)",
+    "logit": -1.7359,
+    "calibrations": {
+      "bias_adj": 1.8,
+      "ltv_weight_adj": 0.3,
+      "growth_weight_adj": 1.5,
+      "runway_weight_adj": 0.25
+    }
+  },
+  "agent_report": {
+    "startup_name": "Nikola Motor",
+    "analysis": "Contextual validation required for DeepTech/Institutional signals. Historical facts indicate Nikola Motor's excessive technical promises, lack of tangible technical moat, and unverified engineering claims.",
+    "recommended_prior_adj": -0.5,
+    "critical_findings": [],
+    "is_fatal": true
+  },
+  "thesis": "**Final VC Thesis: Nikola Motor**\n\n**Probability of Success:** 14.98% (Below Threshold)\n\n**Status:** DROP (FATAL_TECHNICAL_FRAUD)\n\n**Logit Score:** -1.7359 (Indicates High Risk)\n\n**Calibration Adjustments:**\n\n* Bias Adjustment: 1.8 (Indicates a High Bias in the Model)\n* LTV (Lifetime Value) Weight Adjustment: 0.3 (Indicates a Low LTV)\n* Growth Weight Adjustment: 1.5 (Indicates a High Growth Potential)\n* Runway Weight Adjustment: 0.25 (Indicates a Short Runway)\n\n**Agent Analysis:**\n\n* **Startup Name:** Nikola Motor\n* **Analysis:** Contextual validation required for DeepTech/Institutional signals. Historical facts indicate Nikola Motor's excessive technical promises, lack of tangible technical moat, and unverified engineering claims.\n* **Recommended Prior Adjustment:** -0.5 (Indicates a Negative Prior)\n* **Critical Findings:** None\n* **Is Fatal:** True (Indicates a Fatal Flaw)\n\n**Conclusion:**\n\nBased on the analysis, we conclude that Nikola Motor is a high-risk investment opportunity. The low probability of success (14."
+}

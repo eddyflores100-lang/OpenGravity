@@ -1,0 +1,1204 @@
+[
+  {
+    "name": "SpaceX (2008)",
+    "sector": "DeepTech",
+    "prob": 0.13675794470809363,
+    "status": "DROP"
+  },
+  {
+    "name": "Anduril (2018)",
+    "sector": "DeepTech",
+    "prob": 0.6949442669022836,
+    "status": "WINNER"
+  },
+  {
+    "name": "Rivian (early)",
+    "sector": "Hardware",
+    "prob": 0.9510539727132462,
+    "status": "WINNER"
+  },
+  {
+    "name": "Mailchimp (2010)",
+    "sector": "Cockroach",
+    "prob": 0.9995860950191562,
+    "status": "WINNER"
+  },
+  {
+    "name": "Zapier (2012)",
+    "sector": "Cockroach",
+    "prob": 0.999999296081788,
+    "status": "WINNER"
+  },
+  {
+    "name": "Theranos (2014)",
+    "prob": 0.01,
+    "status": "DROP (Red Team Override)",
+    "reason": "Red Team Scan: CourtListener found lawsuits. Glassdoor reports 80% turnover. Product is fake.",
+    "sector": "HealthTech"
+  },
+  {
+    "name": "FTX (2021)",
+    "prob": 0.01,
+    "status": "DROP (Red Team Override)",
+    "reason": "Red Team Scan: Zero internal control. Auditor is MHA (tiny firm).",
+    "sector": "Crypto"
+  },
+  {
+    "name": "Startup_CJS_0",
+    "sector": "DeepTech",
+    "prob": 0.9999607137655776,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_1",
+    "sector": "Cockroach",
+    "prob": 0.9998344638060276,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_2",
+    "sector": "B2B SaaS",
+    "prob": 0.9999998063938835,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_3",
+    "sector": "B2B SaaS",
+    "prob": 0.9999997902291002,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_4",
+    "sector": "DeepTech",
+    "prob": 0.8325192599524003,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_5",
+    "sector": "Cockroach",
+    "prob": 0.9977795681356272,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_6",
+    "sector": "B2B SaaS",
+    "prob": 0.9998913022001651,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_7",
+    "sector": "B2B SaaS",
+    "prob": 0.99999997153002,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_8",
+    "sector": "DeepTech",
+    "prob": 0.9999867948609723,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_9",
+    "sector": "Cockroach",
+    "prob": 0.999663788615433,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_10",
+    "sector": "B2B SaaS",
+    "prob": 0.9900430585551601,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_11",
+    "sector": "B2B SaaS",
+    "prob": 0.9999503677245102,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_12",
+    "sector": "DeepTech",
+    "prob": 0.9976999567231059,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_13",
+    "sector": "Cockroach",
+    "prob": 0.9999146055749315,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_14",
+    "sector": "B2B SaaS",
+    "prob": 0.999846676950383,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_15",
+    "sector": "B2B SaaS",
+    "prob": 0.9809319972046918,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_16",
+    "sector": "DeepTech",
+    "prob": 0.9999999539330912,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_17",
+    "sector": "Cockroach",
+    "prob": 0.9999769940076536,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_18",
+    "sector": "B2B SaaS",
+    "prob": 0.9443436476261108,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_19",
+    "sector": "B2B SaaS",
+    "prob": 0.9861658846255559,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_20",
+    "sector": "DeepTech",
+    "prob": 0.9999999306466899,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_21",
+    "sector": "Cockroach",
+    "prob": 0.9998969391385312,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_22",
+    "sector": "B2B SaaS",
+    "prob": 0.9997009215681552,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_23",
+    "sector": "B2B SaaS",
+    "prob": 0.8086025939093348,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_24",
+    "sector": "DeepTech",
+    "prob": 0.9999879111435506,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_25",
+    "sector": "Cockroach",
+    "prob": 0.9999902859191279,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_26",
+    "sector": "B2B SaaS",
+    "prob": 0.9999992594259817,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_27",
+    "sector": "B2B SaaS",
+    "prob": 0.9989633785475095,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_28",
+    "sector": "DeepTech",
+    "prob": 0.9999789000698579,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_29",
+    "sector": "Cockroach",
+    "prob": 0.9841851455724387,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_30",
+    "sector": "B2B SaaS",
+    "prob": 0.9992904863724608,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_31",
+    "sector": "B2B SaaS",
+    "prob": 0.9051696404579743,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_32",
+    "sector": "DeepTech",
+    "prob": 0.9263763974125964,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_33",
+    "sector": "Cockroach",
+    "prob": 0.997805819429678,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_34",
+    "sector": "B2B SaaS",
+    "prob": 0.9895447555279107,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_35",
+    "sector": "B2B SaaS",
+    "prob": 0.7858474524793997,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_36",
+    "sector": "DeepTech",
+    "prob": 0.9999997988215791,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_37",
+    "sector": "Cockroach",
+    "prob": 0.8433897104909267,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_38",
+    "sector": "B2B SaaS",
+    "prob": 0.0631360437035755,
+    "status": "DROP"
+  },
+  {
+    "name": "Startup_CJS_39",
+    "sector": "B2B SaaS",
+    "prob": 0.9999426361573751,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_40",
+    "sector": "DeepTech",
+    "prob": 0.9999998642922889,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_41",
+    "sector": "Cockroach",
+    "prob": 0.999679058405643,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_42",
+    "sector": "B2B SaaS",
+    "prob": 0.5221428073383254,
+    "status": "REVIEW"
+  },
+  {
+    "name": "Startup_CJS_43",
+    "sector": "B2B SaaS",
+    "prob": 0.9994975039503564,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_44",
+    "sector": "DeepTech",
+    "prob": 0.3374559159992163,
+    "status": "REVIEW"
+  },
+  {
+    "name": "Startup_CJS_45",
+    "sector": "Cockroach",
+    "prob": 0.999995441228916,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_46",
+    "sector": "B2B SaaS",
+    "prob": 0.9674393909978487,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_47",
+    "sector": "B2B SaaS",
+    "prob": 0.9982656126054873,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_48",
+    "sector": "DeepTech",
+    "prob": 0.9010070799922618,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_49",
+    "sector": "Cockroach",
+    "prob": 0.9136924435691384,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_50",
+    "sector": "B2B SaaS",
+    "prob": 0.9956449364986524,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_51",
+    "sector": "B2B SaaS",
+    "prob": 0.9996591554073642,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_52",
+    "sector": "DeepTech",
+    "prob": 0.9998410552962421,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_53",
+    "sector": "Cockroach",
+    "prob": 0.9991785499541292,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_54",
+    "sector": "B2B SaaS",
+    "prob": 0.966877234964865,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_55",
+    "sector": "B2B SaaS",
+    "prob": 0.9759578029593545,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_56",
+    "sector": "DeepTech",
+    "prob": 0.9994837706522037,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_57",
+    "sector": "Cockroach",
+    "prob": 0.9977803647343243,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_58",
+    "sector": "B2B SaaS",
+    "prob": 0.9322256521985975,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_59",
+    "sector": "B2B SaaS",
+    "prob": 0.9999999329805711,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_60",
+    "sector": "DeepTech",
+    "prob": 0.9850569281966811,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_61",
+    "sector": "Cockroach",
+    "prob": 0.9999999543932135,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_62",
+    "sector": "B2B SaaS",
+    "prob": 0.9873205058302851,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_63",
+    "sector": "B2B SaaS",
+    "prob": 0.9994036395144207,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_64",
+    "sector": "DeepTech",
+    "prob": 0.9999972903354748,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_65",
+    "sector": "Cockroach",
+    "prob": 0.8424303560657384,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_66",
+    "sector": "B2B SaaS",
+    "prob": 0.9958018660678191,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_67",
+    "sector": "B2B SaaS",
+    "prob": 0.9999999179705369,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_68",
+    "sector": "DeepTech",
+    "prob": 0.7923676714790827,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_69",
+    "sector": "Cockroach",
+    "prob": 0.9969540976466109,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_70",
+    "sector": "B2B SaaS",
+    "prob": 0.9971949325311359,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_71",
+    "sector": "B2B SaaS",
+    "prob": 0.9999983843001757,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_72",
+    "sector": "DeepTech",
+    "prob": 0.9561848873235027,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_73",
+    "sector": "Cockroach",
+    "prob": 0.9239170275885067,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_74",
+    "sector": "B2B SaaS",
+    "prob": 0.9039908499809045,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_75",
+    "sector": "B2B SaaS",
+    "prob": 0.7617083692774596,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_76",
+    "sector": "DeepTech",
+    "prob": 0.7975382287641396,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_77",
+    "sector": "Cockroach",
+    "prob": 0.9999948678289828,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_78",
+    "sector": "B2B SaaS",
+    "prob": 0.9999941092077832,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_79",
+    "sector": "B2B SaaS",
+    "prob": 0.34885620431443226,
+    "status": "REVIEW"
+  },
+  {
+    "name": "Startup_CJS_80",
+    "sector": "DeepTech",
+    "prob": 0.9062989455759132,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_81",
+    "sector": "Cockroach",
+    "prob": 0.9912867601964815,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_82",
+    "sector": "B2B SaaS",
+    "prob": 0.9649504384935157,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_83",
+    "sector": "B2B SaaS",
+    "prob": 0.999927060599292,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_84",
+    "sector": "DeepTech",
+    "prob": 0.9798963034997785,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_85",
+    "sector": "Cockroach",
+    "prob": 0.9401393723873016,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_86",
+    "sector": "B2B SaaS",
+    "prob": 0.9996441587556162,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_87",
+    "sector": "B2B SaaS",
+    "prob": 0.9999178846870277,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_88",
+    "sector": "DeepTech",
+    "prob": 0.9999994346696565,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_89",
+    "sector": "Cockroach",
+    "prob": 0.9186116639921922,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_90",
+    "sector": "B2B SaaS",
+    "prob": 0.4659470555439967,
+    "status": "REVIEW"
+  },
+  {
+    "name": "Startup_CJS_91",
+    "sector": "B2B SaaS",
+    "prob": 0.6328215687567452,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_92",
+    "sector": "DeepTech",
+    "prob": 0.5991975655841608,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_93",
+    "sector": "Cockroach",
+    "prob": 0.9926491499033808,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_94",
+    "sector": "B2B SaaS",
+    "prob": 0.9998626616761714,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_95",
+    "sector": "B2B SaaS",
+    "prob": 0.38996922050024346,
+    "status": "REVIEW"
+  },
+  {
+    "name": "Startup_CJS_96",
+    "sector": "DeepTech",
+    "prob": 0.7767837080561236,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_97",
+    "sector": "Cockroach",
+    "prob": 0.9999675953735523,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_98",
+    "sector": "B2B SaaS",
+    "prob": 0.9999982682192675,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_99",
+    "sector": "B2B SaaS",
+    "prob": 0.8683094034641607,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_100",
+    "sector": "DeepTech",
+    "prob": 0.9999995049412143,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_101",
+    "sector": "Cockroach",
+    "prob": 0.9437197958964755,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_102",
+    "sector": "B2B SaaS",
+    "prob": 0.9999971043919483,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_103",
+    "sector": "B2B SaaS",
+    "prob": 0.3239068309002493,
+    "status": "REVIEW"
+  },
+  {
+    "name": "Startup_CJS_104",
+    "sector": "DeepTech",
+    "prob": 0.9433447565408454,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_105",
+    "sector": "Cockroach",
+    "prob": 0.998590905988056,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_106",
+    "sector": "B2B SaaS",
+    "prob": 0.9283473217289124,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_107",
+    "sector": "B2B SaaS",
+    "prob": 0.999999101067237,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_108",
+    "sector": "DeepTech",
+    "prob": 0.9999462252868206,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_109",
+    "sector": "Cockroach",
+    "prob": 0.9997952093486838,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_110",
+    "sector": "B2B SaaS",
+    "prob": 0.9984647569792888,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_111",
+    "sector": "B2B SaaS",
+    "prob": 0.9652137219649783,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_112",
+    "sector": "DeepTech",
+    "prob": 0.2981221363096213,
+    "status": "REVIEW"
+  },
+  {
+    "name": "Startup_CJS_113",
+    "sector": "Cockroach",
+    "prob": 0.9943089109714927,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_114",
+    "sector": "B2B SaaS",
+    "prob": 0.9943182173093176,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_115",
+    "sector": "B2B SaaS",
+    "prob": 0.9972937432264396,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_116",
+    "sector": "DeepTech",
+    "prob": 0.9937746819754085,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_117",
+    "sector": "Cockroach",
+    "prob": 0.9999643403092423,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_118",
+    "sector": "B2B SaaS",
+    "prob": 0.9991405384285442,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_119",
+    "sector": "B2B SaaS",
+    "prob": 0.9563546527582111,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_120",
+    "sector": "DeepTech",
+    "prob": 0.9999995081671816,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_121",
+    "sector": "Cockroach",
+    "prob": 0.9971758784364093,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_122",
+    "sector": "B2B SaaS",
+    "prob": 0.9606575425705165,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_123",
+    "sector": "B2B SaaS",
+    "prob": 0.9981984821764307,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_124",
+    "sector": "DeepTech",
+    "prob": 0.2802786179130241,
+    "status": "REVIEW"
+  },
+  {
+    "name": "Startup_CJS_125",
+    "sector": "Cockroach",
+    "prob": 0.9390127656173004,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_126",
+    "sector": "B2B SaaS",
+    "prob": 0.9999166523308222,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_127",
+    "sector": "B2B SaaS",
+    "prob": 0.9999973316660759,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_128",
+    "sector": "DeepTech",
+    "prob": 0.9999830169391597,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_129",
+    "sector": "Cockroach",
+    "prob": 0.9492225762362089,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_130",
+    "sector": "B2B SaaS",
+    "prob": 0.7344171862833947,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_131",
+    "sector": "B2B SaaS",
+    "prob": 0.7498476105586708,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_132",
+    "sector": "DeepTech",
+    "prob": 0.5437682336876911,
+    "status": "REVIEW"
+  },
+  {
+    "name": "Startup_CJS_133",
+    "sector": "Cockroach",
+    "prob": 0.5980472754884237,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_134",
+    "sector": "B2B SaaS",
+    "prob": 0.9954462432755118,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_135",
+    "sector": "B2B SaaS",
+    "prob": 0.9999997889474713,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_136",
+    "sector": "DeepTech",
+    "prob": 0.9788838453373813,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_137",
+    "sector": "Cockroach",
+    "prob": 0.999330619357302,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_138",
+    "sector": "B2B SaaS",
+    "prob": 0.9997273392412293,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_139",
+    "sector": "B2B SaaS",
+    "prob": 0.9998881639779049,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_140",
+    "sector": "DeepTech",
+    "prob": 0.9999545175823047,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_141",
+    "sector": "Cockroach",
+    "prob": 0.8512438317325424,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_142",
+    "sector": "B2B SaaS",
+    "prob": 0.9999991661842407,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_143",
+    "sector": "B2B SaaS",
+    "prob": 0.9651274587634495,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_144",
+    "sector": "DeepTech",
+    "prob": 0.9999998864668809,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_145",
+    "sector": "Cockroach",
+    "prob": 0.9999763596987105,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_146",
+    "sector": "B2B SaaS",
+    "prob": 0.9999971314207177,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_147",
+    "sector": "B2B SaaS",
+    "prob": 0.9889410891265517,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_148",
+    "sector": "DeepTech",
+    "prob": 0.974775545931092,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_149",
+    "sector": "Cockroach",
+    "prob": 0.996971374690071,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_150",
+    "sector": "B2B SaaS",
+    "prob": 0.9933692664588225,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_151",
+    "sector": "B2B SaaS",
+    "prob": 0.9861313777919699,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_152",
+    "sector": "DeepTech",
+    "prob": 0.7980573418981196,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_153",
+    "sector": "Cockroach",
+    "prob": 0.9991871792917448,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_154",
+    "sector": "B2B SaaS",
+    "prob": 0.8990318772438949,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_155",
+    "sector": "B2B SaaS",
+    "prob": 0.9999908087109323,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_156",
+    "sector": "DeepTech",
+    "prob": 0.8804456459343052,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_157",
+    "sector": "Cockroach",
+    "prob": 0.9999810212142107,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_158",
+    "sector": "B2B SaaS",
+    "prob": 0.9996328199831969,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_159",
+    "sector": "B2B SaaS",
+    "prob": 0.3061121372154758,
+    "status": "REVIEW"
+  },
+  {
+    "name": "Startup_CJS_160",
+    "sector": "DeepTech",
+    "prob": 0.9998439074237113,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_161",
+    "sector": "Cockroach",
+    "prob": 0.9997953343877005,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_162",
+    "sector": "B2B SaaS",
+    "prob": 0.9497661184174049,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_163",
+    "sector": "B2B SaaS",
+    "prob": 0.999999991601075,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_164",
+    "sector": "DeepTech",
+    "prob": 0.999131845946819,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_165",
+    "sector": "Cockroach",
+    "prob": 0.9996359802915238,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_166",
+    "sector": "B2B SaaS",
+    "prob": 0.9999999957158321,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_167",
+    "sector": "B2B SaaS",
+    "prob": 0.9290662745264592,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_168",
+    "sector": "DeepTech",
+    "prob": 0.9999883814360807,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_169",
+    "sector": "Cockroach",
+    "prob": 0.9702615064551685,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_170",
+    "sector": "B2B SaaS",
+    "prob": 0.25629804665711226,
+    "status": "REVIEW"
+  },
+  {
+    "name": "Startup_CJS_171",
+    "sector": "B2B SaaS",
+    "prob": 0.8595497045326668,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_172",
+    "sector": "DeepTech",
+    "prob": 0.8330168527305043,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_173",
+    "sector": "Cockroach",
+    "prob": 0.9999999891653947,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_174",
+    "sector": "B2B SaaS",
+    "prob": 0.9945380360020031,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_175",
+    "sector": "B2B SaaS",
+    "prob": 0.9956995636724584,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_176",
+    "sector": "DeepTech",
+    "prob": 0.9907218209273945,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_177",
+    "sector": "Cockroach",
+    "prob": 0.9999389615713338,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_178",
+    "sector": "B2B SaaS",
+    "prob": 0.982749172095813,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_179",
+    "sector": "B2B SaaS",
+    "prob": 0.8496320115697834,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_180",
+    "sector": "DeepTech",
+    "prob": 0.99997148813553,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_181",
+    "sector": "Cockroach",
+    "prob": 0.5669497340877665,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_182",
+    "sector": "B2B SaaS",
+    "prob": 0.9963067167505645,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_183",
+    "sector": "B2B SaaS",
+    "prob": 0.8502534091927667,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_184",
+    "sector": "DeepTech",
+    "prob": 0.9965465259419263,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_185",
+    "sector": "Cockroach",
+    "prob": 0.9728088066702953,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_186",
+    "sector": "B2B SaaS",
+    "prob": 0.9999999021088721,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_187",
+    "sector": "B2B SaaS",
+    "prob": 0.9394518423206056,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_188",
+    "sector": "DeepTech",
+    "prob": 0.8033498616386441,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_189",
+    "sector": "Cockroach",
+    "prob": 0.9999851090886759,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_190",
+    "sector": "B2B SaaS",
+    "prob": 0.9994961683319374,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_191",
+    "sector": "B2B SaaS",
+    "prob": 0.9999271416202014,
+    "status": "WINNER"
+  },
+  {
+    "name": "Startup_CJS_192",
+    "sector": "DeepTech",
+    "prob": 0.9999917735452218,
+    "status": "WINNER"
+  }
+]

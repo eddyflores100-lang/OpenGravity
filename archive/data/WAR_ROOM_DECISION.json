@@ -1,0 +1,26 @@
+{
+  "transcript_summary": "A cohesive transcript showcasing the panel discussion on the AUDIT DATA of various startups.",
+  "final_allocations": [
+    {
+      "startup_name": "SpaceX",
+      "allocation_pct": 15.0,
+      "rationale": "SpaceX has a high moat rating and collaboration with NASA, making it a prime candidate for growth. However, THE BEAR argues for a zero allocation citing risks in the contract with NASA and competition."
+    },
+    {
+      "startup_name": "Zoho",
+      "allocation_pct": 20.0,
+      "rationale": "Zoho demonstrates a strong financial position and market traction, warranting a maximum allocation."
+    },
+    {
+      "startup_name": "Rivian",
+      "allocation_pct": 13.0,
+      "rationale": "Rivian has growth potential, but THE BEAR cautions against manufacturing issues and reliance on Amazon."
+    },
+    {
+      "startup_name": "Deel",
+      "allocation_pct": 16.0,
+      "rationale": "Deel has a high growth engine and sound management."
+    }
+  ],
+  "system_liquidity_reserve": 33300000.0
+}

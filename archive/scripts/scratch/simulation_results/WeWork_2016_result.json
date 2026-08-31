@@ -1,0 +1,164 @@
+{
+  "success": true,
+  "jobId": "05545203-b22c-4eed-bded-bf502828fdc7",
+  "status": "completed",
+  "quantPayload": {
+    "jobId": "05545203-b22c-4eed-bded-bf502828fdc7",
+    "iterationsRun": 1000,
+    "ltv": {
+      "p10": 9231,
+      "p50": 9390,
+      "p90": 9549
+    },
+    "cac": {
+      "p10": 696,
+      "p50": 700,
+      "p90": 705
+    },
+    "drawdown": {
+      "p10": 600030381,
+      "p50": 600031488,
+      "p90": 600032480
+    },
+    "bankruptcyRate": 1,
+    "breakEvenMonth": 24,
+    "trustScore": 0.61,
+    "emergentInsights": [
+      "Elasticidad detectada: -1.8",
+      "Poder adquisitivo promedio: $469.5",
+      "Ratio LTV/CAC (Mediana): 13.41x"
+    ]
+  },
+  "narrativePayload": {
+    "summaryTitle": "Space-as-a-Service: Modelo con Ratio LTV/CAC Excelente pero Bancarrota Garantizada",
+    "viabilityScore": 15,
+    "marketVerdict": "INVIABLE",
+    "executiveSummary": "El modelo Space-as-a-Service presenta un ratio LTV/CAC de 13.41x que sugiere rentabilidad por cliente, pero la simulación Monte Carlo muestra una tasa de bancarrota del 100% debido a costos fijos extremadamente altos y apalancamiento operativo descontrolado. La expansión internacional rápida agrava el riesgo de quiebra al multiplicar la exposición a costos fijos sin garantía de ingresos estables. El mes de break-even en el percentil 50 es 24, pero el drawdown máximo del P90 supera los $600 millones, indicando una necesidad de capital insostenible.",
+    "ceoFinalVerdict": "El modelo es matemáticamente inviable: un ratio LTV/CAC de 13.41x es engañoso porque ignora los costos fijos masivos de leasing y renovación que garantizan la bancarrota. La expansión internacional rápida es un suicidio financiero; cada nuevo mercado replica el mismo apalancamiento operativo que ya está quebrando el negocio. Sin un replanteamiento radical de la estructura de costos, esto es un hoyo negro de capital.",
+    "bullCase": "El ratio LTV/CAC de 13.41x es excepcional y demuestra que cada cliente genera valor a largo plazo; la demanda por espacios de coworking flexibles está creciendo globalmente. Convertir edificios Clase B en espacios modernos captura un mercado de nicho que evita las rentas premium de Clase A, ofreciendo una propuesta de valor única. La expansión internacional permite dominar rápidamente un mercado fragmentado y construir una marca global.",
+    "bearCase": "La tasa de bancarrota del 100% no es una advertencia, es una sentencia: los costos fijos de leasing a largo plazo y renovaciones son una soga al cuello que se aprieta con cada nueva ubicación. Un cambio regulatorio en zonificación comercial o un colapso del mercado inmobiliario dejaría el negocio con activos varados y obligaciones impagables. Competidores como WeWork ya demostraron que este modelo quema capital a velocidades astronómicas sin camino a la rentabilidad.",
+    "auditActionPlan": [
+      "Congelar inmediatamente toda expansión internacional para reducir exposición a costos fijos",
+      "Reestructurar contratos de leasing a términos más cortos o con cláusulas de salida para mitigar riesgo de vacancia",
+      "Implementar un modelo híbrido que combine espacios propios con acuerdos de revenue-sharing con propietarios para reducir apalancamiento operativo"
+    ],
+    "riskAnalysis": [
+      {
+        "factor": "Apalancamiento Operativo y Costos Fijos",
+        "level": "CRITICAL",
+        "mitigation": "Diversificar modelo hacia acuerdos de gestión sin ownership de activos para convertir costos fijos en variables"
+      },
+      {
+        "factor": "Expansión Internacional Rápida",
+        "level": "CRITICAL",
+        "mitigation": "Pivotar a crecimiento orgánico en mercados maduros con validación de demanda antes de escalar"
+      }
+    ],
+    "agentCouncilLog": {
+      "debateLogs": [
+        {
+          "agent": "The Auditor",
+          "argument": "Tasa de bancarrota del 100% en Monte Carlo es innegable; el P10 muestra quiebra inmediata por costos fijos insostenibles. Ignorar esto es negligencia financiera.",
+          "intensity": 10
+        },
+        {
+          "agent": "The Venture Bull",
+          "argument": "¡Ratio LTV/CAC de 13.41x es una máquina de imprimir dinero! Los costos fijos son triviales frente al dominio de mercado global; escalar rápido captura el mercado antes que los competidores.",
+          "intensity": 9
+        },
+        {
+          "agent": "The Black Swan Bear",
+          "argument": "WeWork 2.0: los mismos costos fijos altos, misma expansión agresiva, mismo final. Un colapso económico o cambio regulatorio matará el negocio overnight.",
+          "intensity": 8
+        },
+        {
+          "agent": "The Moat Strategist",
+          "argument": "El 'foso' es ilusorio: renovar edificios Clase B es fácilmente replicable por cualquier actor con capital. El bajo churn es por fricción, no lealtad; los usuarios saltarán a opciones más baratas.",
+          "intensity": 7
+        }
+      ],
+      "theAuditorVerdict": "INVIABLE. Los números no mienten: bancarrota garantizada del 100%. Cualquier inversión en este modelo es equivalente a prender fuego al dinero. Se requiere un pivot total o abandono inmediato."
+    },
+    "quantPayload": {
+      "jobId": "05545203-b22c-4eed-bded-bf502828fdc7",
+      "iterationsRun": 1000,
+      "ltv": {
+        "p10": 9231,
+        "p50": 9390,
+        "p90": 9549
+      },
+      "cac": {
+        "p10": 696,
+        "p50": 700,
+        "p90": 705
+      },
+      "drawdown": {
+        "p10": 600030381,
+        "p50": 600031488,
+        "p90": 600032480
+      },
+      "bankruptcyRate": 1,
+      "breakEvenMonth": 24,
+      "trustScore": 0.61,
+      "emergentInsights": [
+        "Elasticidad detectada: -1.8",
+        "Poder adquisitivo promedio: $469.5",
+        "Ratio LTV/CAC (Mediana): 13.41x"
+      ]
+    },
+    "projections": [
+      {
+        "month": 1,
+        "revenue": 209300,
+        "opex": 40315000,
+        "cashBalance": 575936580,
+        "probabilityOfSurvival": 0
+      },
+      {
+        "month": 3,
+        "revenue": 327250,
+        "opex": 40129500,
+        "cashBalance": 528355950,
+        "probabilityOfSurvival": 0
+      },
+      {
+        "month": 6,
+        "revenue": 595700,
+        "opex": 40245000,
+        "cashBalance": 457262520,
+        "probabilityOfSurvival": 0
+      },
+      {
+        "month": 12,
+        "revenue": 1221150,
+        "opex": 40356000,
+        "cashBalance": 318229080,
+        "probabilityOfSurvival": 0
+      },
+      {
+        "month": 18,
+        "revenue": 1274700,
+        "opex": 40129500,
+        "cashBalance": 180368160,
+        "probabilityOfSurvival": 0
+      },
+      {
+        "month": 24,
+        "revenue": 1006950,
+        "opex": 40025500,
+        "cashBalance": 38132880,
+        "probabilityOfSurvival": 0
+      }
+    ],
+    "synthesizerMetadata": {
+      "processedAt": "2026-04-12T00:26:07.195Z",
+      "isFallback": false,
+      "confidenceLevel": 0.61
+    },
+    "_pipelineMetrics": {
+      "researchFallback": false,
+      "personaFallback": false,
+      "simulationFallback": false
+    }
+  }
+}

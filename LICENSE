@@ -1,0 +1,74 @@
+AliceLabs Proprietary Software License
+Version 1.0 — August 2026
+
+Copyright (c) 2026 AliceLabs LLC. All Rights Reserved.
+
+1. DEFINITIONS
+   "Software" means OpenGravity and all of its source code, models,
+   calibration datasets, documentation and associated assets licensed
+   under this Agreement.
+   "You" means any individual or entity that obtains a copy of the
+   Software.
+
+2. OWNERSHIP
+   The Software is licensed, not sold. AliceLabs LLC retains all right,
+   title and interest in and to the Software, including all intellectual
+   property rights. No ownership rights are transferred under this
+   License.
+
+3. GRANT OF EVALUATION LICENSE
+   Subject to the terms below, AliceLabs grants You a limited,
+   revocable, non-exclusive, non-transferable license to:
+   a) view and review the source code of the Software;
+   b) run the Software internally for non-commercial evaluation,
+      research and educational purposes.
+
+4. RESTRICTIONS
+   You may NOT, without a separate signed commercial agreement with
+   AliceLabs LLC:
+   a) use the Software, in whole or in part, for any commercial purpose,
+      including offering it as a service, embedding it in a product, or
+      using its output to operate or advise an investment vehicle;
+   b) redistribute, sublicense, sell, lease or publish the Software or
+      any modified version of it;
+   c) remove, obscure or alter any copyright, trademark or license
+      notices;
+   d) use the Software to train competing models or to reverse
+      engineer calibration datasets;
+   e) circumvent any technical restrictions in the Software.
+
+5. CONTRIBUTIONS
+   Any contribution (code, documentation, ideas) submitted by You to the
+   project becomes the exclusive property of AliceLabs LLC. By
+   submitting a contribution You assign all rights in it to AliceLabs
+   LLC and confirm You are entitled to do so.
+
+6. FEEDBACK
+   Any feedback, suggestions or bug reports You provide may be used by
+   AliceLabs without restriction or compensation.
+
+7. NO WARRANTY
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+   EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+   MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+   NONINFRINGEMENT.
+
+8. LIMITATION OF LIABILITY
+   IN NO EVENT SHALL ALICELABS LLC BE LIABLE FOR ANY CLAIM, DAMAGES OR
+   OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+   ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR ITS USE.
+   THE SOFTWARE IS A DECISION-SUPPORT TOOL AND IS NOT INVESTMENT,
+   LEGAL OR FINANCIAL ADVICE.
+
+9. TERMINATION
+   This License terminates automatically upon any breach. Upon
+   termination You must delete all copies of the Software in Your
+   possession.
+
+10. COMMERCIAL LICENSING
+   For commercial use, white-label deployments, API access, OEM or
+   investment-industry licensing, contact AliceLabs LLC via
+   https://github.com/alicelabsllc
+
+© 2026 AliceLabs LLC. OpenGravity™ and the AliceLabs name are marks of
+AliceLabs LLC. All rights reserved.

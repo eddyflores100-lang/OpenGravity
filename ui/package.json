@@ -1,0 +1,27 @@
+{
+  "name": "opengravity-ui",
+  "version": "10.5.0",
+  "private": true,
+  "author": "AliceLabs LLC",
+  "license": "SEE LICENSE IN LICENSE",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.27",
+    "axios": "^1.13.6",
+    "lucide-react": "^0.577.0",
+    "next": "^16.1.6",
+    "postcss": "^8.5.8",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "tailwindcss": "^4.2.1"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.14",
+    "typescript": "6.0.2"
+  }
+}

@@ -1,0 +1,10 @@
+node_modules
+npm-debug.log
+.git
+.vercel
+dist
+.env
+leads_output
+memory.db
+open-gravity-ui/node_modules
+open-gravity-ui/.next

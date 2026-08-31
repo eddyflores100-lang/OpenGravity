@@ -1,0 +1,3912 @@
+{
+  "yc": {
+    "total": 5690,
+    "status_breakdown": {
+      "Active": 3930,
+      "Acquired": 732,
+      "Inactive": 1005,
+      "Public": 23
+    },
+    "dead_count": 1005,
+    "acquired_count": 732,
+    "public_count": 23,
+    "dead_companies": [
+      {
+        "name": "WireOver",
+        "batch": "Winter 2012",
+        "tags": [
+          "Security",
+          "Enterprise"
+        ],
+        "team_size": 2,
+        "one_liner": "Really secure file sending for big files."
+      },
+      {
+        "name": "The Muse",
+        "batch": "Winter 2012",
+        "tags": [
+          "Marketplace",
+          "SaaS",
+          "Recruiting"
+        ],
+        "team_size": 60,
+        "one_liner": "The Muse is values-based job search & hiring for 7M+ monthly"
+      },
+      {
+        "name": "Hipmob",
+        "batch": "Winter 2012",
+        "tags": [
+          "Customer Service"
+        ],
+        "team_size": 2,
+        "one_liner": "Customer communication for iOS and Android developers - an in-app…"
+      },
+      {
+        "name": "Couple",
+        "batch": "Winter 2012",
+        "tags": [
+          "Messaging",
+          "Dating",
+          "Social"
+        ],
+        "team_size": 2,
+        "one_liner": "App that connects two phones and creates a private\r\ntimeline to share…"
+      },
+      {
+        "name": "Tap to Learn",
+        "batch": "Winter 2012",
+        "tags": [
+          "Education",
+          "Gaming"
+        ],
+        "team_size": 11,
+        "one_liner": "Games For Education"
+      },
+      {
+        "name": "Optilly/Installmonetizer",
+        "batch": "Winter 2012",
+        "tags": [
+          "Marketing"
+        ],
+        "team_size": 11,
+        "one_liner": "Fb ad optimization platform "
+      },
+      {
+        "name": "BookSolid",
+        "batch": "Winter 2012",
+        "tags": [
+          "Marketplace",
+          "Travel"
+        ],
+        "team_size": 0,
+        "one_liner": "BookSolid is the opentable for tour operators."
+      },
+      {
+        "name": "Marft",
+        "batch": "Winter 2012",
+        "tags": [
+          "Developer Tools",
+          "Machine Learning"
+        ],
+        "team_size": 3,
+        "one_liner": "Marft creates embeddable machine learning models for application…"
+      },
+      {
+        "name": "Minefold",
+        "batch": "Winter 2012",
+        "tags": [
+          "Gaming"
+        ],
+        "team_size": 2,
+        "one_liner": "Simple multiplayer game servers."
+      },
+      {
+        "name": "Zipio",
+        "batch": "Winter 2012",
+        "tags": [
+          "Marketplace"
+        ],
+        "team_size": 0,
+        "one_liner": "Deal search service"
+      },
+      {
+        "name": "Make School",
+        "batch": "Winter 2012",
+        "tags": [
+          "Education",
+          "Coding Bootcamps"
+        ],
+        "team_size": 45,
+        "one_liner": "Make School is redesigning college for the 21st century. Students…"
+      },
+      {
+        "name": "Pixelapse",
+        "batch": "Winter 2012",
+        "tags": [
+          "Design",
+          "Collaboration"
+        ],
+        "team_size": 0,
+        "one_liner": "Github for designers. We automatically keep track of revisions of…"
+      },
+      {
+        "name": "Talkray (TiKL)",
+        "batch": "Winter 2012",
+        "tags": [
+          "Messaging"
+        ],
+        "team_size": 2,
+        "one_liner": "Instantly talk or text to one or a group of friends at once with the…"
+      },
+      {
+        "name": "Zillabyte",
+        "batch": "Winter 2012",
+        "tags": [
+          "Analytics",
+          "Sales"
+        ],
+        "team_size": 2,
+        "one_liner": "Palantir for sales people"
+      },
+      {
+        "name": "Grouper",
+        "batch": "Winter 2012",
+        "tags": [
+          "Dating",
+          "Social"
+        ],
+        "team_size": 11,
+        "one_liner": "We set up drinks between 2 groups of friends: 3 guys and 3 girls."
+      },
+      {
+        "name": "LendUp",
+        "batch": "Winter 2012",
+        "tags": [
+          "Fintech",
+          "Lending"
+        ],
+        "team_size": 201,
+        "one_liner": "LendUp is a socially responsible company on a mission to redefine…"
+      },
+      {
+        "name": "Brace",
+        "batch": "Winter 2012",
+        "tags": [
+          "No-code",
+          "Web Development"
+        ],
+        "team_size": 0,
+        "one_liner": "Backlift allows front-end only developers to build entire websites…"
+      },
+      {
+        "name": "LVL6",
+        "batch": "Winter 2012",
+        "tags": [
+          "Gaming"
+        ],
+        "team_size": 2,
+        "one_liner": "We make mobile MMOs. "
+      },
+      {
+        "name": "BarSense",
+        "batch": "Winter 2012",
+        "tags": [
+          "Kids"
+        ],
+        "team_size": 0,
+        "one_liner": "Kid's first smartphone with web-based parental controls."
+      },
+      {
+        "name": "99dresses",
+        "batch": "Winter 2012",
+        "tags": [
+          "Women's Health",
+          "Fashion"
+        ],
+        "team_size": 2,
+        "one_liner": "We're creating every women's fantasy by combining the unwanted…"
+      },
+      {
+        "name": "Documents.Me",
+        "batch": "Winter 2012",
+        "tags": [
+          "Security",
+          "Privacy"
+        ],
+        "team_size": 0,
+        "one_liner": "Client-side encryption for your devices and the cloud."
+      },
+      {
+        "name": "Ark",
+        "batch": "Winter 2012",
+        "tags": [
+          "Media",
+          "Social"
+        ],
+        "team_size": 11,
+        "one_liner": "Ark organizes the world's social information. "
+      },
+      {
+        "name": "SolidStage",
+        "batch": "Winter 2012",
+        "tags": [
+          "DevOps"
+        ],
+        "team_size": 0,
+        "one_liner": "Sysadmin as a service. We make deploying, configuring, monitoring,…"
+      },
+      {
+        "name": "Glider",
+        "batch": "Winter 2012",
+        "tags": [
+          "Productivity",
+          "Email"
+        ],
+        "team_size": 2,
+        "one_liner": "We filter distracting emails away from your inbox."
+      },
+      {
+        "name": "Carsabi",
+        "batch": "Winter 2012",
+        "tags": [
+          "Automotive"
+        ],
+        "team_size": 2,
+        "one_liner": "Carsabi is the search engine for used cars"
+      },
+      {
+        "name": "GiveSpark",
+        "batch": "Winter 2012",
+        "tags": [
+          "Nonprofit",
+          "Fundraising"
+        ],
+        "team_size": 1,
+        "one_liner": "Givespark was a celebrity charity fundraising platform"
+      },
+      {
+        "name": "Picplum",
+        "batch": "Summer 2011",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Zigfu",
+        "batch": "Summer 2011",
+        "tags": [
+          "Augmented Reality"
+        ],
+        "team_size": 2,
+        "one_liner": "Layer above Kinect."
+      },
+      {
+        "name": "PayDragon",
+        "batch": "Summer 2011",
+        "tags": [],
+        "team_size": 11,
+        "one_liner": "Hyperlinking the real world."
+      },
+      {
+        "name": "Proxino",
+        "batch": "Summer 2011",
+        "tags": [
+          "Developer Tools"
+        ],
+        "team_size": null,
+        "one_liner": "Javascript proxy."
+      },
+      {
+        "name": "PhoneSys",
+        "batch": "Summer 2011",
+        "tags": [
+          "Sales",
+          "CRM",
+          "Telecommunications"
+        ],
+        "team_size": 4,
+        "one_liner": "The Phone System for Sales Teams."
+      },
+      {
+        "name": "Quad",
+        "batch": "Summer 2011",
+        "tags": [
+          "Education"
+        ],
+        "team_size": 12,
+        "one_liner": "Quad is where college students get things done."
+      },
+      {
+        "name": "Dubjoy",
+        "batch": "Summer 2011",
+        "tags": [
+          "Video"
+        ],
+        "team_size": 2,
+        "one_liner": "Dubjoy translates and voice-overs your video to any language"
+      },
+      {
+        "name": "Zenbox",
+        "batch": "Summer 2011",
+        "tags": [
+          "SaaS",
+          "Productivity",
+          "Email"
+        ],
+        "team_size": 2,
+        "one_liner": "Brings dozens of SaaS's (Mailchimp, Stripe, Shopify, Salesforce,…"
+      },
+      {
+        "name": "MarketBrief",
+        "batch": "Summer 2011",
+        "tags": [
+          "Analytics"
+        ],
+        "team_size": 2,
+        "one_liner": "Generate stories from SEC filings."
+      },
+      {
+        "name": "Interstate",
+        "batch": "Summer 2011",
+        "tags": [
+          "Productivity"
+        ],
+        "team_size": 2,
+        "one_liner": "Create & Share Product Roadmaps"
+      },
+      {
+        "name": "Everyme",
+        "batch": "Summer 2011",
+        "tags": [
+          "Social Network"
+        ],
+        "team_size": 2,
+        "one_liner": "The #1 private social network"
+      },
+      {
+        "name": "Opez",
+        "batch": "Summer 2011",
+        "tags": [
+          "Marketplace",
+          "Reviews"
+        ],
+        "team_size": 11,
+        "one_liner": "Yelp for service pros."
+      },
+      {
+        "name": "Kicksend",
+        "batch": "Summer 2011",
+        "tags": [],
+        "team_size": 11,
+        "one_liner": "Send and print photo albums with people you love.\r\n\r\nAcquired by Lyft"
+      },
+      {
+        "name": "Vapor",
+        "batch": "Summer 2011",
+        "tags": [
+          "Video",
+          "Advertising"
+        ],
+        "team_size": 2,
+        "one_liner": "In-video advertising."
+      },
+      {
+        "name": "Leaky",
+        "batch": "Summer 2011",
+        "tags": [
+          "Insurance"
+        ],
+        "team_size": 2,
+        "one_liner": "Online auto and business insurance. (Acquired 2013)"
+      },
+      {
+        "name": "Ridejoy",
+        "batch": "Summer 2011",
+        "tags": [
+          "Marketplace"
+        ],
+        "team_size": 11,
+        "one_liner": "Long-distance carpooling marketplace. Shut down in early 2013."
+      },
+      {
+        "name": "Snapjoy",
+        "batch": "Summer 2011",
+        "tags": [],
+        "team_size": 11,
+        "one_liner": "Photo library."
+      },
+      {
+        "name": "Rentobo",
+        "batch": "Summer 2011",
+        "tags": [
+          "Marketplace",
+          "Real Estate"
+        ],
+        "team_size": 11,
+        "one_liner": "The easiest way to find a tenant.\r\n\r\nRentobo is a tool that makes it…"
+      },
+      {
+        "name": "Draft",
+        "batch": "Summer 2011",
+        "tags": [
+          "Documents",
+          "SaaS",
+          "Collaboration"
+        ],
+        "team_size": 1,
+        "one_liner": "Making Draft. Super simple version control and collaboration for…"
+      },
+      {
+        "name": "Userfox",
+        "batch": "Winter 2011",
+        "tags": [
+          "SaaS",
+          "Marketing"
+        ],
+        "team_size": 2,
+        "one_liner": "User retention as a service.  Drip email"
+      },
+      {
+        "name": "Hungry Labs",
+        "batch": "Summer 2011",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": "Now part of Snaplayer."
+      },
+      {
+        "name": "Inporia",
+        "batch": "Winter 2011",
+        "tags": [
+          "E-Commerce",
+          "Retail",
+          "Fashion"
+        ],
+        "team_size": 11,
+        "one_liner": "Fashion shopping email list."
+      },
+      {
+        "name": "Beetailer",
+        "batch": "Winter 2011",
+        "tags": [
+          "E-Commerce",
+          "Retail"
+        ],
+        "team_size": 2,
+        "one_liner": "Facebook stores."
+      },
+      {
+        "name": "TellFi",
+        "batch": "Winter 2011",
+        "tags": [
+          "Messaging",
+          "Enterprise"
+        ],
+        "team_size": 2,
+        "one_liner": "Google Voice for business."
+      },
+      {
+        "name": "Assembled",
+        "batch": "Winter 2011",
+        "tags": [
+          "Education",
+          "Recruiting"
+        ],
+        "team_size": 2,
+        "one_liner": "Pivoted to TenXList, a professional network of top college engineers."
+      },
+      {
+        "name": "FitFu",
+        "batch": "Winter 2011",
+        "tags": [
+          "Health Tech",
+          "Fitness"
+        ],
+        "team_size": 2,
+        "one_liner": "New projects"
+      },
+      {
+        "name": "AppHarbor",
+        "batch": "Winter 2011",
+        "tags": [
+          "Cloud Computing"
+        ],
+        "team_size": 1,
+        "one_liner": ".NET Cloud Platform as a Service"
+      },
+      {
+        "name": "Hyperink",
+        "batch": "Winter 2011",
+        "tags": [],
+        "team_size": 11,
+        "one_liner": "Ebook publisher."
+      },
+      {
+        "name": "Insight Data Science",
+        "batch": "Winter 2011",
+        "tags": [
+          "Data Science",
+          "Data Engineering"
+        ],
+        "team_size": 11,
+        "one_liner": "Turning PhDs & engineers into data scientists & data engineers"
+      },
+      {
+        "name": "Convore",
+        "batch": "Winter 2011",
+        "tags": [
+          "Community",
+          "Messaging"
+        ],
+        "team_size": 2,
+        "one_liner": "Hosted IRC and so much more."
+      },
+      {
+        "name": "Flotype",
+        "batch": "Winter 2011",
+        "tags": [
+          "SaaS",
+          "API"
+        ],
+        "team_size": 2,
+        "one_liner": "Third generation of web apps."
+      },
+      {
+        "name": "Balanced",
+        "batch": "Winter 2011",
+        "tags": [
+          "Marketplace",
+          "Payments"
+        ],
+        "team_size": 11,
+        "one_liner": "Payments for Marketplaces"
+      },
+      {
+        "name": "Tutorspree",
+        "batch": "Winter 2011",
+        "tags": [
+          "Education",
+          "Marketplace"
+        ],
+        "team_size": 51,
+        "one_liner": "Online tutoring marketplace."
+      },
+      {
+        "name": "TrustEgg",
+        "batch": "Winter 2011",
+        "tags": [
+          "Finance",
+          "Investing"
+        ],
+        "team_size": 2,
+        "one_liner": "Trust funds."
+      },
+      {
+        "name": "Siasto",
+        "batch": "Winter 2011",
+        "tags": [
+          "Productivity",
+          "Collaboration",
+          "SMB"
+        ],
+        "team_size": 2,
+        "one_liner": "Siasto is a collaboration tool designed for SMBs who use Google Apps,…"
+      },
+      {
+        "name": "Venuetastic",
+        "batch": "Winter 2011",
+        "tags": [
+          "Marketplace"
+        ],
+        "team_size": 2,
+        "one_liner": "Venue marketplace."
+      },
+      {
+        "name": "SimplyListed",
+        "batch": "Winter 2011",
+        "tags": [
+          "Marketplace",
+          "Computer Vision"
+        ],
+        "team_size": 2,
+        "one_liner": "Sell your stuff."
+      },
+      {
+        "name": "Teevox",
+        "batch": "Summer 2010",
+        "tags": [
+          "AI-powered Drug Discovery"
+        ],
+        "team_size": 11,
+        "one_liner": "Teevox"
+      },
+      {
+        "name": "Chirply",
+        "batch": "Summer 2010",
+        "tags": [
+          "Marketplace",
+          "Design"
+        ],
+        "team_size": 2,
+        "one_liner": "Crowdsourced design marketplace for paper goods."
+      },
+      {
+        "name": "Habit Labs",
+        "batch": "Summer 2010",
+        "tags": [
+          "Health & Wellness"
+        ],
+        "team_size": 2,
+        "one_liner": "Friends motivate one another: I'll do x if you do y."
+      },
+      {
+        "name": "Brushes",
+        "batch": "Summer 2010",
+        "tags": [
+          "Design Tools"
+        ],
+        "team_size": 0,
+        "one_liner": "iPad drawing software."
+      },
+      {
+        "name": "Gantto",
+        "batch": "Summer 2010",
+        "tags": [
+          "Productivity"
+        ],
+        "team_size": 0,
+        "one_liner": "Better Microsoft Project."
+      },
+      {
+        "name": "Upbeat",
+        "batch": "Summer 2010",
+        "tags": [
+          "Media"
+        ],
+        "team_size": 2,
+        "one_liner": "Upbeat: Building the next generation of Public Relations (PR)"
+      },
+      {
+        "name": "Opzi",
+        "batch": "Summer 2010",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": "Q&A for businesses."
+      },
+      {
+        "name": "Post.fm",
+        "batch": "Summer 2010",
+        "tags": [
+          "Email"
+        ],
+        "team_size": 0,
+        "one_liner": "New email inbox."
+      },
+      {
+        "name": "Ready For Zero",
+        "batch": "Summer 2010",
+        "tags": [
+          "Fintech"
+        ],
+        "team_size": 12,
+        "one_liner": "Personal debt and credit management. Acquired by Avant in 2015."
+      },
+      {
+        "name": "MessageParty",
+        "batch": "Summer 2010",
+        "tags": [
+          "Messaging",
+          "Social"
+        ],
+        "team_size": 1,
+        "one_liner": "Local chat."
+      },
+      {
+        "name": "Pribbit",
+        "batch": "Summer 2010",
+        "tags": [
+          "Social"
+        ],
+        "team_size": 0,
+        "one_liner": "Like Twitter but you post others' status."
+      },
+      {
+        "name": "Koduco",
+        "batch": "Summer 2010",
+        "tags": [
+          "Gaming"
+        ],
+        "team_size": 2,
+        "one_liner": "iPad games."
+      },
+      {
+        "name": "Fabricly",
+        "batch": "Winter 2010",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "LaunchHear",
+        "batch": "Winter 2010",
+        "tags": [
+          "Media"
+        ],
+        "team_size": 2,
+        "one_liner": "LaunchHear was a startup attempting to make PR scale in the same way…"
+      },
+      {
+        "name": "Answerly",
+        "batch": "Winter 2010",
+        "tags": [],
+        "team_size": 11,
+        "one_liner": ""
+      },
+      {
+        "name": "Zenedy",
+        "batch": "Winter 2010",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Gamador",
+        "batch": "Winter 2010",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Fithub",
+        "batch": "Winter 2010",
+        "tags": [],
+        "team_size": 0,
+        "one_liner": ""
+      },
+      {
+        "name": "Data Marketplace",
+        "batch": "Winter 2010",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Newslabs",
+        "batch": "Winter 2010",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Newcope",
+        "batch": "Winter 2010",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Infoharmoni",
+        "batch": "Winter 2010",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Notifo",
+        "batch": "Winter 2010",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "HighlightCam",
+        "batch": "Summer 2009",
+        "tags": [
+          "Video"
+        ],
+        "team_size": 11,
+        "one_liner": "HighlightCam edits video, automatically!"
+      },
+      {
+        "name": "Jobspice",
+        "batch": "Summer 2009",
+        "tags": [],
+        "team_size": 11,
+        "one_liner": ""
+      },
+      {
+        "name": "CarWoo",
+        "batch": "Summer 2009",
+        "tags": [
+          "Marketplace",
+          "Automotive"
+        ],
+        "team_size": 11,
+        "one_liner": "The best way to buy a new car."
+      },
+      {
+        "name": "Tuxebo",
+        "batch": "Summer 2009",
+        "tags": [
+          "Marketplace"
+        ],
+        "team_size": 0,
+        "one_liner": "Tuxebo was a platform for renting things"
+      },
+      {
+        "name": "Fanchatter",
+        "batch": "Summer 2009",
+        "tags": [
+          "Social",
+          "Recommendation System"
+        ],
+        "team_size": 11,
+        "one_liner": "FanChatter aggregates, amplifies and empowers fan content on every…"
+      },
+      {
+        "name": "Plurchase",
+        "batch": "Summer 2009",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "NudgePad",
+        "batch": "Summer 2009",
+        "tags": [
+          "Developer Tools"
+        ],
+        "team_size": 2,
+        "one_liner": "Online IDE. We joined Microsoft in 2014."
+      },
+      {
+        "name": "RoboHR",
+        "batch": "Summer 2009",
+        "tags": [],
+        "team_size": 0,
+        "one_liner": ""
+      },
+      {
+        "name": "AdThrow",
+        "batch": "Summer 2009",
+        "tags": [],
+        "team_size": 0,
+        "one_liner": ""
+      },
+      {
+        "name": "Stackq",
+        "batch": "Summer 2009",
+        "tags": [],
+        "team_size": 0,
+        "one_liner": ""
+      },
+      {
+        "name": "Wakemate",
+        "batch": "Summer 2009",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Instantq",
+        "batch": "Summer 2009",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Recurious",
+        "batch": "Winter 2009",
+        "tags": [],
+        "team_size": 0,
+        "one_liner": ""
+      },
+      {
+        "name": "Skysheet",
+        "batch": "Winter 2009",
+        "tags": [
+          "Productivity"
+        ],
+        "team_size": 2,
+        "one_liner": "Browser-based spreadsheet."
+      },
+      {
+        "name": "Wattvision",
+        "batch": "Winter 2009",
+        "tags": [
+          "Sustainability"
+        ],
+        "team_size": 0,
+        "one_liner": "Sensors and software for energy tracking. Like 'fitbit' for your…"
+      },
+      {
+        "name": "Foodoro",
+        "batch": "Winter 2009",
+        "tags": [],
+        "team_size": 11,
+        "one_liner": ""
+      },
+      {
+        "name": "Spaces Life",
+        "batch": "Winter 2009",
+        "tags": [],
+        "team_size": 0,
+        "one_liner": ""
+      },
+      {
+        "name": "Picurio",
+        "batch": "Winter 2009",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Nambii",
+        "batch": "Winter 2009",
+        "tags": [],
+        "team_size": 0,
+        "one_liner": ""
+      },
+      {
+        "name": "Voxli",
+        "batch": "Winter 2009",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "PetaSales",
+        "batch": "Winter 2009",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "OhLife",
+        "batch": "Summer 2008",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Job Alchemist",
+        "batch": "Summer 2008",
+        "tags": [],
+        "team_size": 0,
+        "one_liner": ""
+      },
+      {
+        "name": "Frogmetrics",
+        "batch": "Summer 2008",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Anyvite",
+        "batch": "Summer 2008",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "CO2Stats",
+        "batch": "Summer 2008",
+        "tags": [
+          "Climate"
+        ],
+        "team_size": 0,
+        "one_liner": "Social and environmental web analytics. Acquired in December 2016."
+      },
+      {
+        "name": "Picwing",
+        "batch": "Summer 2008",
+        "tags": [
+          "Social"
+        ],
+        "team_size": 11,
+        "one_liner": "Photo Sharing platform for families"
+      },
+      {
+        "name": "Precognate",
+        "batch": "Summer 2008",
+        "tags": [],
+        "team_size": 0,
+        "one_liner": ""
+      },
+      {
+        "name": "Youlicit",
+        "batch": "Summer 2008",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Team Apart",
+        "batch": "Summer 2008",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Claimspotting",
+        "batch": "Summer 2008",
+        "tags": [
+          "Proptech"
+        ],
+        "team_size": 0,
+        "one_liner": "Claim and conquer your city"
+      },
+      {
+        "name": "Ticket Stumbler",
+        "batch": "Summer 2008",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Snipd",
+        "batch": "Summer 2008",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Popcuts",
+        "batch": "Summer 2008",
+        "tags": [
+          "Marketplace",
+          "E-Commerce",
+          "Music"
+        ],
+        "team_size": 2,
+        "one_liner": "Popcuts is an online music store where fans participate in the…"
+      },
+      {
+        "name": "People & Pages",
+        "batch": "Summer 2008",
+        "tags": [],
+        "team_size": 0,
+        "one_liner": ""
+      },
+      {
+        "name": "PlayReader",
+        "batch": "Summer 2008",
+        "tags": [],
+        "team_size": 0,
+        "one_liner": ""
+      },
+      {
+        "name": "Treehouse",
+        "batch": "Summer 2008",
+        "tags": [],
+        "team_size": 101,
+        "one_liner": ""
+      },
+      {
+        "name": "Slinkset",
+        "batch": "Summer 2008",
+        "tags": [
+          "Media",
+          "Social"
+        ],
+        "team_size": 2,
+        "one_liner": "Votable lists"
+      },
+      {
+        "name": "Trigger",
+        "batch": "Winter 2008",
+        "tags": [],
+        "team_size": 11,
+        "one_liner": "Better PhoneGap."
+      },
+      {
+        "name": "MightyQuiz",
+        "batch": "Winter 2008",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "FathomDB",
+        "batch": "Winter 2008",
+        "tags": [],
+        "team_size": 0,
+        "one_liner": ""
+      },
+      {
+        "name": "Wundrbar",
+        "batch": "Winter 2008",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Socialbrowse",
+        "batch": "Winter 2008",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Mixwit",
+        "batch": "Winter 2008",
+        "tags": [
+          "Social",
+          "Music"
+        ],
+        "team_size": 2,
+        "one_liner": "Online mixtape service (create and share mixtapes). Launched as part…"
+      },
+      {
+        "name": "Tipjoy",
+        "batch": "Winter 2008",
+        "tags": [
+          "Payments",
+          "Social"
+        ],
+        "team_size": 2,
+        "one_liner": "social micropayments"
+      },
+      {
+        "name": "Kirkland North",
+        "batch": "Winter 2008",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Deluux",
+        "batch": "Winter 2008",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "YumDots",
+        "batch": "Winter 2008",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Snaptalent",
+        "batch": "Winter 2008",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Insoshi",
+        "batch": "Winter 2008",
+        "tags": [],
+        "team_size": 0,
+        "one_liner": ""
+      },
+      {
+        "name": "Joberator",
+        "batch": "Winter 2008",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "BitSample",
+        "batch": "Winter 2008",
+        "tags": [],
+        "team_size": 0,
+        "one_liner": ""
+      },
+      {
+        "name": "Bountii",
+        "batch": "Summer 2007",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Hello Chair",
+        "batch": "Summer 2007",
+        "tags": [],
+        "team_size": 0,
+        "one_liner": ""
+      },
+      {
+        "name": "iJigg/Top440",
+        "batch": "Summer 2007",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Splashup",
+        "batch": "Summer 2007",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "ContestMachine",
+        "batch": "Summer 2007",
+        "tags": [
+          "Marketing"
+        ],
+        "team_size": 2,
+        "one_liner": "Roll your own contest or giveaway.  No longer in business."
+      },
+      {
+        "name": "SocialPicks",
+        "batch": "Summer 2007",
+        "tags": [
+          "Investing",
+          "Stocks"
+        ],
+        "team_size": 2,
+        "one_liner": "SocialPicks was a platform where stock investors could exchange…"
+      },
+      {
+        "name": "Reble",
+        "batch": "Summer 2007",
+        "tags": [
+          "Music"
+        ],
+        "team_size": 2,
+        "one_liner": "P2P Music Sharing"
+      },
+      {
+        "name": "Meetyu",
+        "batch": "Summer 2007",
+        "tags": [],
+        "team_size": 0,
+        "one_liner": ""
+      },
+      {
+        "name": "Fuzzwich",
+        "batch": "Summer 2007",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Eivod",
+        "batch": "Summer 2007",
+        "tags": [],
+        "team_size": 51,
+        "one_liner": ""
+      },
+      {
+        "name": "Biographicon",
+        "batch": "Summer 2007",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Tsumobi",
+        "batch": "Winter 2007",
+        "tags": [
+          "Messaging"
+        ],
+        "team_size": 2,
+        "one_liner": "Messaging."
+      },
+      {
+        "name": "WriteWith",
+        "batch": "Winter 2007",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Whitenoise",
+        "batch": "Winter 2007",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "View3",
+        "batch": "Winter 2007",
+        "tags": [],
+        "team_size": 0,
+        "one_liner": ""
+      },
+      {
+        "name": "Socialmoth",
+        "batch": "Winter 2007",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Jamglue",
+        "batch": "Summer 2006",
+        "tags": [
+          "Collaboration",
+          "Social Network",
+          "Music"
+        ],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Thinkature",
+        "batch": "Summer 2006",
+        "tags": [],
+        "team_size": 0,
+        "one_liner": ""
+      },
+      {
+        "name": "Talkito",
+        "batch": "Summer 2006",
+        "tags": [],
+        "team_size": 0,
+        "one_liner": ""
+      },
+      {
+        "name": "Shoutfit",
+        "batch": "Summer 2006",
+        "tags": [],
+        "team_size": 3,
+        "one_liner": ""
+      },
+      {
+        "name": "Pollground",
+        "batch": "Summer 2006",
+        "tags": [
+          "Market Research"
+        ],
+        "team_size": 0,
+        "one_liner": "Online polls."
+      },
+      {
+        "name": "Zanbazaar",
+        "batch": "Summer 2006",
+        "tags": [
+          "Marketplace",
+          "E-Commerce"
+        ],
+        "team_size": 4,
+        "one_liner": "Community-curated catalogs for product recommendations"
+      },
+      {
+        "name": "Likebetter",
+        "batch": "Summer 2006",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Jumpchat",
+        "batch": "Summer 2006",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Snipshot",
+        "batch": "Winter 2006",
+        "tags": [
+          "Media"
+        ],
+        "team_size": 0,
+        "one_liner": "We sold Snipshot to Ansa in 2013."
+      },
+      {
+        "name": "Flagr",
+        "batch": "Winter 2006",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Audiobeta",
+        "batch": "Winter 2006",
+        "tags": [],
+        "team_size": 0,
+        "one_liner": ""
+      },
+      {
+        "name": "Simmery",
+        "batch": "Summer 2005",
+        "tags": [],
+        "team_size": 0,
+        "one_liner": ""
+      },
+      {
+        "name": "Memamp",
+        "batch": "Summer 2005",
+        "tags": [],
+        "team_size": 0,
+        "one_liner": ""
+      },
+      {
+        "name": "Infogami",
+        "batch": "Summer 2005",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": ""
+      },
+      {
+        "name": "Mixed Media Labs",
+        "batch": "Winter 2010",
+        "tags": [],
+        "team_size": null,
+        "one_liner": ""
+      },
+      {
+        "name": "TomoGuides",
+        "batch": "Summer 2012",
+        "tags": [
+          "Travel"
+        ],
+        "team_size": 2,
+        "one_liner": "Mobile travel guides done right.  Personalized, context-aware, and…"
+      },
+      {
+        "name": "Canopy Labs",
+        "batch": "Summer 2012",
+        "tags": [
+          "Artificial Intelligence",
+          "Analytics",
+          "Marketing",
+          "CRM"
+        ],
+        "team_size": 11,
+        "one_liner": "Canopy Labs automates customer analytics for small and medium-sized…"
+      },
+      {
+        "name": "LeanMarket",
+        "batch": "Summer 2012",
+        "tags": [
+          "Advertising"
+        ],
+        "team_size": 2,
+        "one_liner": "Mobile advertising"
+      },
+      {
+        "name": "Imgfave",
+        "batch": "Summer 2012",
+        "tags": [
+          "Community",
+          "Social"
+        ],
+        "team_size": 2,
+        "one_liner": "A fun image sharing community."
+      },
+      {
+        "name": "Arc",
+        "batch": "Summer 2012",
+        "tags": [
+          "Robotics",
+          "Drones"
+        ],
+        "team_size": 2,
+        "one_liner": "aerial videography"
+      },
+      {
+        "name": "Testmunk",
+        "batch": "Summer 2012",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": "Automating mobile app testing."
+      },
+      {
+        "name": "Framebase",
+        "batch": "Summer 2012",
+        "tags": [
+          "Video",
+          "API"
+        ],
+        "team_size": 2,
+        "one_liner": "API for video."
+      },
+      {
+        "name": "Airshared",
+        "batch": "Summer 2012",
+        "tags": [
+          "SaaS"
+        ],
+        "team_size": 0,
+        "one_liner": "TBD"
+      },
+      {
+        "name": "DataNitro",
+        "batch": "Summer 2012",
+        "tags": [
+          "Analytics"
+        ],
+        "team_size": 11,
+        "one_liner": "We speed up Excel."
+      },
+      {
+        "name": "Grid",
+        "batch": "Summer 2012",
+        "tags": [],
+        "team_size": 0,
+        "one_liner": ""
+      },
+      {
+        "name": "Crohnology (by Healthy Labs)",
+        "batch": "Summer 2012",
+        "tags": [
+          "Consumer Health Services",
+          "Social Network"
+        ],
+        "team_size": 1,
+        "one_liner": "We turn Patients into Researchers."
+      },
+      {
+        "name": "BrainTripping",
+        "batch": "Summer 2012",
+        "tags": [],
+        "team_size": 1,
+        "one_liner": ""
+      },
+      {
+        "name": "Markupwand",
+        "batch": "Summer 2012",
+        "tags": [
+          "Developer Tools"
+        ],
+        "team_size": 3,
+        "one_liner": "Convert Design files to working websites automagically"
+      },
+      {
+        "name": "Hiptype",
+        "batch": "Summer 2012",
+        "tags": [
+          "E-Commerce",
+          "Analytics"
+        ],
+        "team_size": 2,
+        "one_liner": "Hiptype is a marketing and analytics platform for eBooks. We can…"
+      },
+      {
+        "name": "Kippt",
+        "batch": "Summer 2012",
+        "tags": [
+          "Social"
+        ],
+        "team_size": 2,
+        "one_liner": "Kippt is a social bookmarking service"
+      },
+      {
+        "name": "Hipset",
+        "batch": "Summer 2012",
+        "tags": [
+          "Entertainment",
+          "Video",
+          "Music"
+        ],
+        "team_size": 0,
+        "one_liner": "The best way for artists to release new music and videos."
+      },
+      {
+        "name": "FileStack",
+        "batch": "Summer 2012",
+        "tags": [
+          "Developer Tools"
+        ],
+        "team_size": 50,
+        "one_liner": "Acquired by Xenon Ventures.We enable website developers to hook into…"
+      },
+      {
+        "name": "Collections",
+        "batch": "Summer 2012",
+        "tags": [],
+        "team_size": 2,
+        "one_liner": "Finder for the Cloud"
+      },
+      {
+        "name": "Dreamforge",
+        "batch": "Summer 2012",
+        "tags": [
+          "3D Printing"
+        ],
+        "team_size": 2,
+        "one_liner": "Simple 3d modeling software for 3d printers."
+      },
+      {
+        "name": "ReelSurfer",
+        "batch": "Summer 2012",
+        "tags": [
+          "Video",
+          "Social"
+        ],
+        "team_size": 2,
+        "one_liner": "Clip and share any video from any website."
+      },
+      {
+        "name": "Keychain Logistics",
+        "batch": "Summer 2012",
+        "tags": [
+          "Logistics",
+          "Supply Chain"
+        ],
+        "team_size": 2,
+        "one_liner": "Software that connects the supply side of companies that ship product…"
+      },
+      {
+        "name": "Profig",
+        "batch": "Summer 2012",
+        "tags": [
+          "Telecommunications"
+        ],
+        "team_size": 2,
+        "one_liner": "The phone system for businesses. Manage everything from your company…"
+      },
+      {
+        "name": "Partnered",
+        "batch": "Summer 2012",
+        "tags": [
+          "B2B",
+          "Marketing"
+        ],
+        "team_size": 11,
+        "one_liner": "Partnered is a digital platform automating business development…"
+      },
+      {
+        "name": "Coco Controller",
+        "batch": "Summer 2012",
+        "tags": [
+          "Gaming"
+        ],
+        "team_size": 0,
+        "one_liner": "We're building a tactile gaming controller for mobile phones."
+      },
+      {
+        "name": "Tastemaker",
+        "batch": "Summer 2012",
+        "tags": [
+          "Design Tools"
+        ],
+        "team_size": 11,
+        "one_liner": "Interior design marketplace and online retailer"
+      },
+      {
+        "name": "GoScale",
+        "batch": "Summer 2012",
+        "tags": [
+          "SaaS",
+          "Cloud Computing"
+        ],
+        "team_size": 2,
+        "one_liner": "Dynamical Scaling Virtual Machines as a Service"
+      },
+      {
+        "name": "RegistryLove",
+        "batch": "Summer 2012",
+        "tags": [
+          "E-Commerce"
+        ],
+        "team_size": 11,
+        "one_liner": "Cross-store wedding registry."
+      },
+      {
+        "name": "Credictive",
+        "batch": "Summer 2012",
+        "tags": [
+          "Analytics",
+          "Advertising"
+        ],
+        "team_size": 0,
+        "one_liner": "Attribution metatags for online content."
+      },
+      {
+        "name": "MicroEval",
+        "batch": "Summer 2012",
+        "tags": [
+          "HR Tech"
+        ],
+        "team_size": 2,
+        "one_liner": "Changing the way companies review employee performance with…"
+      },
+      {
+        "name": "Everyday.me",
+        "batch": "Summer 2012",
+        "tags": [
+          "Video",
+          "Media"
+        ],
+        "team_size": 11,
+        "one_liner": "Everyday.me - Record your life.  Store it forever.  "
+      },
+      {
+        "name": "Celery",
+        "batch": "Summer 2012",
+        "tags": [
+          "E-Commerce",
+          "Crowdfunding"
+        ],
+        "team_size": 11,
+        "one_liner": "Celery is a platform for pre-orders (www.trycelery.com). Accept…"
+      }
+    ],
+    "public_companies": [
+      {
+        "name": "Matterport",
+        "batch": "Winter 2012",
+        "team_size": 201,
+        "url": "https://www.ycombinator.com/companies/matterport"
+      },
+      {
+        "name": "Amplitude",
+        "batch": "Winter 2012",
+        "team_size": 750,
+        "url": "https://www.ycombinator.com/companies/amplitude"
+      },
+      {
+        "name": "Presto",
+        "batch": "Summer 2010",
+        "team_size": 200,
+        "url": "https://www.ycombinator.com/companies/presto"
+      },
+      {
+        "name": "PagerDuty",
+        "batch": "Summer 2010",
+        "team_size": 950,
+        "url": "https://www.ycombinator.com/companies/pagerduty"
+      },
+      {
+        "name": "Airbnb",
+        "batch": "Winter 2009",
+        "team_size": 6132,
+        "url": "https://www.ycombinator.com/companies/airbnb"
+      },
+      {
+        "name": "Dropbox",
+        "batch": "Summer 2007",
+        "team_size": 4000,
+        "url": "https://www.ycombinator.com/companies/dropbox"
+      },
+      {
+        "name": "Coinbase",
+        "batch": "Summer 2012",
+        "team_size": 6112,
+        "url": "https://www.ycombinator.com/companies/coinbase"
+      },
+      {
+        "name": "Instacart",
+        "batch": "Summer 2012",
+        "team_size": 3000,
+        "url": "https://www.ycombinator.com/companies/instacart"
+      },
+      {
+        "name": "DoorDash",
+        "batch": "Summer 2013",
+        "team_size": 8600,
+        "url": "https://www.ycombinator.com/companies/doordash"
+      },
+      {
+        "name": "Weave",
+        "batch": "Winter 2014",
+        "team_size": 600,
+        "url": "https://www.ycombinator.com/companies/weave"
+      },
+      {
+        "name": "Rigetti Computing",
+        "batch": "Summer 2014",
+        "team_size": 51,
+        "url": "https://www.ycombinator.com/companies/rigetti-computing"
+      },
+      {
+        "name": "Ginkgo Bioworks",
+        "batch": "Summer 2014",
+        "team_size": 641,
+        "url": "https://www.ycombinator.com/companies/ginkgo-bioworks"
+      },
+      {
+        "name": "Oklo",
+        "batch": "Summer 2014",
+        "team_size": 50,
+        "url": "https://www.ycombinator.com/companies/oklo"
+      },
+      {
+        "name": "Notable Labs",
+        "batch": "Winter 2015",
+        "team_size": 40,
+        "url": "https://www.ycombinator.com/companies/notable-labs"
+      },
+      {
+        "name": "Lucira Health",
+        "batch": "Winter 2015",
+        "team_size": 43,
+        "url": "https://www.ycombinator.com/companies/lucira-health"
+      },
+      {
+        "name": "EquipmentShare",
+        "batch": "Winter 2015",
+        "team_size": 5400,
+        "url": "https://www.ycombinator.com/companies/equipmentshare"
+      },
+      {
+        "name": "GitLab",
+        "batch": "Winter 2015",
+        "team_size": 2000,
+        "url": "https://www.ycombinator.com/companies/gitlab"
+      },
+      {
+        "name": "Embark Trucks",
+        "batch": "Winter 2016",
+        "team_size": 300,
+        "url": "https://www.ycombinator.com/companies/embark-trucks"
+      },
+      {
+        "name": "BillionToOne",
+        "batch": "Summer 2017",
+        "team_size": 300,
+        "url": "https://www.ycombinator.com/companies/billiontoone"
+      },
+      {
+        "name": "Meesho",
+        "batch": "Summer 2016",
+        "team_size": 1450,
+        "url": "https://www.ycombinator.com/companies/meesho"
+      },
+      {
+        "name": "Groww",
+        "batch": "Winter 2018",
+        "team_size": 1050,
+        "url": "https://www.ycombinator.com/companies/groww"
+      },
+      {
+        "name": "Momentus",
+        "batch": "Summer 2018",
+        "team_size": 125,
+        "url": "https://www.ycombinator.com/companies/momentus"
+      },
+      {
+        "name": "Pardes Biosciences",
+        "batch": "Summer 2020",
+        "team_size": 2,
+        "url": "https://www.ycombinator.com/companies/pardes-bio"
+      }
+    ]
+  },
+  "hacker_news": [
+    {
+      "company": "Airbnb",
+      "total_mentions": 5754,
+      "top_points": 1324,
+      "top_title": "I Accidentally Uncovered a Nationwide Scam on Airbnb",
+      "top_comments": 618
+    },
+    {
+      "company": "Stripe",
+      "total_mentions": 5412,
+      "top_points": 1703,
+      "top_title": "Accepted and ghosted: interviewing for a leadership position at Stripe",
+      "top_comments": 655
+    },
+    {
+      "company": "Dropbox",
+      "total_mentions": 6033,
+      "top_points": 1990,
+      "top_title": "Drop Dropbox",
+      "top_comments": 1008
+    },
+    {
+      "company": "Slack",
+      "total_mentions": 8793,
+      "top_points": 3406,
+      "top_title": "Slack has raised our charges by $195k per year",
+      "top_comments": 1470
+    },
+    {
+      "company": "Figma",
+      "total_mentions": 1744,
+      "top_points": 2348,
+      "top_title": "Adobe to acquire Figma for $20B",
+      "top_comments": 1246
+    },
+    {
+      "company": "WhatsApp",
+      "total_mentions": 5464,
+      "top_points": 2254,
+      "top_title": "WhatsApp gives users an ultimatum: Share data with Facebook or stop using app",
+      "top_comments": 1148
+    },
+    {
+      "company": "Zoom",
+      "total_mentions": 3738,
+      "top_points": 2003,
+      "top_title": "Zoom closes account of U.S.-based Chinese activist after Tiananmen event",
+      "top_comments": 517
+    },
+    {
+      "company": "Shopify",
+      "total_mentions": 2743,
+      "top_points": 782,
+      "top_title": "The dark side of Shopify",
+      "top_comments": 221
+    },
+    {
+      "company": "Instagram",
+      "total_mentions": 9099,
+      "top_points": 2326,
+      "top_title": "When you browse Instagram and find Tony Abbott's passport number",
+      "top_comments": 340
+    },
+    {
+      "company": "Uber",
+      "total_mentions": 14127,
+      "top_points": 4107,
+      "top_title": "Reflecting on one very, very strange year at Uber",
+      "top_comments": 1013
+    },
+    {
+      "company": "Coinbase",
+      "total_mentions": 2420,
+      "top_points": 939,
+      "top_title": "Apple blocks Coinbase Wallet",
+      "top_comments": 904
+    },
+    {
+      "company": "DoorDash",
+      "total_mentions": 761,
+      "top_points": 1393,
+      "top_title": "Doordash and Pizza Arbitrage",
+      "top_comments": 514
+    },
+    {
+      "company": "Palantir",
+      "total_mentions": 1302,
+      "top_points": 1475,
+      "top_title": "ICE using Palantir tool that feeds on Medicaid data",
+      "top_comments": 969
+    },
+    {
+      "company": "Snowflake",
+      "total_mentions": 1096,
+      "top_points": 517,
+      "top_title": "Snowflake macro photography (2013)",
+      "top_comments": 67
+    },
+    {
+      "company": "Twilio",
+      "total_mentions": 1960,
+      "top_points": 672,
+      "top_title": "Twilio incident: What Signal users need to know",
+      "top_comments": 478
+    },
+    {
+      "company": "Datadog",
+      "total_mentions": 611,
+      "top_points": 722,
+      "top_title": "Show HN: HyperDX – open-source dev-friendly Datadog alternative",
+      "top_comments": 163
+    },
+    {
+      "company": "CrowdStrike",
+      "total_mentions": 505,
+      "top_points": 4489,
+      "top_title": "CrowdStrike Update: Windows Bluescreen and Boot Loops",
+      "top_comments": 3859
+    },
+    {
+      "company": "Square",
+      "total_mentions": 4277,
+      "top_points": 1967,
+      "top_title": "In loving memory of square checkbox",
+      "top_comments": 505
+    },
+    {
+      "company": "Pinterest",
+      "total_mentions": 2265,
+      "top_points": 1155,
+      "top_title": "“Pinterest needs to be removed from Google IMO”",
+      "top_comments": 268
+    },
+    {
+      "company": "Roku",
+      "total_mentions": 490,
+      "top_points": 521,
+      "top_title": "Roku says it may lose YouTube TV app after Google made anti-competitive demands",
+      "top_comments": 398
+    },
+    {
+      "company": "Affirm",
+      "total_mentions": 158,
+      "top_points": 512,
+      "top_title": "Why I'll never use Affirm again",
+      "top_comments": 273
+    },
+    {
+      "company": "Quibi",
+      "total_mentions": 140,
+      "top_points": 479,
+      "top_title": "Quibi Is Shutting Down",
+      "top_comments": 528
+    },
+    {
+      "company": "Juicero",
+      "total_mentions": 113,
+      "top_points": 484,
+      "top_title": "Why Juicero’s Press Is So Expensive",
+      "top_comments": 367
+    },
+    {
+      "company": "Theranos",
+      "total_mentions": 1068,
+      "top_points": 1211,
+      "top_title": "Theranos, CEO Holmes, and Former President Balwani Charged with Fraud",
+      "top_comments": 516
+    },
+    {
+      "company": "WeWork",
+      "total_mentions": 1384,
+      "top_points": 1158,
+      "top_title": "WeWork and Counterfeit Capitalism",
+      "top_comments": 414
+    },
+    {
+      "company": "Clubhouse",
+      "total_mentions": 822,
+      "top_points": 350,
+      "top_title": "A database with 3.8B phone numbers from Clubhouse is up for sale",
+      "top_comments": 116
+    },
+    {
+      "company": "Peloton",
+      "total_mentions": 372,
+      "top_points": 322,
+      "top_title": "Peloton – A call for action [pdf]",
+      "top_comments": 270
+    },
+    {
+      "company": "Blue Apron",
+      "total_mentions": 156,
+      "top_points": 192,
+      "top_title": "Blue Apron becomes a penny stock, trading under $1 for the first time",
+      "top_comments": 327
+    },
+    {
+      "company": "Jawbone",
+      "total_mentions": 211,
+      "top_points": 227,
+      "top_title": "Jawbone is being liquidated as its CEO launches a related health startup",
+      "top_comments": 191
+    },
+    {
+      "company": "Katerra",
+      "total_mentions": 15,
+      "top_points": 43,
+      "top_title": "Katerra wanted to transform construction. It burnt $2B and shut down",
+      "top_comments": 32
+    },
+    {
+      "company": "Solyndra",
+      "total_mentions": 32,
+      "top_points": 7,
+      "top_title": "After Investing $1B, Solyndra’s Backers Finally Lose Their Grip",
+      "top_comments": 2
+    },
+    {
+      "company": "MoviePass",
+      "total_mentions": 243,
+      "top_points": 447,
+      "top_title": "The Entire Economy Is MoviePass Now",
+      "top_comments": 241
+    },
+    {
+      "company": "Pets.com",
+      "total_mentions": 20,
+      "top_points": 90,
+      "top_title": "Pets.com CEO: The Five Big Mistakes That Changed My Life and How I Moved Past Th",
+      "top_comments": 34
+    },
+    {
+      "company": "Bird Rides",
+      "total_mentions": 1,
+      "top_points": 1,
+      "top_title": "Bird to go public via SPAC, at an implied value of $2.3B",
+      "top_comments": 0
+    },
+    {
+      "company": "Wag Labs",
+      "total_mentions": 0,
+      "top_points": 0,
+      "top_title": "",
+      "top_comments": 0
+    },
+    {
+      "company": "Robinhood",
+      "total_mentions": 1210,
+      "top_points": 2706,
+      "top_title": "Robinhood is limiting purchases of stocks: AMC, Blackberry, Nokia, and GameStop",
+      "top_comments": 1643
+    },
+    {
+      "company": "Rivian",
+      "total_mentions": 415,
+      "top_points": 506,
+      "top_title": "Amazon orders 100K electric delivery trucks from Rivian",
+      "top_comments": 270
+    },
+    {
+      "company": "Snap",
+      "total_mentions": 2523,
+      "top_points": 1106,
+      "top_title": "Linux Mint drops Ubuntu Snap packages",
+      "top_comments": 523
+    },
+    {
+      "company": "Fast.co",
+      "total_mentions": 6,
+      "top_points": 2,
+      "top_title": "Only ~117 websites use Fast.co",
+      "top_comments": 0
+    }
+  ],
+  "sec_xbrl": [
+    {
+      "name": "Airbnb",
+      "cik": "0001559720",
+      "revenue_M": 12241,
+      "net_income_M": 2511,
+      "sales_exp_M": 2588,
+      "rnd_M": 2354,
+      "cash_M": 6560,
+      "rev_sm_ratio": 4.73,
+      "period": "2025-12-31"
+    },
+    {
+      "name": "Dropbox",
+      "cik": "0001467623",
+      "revenue_M": 2521,
+      "net_income_M": -256,
+      "sales_exp_M": 370,
+      "rnd_M": 732,
+      "cash_M": 891,
+      "rev_sm_ratio": 6.82,
+      "period": "2025-12-31"
+    },
+    {
+      "name": "Uber",
+      "cik": "0001543151",
+      "revenue_M": 52017,
+      "net_income_M": 10053,
+      "sales_exp_M": 4898,
+      "rnd_M": 3402,
+      "cash_M": 7105,
+      "rev_sm_ratio": 10.62,
+      "period": "2025-12-31"
+    },
+    {
+      "name": "Zoom",
+      "cik": "0001585521",
+      "revenue_M": 4869,
+      "net_income_M": 1900,
+      "sales_exp_M": 1388,
+      "rnd_M": 845,
+      "cash_M": 1273,
+      "rev_sm_ratio": 3.51,
+      "period": "2026-01-31"
+    },
+    {
+      "name": "Shopify",
+      "cik": "0001594805",
+      "revenue_M": 11556,
+      "net_income_M": 1231,
+      "sales_exp_M": 1663,
+      "rnd_M": 1536,
+      "cash_M": 1545,
+      "rev_sm_ratio": 6.95,
+      "period": "2025-12-31"
+    },
+    {
+      "name": "Peloton",
+      "cik": "0001639825",
+      "revenue_M": 2491,
+      "net_income_M": -119,
+      "sales_exp_M": 422,
+      "rnd_M": 234,
+      "cash_M": 698,
+      "rev_sm_ratio": 5.91,
+      "period": "2025-06-30"
+    },
+    {
+      "name": "Coinbase",
+      "cik": "0001679788",
+      "revenue_M": 7181,
+      "net_income_M": 1260,
+      "sales_exp_M": 1059,
+      "rnd_M": 1671,
+      "cash_M": 11285,
+      "rev_sm_ratio": 6.78,
+      "period": "2025-12-31"
+    },
+    {
+      "name": "DoorDash",
+      "cik": "0001792789",
+      "revenue_M": 13717,
+      "net_income_M": 935,
+      "sales_exp_M": 2476,
+      "rnd_M": 1431,
+      "cash_M": 4378,
+      "rev_sm_ratio": 5.54,
+      "period": "2025-12-31"
+    },
+    {
+      "name": "Robinhood",
+      "cik": "0001783879",
+      "revenue_M": 1358,
+      "net_income_M": -1028,
+      "sales_exp_M": null,
+      "rnd_M": 381,
+      "cash_M": 6339,
+      "rev_sm_ratio": null,
+      "period": "2022-12-31"
+    },
+    {
+      "name": "Palantir",
+      "cik": "0001321655",
+      "revenue_M": 4475,
+      "net_income_M": 1625,
+      "sales_exp_M": 1057,
+      "rnd_M": 558,
+      "cash_M": 1424,
+      "rev_sm_ratio": 4.23,
+      "period": "2025-12-31"
+    },
+    {
+      "name": "Snowflake",
+      "cik": "0001640147",
+      "revenue_M": 4684,
+      "net_income_M": -1332,
+      "sales_exp_M": 2062,
+      "rnd_M": 1969,
+      "cash_M": 2828,
+      "rev_sm_ratio": 2.27,
+      "period": "2026-01-31"
+    },
+    {
+      "name": "Snap",
+      "cik": "0001564408",
+      "revenue_M": 825,
+      "net_income_M": -460,
+      "sales_exp_M": 1021,
+      "rnd_M": 1794,
+      "cash_M": 1030,
+      "rev_sm_ratio": 0.81,
+      "period": "2017-12-31"
+    },
+    {
+      "name": "Pinterest",
+      "cik": "0001562088",
+      "revenue_M": 1038,
+      "net_income_M": 414,
+      "sales_exp_M": 126,
+      "rnd_M": 306,
+      "cash_M": 1036,
+      "rev_sm_ratio": 8.26,
+      "period": "2025-12-31"
+    },
+    {
+      "name": "Twilio",
+      "cik": "0001447669",
+      "revenue_M": 399,
+      "net_income_M": 34,
+      "sales_exp_M": 873,
+      "rnd_M": 1020,
+      "cash_M": 682,
+      "rev_sm_ratio": 0.46,
+      "period": "2017-12-31"
+    },
+    {
+      "name": "Datadog",
+      "cik": "0001561550",
+      "revenue_M": 3427,
+      "net_income_M": 108,
+      "sales_exp_M": 956,
+      "rnd_M": 1548,
+      "cash_M": 401,
+      "rev_sm_ratio": 3.58,
+      "period": "2025-12-31"
+    },
+    {
+      "name": "CrowdStrike",
+      "cik": "0001535527",
+      "revenue_M": null,
+      "net_income_M": -163,
+      "sales_exp_M": 1831,
+      "rnd_M": 1385,
+      "cash_M": 5230,
+      "rev_sm_ratio": null,
+      "period": "2026-01-31"
+    },
+    {
+      "name": "Roku",
+      "cik": "0001428439",
+      "revenue_M": 4737,
+      "net_income_M": 88,
+      "sales_exp_M": 964,
+      "rnd_M": 729,
+      "cash_M": 1587,
+      "rev_sm_ratio": 4.91,
+      "period": "2025-12-31"
+    },
+    {
+      "name": "Square/Block",
+      "cik": "0001512673",
+      "revenue_M": 24194,
+      "net_income_M": 1306,
+      "sales_exp_M": 2273,
+      "rnd_M": 2908,
+      "cash_M": 6564,
+      "rev_sm_ratio": 10.64,
+      "period": "2025-12-31"
+    },
+    {
+      "name": "Affirm",
+      "cik": "0001820953",
+      "revenue_M": 3224,
+      "net_income_M": 52,
+      "sales_exp_M": 435,
+      "rnd_M": null,
+      "cash_M": 1013,
+      "rev_sm_ratio": 7.42,
+      "period": "2025-06-30"
+    },
+    {
+      "name": "Rivian",
+      "cik": "0001874178",
+      "revenue_M": 5387,
+      "net_income_M": -3646,
+      "sales_exp_M": 2061,
+      "rnd_M": 1668,
+      "cash_M": 3579,
+      "rev_sm_ratio": 2.61,
+      "period": "2025-12-31"
+    }
+  ],
+  "sec_form_d": [
+    {
+      "company": "Airbnb",
+      "total_filings": 19,
+      "filings": [
+        {
+          "name": "Airbnb, Inc.  (ABNB)  (CIK 0001559720)",
+          "date": "2014-08-01"
+        },
+        {
+          "name": "Airbnb, Inc.  (ABNB)  (CIK 0001559720)",
+          "date": "2014-02-07"
+        },
+        {
+          "name": "Airbnb, Inc.  (ABNB)  (CIK 0001559720)",
+          "date": "2012-10-24"
+        },
+        {
+          "name": "Airbnb, Inc.  (ABNB)  (CIK 0001559720)",
+          "date": "2012-10-24"
+        },
+        {
+          "name": "Airbnb, Inc.  (ABNB)  (CIK 0001559720)",
+          "date": "2015-12-07"
+        }
+      ]
+    },
+    {
+      "company": "Stripe",
+      "total_filings": 48,
+      "filings": [
+        {
+          "name": "Stripe Milton LLC  (CIK 0002000934)",
+          "date": "2023-11-17"
+        },
+        {
+          "name": "Blue Stripe, LLC  (CIK 0001643255)",
+          "date": "2015-05-27"
+        },
+        {
+          "name": "IPV Stripe a series of Iron Pine Ventures Co-Invest Fund LLC  (CIK 0001959692)",
+          "date": "2023-12-01"
+        },
+        {
+          "name": "Stripe, Inc.  (CIK 0001691342)",
+          "date": "2017-03-30"
+        },
+        {
+          "name": "Green Stripe Naturals Ltd.  (CIK 0001752515)",
+          "date": "2019-04-15"
+        }
+      ]
+    },
+    {
+      "company": "Uber",
+      "total_filings": 20,
+      "filings": [
+        {
+          "name": "Uber Technologies, Inc  (UBER)  (CIK 0001543151)",
+          "date": "2014-11-17"
+        },
+        {
+          "name": "Uber Technologies, Inc  (UBER)  (CIK 0001543151)",
+          "date": "2015-05-13"
+        },
+        {
+          "name": "Uber Technologies, Inc  (UBER)  (CIK 0001543151)",
+          "date": "2014-07-29"
+        },
+        {
+          "name": "Uber Technologies, Inc  (UBER)  (CIK 0001543151)",
+          "date": "2015-05-13"
+        },
+        {
+          "name": "Uber Freight Holding Corp  (CIK 0001828519)",
+          "date": "2021-11-24"
+        }
+      ]
+    },
+    {
+      "company": "Coinbase",
+      "total_filings": 17,
+      "filings": [
+        {
+          "name": "Coinbase Global, Inc.  (COIN)  (CIK 0001679788)",
+          "date": "2018-11-02"
+        },
+        {
+          "name": "Coinbase Global, Inc.  (COIN)  (CIK 0001679788)",
+          "date": "2018-12-21"
+        },
+        {
+          "name": "Coinbase Index Fund LP  (CIK 0001735709)",
+          "date": "2018-03-30"
+        },
+        {
+          "name": "Coinbase Global, Inc.  (COIN)  (CIK 0001679788)",
+          "date": "2017-08-14"
+        },
+        {
+          "name": "Coinbase Bitcoin Fund, Ltd.  (CIK 0001839406)",
+          "date": "2024-03-22"
+        }
+      ]
+    },
+    {
+      "company": "DoorDash",
+      "total_filings": 23,
+      "filings": [
+        {
+          "name": "Fund I, a series of DoorDash Angels, LP  (CIK 0001921846), QP-AN Fund I, a series of DoorDash Angels, LP  (CIK 0001930586)",
+          "date": "2022-05-24"
+        },
+        {
+          "name": "AIR Fund I, a series of DoorDash Angels, LP  (CIK 0001882916)",
+          "date": "2021-09-15"
+        },
+        {
+          "name": "7S Fund I, a series of DoorDash Angels, LP  (CIK 0001912402)",
+          "date": "2022-02-22"
+        },
+        {
+          "name": "AT Fund I, a series of DoorDash Angels, LP  (CIK 0001895457)",
+          "date": "2021-11-24"
+        },
+        {
+          "name": "PH Fund I, a series of DoorDash Angels, LP  (CIK 0001865901)",
+          "date": "2021-06-07"
+        }
+      ]
+    },
+    {
+      "company": "Palantir",
+      "total_filings": 47,
+      "filings": [
+        {
+          "name": "Palantir Technologies Inc.  (PLTR)  (CIK 0001321655)",
+          "date": "2020-07-02"
+        },
+        {
+          "name": "Palantir Technologies Inc.  (PLTR)  (CIK 0001321655)",
+          "date": "2016-11-23"
+        },
+        {
+          "name": "Palantir Technologies Inc.  (PLTR)  (CIK 0001321655)",
+          "date": "2013-12-24"
+        },
+        {
+          "name": "Palantir Technologies Inc.  (PLTR)  (CIK 0001321655)",
+          "date": "2013-12-05"
+        },
+        {
+          "name": "Palantir Technologies Inc.  (PLTR)  (CIK 0001321655)",
+          "date": "2014-02-14"
+        }
+      ]
+    },
+    {
+      "company": "Snowflake",
+      "total_filings": 18,
+      "filings": [
+        {
+          "name": "PACIFICA PAPERS US INC  (CIK 0001086053), PACIFICA PAPERS SALES INC  (CIK 0001086054), PACIFICA POPLARS INC  (CIK 0001086492), CATALYST PAPER CORP  (CIK 0001144906), ELK FALLS PULP & PAPER LTD  (CIK 0001160290), PACIFIC POPLARS LTD  (CIK 0001160303), Catalyst Paper Recycling Inc.  (CIK 0001477442), Apache Railway Co  (CIK 0001477443), Catalyst Paper (Snowflake) Inc.  (CIK 0001477444), 06068900 B.C. Ltd.  (CIK 0001477445), Catalyst Pulp Operations Ltd  (CIK 0001477452), Catalyst Pulp & Paper Sales Inc.  (CIK 0001477453), Catalyst Paper (USA) Inc.  (CIK 0001477454), Catalyst Paper Holdings Inc.  (CIK 0001477455), Catalyst Paper Finance Ltd  (CIK 0001477456), Catalyst Paper  (CIK 0001477457), Catalyst Paper Services (Hungary) Ltd Liability Co  (CIK 0001477543), Catalyst Pulp Sales Inc.  (CIK 0001477557)",
+          "date": "2010-02-16"
+        },
+        {
+          "name": "PACIFICA PAPERS US INC  (CIK 0001086053), PACIFICA PAPERS SALES INC  (CIK 0001086054), PACIFICA POPLARS INC  (CIK 0001086492), CATALYST PAPER CORP  (CIK 0001144906), ELK FALLS PULP & PAPER LTD  (CIK 0001160290), PACIFIC POPLARS LTD  (CIK 0001160303), Catalyst Paper Recycling Inc.  (CIK 0001477442), Apache Railway Co  (CIK 0001477443), Catalyst Paper (Snowflake) Inc.  (CIK 0001477444), 06068900 B.C. Ltd.  (CIK 0001477445), Catalyst Pulp Operations Ltd  (CIK 0001477452), Catalyst Pulp & Paper Sales Inc.  (CIK 0001477453), Catalyst Paper (USA) Inc.  (CIK 0001477454), Catalyst Paper Holdings Inc.  (CIK 0001477455), Catalyst Paper Finance Ltd  (CIK 0001477456), Catalyst Paper  (CIK 0001477457), Catalyst Paper Services (Hungary) Ltd Liability Co  (CIK 0001477543), Catalyst Pulp Sales Inc.  (CIK 0001477557)",
+          "date": "2009-12-07"
+        },
+        {
+          "name": "Snowflake Inc.  (SNOW)  (CIK 0001640147)",
+          "date": "2020-02-26"
+        },
+        {
+          "name": "Snowflake Inc.  (SNOW)  (CIK 0001640147)",
+          "date": "2022-04-20"
+        },
+        {
+          "name": "Snowflake Inc.  (SNOW)  (CIK 0001640147)",
+          "date": "2020-05-06"
+        }
+      ]
+    },
+    {
+      "company": "Figma",
+      "total_filings": 7,
+      "filings": [
+        {
+          "name": "Figma, Inc.  (CIK 0001579878)",
+          "date": "2020-05-12"
+        },
+        {
+          "name": "Figma, Inc.  (CIK 0001579878)",
+          "date": "2021-07-01"
+        },
+        {
+          "name": "Figma, Inc.  (CIK 0001579878)",
+          "date": "2024-05-29"
+        },
+        {
+          "name": "Figma, Inc.  (CIK 0001579878)",
+          "date": "2021-02-24"
+        },
+        {
+          "name": "Figma, Inc.  (CIK 0001579878)",
+          "date": "2015-12-03"
+        }
+      ]
+    },
+    {
+      "company": "Slack",
+      "total_filings": 92,
+      "filings": [
+        {
+          "name": "1183929 Alberta ULC  (CIK 0001462144), SBRC Canada, L.L.C.  (CIK 0001462145), SOUTH BAY RESOURCES CANADA INC  (CIK 0001344277)",
+          "date": "2009-04-17"
+        },
+        {
+          "name": "Slack Family Capital Burst I, a Series of Slack Family Capital Burst, LP  (CIK 0001854771)",
+          "date": "2021-04-12"
+        },
+        {
+          "name": "E-360 Fund, llc  (CIK 0001683523)",
+          "date": "2016-09-15"
+        },
+        {
+          "name": "Quinn Slack ABC Burst VI, a series of Slack Family Capital Burst, LP  (CIK 0002038086)",
+          "date": "2024-09-26"
+        },
+        {
+          "name": "Slack Family Capital Burst II, a series of Slack Family Capital Burst, LP  (CIK 0001892510)",
+          "date": "2021-11-05"
+        }
+      ]
+    }
+  ],
+  "court_listener": [
+    {
+      "company": "Theranos",
+      "total_cases": 689,
+      "top_cases": [
+        {
+          "case_name": "Theranos, Inc. v. Lee",
+          "court": "District Court, E.D. Virginia",
+          "date_filed": "2012-12-14"
+        },
+        {
+          "case_name": "Maltese v. Theranos, Inc.",
+          "court": "District Court, N.D. California",
+          "date_filed": "2016-06-17"
+        },
+        {
+          "case_name": "Brown v. Theranos, Inc.",
+          "court": "District Court, N.D. California",
+          "date_filed": "2016-06-21"
+        }
+      ]
+    },
+    {
+      "company": "WeWork",
+      "total_cases": 941,
+      "top_cases": [
+        {
+          "case_name": "WeWork LA LLC",
+          "court": "United States Bankruptcy Court, D. New Jersey",
+          "date_filed": "2023-11-06"
+        },
+        {
+          "case_name": "WeWork Construction LLC",
+          "court": "United States Bankruptcy Court, D. New Jersey",
+          "date_filed": "2023-11-06"
+        },
+        {
+          "case_name": "WeWork Commons LLC",
+          "court": "United States Bankruptcy Court, D. New Jersey",
+          "date_filed": "2023-11-06"
+        }
+      ]
+    },
+    {
+      "company": "Uber",
+      "total_cases": 28841,
+      "top_cases": [
+        {
+          "case_name": "Uber, Inc. v. Uber Technologies, Inc.",
+          "court": "District Court, S.D. New York",
+          "date_filed": "2020-03-16"
+        },
+        {
+          "case_name": "STANLEY UBER",
+          "court": "United States Bankruptcy Court, D. Arizona",
+          "date_filed": "2010-11-02"
+        },
+        {
+          "case_name": "Uber v. Uber Technologies Inc",
+          "court": "District Court, M.D. Florida",
+          "date_filed": "2015-06-01"
+        }
+      ]
+    },
+    {
+      "company": "Coinbase",
+      "total_cases": 3704,
+      "top_cases": [
+        {
+          "case_name": "Aggarwal v. Coinbase, Inc.",
+          "court": "District Court, N.D. California",
+          "date_filed": "2023-01-25"
+        },
+        {
+          "case_name": "Silverman, Esq. v. Coinbase Inc.",
+          "court": "United States Bankruptcy Court, S.D. New York",
+          "date_filed": "2021-12-21"
+        },
+        {
+          "case_name": "Wahab v. Coinbase, Inc.",
+          "court": "District Court, S.D. New York",
+          "date_filed": "2023-02-23"
+        }
+      ]
+    },
+    {
+      "company": "Palantir",
+      "total_cases": 811,
+      "top_cases": [
+        {
+          "case_name": "Palantir.net, Inc. v. Palantir Technologies, Inc.",
+          "court": "District Court, N.D. Illinois",
+          "date_filed": "2007-07-30"
+        },
+        {
+          "case_name": "Palantir Technologies, Inc. v. Palantir.net, Inc.",
+          "court": "District Court, N.D. California",
+          "date_filed": "2010-09-22"
+        },
+        {
+          "case_name": "Palantir Technologies Inc.",
+          "court": "District Court, D. Colorado",
+          "date_filed": "2021-09-15"
+        }
+      ]
+    },
+    {
+      "company": "Peloton",
+      "total_cases": 1440,
+      "top_cases": [
+        {
+          "case_name": "Kotsyulym v. Peloton Interactive, Inc.",
+          "court": "District Court, N.D. Illinois",
+          "date_filed": "2026-02-22"
+        },
+        {
+          "case_name": "PELOTON COLD BREW, LLC v. PELOTON INTERACTIVE, INC.",
+          "court": "District Court, E.D. Pennsylvania",
+          "date_filed": "2021-08-11"
+        },
+        {
+          "case_name": "Simpson v. Peloton Interactive Inc",
+          "court": "District Court, N.D. Alabama",
+          "date_filed": "2021-12-29"
+        }
+      ]
+    },
+    {
+      "company": "Robinhood",
+      "total_cases": 2547,
+      "top_cases": [
+        {
+          "case_name": "(PS) Robinhood News Inc. v. Robinhood Markets, Inc.",
+          "court": "District Court, E.D. California",
+          "date_filed": "2026-02-04"
+        },
+        {
+          "case_name": "Robinhood Properties, LLC",
+          "court": "United States Bankruptcy Court, N.D. New York",
+          "date_filed": "2024-02-06"
+        },
+        {
+          "case_name": "ZYBURA v. ROBINHOOD FINANCIAL LLC",
+          "court": "District Court, S.D. Florida",
+          "date_filed": "2021-04-06"
+        }
+      ]
+    },
+    {
+      "company": "Juicero",
+      "total_cases": 63,
+      "top_cases": [
+        {
+          "case_name": "Juicero, Inc. v. iTaste Co.",
+          "court": "District Court, N.D. California",
+          "date_filed": "2017-04-06"
+        },
+        {
+          "case_name": "Cellulose Material Solutions, LLC v. SC Marketing Group, Inc.",
+          "court": "District Court, N.D. California",
+          "date_filed": "2022-05-27"
+        },
+        {
+          "case_name": "Fourte International Limited BVI v. Pin Shine Industrial Co., LTD.",
+          "court": "District Court, S.D. California",
+          "date_filed": "2018-02-07"
+        }
+      ]
+    },
+    {
+      "company": "Blue Apron",
+      "total_cases": 386,
+      "top_cases": [
+        {
+          "case_name": "CRAWFORD v. BLUE APRON",
+          "court": "District Court, D. New Jersey",
+          "date_filed": "2018-07-18"
+        },
+        {
+          "case_name": "Brittney Mejico v. Blue Apron, LLC",
+          "court": "District Court, C.D. California",
+          "date_filed": "2018-12-26"
+        },
+        {
+          "case_name": "Bell v. Blue Apron",
+          "court": "District Court, N.D. Texas",
+          "date_filed": "2019-01-14"
+        }
+      ]
+    },
+    {
+      "company": "Bird Rides",
+      "total_cases": 131,
+      "top_cases": [
+        {
+          "case_name": "Bird Rides, Inc.",
+          "court": "United States Bankruptcy Court, S.D. Florida.",
+          "date_filed": "2023-12-20"
+        },
+        {
+          "case_name": "Lucena v. Bird Rides, Inc.",
+          "court": "District Court, M.D. Florida",
+          "date_filed": "2020-09-03"
+        },
+        {
+          "case_name": "Springsteen v. Bird Rides",
+          "court": "District Court, D. Utah",
+          "date_filed": "2022-02-17"
+        }
+      ]
+    }
+  ],
+  "open_corporates": [],
+  "remotive": {
+    "total_jobs": 21,
+    "target_matches": [],
+    "top_hiring": [
+      {
+        "company": "Sanctuary Computer",
+        "jobs": 2
+      },
+      {
+        "company": "TELUS Digital",
+        "jobs": 2
+      },
+      {
+        "company": "AutoHDR",
+        "jobs": 2
+      },
+      {
+        "company": "A.Team",
+        "jobs": 2
+      },
+      {
+        "company": "Mitre Media",
+        "jobs": 2
+      },
+      {
+        "company": "easybill GmbH",
+        "jobs": 1
+      },
+      {
+        "company": "nooro",
+        "jobs": 1
+      },
+      {
+        "company": "Chooose",
+        "jobs": 1
+      },
+      {
+        "company": "IAPWE",
+        "jobs": 1
+      },
+      {
+        "company": "Coalition Technologies ",
+        "jobs": 1
+      },
+      {
+        "company": "Crisp",
+        "jobs": 1
+      },
+      {
+        "company": "Filestage",
+        "jobs": 1
+      },
+      {
+        "company": "KnownHost",
+        "jobs": 1
+      },
+      {
+        "company": "C4Media Inc.",
+        "jobs": 1
+      },
+      {
+        "company": "Marketerx",
+        "jobs": 1
+      }
+    ]
+  },
+  "world_bank": {
+    "NY.GDP.MKTP.KD.ZG": {
+      "name": "GDP Growth (%)",
+      "data": [
+        {
+          "year": 2024,
+          "value": 2.79300127716779
+        },
+        {
+          "year": 2023,
+          "value": 2.88755600749487
+        },
+        {
+          "year": 2022,
+          "value": 2.51237531986017
+        },
+        {
+          "year": 2021,
+          "value": 6.05505293244555
+        },
+        {
+          "year": 2020,
+          "value": -2.16302914036166
+        },
+        {
+          "year": 2019,
+          "value": 2.58382533412825
+        },
+        {
+          "year": 2018,
+          "value": 2.96650506901305
+        },
+        {
+          "year": 2017,
+          "value": 2.45762229852507
+        },
+        {
+          "year": 2016,
+          "value": 1.81945147788167
+        },
+        {
+          "year": 2015,
+          "value": 2.94555045484053
+        },
+        {
+          "year": 2014,
+          "value": 2.52381981363968
+        },
+        {
+          "year": 2013,
+          "value": 2.11783009790057
+        },
+        {
+          "year": 2012,
+          "value": 2.28911338669843
+        },
+        {
+          "year": 2011,
+          "value": 1.56440685763506
+        },
+        {
+          "year": 2010,
+          "value": 2.69519257744442
+        }
+      ]
+    },
+    "FR.INR.RINR": {
+      "name": "Real Interest Rate (%)",
+      "data": [
+        {
+          "year": 2021,
+          "value": -1.08716753956254
+        },
+        {
+          "year": 2020,
+          "value": 2.84614797883625
+        },
+        {
+          "year": 2019,
+          "value": 3.71968036171318
+        },
+        {
+          "year": 2018,
+          "value": 2.46243186978415
+        },
+        {
+          "year": 2017,
+          "value": 2.37161907294657
+        },
+        {
+          "year": 2016,
+          "value": 2.63773113762977
+        },
+        {
+          "year": 2015,
+          "value": 2.4751634842667
+        },
+        {
+          "year": 2014,
+          "value": 1.58866664005878
+        },
+        {
+          "year": 2013,
+          "value": 1.7482101512619
+        },
+        {
+          "year": 2012,
+          "value": 1.362424650544
+        },
+        {
+          "year": 2011,
+          "value": 1.16287972647355
+        },
+        {
+          "year": 2010,
+          "value": 2.01031249832462
+        }
+      ]
+    },
+    "CM.MKT.LCAP.CD": {
+      "name": "Market Capitalization ($)",
+      "data": [
+        {
+          "year": 2025,
+          "value": 68937866210000
+        },
+        {
+          "year": 2024,
+          "value": 62185685320000
+        },
+        {
+          "year": 2023,
+          "value": 48979397700000
+        },
+        {
+          "year": 2022,
+          "value": 40297980320000
+        },
+        {
+          "year": 2021,
+          "value": 48548538120000
+        },
+        {
+          "year": 2020,
+          "value": 41569861770000
+        },
+        {
+          "year": 2019,
+          "value": 34085727370000
+        },
+        {
+          "year": 2018,
+          "value": 30436313050000
+        },
+        {
+          "year": 2017,
+          "value": 32120702650000
+        },
+        {
+          "year": 2016,
+          "value": 27352200720000
+        },
+        {
+          "year": 2015,
+          "value": 25067539600000
+        },
+        {
+          "year": 2014,
+          "value": 26330589190000
+        },
+        {
+          "year": 2013,
+          "value": 24034853520000
+        },
+        {
+          "year": 2012,
+          "value": 18668333210000
+        },
+        {
+          "year": 2011,
+          "value": 15640707040000
+        },
+        {
+          "year": 2010,
+          "value": 17283451680000
+        }
+      ]
+    },
+    "BX.KLT.DINV.CD.WD": {
+      "name": "FDI Inflows ($)",
+      "data": [
+        {
+          "year": 2024,
+          "value": 297058000000
+        },
+        {
+          "year": 2023,
+          "value": 361944000000
+        },
+        {
+          "year": 2022,
+          "value": 416890000000
+        },
+        {
+          "year": 2021,
+          "value": 477956000000
+        },
+        {
+          "year": 2020,
+          "value": 137066000000
+        },
+        {
+          "year": 2019,
+          "value": 315984000000
+        },
+        {
+          "year": 2018,
+          "value": 214715000000
+        },
+        {
+          "year": 2017,
+          "value": 380823000000
+        },
+        {
+          "year": 2016,
+          "value": 474388000000
+        },
+        {
+          "year": 2015,
+          "value": 511434000000
+        },
+        {
+          "year": 2014,
+          "value": 251856000000
+        },
+        {
+          "year": 2013,
+          "value": 288131000000
+        },
+        {
+          "year": 2012,
+          "value": 250345000000
+        },
+        {
+          "year": 2011,
+          "value": 263497000000
+        },
+        {
+          "year": 2010,
+          "value": 264039000000
+        }
+      ]
+    },
+    "SL.UEM.TOTL.NE.ZS": {
+      "name": "Unemployment Rate (%)",
+      "data": [
+        {
+          "year": 2025,
+          "value": 4.282
+        },
+        {
+          "year": 2024,
+          "value": 4.022
+        },
+        {
+          "year": 2023,
+          "value": 3.638
+        },
+        {
+          "year": 2022,
+          "value": 3.65
+        },
+        {
+          "year": 2021,
+          "value": 5.349
+        },
+        {
+          "year": 2020,
+          "value": 8.055
+        },
+        {
+          "year": 2019,
+          "value": 3.669
+        },
+        {
+          "year": 2018,
+          "value": 3.896
+        },
+        {
+          "year": 2017,
+          "value": 4.355
+        },
+        {
+          "year": 2016,
+          "value": 4.869
+        },
+        {
+          "year": 2015,
+          "value": 5.28
+        },
+        {
+          "year": 2014,
+          "value": 6.168
+        },
+        {
+          "year": 2013,
+          "value": 7.375
+        },
+        {
+          "year": 2012,
+          "value": 8.069
+        },
+        {
+          "year": 2011,
+          "value": 8.949
+        },
+        {
+          "year": 2010,
+          "value": 9.633
+        }
+      ]
+    },
+    "IC.REG.DURS": {
+      "name": "Days to Start Business",
+      "data": []
+    }
+  },
+  "gdelt": [
+    {
+      "company": "Uber",
+      "article_count": 0,
+      "note": "non-json response"
+    },
+    {
+      "company": "Theranos",
+      "article_count": 5,
+      "latest_articles": [
+        {
+          "title": "Theranos whistleblower on  metaphorical black box  of AI",
+          "source": "finance.yahoo.com",
+          "date": "20260226"
+        },
+        {
+          "title": "Disgraced Theranos fraudster Elizabeth Holmes just caught a break in court -- an",
+          "source": "nypost.com",
+          "date": "20260327"
+        },
+        {
+          "title": "Henry Danger",
+          "source": "tvguide.co.uk",
+          "date": "20260215"
+        }
+      ]
+    },
+    {
+      "company": "Quibi",
+      "article_count": 5,
+      "latest_articles": [
+        {
+          "title": "TikTok - like microdramas are going to make billions this year , even though the",
+          "source": "techcrunch.com",
+          "date": "20260123"
+        },
+        {
+          "title": "TelevisaUnivision Bets Its Telenovela DNA Can Win The Microdrama Race",
+          "source": "forbes.com",
+          "date": "20260331"
+        },
+        {
+          "title": "AMC will stream  The Audacity  premiere in 21 parts on TikTok",
+          "source": "techcrunch.com",
+          "date": "20260411"
+        }
+      ]
+    },
+    {
+      "company": "Shopify",
+      "article_count": 5,
+      "latest_articles": [
+        {
+          "title": "Top 10 Melhores Agências Shopify Em Portugal Em 2026",
+          "source": "pcguia.pt",
+          "date": "20260127"
+        },
+        {
+          "title": "Billionaires Are Dropping Tesla Stock and Buying This TSX Stock in Bulk",
+          "source": "fool.ca",
+          "date": "20260322"
+        },
+        {
+          "title": "Shopify makes more job cuts , this time targeting partnerships team",
+          "source": "betakit.com",
+          "date": "20260122"
+        }
+      ]
+    },
+    {
+      "company": "Snowflake",
+      "article_count": 5,
+      "latest_articles": [
+        {
+          "title": "After Earnings , Is Snowflake a Buy , a Sell , or Fairly Valued ? ",
+          "source": "morningstar.com",
+          "date": "20260304"
+        },
+        {
+          "title": "Снежинка возвращается в Приамурье после зимовки в Китае АМУР . Инфо",
+          "source": "amur.info",
+          "date": "20260323"
+        },
+        {
+          "title": "Cloud data company that recently signed a $200 million OpenAI deal announces job",
+          "source": "timesofindia.indiatimes.com",
+          "date": "20260320"
+        }
+      ]
+    }
+  ],
+  "wikidata": [
+    {
+      "company": "Airbnb",
+      "wikidata_id": "Q63327",
+      "founded": "2007-01-01",
+      "employees": 5597,
+      "country": "United States",
+      "industry": "tourism industry",
+      "ceo": "Brian Chesky"
+    },
+    {
+      "company": "Dropbox",
+      "wikidata_id": "Q142539",
+      "founded": "2007-01-01",
+      "employees": null,
+      "country": "United States",
+      "industry": "cloud storage"
+    },
+    {
+      "company": "Stripe",
+      "wikidata_id": "Q7624104",
+      "founded": "2010-01-01",
+      "employees": 2500,
+      "country": "Ireland",
+      "industry": "financial services",
+      "ceo": "Patrick Collison"
+    },
+    {
+      "company": "Uber",
+      "wikidata_id": "Q780442",
+      "founded": "2009-03-01",
+      "employees": 12000,
+      "country": "United States",
+      "industry": "information technology",
+      "ceo": "Dara Khosrowshahi"
+    },
+    {
+      "company": "Shopify",
+      "wikidata_id": "Q7501150",
+      "founded": "2006-01-01",
+      "employees": 8300,
+      "country": "Canada",
+      "industry": "e-commerce"
+    },
+    {
+      "company": "Twilio",
+      "wikidata_id": "Q7858039",
+      "founded": "2008-01-01",
+      "employees": null,
+      "country": "United States",
+      "industry": "Voice over IP"
+    },
+    {
+      "company": "Coinbase",
+      "wikidata_id": "Q16972754",
+      "founded": "2012-06-20",
+      "employees": 1249,
+      "country": "United States",
+      "industry": "Bitcoin"
+    },
+    {
+      "company": "WeWork",
+      "wikidata_id": "Q19995004",
+      "founded": "2010-01-01",
+      "employees": null,
+      "country": "United States",
+      "industry": "coworking industry",
+      "ceo": "Adam Neumann"
+    },
+    {
+      "company": "Peloton",
+      "wikidata_id": "Q56276186",
+      "founded": "2012-01-01",
+      "employees": null,
+      "country": "United States"
+    },
+    {
+      "company": "DoorDash",
+      "wikidata_id": "Q20714323",
+      "founded": "2012-01-01",
+      "employees": null,
+      "country": "United States",
+      "industry": "logistics"
+    },
+    {
+      "company": "Robinhood",
+      "wikidata_id": "Q18155123",
+      "founded": "2013-01-01",
+      "employees": null,
+      "country": "United States",
+      "industry": "financial services"
+    },
+    {
+      "company": "CrowdStrike",
+      "wikidata_id": "Q24890758",
+      "founded": "2011-08-29",
+      "employees": 7925,
+      "country": "United States",
+      "industry": "computer security"
+    },
+    {
+      "company": "Datadog",
+      "wikidata_id": "Q16248637",
+      "founded": "2010-01-01",
+      "employees": null,
+      "country": "United States",
+      "industry": "IT performance management"
+    }
+  ],
+  "wikipedia": [
+    {
+      "company": "Quibi",
+      "title": "Quibi",
+      "description": "American short-form mobile video platform",
+      "extract": "Quibi was an American short-form streaming platform that generated content for viewing on mobile devices. It was founded in Los Angeles in August 2018 as NewTV by Jeffrey Katzenberg, and it was led by Meg Whitman as CEO. The service raised $1.75 billion from investors. It launched in April 2020, but",
+      "type": "standard"
+    },
+    {
+      "company": "Juicero",
+      "title": "Juicero",
+      "description": "American juicer company (2013–2017)",
+      "extract": "Juicero Inc. was an American company that designed, manufactured and sold the Juicero Press, a fruit and vegetable juicer. The Juicero Press featured Wi-Fi connectivity and used proprietary, single-serving packets of pre-chopped fruits and vegetables that were sold exclusively by the company on a su",
+      "type": "standard"
+    },
+    {
+      "company": "Theranos",
+      "title": "Theranos",
+      "description": "Defunct American health technology company",
+      "extract": "Theranos Inc. was an American privately held corporation that was touted as a breakthrough health technology company. Founded in 2003 by then 19-year-old Elizabeth Holmes, Theranos raised more than US$700 million from venture capitalists and private investors, resulting in a $9 billion valuation at ",
+      "type": "standard"
+    },
+    {
+      "company": "Jawbone",
+      "title": "Jawbone (company)",
+      "description": "Defunct technology company",
+      "extract": "AliphCom, Inc. was an American technology company based in San Francisco. It made consumer products, including a fitness tracker, Bluetooth headphones, and wireless speakers.",
+      "type": "standard"
+    },
+    {
+      "company": "Katerra",
+      "title": "Katerra",
+      "description": "American technology company 2015-2022",
+      "extract": "Katerra was an American technology-driven off-site construction company. It was founded in 2015 by Michael Marks, former CEO of Flextronics and former Tesla interim CEO, along with Fritz Wolff, the executive chairman of The Wolff Co. Katerra was listed on LinkedIn's \"Top Startup Companies\" to work f",
+      "type": "standard"
+    },
+    {
+      "company": "Solyndra",
+      "title": "Solyndra",
+      "description": "American solar panel manufacturer (2005–2011)",
+      "extract": "Solyndra was a manufacturer of cylindrical panels of copper indium gallium selenide (CIGS) thin film solar cells. It was based in Fremont, California. In 2009, the Obama administration co-signed $535 million in loans to Solyndra.",
+      "type": "standard"
+    },
+    {
+      "company": "MoviePass",
+      "title": "MoviePass",
+      "description": "American subscription-based movie ticketing service",
+      "extract": "MoviePass, Inc. is an American subscription-based movie ticketing service owned by co-founder Stacy Spikes.",
+      "type": "standard"
+    },
+    {
+      "company": "Pets.com",
+      "title": "Pets.com",
+      "description": "Former American online retailer",
+      "extract": "Pets.com was an American dot-com enterprise headquartered in San Francisco, U.S, that sold pet supplies to retail customers. The website was launched in November 1998 and was shut down in November 2000. A high-profile marketing campaign gave it a widely recognized public presence, including an appea",
+      "type": "standard"
+    },
+    {
+      "company": "Rivian",
+      "title": "Rivian",
+      "description": "American electric vehicle company",
+      "extract": "Rivian Automotive, Inc., is an American electric vehicle manufacturer and automotive technology company founded in 2009. It produces an electric sport utility vehicle (SUV), a pickup truck on a \"skateboard\" platform that can support future vehicles or be adopted by other companies, and an electric d",
+      "type": "standard"
+    },
+    {
+      "company": "DoorDash",
+      "title": "DoorDash",
+      "description": "American food delivery company",
+      "extract": "DoorDash, Inc. is an American company operating online food ordering and food delivery. It trades under the symbol DASH. With a 56% market share, DoorDash is the largest food delivery platform in the United States. It also has a 60% market share in the convenience delivery category. As of December 3",
+      "type": "standard"
+    },
+    {
+      "company": "Robinhood",
+      "title": "Robinhood Markets",
+      "description": "US-based financial services company",
+      "extract": "Robinhood Markets, Inc. is an American financial services company based in Menlo Park, California. It provides an electronic trading platform that facilitates trades of stocks, exchange-traded funds, options, index options, futures contracts, event contracts on prediction markets, and cryptocurrency",
+      "type": "standard"
+    },
+    {
+      "company": "CrowdStrike",
+      "title": "CrowdStrike",
+      "description": "American cybersecurity technology company",
+      "extract": "CrowdStrike Holdings, Inc. is an American cybersecurity technology company based in Austin, Texas. It provides endpoint security, threat intelligence, and cyberattack response services.",
+      "type": "standard"
+    },
+    {
+      "company": "Datadog",
+      "title": "Datadog",
+      "description": "American technology company",
+      "extract": "Datadog, Inc. is an American company that provides an observability service for cloud-scale applications, providing monitoring of servers, databases, tools, and services, through a SaaS-based data analytics platform. Founded and headquartered in New York City, the company is a publicly traded entity",
+      "type": "standard"
+    },
+    {
+      "company": "Affirm",
+      "title": "Affirm Holdings",
+      "description": "American financial services company",
+      "extract": "Affirm Holdings, Inc. is an American financial technology company and a point-of-sale lender. Founded in 2012 by PayPal co-founder Max Levchin, it is the largest U.S. based buy now, pay later (BNPL) financier. As of 2025, Affirm reports nearly 26 million users and processing $37 billion in annual pa",
+      "type": "standard"
+    },
+    {
+      "company": "Roku",
+      "title": "Roku",
+      "description": "Brand of streaming media players",
+      "extract": "Roku is a brand of consumer electronics that includes streaming players, smart TVs, as well as two streaming services. The brand is owned by Roku, Inc., an American company.",
+      "type": "standard"
+    },
+    {
+      "company": "Snowflake",
+      "title": "Snowflake Inc.",
+      "description": "Cloud-based data-warehousing company",
+      "extract": "Snowflake Inc. is an American cloud-based data platform company founded in San Mateo, California, and headquartered in Menlo Park. It operates a platform that supports data analysis and simultaneous access to data sets with minimal latency. It operates on Amazon Web Services, Microsoft Azure, and Go",
+      "type": "standard"
+    },
+    {
+      "company": "Coinbase",
+      "title": "Coinbase",
+      "description": "American digital asset exchange company",
+      "extract": "Coinbase Global, Inc. is an American cryptocurrency exchange. It was founded in 2012 by Brian Armstrong and Fred Ehrsam. Coinbase has over 100 million users, and is the largest U.S. based cryptocurrency exchange as well as the world's biggest bitcoin custodian, as of 2024. The company operates in mo",
+      "type": "standard"
+    },
+    {
+      "company": "Palantir",
+      "title": "Palantir",
+      "description": "US-based software and services company",
+      "extract": "Palantir Technologies Inc. is an American publicly traded company that develops data integration and analytics platforms enabling government agencies, militaries, and corporations to combine and analyze data from multiple sources. Its flagship products—Gotham and Foundry —connect previously siloed d",
+      "type": "standard"
+    },
+    {
+      "company": "Pinterest",
+      "title": "Pinterest",
+      "description": "American social media platform",
+      "extract": "Pinterest is an American social media service for publishing and discovery of information in the form of digital pinboards. This includes recipes, home, style, motivation, and inspiration on the Internet using image sharing. Pinterest, Inc. was founded by Ben Silbermann, Paul Sciarra, and Evan Sharp",
+      "type": "standard"
+    },
+    {
+      "company": "WeWork",
+      "title": "WeWork",
+      "description": "American coworkspace company",
+      "extract": "WeWork Inc. is an American company headquartered in New York City that provides coworking spaces, including physical and virtual shared spaces, in approximately 600 buildings in 125 cities.",
+      "type": "standard"
+    },
+    {
+      "company": "Clubhouse",
+      "title": "Clubhouse (app)",
+      "description": "Audio-based social networking service",
+      "extract": "Clubhouse is an American social audio app for iOS and Android developed by Alpha Exploration Co. that facilitates real-time, audio-only communication within virtual \"rooms\". Launched in March 2020 by Paul Davison and Rohan Seth, the platform is characterized by its \"drop-in\" nature, where users can ",
+      "type": "standard"
+    },
+    {
+      "company": "Bird Rides",
+      "title": "Bird (disambiguation)",
+      "description": "Topics referred to by the same term",
+      "extract": "A bird is a feathered, winged, bipedal, warm-blooded, egg-laying, vertebrate.",
+      "type": "disambiguation"
+    },
+    {
+      "company": "Blue Apron",
+      "title": "Blue Apron",
+      "description": "Meal delivery service",
+      "extract": "Blue Apron Holdings, Inc. is an American ingredient-and-recipe meal kit company headquartered in New York City, operating its services exclusively in the United States. It offers weekly boxes containing ingredients, which also includes suggested recipes that must be cooked by hand by the customer us",
+      "type": "standard"
+    },
+    {
+      "company": "Peloton",
+      "title": "Peloton Interactive",
+      "description": "American exercise equipment manufacturer",
+      "extract": "Peloton Interactive, Inc. is an American exercise equipment and media company based in New York City. The company's products include stationary bicycles, treadmills, and indoor rowers equipped with Internet-connected touch screens that stream live and on-demand fitness classes through a subscription",
+      "type": "standard"
+    },
+    {
+      "company": "Snap",
+      "title": "Snap Inc.",
+      "description": "American technology company",
+      "extract": "Snap Inc. is an American technology company, founded on September 16, 2011, by Evan Spiegel, Bobby Murphy, and Reggie Brown, based in Santa Monica, California. The company developed and maintains technological products and services, namely Snapchat, Spectacles, Bitmoji, and SnapBoost. The company wa",
+      "type": "standard"
+    },
+    {
+      "company": "Square",
+      "title": "Block, Inc.",
+      "description": "American financial services company",
+      "extract": "Block, Inc. is an American technology company and a financial services provider for consumers and merchants. Founded in 2009 by Jack Dorsey, it is the U.S. market leader in point-of-sale systems. As of 2024, Block serves 57 million users and 4 million sellers, processing $241 billion in payments ann",
+      "type": "standard"
+    },
+    {
+      "company": "Twilio",
+      "title": "Twilio",
+      "description": "US cloud communications company",
+      "extract": "Twilio Inc. is an American cloud communications company based in San Francisco, California, which provides programmable communication tools for making and receiving phone calls, sending and receiving text messages, and performing other communication functions using its web service APIs.",
+      "type": "standard"
+    },
+    {
+      "company": "Stripe",
+      "title": "Stripe, Inc.",
+      "description": "Irish-American multinational financial services and SaaS company",
+      "extract": "Stripe, Inc. is an Irish-American multinational financial services and software as a service (SaaS) company dual-headquartered in South San Francisco, California, United States, and Dublin, Ireland. The company primarily offers payment-processing software and application programming interfaces for e",
+      "type": "standard"
+    }
+  ],
+  "github": [
+    {
+      "company": "Stripe",
+      "total_stars": 5125,
+      "total_forks": 1094,
+      "repos": [
+        {
+          "repo": "stripe/stripe-node",
+          "stars": 4384,
+          "forks": 890,
+          "issues": 48,
+          "lang": "TypeScript",
+          "pushed": "2026-04-12",
+          "created": "2011-09-28"
+        },
+        {
+          "repo": "stripe/stripe-js",
+          "stars": 741,
+          "forks": 204,
+          "issues": 7,
+          "lang": "TypeScript",
+          "pushed": "2026-04-10",
+          "created": "2020-01-21"
+        }
+      ]
+    },
+    {
+      "company": "Airbnb",
+      "total_stars": 179900,
+      "total_forks": 29659,
+      "repos": [
+        {
+          "repo": "airbnb/javascript",
+          "stars": 148103,
+          "forks": 26731,
+          "issues": 190,
+          "lang": "JavaScript",
+          "pushed": "2026-02-24",
+          "created": "2012-11-01"
+        },
+        {
+          "repo": "airbnb/lottie-web",
+          "stars": 31797,
+          "forks": 2928,
+          "issues": 849,
+          "lang": "JavaScript",
+          "pushed": "2025-09-01",
+          "created": "2015-02-20"
+        }
+      ]
+    },
+    {
+      "company": "Dropbox",
+      "total_stars": 965,
+      "total_forks": 354,
+      "repos": [
+        {
+          "repo": "dropbox/dropbox-sdk-js",
+          "stars": 965,
+          "forks": 354,
+          "issues": 96,
+          "lang": "JavaScript",
+          "pushed": "2026-02-25",
+          "created": "2016-04-06"
+        }
+      ]
+    },
+    {
+      "company": "Shopify",
+      "total_stars": 8044,
+      "total_forks": 1643,
+      "repos": [
+        {
+          "repo": "Shopify/hydrogen",
+          "stars": 1924,
+          "forks": 398,
+          "issues": 71,
+          "lang": "TypeScript",
+          "pushed": "2026-04-10",
+          "created": "2022-09-19"
+        },
+        {
+          "repo": "Shopify/polaris",
+          "stars": 6120,
+          "forks": 1245,
+          "issues": 158,
+          "lang": "TypeScript",
+          "pushed": "2026-01-06",
+          "created": "2017-04-20"
+        }
+      ]
+    },
+    {
+      "company": "Uber",
+      "total_stars": 33664,
+      "total_forks": 2400,
+      "repos": [
+        {
+          "repo": "uber-go/zap",
+          "stars": 24410,
+          "forks": 1509,
+          "issues": 175,
+          "lang": "Go",
+          "pushed": "2026-03-16",
+          "created": "2016-02-18"
+        },
+        {
+          "repo": "uber/cadence",
+          "stars": 9254,
+          "forks": 891,
+          "issues": 194,
+          "lang": "Go",
+          "pushed": "2026-04-10",
+          "created": "2017-02-21"
+        }
+      ]
+    },
+    {
+      "company": "Figma",
+      "total_stars": 1786,
+      "total_forks": 347,
+      "repos": [
+        {
+          "repo": "figma/plugin-samples",
+          "stars": 1786,
+          "forks": 347,
+          "issues": 18,
+          "lang": "TypeScript",
+          "pushed": "2026-03-23",
+          "created": "2019-07-30"
+        }
+      ]
+    },
+    {
+      "company": "Slack",
+      "total_stars": 2900,
+      "total_forks": 430,
+      "repos": [
+        {
+          "repo": "slackapi/bolt-js",
+          "stars": 2900,
+          "forks": 430,
+          "issues": 83,
+          "lang": "TypeScript",
+          "pushed": "2026-04-10",
+          "created": "2016-07-19"
+        }
+      ]
+    },
+    {
+      "company": "Palantir",
+      "total_stars": 21633,
+      "total_forks": 2286,
+      "repos": [
+        {
+          "repo": "palantir/blueprint",
+          "stars": 21633,
+          "forks": 2286,
+          "issues": 971,
+          "lang": "TypeScript",
+          "pushed": "2026-04-11",
+          "created": "2016-10-25"
+        }
+      ]
+    },
+    {
+      "company": "Twilio",
+      "total_stars": 1528,
+      "total_forks": 547,
+      "repos": [
+        {
+          "repo": "twilio/twilio-node",
+          "stars": 1528,
+          "forks": 547,
+          "issues": 52,
+          "lang": "TypeScript",
+          "pushed": "2026-03-24",
+          "created": "2013-02-19"
+        }
+      ]
+    },
+    {
+      "company": "Square",
+      "total_stars": 90825,
+      "total_forks": 16636,
+      "repos": [
+        {
+          "repo": "square/okhttp",
+          "stars": 46923,
+          "forks": 9280,
+          "issues": 96,
+          "lang": "Kotlin",
+          "pushed": "2026-04-12",
+          "created": "2012-07-23"
+        },
+        {
+          "repo": "square/retrofit",
+          "stars": 43902,
+          "forks": 7356,
+          "issues": 169,
+          "lang": "HTML",
+          "pushed": "2026-04-09",
+          "created": "2010-09-06"
+        }
+      ]
+    },
+    {
+      "company": "Coinbase",
+      "total_stars": 120,
+      "total_forks": 92,
+      "repos": [
+        {
+          "repo": "coinbase/coinbase-sdk-nodejs",
+          "stars": 120,
+          "forks": 92,
+          "issues": 32,
+          "lang": "TypeScript",
+          "pushed": "2025-06-11",
+          "created": "2024-05-08"
+        }
+      ]
+    },
+    {
+      "company": "DoorDash",
+      "total_stars": 0,
+      "total_forks": 0,
+      "repos": []
+    },
+    {
+      "company": "Datadog",
+      "total_stars": 791,
+      "total_forks": 383,
+      "repos": [
+        {
+          "repo": "DataDog/dd-trace-js",
+          "stars": 791,
+          "forks": 383,
+          "issues": 230,
+          "lang": "JavaScript",
+          "pushed": "2026-04-12",
+          "created": "2018-01-17"
+        }
+      ]
+    },
+    {
+      "company": "CrowdStrike",
+      "total_stars": 485,
+      "total_forks": 162,
+      "repos": [
+        {
+          "repo": "CrowdStrike/falconpy",
+          "stars": 485,
+          "forks": 162,
+          "issues": 20,
+          "lang": "Python",
+          "pushed": "2026-04-07",
+          "created": "2020-11-12"
+        }
+      ]
+    },
+    {
+      "company": "Snowflake",
+      "total_stars": 141,
+      "total_forks": 147,
+      "repos": [
+        {
+          "repo": "snowflakedb/snowflake-connector-nodejs",
+          "stars": 141,
+          "forks": 147,
+          "issues": 20,
+          "lang": "JavaScript",
+          "pushed": "2026-04-08",
+          "created": "2018-01-09"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "version": "2.0",
+    "generated": "2026-04-12T20:51:33.230Z",
+    "elapsed_seconds": 632,
+    "apis_connected": 11,
+    "apis_failed": 1,
+    "total_apis": 12,
+    "categories": {
+      "1_product_traction": [
+        "GitHub API",
+        "Hacker News Algolia",
+        "YC Companies"
+      ],
+      "2_corporate_legal": [
+        "SEC EDGAR XBRL",
+        "SEC EDGAR EFTS (Form D)",
+        "CourtListener RECAP",
+        "OpenCorporates"
+      ],
+      "3_talent_hiring": [
+        "Remotive API"
+      ],
+      "4_macro_risk": [
+        "World Bank API",
+        "GDELT News"
+      ],
+      "5_knowledge_graph": [
+        "Wikidata SPARQL",
+        "Wikipedia REST"
+      ]
+    }
+  }
+}

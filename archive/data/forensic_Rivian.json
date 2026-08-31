@@ -1,0 +1,37 @@
+{
+  "result": {
+    "probability": 0.3449,
+    "status": "REVIEW",
+    "logit": -0.6416,
+    "calibrations": {
+      "bias_adj": 1.8,
+      "ltv_weight_adj": 0.3,
+      "growth_weight_adj": 1.5,
+      "runway_weight_adj": 0.25
+    }
+  },
+  "agent_report": {
+    "startup_name": "Rivian",
+    "analysis": "Rivian demonstrates a strong technical moat through intellectual property protection and significant engineering milestones. Strong demand for its products, as evidenced by multi-billion-dollar orders from leading companies, further supports its prospects.",
+    "recommended_prior_adj": 0.0,
+    "critical_findings": [
+      {
+        "finding_type": "Technical Moat",
+        "description": "Rivian has significant intellectual property protection through patents and trademarks related to its electric vehicle technology.",
+        "impact_weight": 0.7
+      },
+      {
+        "finding_type": "Technical Promise",
+        "description": "Rivian has achieved notable engineering milestones, including the production of its R1T and R1S vehicles, and has successfully secured key partnerships with manufacturers like Samsung and Intel.",
+        "impact_weight": 0.8
+      },
+      {
+        "finding_type": "Backlog/Contracts",
+        "description": "Rivian has secured multi-billion-dollar orders from companies like Ford and Amazon, indicating a strong demand for its products.",
+        "impact_weight": 0.9
+      }
+    ],
+    "is_fatal": false
+  },
+  "thesis": "**Final VC Thesis:**\n\n**Company:** Rivian\n**Analysis:** Rivian demonstrates a strong technical moat through intellectual property protection and significant engineering milestones, coupled with strong demand for its products, as evidenced by multi-billion-dollar orders from leading companies.\n\n**Key Findings:**\n\n1. **Technical Moat:** Rivian has significant intellectual property protection through patents and trademarks related to its electric vehicle technology, providing a strong barrier to entry for competitors.\n2. **Technical Promise:** Rivian has achieved notable engineering milestones, including the production of its R1T and R1S vehicles, and has successfully secured key partnerships with manufacturers like Samsung and Intel.\n3. **Backlog/Contracts:** Rivian has secured multi-billion-dollar orders from companies like Ford and Amazon, indicating a strong demand for its products.\n\n**Calibration Adjustments:**\n\n1. **Bias Adjustment:** 1.8 (indicating a moderate to high degree of confidence in the analysis)\n2. **LTV Weight Adjustment:** 0.3 (indicating a moderate emphasis on long-term value creation)\n3. **Growth Weight Adjustment:** 1.5 (indicating a high emphasis on growth potential)\n4. **Runway Weight Adjustment:** 0.25 (indicating a"
+}
