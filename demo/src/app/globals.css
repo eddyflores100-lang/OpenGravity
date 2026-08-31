@@ -120,3 +120,27 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* ── Dossier de investigación: export a PDF/imprimir ───────────────────── */
+@media print {
+  body * { visibility: hidden !important; }
+  #dossier-print, #dossier-print * { visibility: visible !important; }
+  #dossier-print {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    background: #ffffff !important;
+    color: #111111 !important;
+  }
+  #dossier-print * {
+    color: #111111 !important;
+    background: transparent !important;
+    border-color: #d4d4d8 !important;
+    box-shadow: none !important;
+  }
+  #dossier-print .text-amber-300, #dossier-print .text-amber-400, #dossier-print .text-amber-500 { color: #92400e !important; }
+  #dossier-print .text-red-300, #dossier-print .text-red-400 { color: #991b1b !important; }
+  #dossier-print .text-emerald-300, #dossier-print .text-emerald-400 { color: #065f46 !important; }
+  #dossier-print .text-sky-300 { color: #075985 !important; }
+}

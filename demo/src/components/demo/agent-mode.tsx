@@ -14,12 +14,10 @@ import {
   ArrowRight,
   Bot,
   CheckCircle2,
-  ChevronDown,
-  ChevronUp,
   ExternalLink,
+  Landmark,
   Loader2,
   Radar,
-  Search,
   ShieldAlert,
   Sparkles,
   XCircle,
@@ -36,7 +34,9 @@ import {
   type Metrics,
 } from "@/lib/opengravity";
 import { runAgentSearch, runAuditor } from "@/lib/agents-static";
-import { VECTOR_META, type SearchVectorResult, type Synthesis } from "@/lib/research";
+import { runGovStatic } from "@/lib/agents-gov-static";
+import { DossierReport } from "@/components/demo/dossier";
+import { VECTOR_META, toGovPayload, type GovBundle, type SearchVectorResult, type Synthesis } from "@/lib/research";
 
 type Phase = "idle" | "searching" | "synth" | "done" | "error";
 
@@ -54,12 +54,13 @@ export function AgentMission({ onApply }: AgentMissionProps) {
   const [sector, setSector] = useState("");
   const [phase, setPhase] = useState<Phase>("idle");
   const [vectors, setVectors] = useState<SearchVectorResult[] | null>(null);
+  const [gov, setGov] = useState<GovBundle | null>(null);
   const [total, setTotal] = useState(0);
   const [synth, setSynth] = useState<Synthesis | null>(null);
   const [fallbackUsed, setFallbackUsed] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const [showAll, setShowAll] = useState(false);
   const [applied, setApplied] = useState(false);
+  const [mission, setMission] = useState<{ id: string; name: string; sector: string; startedAt: string; finishedAt: string } | null>(null);
 
   const running = phase === "searching" || phase === "synth";
 
@@ -87,19 +88,7 @@ export function AgentMission({ onApply }: AgentMissionProps) {
   const rawProb = probeMetrics ? evaluate(probeMetrics, 0).probability_hit : null;
   const adjProb = probeMetrics ? evaluate(probeMetrics, biasSum).probability_hit : null;
 
-  const evidence = useMemo(() => {
-    if (!vectors) return [];
-    const seen = new Set<string>();
-    const out: { title: string; url: string; host: string; snippet: string; date: string; vector: string }[] = [];
-    for (const v of vectors) {
-      for (const r of v.results) {
-        if (seen.has(r.url)) continue;
-        seen.add(r.url);
-        out.push({ ...r, vector: v.label });
-      }
-    }
-    return out;
-  }, [vectors]);
+  const govSources = useMemo(() => (gov ? gov.total_sources : 0), [gov]);
 
   async function run() {
     const q = name.trim();
@@ -110,30 +99,48 @@ export function AgentMission({ onApply }: AgentMissionProps) {
     }
     setPhase("searching");
     setVectors(null);
+    setGov(null);
     setSynth(null);
     setApplied(false);
     setErrorMsg(null);
-    setShowAll(false);
+    setMission(null);
 
+    const missionId = `OG-${Date.now().toString(36).toUpperCase().slice(-6)}`;
+    const startedAt = new Date().toISOString();
+    setMission({ id: missionId, name: q, sector: sector.trim(), startedAt, finishedAt: startedAt });
+
+    let govBundle: GovBundle | null = null;
     try {
-      // Layer 1 — harvesters en el navegador: 6 vectores sobre fuentes públicas
-      // abiertas (Wikipedia, Wikidata, GitHub, Hacker News, DuckDuckGo), sin
-      // backend. Cada vector se pinta al aterrizar.
-      const { vectors: vs, total: tot } = await runAgentSearch(q, (vec) => {
-        setVectors((prev) => {
-          const base = prev ? prev.filter((v) => v.key !== vec.key) : [];
-          return [...base, vec];
-        });
-      });
-      setVectors(vs);
-      setTotal(tot);
+      // Layer 1: vectores web (keyless) + scrapers .gov/SEC EDGAR vía lector CORS, EN PARALELO.
+      const [searchRes, govRes] = await Promise.allSettled([
+        runAgentSearch(q, (vec) => {
+          setVectors((prev) => {
+            const base = prev ?? VECTOR_META.map((vm) => ({ key: vm.key, label: vm.label, icon: vm.icon, query: "", ok: false, results: [] }));
+            const idx = base.findIndex((b) => b.key === vec.key);
+            const next = [...base];
+            if (idx >= 0) next[idx] = vec; else next.push(vec);
+            return next;
+          });
+        }),
+        runGovStatic(q),
+      ]);
 
-      // Layer 2 — auditor DeerFlow (extractor heurístico en modo estático)
+      if (searchRes.status === "rejected") throw new Error("La búsqueda agéntica falló");
+      const vs = searchRes.value.vectors;
+      if (!vs) throw new Error("La búsqueda agéntica falló");
+      setVectors(vs);
+      setTotal(searchRes.value.total);
+
+      if (govRes.status === "fulfilled") {
+        govBundle = govRes.value;
+        setGov(govBundle);
+      }
+
       setPhase("synth");
-      await new Promise((r) => setTimeout(r, 450));
-      const { synthesis, fallback_used: fb } = await runAuditor(q, sector.trim(), vs);
+      const { synthesis, fallback_used: fb } = await runAuditor(q, sector.trim(), vs, toGovPayload(govBundle));
       setSynth(synthesis);
       setFallbackUsed(fb);
+      setMission({ id: missionId, name: q, sector: sector.trim(), startedAt, finishedAt: new Date().toISOString() });
 
       // Auto-carga al motor: métricas solo si hay respaldo, señales siempre.
       const m = synthesis.estimated_metrics;
@@ -164,8 +171,6 @@ export function AgentMission({ onApply }: AgentMissionProps) {
     }
   }
 
-  const visibleEvidence = showAll ? evidence : evidence.slice(0, 6);
-
   return (
     <div id="agentes" className="scroll-mt-20">
       <Card className="border-amber-900/40 bg-gradient-to-b from-amber-950/10 to-zinc-900/40">
@@ -182,11 +187,13 @@ export function AgentMission({ onApply }: AgentMissionProps) {
             </Badge>
           </div>
           <CardDescription className="mt-1 text-xs leading-relaxed">
-            Escribe <span className="text-zinc-200">solo el nombre</span>: los agentes rastrean fuentes
-            públicas abiertas en vivo — Wikipedia, Wikidata, GitHub, Hacker News, DuckDuckGo — buscando
-            financiación, noticias, riesgos, tracción, comunidad y fundadores, y cargan las señales al motor
-            bayesiano. Es el pipeline de los harvesters del repo corriendo en tu navegador — después puedes
-            ajustar todo a mano.
+            Escribe <span className="text-zinc-200">solo el nombre</span>: los agentes rastrean el mercado
+            debajo de las piedras — búsqueda web en vivo (financiación, noticias, riesgos, tracción,
+            comunidad, fundadores) <span className="text-amber-300/90">+ scrapers oficiales de SEC EDGAR
+            (filings, finanzas XBRL reales) y USAspending.gov (contratos federales)</span> — y entregan
+            un <span className="text-zinc-200">informe completo exportable</span> con señales, deudas,
+            proyectos y cadena de custodia. Pipeline DeerFlow/MiroFish del repo corriendo en vivo;
+            después puedes ajustar todo a mano.
           </CardDescription>
         </CardHeader>
 
@@ -231,48 +238,84 @@ export function AgentMission({ onApply }: AgentMissionProps) {
             </div>
           </div>
 
-          {/* Vectores de búsqueda */}
+          {/* Vectores de búsqueda + scrapers .gov */}
           {(running || vectors) && (
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
-              {VECTOR_META.map((vm, i) => {
-                const done = vectors?.find((v) => v.key === vm.key);
-                const count = done?.results.length ?? 0;
-                return (
-                  <motion.div
-                    key={vm.key}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.06, duration: 0.3 }}
-                    className={`rounded-lg border p-2.5 text-left ${
-                      done
-                        ? done.ok
-                          ? "border-zinc-800 bg-zinc-950/60"
-                          : "border-red-900/60 bg-red-950/20"
-                        : "border-zinc-800/60 bg-zinc-950/30"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm" aria-hidden>{vm.icon}</span>
-                      {done ? (
-                        done.ok ? (
-                          <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
+            <>
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
+                {VECTOR_META.map((vm, i) => {
+                  const done = vectors?.find((v) => v.key === vm.key);
+                  const count = done?.results.length ?? 0;
+                  return (
+                    <motion.div
+                      key={vm.key}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: i * 0.06, duration: 0.3 }}
+                      className={`rounded-lg border p-2.5 text-left ${
+                        done
+                          ? done.ok
+                            ? "border-zinc-800 bg-zinc-950/60"
+                            : "border-red-900/60 bg-red-950/20"
+                          : "border-zinc-800/60 bg-zinc-950/30"
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm" aria-hidden>{vm.icon}</span>
+                        {done ? (
+                          done.ok ? (
+                            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
+                          ) : (
+                            <XCircle className="h-3.5 w-3.5 text-red-400" />
+                          )
                         ) : (
-                          <XCircle className="h-3.5 w-3.5 text-red-400" />
-                        )
-                      ) : (
-                        <Loader2 className="h-3.5 w-3.5 animate-spin text-zinc-600" />
-                      )}
-                    </div>
-                    <div className="mt-1 truncate text-[10px] leading-tight text-zinc-500" title={vm.label}>
-                      {vm.label}
-                    </div>
-                    <div className={`mt-0.5 font-mono text-[11px] ${done && done.ok ? "text-amber-300" : "text-zinc-600"}`}>
-                      {done ? (done.ok ? `${count} fuentes` : "sin datos") : "buscando…"}
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
+                          <Loader2 className="h-3.5 w-3.5 animate-spin text-zinc-600" />
+                        )}
+                      </div>
+                      <div className="mt-1 truncate text-[10px] leading-tight text-zinc-500" title={vm.label}>
+                        {vm.label}
+                      </div>
+                      <div className={`mt-0.5 font-mono text-[11px] ${done && done.ok ? "text-amber-300" : "text-zinc-600"}`}>
+                        {done ? (done.ok ? `${count} fuentes` : "sin datos") : "buscando…"}
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+              {/* Scrapers regulatorios */}
+              <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
+                {[
+                  { key: "edgar_fts", label: "SEC EDGAR — filings", icon: "🏛️" },
+                  { key: "edgar_filings", label: "SEC EDGAR — entidad y historial", icon: "🏛️" },
+                  { key: "edgar_xbrl", label: "SEC EDGAR XBRL — finanzas reales", icon: "📊" },
+                  { key: "usaspending", label: "USAspending.gov — contratos", icon: "🇺🇸" },
+                ].map((gm, i) => {
+                  const done = gov?.log.find((l) => l.key === gm.key);
+                  return (
+                    <motion.div
+                      key={gm.key}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.35 + i * 0.06, duration: 0.3 }}
+                      className={`rounded-lg border border-sky-900/50 p-2.5 text-left ${done ? "bg-zinc-950/60" : "bg-zinc-950/30"}`}
+                      title={gm.label}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm" aria-hidden>{gm.icon}</span>
+                        {done ? (
+                          done.ok ? <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" /> : <XCircle className="h-3.5 w-3.5 text-red-400" />
+                        ) : (
+                          <Loader2 className="h-3.5 w-3.5 animate-spin text-zinc-600" />
+                        )}
+                      </div>
+                      <div className="mt-1 truncate text-[10px] leading-tight text-zinc-400">{gm.label}</div>
+                      <div className={`mt-0.5 font-mono text-[11px] ${done && done.ok && done.count > 0 ? "text-sky-300" : "text-zinc-600"}`}>
+                        {done ? (done.ok ? `${done.count} registros · ${done.ms}ms` : "sin acceso") : "scrapeando…"}
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </>
           )}
 
           {/* Error */}
@@ -288,10 +331,10 @@ export function AgentMission({ onApply }: AgentMissionProps) {
               <Loader2 className="h-4 w-4 animate-spin text-amber-400" />
               <div>
                 <p className="text-xs font-medium text-zinc-200">
-                  Auditor DeerFlow sintetizando {total} fuentes…
+                  Auditor DeerFlow sintetizando {total} fuentes web{govSources > 0 ? ` + ${govSources} registros SEC/.gov` : ""}…
                 </p>
                 <p className="mt-0.5 text-[11px] text-zinc-500">
-                  Extrayendo señales con impacto logit, métricas estimadas y vetos de política de la evidencia pública recopilada.
+                  Extrayendo señales, métricas y vetos del contexto web + de los filings oficiales de SEC EDGAR y USAspending.gov.
                 </p>
               </div>
             </div>
@@ -312,15 +355,16 @@ export function AgentMission({ onApply }: AgentMissionProps) {
                   Informe del auditor
                 </span>
                 <Badge variant="outline" className="border-zinc-700 font-mono text-[10px] text-zinc-400">
-                  {evidence.length} evidencias
+                  {total + govSources} evidencias
                 </Badge>
-                {fallbackUsed ? (
-                  <Badge variant="outline" className="border-orange-800/60 bg-orange-950/30 font-mono text-[10px] text-orange-300">
-                    sin evidencia · fallback heurístico
+                {gov && gov.edgar_companies.length > 0 && (
+                  <Badge variant="outline" className="border-sky-800/60 bg-sky-950/30 font-mono text-[10px] text-sky-300">
+                    <Landmark className="mr-1 h-2.5 w-2.5" />SEC EDGAR: {gov.edgar_companies.map((c) => c.name).join(", ")}
                   </Badge>
-                ) : (
-                  <Badge variant="outline" className="border-amber-800/60 bg-amber-950/30 font-mono text-[10px] text-amber-300">
-                    auditor heurístico local
+                )}
+                {fallbackUsed && (
+                  <Badge variant="outline" className="border-orange-800/60 bg-orange-950/30 font-mono text-[10px] text-orange-300">
+                    fallback heurístico
                   </Badge>
                 )}
                 {synth.metric_confidence !== "unknown" && (
@@ -520,55 +564,28 @@ export function AgentMission({ onApply }: AgentMissionProps) {
             </motion.div>
           )}
 
-          {/* Evidencia */}
-          {evidence.length > 0 && phase === "done" && (
-            <div>
-              <button
-                onClick={() => setShowAll((v) => !v)}
-                className="flex w-full items-center justify-between rounded-lg border border-zinc-800 bg-zinc-950/40 px-3 py-2.5 text-left transition-colors hover:border-zinc-600"
-                aria-expanded={showAll}
-              >
-                <span className="flex items-center gap-2 text-xs text-zinc-300">
-                  <Search className="h-3.5 w-3.5 text-zinc-500" />
-                  {evidence.length} fuentes crudas bajo las piedras
-                  <span className="text-zinc-600">— haz clic para {showAll ? "ocultar" : "inspeccionar"}</span>
-                </span>
-                {showAll ? (
-                  <ChevronUp className="h-4 w-4 text-zinc-500" />
-                ) : (
-                  <ChevronDown className="h-4 w-4 text-zinc-500" />
-                )}
-              </button>
-              {showAll && (
-                <div className="mt-2 grid max-h-80 gap-2 overflow-y-auto pr-1 sm:grid-cols-2">
-                  {visibleEvidence.map((r, i) => (
-                    <a
-                      key={i}
-                      href={r.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group rounded-lg border border-zinc-800 bg-zinc-950/60 p-2.5 transition-colors hover:border-amber-700/60"
-                    >
-                      <div className="flex items-center justify-between gap-2">
-                        <span className="truncate font-mono text-[10px] text-zinc-500">
-                          {r.host}{r.date ? ` · ${r.date}` : ""}
-                        </span>
-                        <ExternalLink className="h-3 w-3 shrink-0 text-zinc-600 group-hover:text-amber-300" />
-                      </div>
-                      <div className="mt-1 line-clamp-2 text-[11px] font-medium leading-snug text-zinc-200">
-                        {r.title}
-                      </div>
-                      <div className="mt-1 line-clamp-2 text-[10px] leading-snug text-zinc-500">
-                        {r.snippet}
-                      </div>
-                      <span className="mt-1.5 inline-block rounded bg-zinc-900 px-1.5 py-0.5 text-[9px] text-zinc-600">
-                        {r.vector}
-                      </span>
-                    </a>
-                  ))}
-                </div>
-              )}
-            </div>
+          {/* EL INFORME COMPLETO — dossier con trazabilidad total */}
+          {synth && phase === "done" && mission && (
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: 0.15 }}
+            >
+              <DossierReport
+                name={mission.name}
+                sector={mission.sector}
+                missionId={mission.id}
+                startedAt={mission.startedAt}
+                finishedAt={mission.finishedAt}
+                vectors={vectors ?? []}
+                gov={gov}
+                synth={synth}
+                fallbackUsed={fallbackUsed}
+                biasSum={biasSum}
+                rawProb={rawProb ?? 0}
+                adjProb={adjProb ?? 0}
+              />
+            </motion.div>
           )}
         </CardContent>
       </Card>

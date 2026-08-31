@@ -21,12 +21,14 @@
  * Origin https://alicelabsllc.github.io.
  */
 
+import { findingsOverlap, govStructuralSignalsStatic } from "@/lib/agents-gov-static";
 import {
   VECTOR_META,
   type EvidenceItem,
   type SearchVectorResult,
   type Synthesis,
   type SynthesisSignal,
+  type GovPayload,
   type VectorPayload,
 } from "@/lib/research";
 
@@ -445,7 +447,8 @@ const r1 = (v: number) => Math.round(v * 10) / 10;
 export async function runAuditor(
   name: string,
   sector: string,
-  vectors: SearchVectorResult[]
+  vectors: SearchVectorResult[],
+  gov?: GovPayload | null
 ): Promise<{ synthesis: Synthesis; fallback_used: boolean }> {
   const payloads: VectorPayload[] = vectors.map((v) => ({ key: v.key, label: v.label, results: v.results }));
   const allEvidence = payloads.flatMap((v) => v.results);
@@ -585,6 +588,17 @@ export async function runAuditor(
       polarity: "negative",
       source_urls: fatalUrls,
     });
+  }
+
+  // Fusibles objetivos de SEC EDGAR (.gov) con deduplicación contra el extractor
+  // heurístico — los datos exactos de los filings mandan sobre las keywords.
+  if (gov) {
+    for (const g of govStructuralSignalsStatic(gov)) {
+      const dup = finalSignals.findIndex((s) => s.polarity === g.polarity && findingsOverlap(s.finding, g.finding));
+      if (dup === -1) finalSignals.push(g);
+      else if (Math.abs(g.impact_magnitude) > Math.abs(finalSignals[dup].impact_magnitude)) finalSignals[dup] = g;
+    }
+    finalSignals.sort((a, b) => a.impact_magnitude - b.impact_magnitude);
   }
 
   return {
