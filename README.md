@@ -16,6 +16,12 @@ agents challenge the number with real-world evidence.
 [![FastAPI](https://img.shields.io/badge/FastAPI-Oracle%20API-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![Next.js](https://img.shields.io/badge/Next.js-Dashboard-black?logo=next.js&logoColor=white)](./ui)
 [![Tests](https://img.shields.io/badge/tests-12%20passing-brightgreen)](./tests)
+[![Live Demo](https://img.shields.io/badge/demo-live%20on%20GitHub%20Pages-amber?logo=github&logoColor=white)](https://alicelabsllc.github.io/OpenGravity/)
+
+**🌐 Try it live — no install, no keys:** **[alicelabsllc.github.io/OpenGravity](https://alicelabsllc.github.io/OpenGravity/)**
+Type a startup name and the agent squad crawls Wikipedia, Wikidata, GitHub,
+Hacker News and DuckDuckGo in your browser, then feeds the Bayesian engine.
+Full source of the demo: [`demo/`](./demo).
 
 </div>
 
