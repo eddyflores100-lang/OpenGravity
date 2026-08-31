@@ -8,7 +8,12 @@
  *   Layer 3: el motor bayesiano re-puntúa con agent_bias (auto-aplicado).
  */
 
-import { useMemo, useState } from "react";
+import { runAgentSearch, runAuditor } from "@/lib/agents-static";
+import { runGovStatic } from "@/lib/agents-gov-static";
+import { runMoreSearch, runTavily } from "@/lib/agents-more-static";
+import { DossierReport } from "@/components/demo/dossier";
+import { TAVILY_META, VECTOR_META, toGovPayload, type GovBundle, type GovSourceLog, type MoreData, type SearchVectorResult, type Synthesis } from "@/lib/research";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -27,16 +32,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { KeyRound } from "lucide-react";
 import {
   CUSTOM_DEFAULTS,
   evaluate,
   type AgentSignalPreset,
   type Metrics,
 } from "@/lib/opengravity";
-import { runAgentSearch, runAuditor } from "@/lib/agents-static";
-import { runGovStatic } from "@/lib/agents-gov-static";
-import { DossierReport } from "@/components/demo/dossier";
-import { VECTOR_META, toGovPayload, type GovBundle, type SearchVectorResult, type Synthesis } from "@/lib/research";
 
 type Phase = "idle" | "searching" | "synth" | "done" | "error";
 
@@ -61,6 +63,27 @@ export function AgentMission({ onApply }: AgentMissionProps) {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [applied, setApplied] = useState(false);
   const [mission, setMission] = useState<{ id: string; name: string; sector: string; startedAt: string; finishedAt: string } | null>(null);
+  const [moreLogsFull, setMoreLogsFull] = useState<GovSourceLog[] | null>(null);
+  const [tavilyKey, setTavilyKey] = useState("");
+
+  // La clave Tavily vive solo en el navegador del usuario (localStorage).
+  useEffect(() => {
+    try {
+      setTavilyKey(localStorage.getItem("og_tavily_key") ?? "");
+    } catch {
+      /* localStorage bloqueado */
+    }
+  }, []);
+
+  const upsertVec = (prev: SearchVectorResult[], vec: SearchVectorResult): SearchVectorResult[] => {
+    const idx = prev.findIndex((b) => b.key === vec.key);
+    if (idx >= 0) {
+      const next = [...prev];
+      next[idx] = vec;
+      return next;
+    }
+    return [...prev, vec];
+  };
 
   const running = phase === "searching" || phase === "synth";
 
@@ -90,6 +113,12 @@ export function AgentMission({ onApply }: AgentMissionProps) {
 
   const govSources = useMemo(() => (gov ? gov.total_sources : 0), [gov]);
 
+  /** Bundle .gov para el dossier con los logs de las ~20 scrapers de apoyo fusionados. */
+  const govDisplay = useMemo(() => {
+    if (!gov) return null;
+    return moreLogsFull?.length ? { ...gov, log: [...gov.log, ...moreLogsFull] } : gov;
+  }, [gov, moreLogsFull]);
+
   async function run() {
     const q = name.trim();
     if (!q) {
@@ -104,6 +133,7 @@ export function AgentMission({ onApply }: AgentMissionProps) {
     setApplied(false);
     setErrorMsg(null);
     setMission(null);
+    setMoreLogsFull(null);
 
     const missionId = `OG-${Date.now().toString(36).toUpperCase().slice(-6)}`;
     const startedAt = new Date().toISOString();
@@ -111,25 +141,44 @@ export function AgentMission({ onApply }: AgentMissionProps) {
 
     let govBundle: GovBundle | null = null;
     try {
-      // Layer 1: vectores web (keyless) + scrapers .gov/SEC EDGAR vía lector CORS, EN PARALELO.
-      const [searchRes, govRes] = await Promise.allSettled([
+      // Layer 1: 12 vectores (6 web + 6 especializados) + scrapers .gov/SEC, EN PARALELO.
+      const [searchRes, govRes, moreRes] = await Promise.allSettled([
         runAgentSearch(q, (vec) => {
           setVectors((prev) => {
             const base = prev ?? VECTOR_META.map((vm) => ({ key: vm.key, label: vm.label, icon: vm.icon, query: "", ok: false, results: [] }));
-            const idx = base.findIndex((b) => b.key === vec.key);
-            const next = [...base];
-            if (idx >= 0) next[idx] = vec; else next.push(vec);
-            return next;
+            return upsertVec(base, vec);
           });
         }),
         runGovStatic(q),
+        runMoreSearch(q, (vec) => {
+          setVectors((prev) => {
+            const base = prev ?? VECTOR_META.map((vm) => ({ key: vm.key, label: vm.label, icon: vm.icon, query: "", ok: false, results: [] }));
+            return upsertVec(base, vec);
+          });
+        }),
       ]);
 
       if (searchRes.status === "rejected") throw new Error("La búsqueda agéntica falló");
       const vs = searchRes.value.vectors;
       if (!vs) throw new Error("La búsqueda agéntica falló");
-      setVectors(vs);
-      setTotal(searchRes.value.total);
+
+      // Vector opt-in Tavily (clave local del usuario)
+      let tavVec: SearchVectorResult | null = null;
+      if (tavilyKey.trim()) {
+        tavVec = await runTavily(q, tavilyKey.trim());
+      }
+
+      let moreData = null as MoreData | null;
+      let moreVectors: SearchVectorResult[] = [];
+      if (moreRes.status === "fulfilled") {
+        moreData = moreRes.value.data;
+        moreVectors = moreRes.value.vectors;
+        setMoreLogsFull(moreRes.value.logs);
+      }
+
+      const allVectors = [...vs, ...moreVectors, ...(tavVec ? [tavVec] : [])];
+      setVectors(allVectors);
+      setTotal(allVectors.reduce((a, v) => a + v.results.length, 0));
 
       if (govRes.status === "fulfilled") {
         govBundle = govRes.value;
@@ -137,7 +186,7 @@ export function AgentMission({ onApply }: AgentMissionProps) {
       }
 
       setPhase("synth");
-      const { synthesis, fallback_used: fb } = await runAuditor(q, sector.trim(), vs, toGovPayload(govBundle));
+      const { synthesis, fallback_used: fb } = await runAuditor(q, sector.trim(), allVectors, toGovPayload(govBundle), moreData);
       setSynth(synthesis);
       setFallbackUsed(fb);
       setMission({ id: missionId, name: q, sector: sector.trim(), startedAt, finishedAt: new Date().toISOString() });
@@ -188,12 +237,12 @@ export function AgentMission({ onApply }: AgentMissionProps) {
           </div>
           <CardDescription className="mt-1 text-xs leading-relaxed">
             Escribe <span className="text-zinc-200">solo el nombre</span>: los agentes rastrean el mercado
-            debajo de las piedras — búsqueda web en vivo (financiación, noticias, riesgos, tracción,
-            comunidad, fundadores) <span className="text-amber-300/90">+ scrapers oficiales de SEC EDGAR
-            (filings, finanzas XBRL reales) y USAspending.gov (contratos federales)</span> — y entregan
-            un <span className="text-zinc-200">informe completo exportable</span> con señales, deudas,
-            proyectos y cadena de custodia. Pipeline DeerFlow/MiroFish del repo corriendo en vivo;
-            después puedes ajustar todo a mano.
+            debajo de las piedras con <span className="text-amber-300/90">~30 APIs públicas gratuitas y scrapers
+            oficiales</span> — búsqueda web, SEC EDGAR (filings y finanzas XBRL reales), USAspending.gov
+            (contratos federales), boards de empleo, App Store, OpenAlex, ClinicalTrials.gov, DNS/RDAP/Wayback,
+            Yahoo Finance, CoinGecko, Federal Register y openFDA — y entregan un{" "}
+            <span className="text-zinc-200">informe completo exportable</span> con señales, deudas, proyectos y
+            cadena de custodia. Pipeline DeerFlow/MiroFish del repo corriendo en vivo; después puedes ajustar todo a mano.
           </CardDescription>
         </CardHeader>
 
@@ -236,6 +285,32 @@ export function AgentMission({ onApply }: AgentMissionProps) {
                 {running ? "Rastreando…" : "Desplegar agentes"}
               </Button>
             </div>
+          </div>
+
+          {/* Tavily opt-in — la clave del usuario vive solo en su navegador */}
+          <div className="flex flex-wrap items-center gap-2">
+            <KeyRound className="h-3 w-3 shrink-0 text-zinc-600" />
+            <input
+              type="password"
+              value={tavilyKey}
+              onChange={(e) => {
+                setTavilyKey(e.target.value);
+                try {
+                  if (e.target.value) localStorage.setItem("og_tavily_key", e.target.value);
+                  else localStorage.removeItem("og_tavily_key");
+                } catch {
+                  /* localStorage bloqueado */
+                }
+              }}
+              placeholder="Clave Tavily (opcional, gratis 1.000 búsquedas/mes en tavily.com) — se guarda solo en tu navegador y activa el vector de búsqueda profunda"
+              className="h-7 min-w-0 flex-1 rounded border border-zinc-800 bg-zinc-950/60 px-2 text-[10px] text-zinc-200 placeholder:text-zinc-600"
+              aria-label="Clave API de Tavily (opcional)"
+            />
+            {tavilyKey && (
+              <Badge variant="outline" className="border-emerald-800/60 font-mono text-[9px] text-emerald-300">
+                {TAVILY_META.icon} deepweb activo
+              </Badge>
+            )}
           </div>
 
           {/* Vectores de búsqueda + scrapers .gov */}
@@ -315,6 +390,14 @@ export function AgentMission({ onApply }: AgentMissionProps) {
                   );
                 })}
               </div>
+              {moreLogsFull && moreLogsFull.length > 0 && (
+                <p className="text-[10px] leading-relaxed text-zinc-500">
+                  <span className="text-zinc-400">＋ {moreLogsFull.filter((l) => l.ok).length}/{moreLogsFull.length} scrapers de apoyo rastreados en vivo</span>{" "}
+                  — empleo (Greenhouse · Lever · SmartRecruiters · Workable), App Store (iTunes Search), ciencia (OpenAlex · ClinicalTrials.gov),
+                  infraestructura web (Cloudflare DoH · RDAP · Wayback CDX), mercados (Yahoo Finance · CoinGecko) y reguladores (Federal Register · openFDA).
+                  Cada uno con endpoint, latencia y estado reales en el mapa del informe.
+                </p>
+              )}
             </>
           )}
 
@@ -578,7 +661,7 @@ export function AgentMission({ onApply }: AgentMissionProps) {
                 startedAt={mission.startedAt}
                 finishedAt={mission.finishedAt}
                 vectors={vectors ?? []}
-                gov={gov}
+                gov={govDisplay}
                 synth={synth}
                 fallbackUsed={fallbackUsed}
                 biasSum={biasSum}

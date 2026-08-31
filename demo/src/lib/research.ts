@@ -156,7 +156,76 @@ export const VECTOR_META: { key: string; label: string; icon: string }[] = [
   { key: "product", label: "Producto y tracción", icon: "📦" },
   { key: "community", label: "Comunidad técnica", icon: "🟠" },
   { key: "people", label: "Fundadores y equipo", icon: "🧑‍💻" },
+  { key: "talento", label: "Talento: vacantes en ATS", icon: "🧑‍💼" },
+  { key: "apps", label: "Apps móviles y valoraciones", icon: "📱" },
+  { key: "ciencia", label: "Ciencia: papers y ensayos", icon: "🔬" },
+  { key: "web", label: "Huella web: dominio, DNS, archivo", icon: "🌐" },
+  { key: "mercados", label: "Mercados: cotización y cripto", icon: "💹" },
+  { key: "regs", label: "Reguladores: FedRegister, FDA", icon: "🏛️" },
 ];
+
+/** Vector opt-in Tavily (solo con clave del usuario). */
+export const TAVILY_META = { key: "deepweb", label: "Tavily: búsqueda profunda (tu clave)", icon: "🔎" };
+
+/**
+ * Datos estructurados que extraen los 6 vectores nuevos — entrada de los
+ * fusibles objetivos del auditor (mismo patrón que GovPayload para .gov).
+ */
+export interface MoreData {
+  domain: string | null;
+  domain_from_input: boolean;
+  domain_alive: boolean | null; // null = no verificado
+  domain_registrar: string | null;
+  domain_age_years: number | null;
+  wayback_first_year: number | null;
+  jobs_total: number;
+  jobs_detail: { board: string; count: number; sample: string[] }[];
+  apps_count: number;
+  apps_rating_count: number;
+  npm_monthly: number | null;
+  pypi_found: boolean;
+  docker_pulls: number | null;
+  stackexchange_items: number;
+  papers_count: number;
+  trials_count: number;
+  crypto_top: { name: string; rank: number | null }[];
+  ticker: { symbol: string; type: string; exchange: string; trend_1y: number | null } | null;
+  fedregister_count: number;
+  fda_approvals: number;
+  fda_recalls: number;
+}
+
+export const EMPTY_MORE_DATA: MoreData = {
+  domain: null,
+  domain_from_input: false,
+  domain_alive: null,
+  domain_registrar: null,
+  domain_age_years: null,
+  wayback_first_year: null,
+  jobs_total: 0,
+  jobs_detail: [],
+  apps_count: 0,
+  apps_rating_count: 0,
+  npm_monthly: null,
+  pypi_found: false,
+  docker_pulls: null,
+  stackexchange_items: 0,
+  papers_count: 0,
+  trials_count: 0,
+  crypto_top: [],
+  ticker: null,
+  fedregister_count: 0,
+  fda_approvals: 0,
+  fda_recalls: 0,
+};
+
+/** Resultado de runMoreSearch: 6 vectores nuevos + log por sub-fuente. */
+export interface MoreBundle {
+  ok: boolean;
+  vectors: SearchVectorResult[];
+  logs: GovSourceLog[];
+  data: MoreData;
+}
 
 /** Metadatos de los scrapers .gov/SEC para el mapa de investigación. */
 export const GOV_META: { key: string; label: string; icon: string }[] = [

@@ -6,12 +6,14 @@
  *   1. SEC EDGAR full-text search — menciones del nombre en TODOS los filings
  *   2. SEC EDGAR submissions     — tarjeta de entidad + historial de filings
  *   3. SEC EDGAR XBRL            — finanzas reales (Ingresos / Resultado neto)
- *   4. USAspending.gov           — registrado como "requiere backend": su API
- *      es POST y las páginas estáticas no pueden proxies; disponible en la
- *      demo local y en el Oracle (v10_orchestrator.py).
+ *   4. USAspending.gov           — contratos (A-D) y subvenciones (02-05) por
+ *      POST directo: verificado empíricamente que la API emite
+ *      Access-Control-Allow-Origin: *, así que el navegador puede llamarla
+ *      sin backend (curl-verified 200 + ACAO).
  *
  * EDGAR no permite CORS de navegador, así que las peticiones GET pasan por
- * r.jina.ai (lector público que sí refleja Origin). Si el lector falla o
+ * r.jina.ai (lector público que sí refleja Origin), con memo-cache y semáforo
+ * de concurrencia para respetar su rate-limit anónimo. Si el lector falla o
  * aplica rate-limit, la fuente se registra como degradada y el informe
  * continúa con el resto — igual que el fallback del orquestador original.
  */
@@ -19,6 +21,7 @@
 import type {
   EdgarCompany,
   EdgarHit,
+  GovAward,
   GovBundle,
   GovSourceLog,
   XbrlFinancial,
@@ -26,16 +29,44 @@ import type {
 
 const JINA = "https://r.jina.ai/";
 
-/** GET a una API JSON sin CORS a través del lector público. */
-async function jinaJson<T>(url: string, ms = 25000): Promise<T> {
-  const res = await fetch(JINA + url, { signal: AbortSignal.timeout(ms), cache: "no-store" });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const text = await res.text();
-  const start = text.indexOf('{"');
-  if (start === -1) throw new Error("respuesta sin JSON");
-  // El JSON puede venir con contenido jina delante; recorta desde el primer objeto.
-  const sliced = text.slice(start);
-  return JSON.parse(sliced) as T;
+/* Memo-cache + semáforo: r.jina.ai limita ~20 rpm anónimas por IP; la misión
+ * lanza hasta ~10 peticiones jina (EDGAR 1-5 + Docker/Yahoo/RDAP), así que se
+ * encolan con concurrencia 3 y se reutilizan respuestas idénticas. */
+const jinaCache = new Map<string, unknown>();
+let jinaActive = 0;
+const jinaQueue: (() => void)[] = [];
+async function jinaSlot(): Promise<void> {
+  if (jinaActive < 3) {
+    jinaActive++;
+    return;
+  }
+  await new Promise<void>((r) => jinaQueue.push(r));
+  jinaActive++;
+}
+function jinaRelease() {
+  jinaActive--;
+  const next = jinaQueue.shift();
+  if (next) next();
+}
+
+/** GET a una API JSON sin CORS a través del lector público (memoizado). */
+export async function jinaJson<T>(url: string, ms = 25000): Promise<T> {
+  if (jinaCache.has(url)) return jinaCache.get(url) as T;
+  await jinaSlot();
+  try {
+    const res = await fetch(JINA + url, { signal: AbortSignal.timeout(ms), cache: "no-store" });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const text = await res.text();
+    const start = text.indexOf('{"');
+    if (start === -1) throw new Error("respuesta sin JSON");
+    // El JSON puede venir con contenido jina delante; recorta desde el primer objeto.
+    const sliced = text.slice(start);
+    const parsed = JSON.parse(sliced) as T;
+    jinaCache.set(url, parsed);
+    return parsed;
+  } finally {
+    jinaRelease();
+  }
 }
 
 const today = new Date().toISOString().slice(0, 10);
@@ -181,28 +212,92 @@ export async function runGovStatic(
     log("edgar_xbrl", "SEC EDGAR XBRL — finanzas reales extraídas de los filings", "data.sec.gov/api/xbrl vía r.jina.ai", true, 0, 0, "sin CIK → sin XBRL");
   }
 
-  /* 4 — USAspending: requiere POST → marcado honestamente como backend-only */
-  log(
-    "usaspending",
-    "USAspending.gov — contratos y subvenciones",
-    "api.usaspending.gov …/spending_by_award",
-    false,
-    0,
-    0,
-    "su API es POST: inaccesible desde una página estática — corre en la demo local y en el Oracle (v10_orchestrator.py)"
-  );
+  /* 4 — USAspending: POST directo (CORS abierto verificado con curl) */
+  onStep?.("USAspending.gov: contratos y subvenciones federales…");
+  let awards: GovAward[] = [];
+  let awardsTotal = 0;
+  let awardsRecipients: string[] = [];
+  {
+    const t0 = Date.now();
+    try {
+      const BASE = "https://api.usaspending.gov/api/v2/search/spending_by_award/";
+      const year = new Date().getFullYear();
+      const tp = { start_date: "2008-01-01", end_date: `${year}-12-31` };
+      const FIELDS = ["Recipient Name", "Award ID", "Award Amount", "Awarding Agency", "Start Date", "Description", "Award Type"];
+      const call = async (award_type_codes: string[], type: string): Promise<GovAward[]> => {
+        const body = {
+          filters: { keywords: [name], award_type_codes, time_period: [tp] },
+          fields: FIELDS,
+          limit: 5,
+          page: 1,
+          sort: "Award Amount",
+          order: "desc",
+          subawards: false,
+        };
+        const res = await fetch(BASE, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+          signal: AbortSignal.timeout(15000),
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const json = (await res.json()) as { results?: Record<string, unknown>[] };
+        return (json.results ?? []).map((r) => {
+          const amount = Number(r["Award Amount"] ?? 0);
+          const id = String(r["Award ID"] ?? "");
+          return {
+            id: id || "—",
+            recipient: String(r["Recipient Name"] ?? ""),
+            amount,
+            start_date: String(r["Start Date"] ?? "").slice(0, 10),
+            agency: String(r["Awarding Agency"] ?? ""),
+            description: String(r["Description"] ?? "").slice(0, 220),
+            type,
+            url: `https://www.usaspending.gov/award/${encodeURIComponent(id)}`,
+          } as GovAward;
+        });
+      };
+      const [contracts, grants] = await Promise.all([
+        call(["A", "B", "C", "D"], "contrato").catch(() => [] as GovAward[]),
+        call(["02", "03", "04", "05"], "subvención").catch(() => [] as GovAward[]),
+      ]);
+      const found = [...contracts, ...grants];
+      awards = found;
+      awardsTotal = found.reduce((a, x) => a + (Number.isFinite(x.amount) ? x.amount : 0), 0);
+      awardsRecipients = [...new Set(found.map((x) => x.recipient).filter(Boolean))].slice(0, 5);
+      log(
+        "usaspending",
+        "USAspending.gov — contratos y subvenciones federales",
+        "api.usaspending.gov …/spending_by_award (POST directo, CORS verificado)",
+        true,
+        found.length,
+        Date.now() - t0,
+        found.length === 0 ? "sin premios federales para este nombre (normal en startups privadas)" : undefined
+      );
+    } catch (e) {
+      log(
+        "usaspending",
+        "USAspending.gov — contratos y subvenciones federales",
+        "api.usaspending.gov …/spending_by_award (POST directo)",
+        false,
+        0,
+        Date.now() - t0,
+        e instanceof Error ? e.message : "error"
+      );
+    }
+  }
 
   return {
-    ok: hits.length > 0 || companies.length > 0 || xbrl.length > 0,
+    ok: hits.length > 0 || companies.length > 0 || xbrl.length > 0 || awards.length > 0,
     name,
     edgar_hits: hits.slice(0, 40),
     edgar_companies: companies,
     xbrl,
-    awards: [],
-    awards_total: 0,
-    awards_recipients: [],
+    awards: awards.slice(0, 10),
+    awards_total: awardsTotal,
+    awards_recipients: awardsRecipients,
     log: LOG,
-    total_sources: hits.length + companies.reduce((a, c) => a + c.filings.length, 0) + xbrl.length,
+    total_sources: hits.length + companies.reduce((a, c) => a + c.filings.length, 0) + xbrl.length + awards.length,
   };
 }
 

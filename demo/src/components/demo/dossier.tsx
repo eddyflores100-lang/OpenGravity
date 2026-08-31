@@ -210,10 +210,16 @@ export function DossierReport(props: DossierProps) {
     };
     secDefs("8. Riesgos: demandas, despidos, regulación (prensa)", "risk");
     secDefs("9. Financiación y valuación (prensa)", "funding");
-    secDefs("10. Producto y tracción", "product");
-    secDefs("11. Comunidad técnica (Hacker News, GitHub)", "community");
+    secDefs("10. Producto, tracción, talento y apps", "product");
+    L.push(`## 10-bis. Talento y apps (vectores ampliados)`);
+    for (const r of [...(evidence.get("talento") ?? []), ...(evidence.get("apps") ?? [])].slice(0, 6)) L.push(`- "${r.title}" — ${r.host}${r.date ? ` (${r.date})` : ""}: ${r.snippet} [fuente](${r.url})`);
+    L.push("");
+    secDefs("11. Comunidad técnica (Hacker News, GitHub, Stack Overflow)", "community");
     secDefs("12. Equipo y fundadores", "people");
     secDefs("13. Noticias recientes", "news");
+    L.push(`## 13-bis. Ciencia, ensayos, huella web y mercados (vectores ampliados)`);
+    for (const r of [...(evidence.get("ciencia") ?? []), ...(evidence.get("web") ?? []), ...(evidence.get("mercados") ?? []), ...(evidence.get("regs") ?? [])].slice(0, 10)) L.push(`- "${r.title}" — ${r.host}${r.date ? ` (${r.date})` : ""}: ${r.snippet} [fuente](${r.url})`);
+    L.push("");
     L.push(`## 14. Métricas cargadas al motor`);
     const em = synth.estimated_metrics;
     L.push(`- Confianza: **${synth.metric_confidence === "found" ? "encontradas en fuentes" : synth.metric_confidence === "estimated" ? "estimadas por el auditor" : "desconocidas (defaults del motor)"}**`);
@@ -327,7 +333,10 @@ export function DossierReport(props: DossierProps) {
             </table>
           </div>
           <p className="text-[10px] text-zinc-600">
-            Vectores web = búsqueda en vivo (equivalente al agente Tavily del Oracle en producción). Scrapers .gov = peticiones directas a las APIs públicas de SEC EDGAR (full-text search, submissions, XBRL) y USAspending.gov. Todo se ejecutó en esta misión, con latencias reales.
+            Vectores web (12) = búsqueda y APIs públicas keyless en vivo (equivalente al agente Tavily del Oracle en producción).
+            Scrapers = peticiones directas a APIs oficiales y abiertas: SEC EDGAR (full-text search, submissions, XBRL), USAspending.gov
+            (POST con CORS verificado), boards de empleo, iTunes Search, OpenAlex, ClinicalTrials.gov, Cloudflare DoH, RDAP, Wayback CDX,
+            Yahoo Finance, CoinGecko, Federal Register y openFDA. Todo se ejecutó en esta misión, con latencias reales.
           </p>
         </Section>
 
@@ -477,25 +486,32 @@ export function DossierReport(props: DossierProps) {
           </Section>
         )}
 
-        {/* 9 — producto/comunidad */}
-        <Section n="09" title="Producto, tracción y comunidad" icon={<Bot className="h-3.5 w-3.5" />}>
-          <EvidenceList items={[...productItems, ...communityItems]} max={4} />
+        {/* 9 — producto/comunidad/talento/apps */}
+        <Section n="09" title="Producto, tracción, talento y apps" icon={<Bot className="h-3.5 w-3.5" />}>
+          <EvidenceList items={[...productItems, ...communityItems, ...(evidence.get("talento") ?? []), ...(evidence.get("apps") ?? [])]} max={5} />
         </Section>
 
-        {/* 10 — equipo */}
-        <Section n="10" title="Equipo y fundadores" icon={<Users className="h-3.5 w-3.5" />}>
+        {/* 10 — ciencia / web / mercados / reguladores */}
+        {((evidence.get("ciencia")?.length ?? 0) + (evidence.get("web")?.length ?? 0) + (evidence.get("mercados")?.length ?? 0) + (evidence.get("regs")?.length ?? 0)) > 0 && (
+          <Section n="10" title="Ciencia, huella web, mercados y reguladores (vectores ampliados)" icon={<Landmark className="h-3.5 w-3.5" />}>
+            <EvidenceList items={[...(evidence.get("ciencia") ?? []), ...(evidence.get("web") ?? []), ...(evidence.get("mercados") ?? []), ...(evidence.get("regs") ?? [])]} max={6} />
+          </Section>
+        )}
+
+        {/* 11 — equipo */}
+        <Section n="11" title="Equipo y fundadores" icon={<Users className="h-3.5 w-3.5" />}>
           <EvidenceList items={peopleItems} max={3} />
         </Section>
 
-        {/* 11 — resto de evidencia */}
+        {/* 12 — noticias */}
         {newsItems.length > 0 && (
-          <Section n="11" title="Noticias recientes (cobertura general)" icon={<FileText className="h-3.5 w-3.5" />}>
+          <Section n="12" title="Noticias recientes (cobertura general)" icon={<FileText className="h-3.5 w-3.5" />}>
             <EvidenceList items={newsItems} max={4} />
           </Section>
         )}
 
-        {/* 12 — métricas + cadena de custodia */}
-        <Section n="12" title="Métricas cargadas al motor y cadena de custodia" icon={<ScrollText className="h-3.5 w-3.5" />}>
+        {/* 13 — métricas + cadena de custodia */}
+        <Section n="13" title="Métricas cargadas al motor y cadena de custodia" icon={<ScrollText className="h-3.5 w-3.5" />}>
           <div className="flex flex-wrap items-center gap-2">
             <Badge variant="outline" className="border-zinc-700 font-mono text-[10px] text-zinc-300">LTV/CAC: {synth.estimated_metrics.ltv_cac !== null ? `~${synth.estimated_metrics.ltv_cac.toFixed(1)}x` : "n/d (default)"}</Badge>
             <Badge variant="outline" className="border-zinc-700 font-mono text-[10px] text-zinc-300">runway: {synth.estimated_metrics.months_runway !== null ? `~${Math.round(synth.estimated_metrics.months_runway)}m` : "n/d (default)"}</Badge>
@@ -504,9 +520,9 @@ export function DossierReport(props: DossierProps) {
             <Badge variant="outline" className={`font-mono text-[10px] ${synth.metric_confidence === "found" ? "border-emerald-800/60 text-emerald-300" : synth.metric_confidence === "estimated" ? "border-amber-800/60 text-amber-300" : "border-zinc-700 text-zinc-500"}`}>confianza: {synth.metric_confidence === "found" ? "cifras encontradas" : synth.metric_confidence === "estimated" ? "estimadas" : "desconocida"}</Badge>
           </div>
           <ul className="mt-1 list-disc space-y-0.5 pl-4 text-[10px] text-zinc-500">
-            <li>Pipeline: Layer 1 harvesters web ({VECTOR_META.length} vectores) + scrapers regulatorios ({GOV_META.length} endpoints: EDGAR FTS, submissions, XBRL, USAspending) → Layer 2 auditor DeerFlow ({fallbackUsed ? "heurístico" : "LLM institucional con esquema estricto"}) → Layer 3 motor bayesiano v{ENGINE_VERSION}.</li>
+            <li>Pipeline: Layer 1 harvesters ({VECTOR_META.length} vectores: web + talento/apps/ciencia/web/mercados/regs) + scrapers oficiales ({GOV_META.length} endpoints SEC EDGAR/USAspending + ~18 APIs de apoyo keyless) → Layer 2 auditor DeerFlow ({fallbackUsed ? "heurístico" : "LLM institucional con esquema estricto"}) → Layer 3 motor bayesiano v{ENGINE_VERSION}.</li>
             <li>Regla del oráculo: ninguna señal entra al logit sin URL verificable; el veto fatal (fraude/quiebra) fuerza DROP como el PolicyEngine original.</li>
-            <li>SEC EDGAR y USAspending.gov son fuentes públicas y oficiales; la cobertura web proviene de búsqueda en vivo en esta misión.</li>
+            <li>SEC EDGAR y USAspending.gov son fuentes públicas y oficiales; el resto proviene de APIs abiertas keyless y búsqueda en vivo en esta misión.</li>
             <li>Misión {missionId} — {totalQueries} consultas registradas, {totalSources} hallazgos trazables. Todo el informe es exportable (Markdown/JSON) y auditable enlace a enlace.</li>
           </ul>
         </Section>

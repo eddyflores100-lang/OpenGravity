@@ -23,12 +23,23 @@
 
 import { findingsOverlap, govStructuralSignalsStatic } from "@/lib/agents-gov-static";
 import {
+  fetchDocker,
+  fetchGdelt,
+  fetchNpm,
+  fetchPypi,
+  fetchStackExchange,
+  fetchYahoo,
+  moreStructuralSignals,
+  type SeOut,
+} from "@/lib/agents-more-static";
+import {
   VECTOR_META,
   type EvidenceItem,
   type SearchVectorResult,
   type Synthesis,
   type SynthesisSignal,
   type GovPayload,
+  type MoreData,
   type VectorPayload,
 } from "@/lib/research";
 
@@ -307,6 +318,13 @@ async function runVector(key: string, name: string): Promise<SearchVectorResult>
         .sort((a, b) => (b.points ?? 0) - (a.points ?? 0))
         .slice(0, 6)
         .map(hnToItem);
+      // Stack Exchange API (keyless, CORS abierto): preguntas técnicas sobre la empresa
+      const se = await fetchStackExchange(name).catch(() => [] as SeOut[]);
+      results.push(
+        ...se.slice(0, 3).map((s) =>
+          item(`Stack Overflow: ${s.title}`, s.url, `score ${s.score} · traza técnica pública de la empresa/su stack`, s.date)
+        )
+      );
     } else if (key === "news") {
       const hn = (await fetchHN(name).catch(() => [])) as HNHit[];
       const yearAgo = Date.now() - 365 * 864e5;
@@ -327,6 +345,22 @@ async function runVector(key: string, name: string): Promise<SearchVectorResult>
             .map((t) => item(t.text.slice(0, 120), t.url, t.text))
         );
       }
+      // GDELT DOC 2.0 (índice global de noticias, keyless) + Yahoo Finance news
+      const [gd, yn] = await Promise.all([
+        fetchGdelt(name).catch(() => []),
+        fetchYahoo(name).then((y) => y.news).catch(() => []),
+      ]);
+      results.push(
+        ...gd.slice(0, 3).map((g) => item(g.title, g.url, `${g.domain} — índice global de noticias GDELT`, g.date))
+      );
+      results.push(
+        ...yn
+          .filter((n) => Boolean(n.title && n.link))
+          .slice(0, 3)
+          .map((n) =>
+            item(n.title ?? "", n.link ?? "", `${n.publisher ?? "Yahoo Finance"} — cobertura financiera indexada`, n.providerPublishTime ? new Date(n.providerPublishTime * 1000).toISOString().slice(0, 10) : "")
+          )
+      );
     } else if (key === "funding") {
       const hn = (await fetchHN(name).catch(() => [])) as HNHit[];
       results = hn.filter((h) => FUNDING_RE.test(h.title ?? "")).slice(0, 4).map(hnToItem);
@@ -356,6 +390,14 @@ async function runVector(key: string, name: string): Promise<SearchVectorResult>
             .map((t) => item(t.text.slice(0, 120), t.url, t.text))
         );
       }
+      // GDELT: cobertura global con patrón de riesgo
+      const gd = await fetchGdelt(name).catch(() => []);
+      results.push(
+        ...gd
+          .filter((g) => RISK_RE.test(g.title))
+          .slice(0, 2)
+          .map((g) => item(g.title, g.url, `${g.domain} — índice global de noticias GDELT`, g.date))
+      );
     } else if (key === "product") {
       const repos = (await fetchGitHub(name).catch(() => [])) as GHRepo[];
       results = repos.slice(0, 4).map((r) =>
@@ -364,6 +406,22 @@ async function runVector(key: string, name: string): Promise<SearchVectorResult>
       const wiki = await fetchWiki(name).catch(() => null);
       if (wiki?.extract) {
         results.push(item(wiki.title, wiki.fullurl ?? `https://en.wikipedia.org/wiki/${wiki.title}`, wiki.extract.slice(0, 280)));
+      }
+      // Distribución de software verificable: npm, PyPI, Docker Hub (keyless)
+      const [npm, pypi, docker] = await Promise.all([
+        fetchNpm(name).catch(() => []),
+        fetchPypi(name).catch(() => false),
+        fetchDocker(name).catch(() => ({ pulls: null, repos: [] })),
+      ]);
+      for (const p of npm.slice(0, 2)) {
+        results.push(item(`npm: ${p.name}${p.monthly ? ` — ${p.monthly.toLocaleString("es")} descargas/mes` : ""}`, p.url, p.description));
+      }
+      if (pypi) {
+        const slug = name.toLowerCase().replace(/[^a-z0-9]/g, "");
+        results.push(item(`PyPI: paquete "${slug}" publicado`, `https://pypi.org/project/${slug}/`, "Paquete Python publicado — distribución open-source verificable"));
+      }
+      for (const r of docker.repos.slice(0, 1)) {
+        results.push(item(`Docker Hub: ${r.name} — ${r.pulls.toLocaleString("es")} pulls`, r.url, r.description));
       }
     } else if (key === "people") {
       const wd = await fetchWikiData(name);
@@ -448,7 +506,8 @@ export async function runAuditor(
   name: string,
   sector: string,
   vectors: SearchVectorResult[],
-  gov?: GovPayload | null
+  gov?: GovPayload | null,
+  more?: MoreData | null
 ): Promise<{ synthesis: Synthesis; fallback_used: boolean }> {
   const payloads: VectorPayload[] = vectors.map((v) => ({ key: v.key, label: v.label, results: v.results }));
   const allEvidence = payloads.flatMap((v) => v.results);
@@ -554,13 +613,13 @@ export async function runAuditor(
   }
 
   signals.sort((a, b) => a.impact_magnitude - b.impact_magnitude);
-  const finalSignals = signals.slice(0, 6);
+  const finalSignals = signals.slice(0, 8);
   const companyIdentified =
     wdEntity?.title.replace(" — ficha corporativa en Wikidata", "") ??
     (productVector?.results.find((r) => r.host === "en.wikipedia.org")?.title ?? null);
 
   const summary = allEvidence.length
-    ? `Los 6 vectores agénticos rastrearon ${allEvidence.length} fuentes públicas abiertas (Wikipedia, Wikidata, GitHub, Hacker News, DuckDuckGo) para "${name}"${
+    ? `Los 12 vectores agénticos rastrearon ${allEvidence.length} hallazgos en fuentes públicas abiertas (Wikipedia, Wikidata, GitHub, Hacker News, DuckDuckGo, Stack Overflow, npm/PyPI/Docker, GDELT/Yahoo Finance) más las APIs especializadas de empleo, apps, ciencia, huella web, mercados y reguladores para "${name}"${
         sector ? ` (sector ${sector})` : ""
       }. ${companyIdentified ? `Entidad identificada: ${companyIdentified}. ` : ""}${
         stars > 0 ? `Huella GitHub: ${stars.toLocaleString("es")} ★. ` : "Sin huella GitHub relevante. "
@@ -594,6 +653,17 @@ export async function runAuditor(
   // heurístico — los datos exactos de los filings mandan sobre las keywords.
   if (gov) {
     for (const g of govStructuralSignalsStatic(gov)) {
+      const dup = finalSignals.findIndex((s) => s.polarity === g.polarity && findingsOverlap(s.finding, g.finding));
+      if (dup === -1) finalSignals.push(g);
+      else if (Math.abs(g.impact_magnitude) > Math.abs(finalSignals[dup].impact_magnitude)) finalSignals[dup] = g;
+    }
+    finalSignals.sort((a, b) => a.impact_magnitude - b.impact_magnitude);
+  }
+
+  // Fusibles de los vectores ampliados (empleo ATS, App Store, ciencia, huella
+  // web, mercados, reguladores) — mismas reglas: datos duros, dedupe por hecho.
+  if (more) {
+    for (const g of moreStructuralSignals(more, name)) {
       const dup = finalSignals.findIndex((s) => s.polarity === g.polarity && findingsOverlap(s.finding, g.finding));
       if (dup === -1) finalSignals.push(g);
       else if (Math.abs(g.impact_magnitude) > Math.abs(finalSignals[dup].impact_magnitude)) finalSignals[dup] = g;
