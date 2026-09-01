@@ -14,6 +14,7 @@ import { runMoreSearch, runTavily } from "@/lib/agents-more-static";
 import { DossierReport } from "@/components/demo/dossier";
 import { TAVILY_META, VECTOR_META, toGovPayload, type GovBundle, type GovSourceLog, type MoreData, type SearchVectorResult, type Synthesis } from "@/lib/research";
 import { mergeStats, type VerificationStats } from "@/lib/verify";
+import { setJinaKey } from "@/lib/jina-auth";
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import {
@@ -70,11 +71,17 @@ export function AgentMission({ onApply }: AgentMissionProps) {
   const [moreLogsFull, setMoreLogsFull] = useState<GovSourceLog[] | null>(null);
   const [moreDisplay, setMoreDisplay] = useState<MoreData | null>(null);
   const [tavilyKey, setTavilyKey] = useState("");
+  const [jinaKeyInput, setJinaKeyInput] = useState("");
 
   // La clave Tavily vive solo en el navegador del usuario (localStorage).
   useEffect(() => {
     try {
       setTavilyKey(localStorage.getItem("og_tavily_key") ?? "");
+      // La clave Jina Reader (gratis: 1M tokens/mes en jina.ai) habilita el
+      // lector CORS para buscadores/EDGAR/Yahoo cuando la capa anónima se agota.
+      const jk = localStorage.getItem("og_jina_key") ?? "";
+      setJinaKey(jk);
+      setJinaKeyInput(jk);
     } catch {
       /* localStorage bloqueado */
     }
@@ -344,6 +351,28 @@ export function AgentMission({ onApply }: AgentMissionProps) {
             {tavilyKey && (
               <Badge variant="outline" className="border-emerald-800/60 font-mono text-[9px] text-emerald-300">
                 {TAVILY_META.icon} deepweb activo
+              </Badge>
+            )}
+            <input
+              type="password"
+              value={jinaKeyInput}
+              onChange={(e) => {
+                setJinaKeyInput(e.target.value);
+                setJinaKey(e.target.value);
+                try {
+                  if (e.target.value) localStorage.setItem("og_jina_key", e.target.value);
+                  else localStorage.removeItem("og_jina_key");
+                } catch {
+                  /* localStorage bloqueado */
+                }
+              }}
+              placeholder="Clave Jina Reader (opcional, gratis 1M tokens/mes en jina.ai) — sin límites de IP para el lector que usan buscadores, SEC EDGAR, Yahoo y las verificaciones del scout"
+              className="h-7 min-w-0 flex-1 rounded border border-zinc-800 bg-zinc-950/60 px-2 text-[10px] text-zinc-200 placeholder:text-zinc-600"
+              aria-label="Clave Jina Reader (opcional)"
+            />
+            {jinaKeyInput && (
+              <Badge variant="outline" className="border-sky-800/60 font-mono text-[9px] text-sky-300">
+                📖 lector sin límites
               </Badge>
             )}
           </div>

@@ -15,6 +15,7 @@
  */
 
 import type { EvidenceItem, GovSourceLog, MoreData, SearchVectorResult } from "@/lib/research";
+import { jinaHeaders } from "@/lib/jina-auth";
 import { filterRelevant, entityRelevance, entityCompact, normalizeEntity } from "@/lib/verify";
 
 /* ── utilidades de red ─────────────────────────────────────────────────────── */
@@ -48,7 +49,7 @@ async function jinaText(url: string, ms = 32000): Promise<string> {
   try {
     const res = await fetch(JINA + url, {
       signal: AbortSignal.timeout(ms),
-      headers: { "X-Return-Format": "markdown" },
+      headers: { "X-Return-Format": "markdown", ...jinaHeaders() },
       cache: "no-store",
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);

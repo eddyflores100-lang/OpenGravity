@@ -28,6 +28,7 @@ import type {
 } from "@/lib/research";
 
 const JINA = "https://r.jina.ai/";
+import { jinaHeaders } from "@/lib/jina-auth";
 
 /* Memo-cache + semáforo: r.jina.ai limita ~20 rpm anónimas por IP; la misión
  * lanza hasta ~10 peticiones jina (EDGAR 1-5 + Docker/Yahoo/RDAP), así que se
@@ -54,7 +55,7 @@ export async function jinaJson<T>(url: string, ms = 25000): Promise<T> {
   if (jinaCache.has(url)) return jinaCache.get(url) as T;
   await jinaSlot();
   try {
-    const res = await fetch(JINA + url, { signal: AbortSignal.timeout(ms), cache: "no-store" });
+    const res = await fetch(JINA + url, { signal: AbortSignal.timeout(ms), cache: "no-store", headers: jinaHeaders() });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const text = await res.text();
     const start = text.indexOf('{"');

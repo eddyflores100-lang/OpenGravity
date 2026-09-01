@@ -20,6 +20,7 @@
  */
 
 import type { GovSourceLog } from "@/lib/research";
+import { jinaHeaders } from "@/lib/jina-auth";
 import { entityCompact, entityRelevance, normalizeEntity } from "@/lib/verify";
 
 /* ── red (mismo patrón que engines-static: semáforo jina conc-3 + memo) ───── */
@@ -46,7 +47,7 @@ async function jinaText(url: string, ms = 30000): Promise<string> {
   slot();
   await new Promise<void>((r) => setTimeout(r, 0));
   try {
-    const res = await fetch(JINA + url, { signal: AbortSignal.timeout(ms), headers: { "X-Return-Format": "markdown" }, cache: "no-store" });
+    const res = await fetch(JINA + url, { signal: AbortSignal.timeout(ms), headers: { "X-Return-Format": "markdown", ...jinaHeaders() }, cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const text = await res.text();
     memo.set(url, text);
