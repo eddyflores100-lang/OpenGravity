@@ -84,6 +84,8 @@ const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "");
 const dashSlug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const DOMAIN_RE = /^[a-z0-9][a-z0-9-]*(\.[a-z0-9-]+)+$/i;
 
+import { entityRelevance, filterRelevant, type VerificationStats } from "@/lib/verify";
+
 export function guessDomain(name: string): string | null {
   const t = name.trim();
   if (DOMAIN_RE.test(t)) return t.toLowerCase();
@@ -195,14 +197,14 @@ async function fetchWorkable(slug: string): Promise<JobsOut | null> {
 
 interface AppOut { trackName: string; sellerName: string; rating: number; ratingCount: number; url: string }
 
-async function fetchiTunes(name: string): Promise<AppOut[]> {
+async function fetchiTunes(name: string, domain?: string | null): Promise<AppOut[]> {
   const d = await mget<{ results?: { trackName?: string; sellerName?: string; averageUserRating?: number; userRatingCount?: number; trackViewUrl?: string; kind?: string }[] }>(
     `https://itunes.apple.com/search?term=${encodeURIComponent(name)}&entity=software&limit=8&country=us`
   );
-  const token = name.toLowerCase().split(/\s+/)[0] ?? "";
   return (d.results ?? [])
     .filter((a) => a.kind === "software")
-    .filter((a) => `${a.trackName ?? ""} ${a.sellerName ?? ""}`.toLowerCase().includes(token))
+    // Anti-homónimos: la app debe pertenecer a la entidad (vendedor o título)
+    .filter((a) => entityRelevance(name, `${a.trackName ?? ""} ${a.sellerName ?? ""}`, domain) >= 2)
     .sort((a, b) => (b.userRatingCount ?? 0) - (a.userRatingCount ?? 0))
     .slice(0, 3)
     .map((a) => ({
@@ -218,13 +220,14 @@ async function fetchiTunes(name: string): Promise<AppOut[]> {
 
 interface PaperOut { title: string; year: number | null; cited: number; url: string }
 
-async function fetchOpenAlex(name: string): Promise<{ papers: PaperOut[]; total: number }> {
+async function fetchOpenAlex(name: string, domain?: string | null): Promise<{ papers: PaperOut[]; total: number }> {
   const d = await mget<{ meta?: { count?: number }; results?: { display_name?: string; publication_year?: number; cited_by_count?: number; doi?: string; id?: string }[] }>(
     `https://api.openalex.org/works?search=${encodeURIComponent(name)}&per-page=4&mailto=opengravity.demo@alicelabs.dev`
   );
-  const token = name.toLowerCase().split(/\s+/)[0] ?? "";
+  // Anti-homónimos: el paper debe mencionar a la entidad en su título
+  // (evita el clásico "Nikola" → papers de Nikola Tesla).
   const papers = (d.results ?? [])
-    .filter((p) => (p.display_name ?? "").toLowerCase().includes(token))
+    .filter((p) => entityRelevance(name, p.display_name ?? "", domain) >= 2)
     .map((p) => ({
       title: p.display_name ?? "",
       year: p.publication_year ?? null,
@@ -240,22 +243,33 @@ async function fetchTrials(name: string): Promise<{ trials: TrialOut[]; total: n
   const d = await mget<{ totalCount?: number; studies?: { protocolSection?: { identificationModule?: { nctId?: string; briefTitle?: string }; statusModule?: { overallStatus?: string }; sponsorCollaboratorsModule?: { leadSponsor?: { name?: string } } } }[] }>(
     `https://clinicaltrials.gov/api/v2/studies?query.spons=${encodeURIComponent(name)}&pageSize=6`
   );
-  const trials = (d.studies ?? []).map((s) => ({
-    nct: s.protocolSection?.identificationModule?.nctId ?? "",
-    title: s.protocolSection?.identificationModule?.briefTitle ?? "",
-    status: s.protocolSection?.statusModule?.overallStatus ?? "",
-    sponsor: s.protocolSection?.sponsorCollaboratorsModule?.leadSponsor?.name ?? "",
-  }));
-  return { trials, total: d.totalCount ?? trials.length };
+  const trials = (d.studies ?? [])
+    // Anti-homónimos: el patrocinador registrado debe ser la entidad
+    .filter((s) => entityRelevance(name, s.protocolSection?.sponsorCollaboratorsModule?.leadSponsor?.name ?? "") >= 2)
+    .map((s) => ({
+      nct: s.protocolSection?.identificationModule?.nctId ?? "",
+      title: s.protocolSection?.identificationModule?.briefTitle ?? "",
+      status: s.protocolSection?.statusModule?.overallStatus ?? "",
+      sponsor: s.protocolSection?.sponsorCollaboratorsModule?.leadSponsor?.name ?? "",
+    }));
+  return { trials, total: trials.length };
 }
 
 /* ═══════════════════════ WEB — DoH + RDAP + Wayback ════════════════════════ */
 
 async function fetchDoh(domain: string): Promise<{ alive: boolean; answers: number }> {
-  const d = await mget<{ Status?: number; Answer?: { type?: number }[] }>(
-    `https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(domain)}&type=A`,
-    8000
-  );
+  // Cloudflare DoH exige accept: application/dns-json EXACTO — con application/json
+  // genérico devuelve wireformat binario y la misión lo marca FALLO.
+  const url = `https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(domain)}&type=A`;
+  if (!memo.has(url)) {
+    const res = await fetch(url, {
+      signal: AbortSignal.timeout(8000),
+      headers: { Accept: "application/dns-json" },
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    memo.set(url, await res.json());
+  }
+  const d = memo.get(url) as { Status?: number; Answer?: { type?: number }[] };
   const answers = (d.Answer ?? []).filter((a) => a.type === 1).length;
   return { alive: d.Status === 0 && answers > 0, answers };
 }
@@ -322,14 +336,14 @@ async function fetchYahooTrend(symbol: string): Promise<number | null> {
   return ((last - first) / first) * 100;
 }
 
-async function fetchCoinGecko(name: string): Promise<{ name: string; rank: number | null; url: string }[]> {
+async function fetchCoinGecko(name: string, domain?: string | null): Promise<{ name: string; rank: number | null; url: string }[]> {
   const d = await mget<{ coins?: { id?: string; name?: string; symbol?: string; market_cap_rank?: number | null }[] }>(
     `https://api.coingecko.com/api/v3/search?query=${encodeURIComponent(name)}`,
     10000
   );
-  const token = name.toLowerCase().split(/\s+/)[0] ?? "";
   return (d.coins ?? [])
-    .filter((c) => `${c.name ?? ""} ${c.symbol ?? ""}`.toLowerCase().includes(token))
+    // Anti-homónimos: el activo debe pertenecer a la entidad
+    .filter((c) => entityRelevance(name, `${c.name ?? ""} ${c.symbol ?? ""}`, domain) >= 2)
     .slice(0, 2)
     .map((c) => ({
       name: c.name ?? c.id ?? "",
@@ -346,13 +360,16 @@ async function fetchFedRegister(name: string): Promise<{ docs: RegDoc[]; count: 
   const d = await mget<{ count?: number; results?: { title?: string; html_url?: string; publication_date?: string; type?: string }[] }>(
     `https://www.federalregister.gov/api/v1/documents.json?conditions%5Bterm%5D=${encodeURIComponent(`"${name}"`)}&per_page=4&order=relevance`
   );
-  const docs = (d.results ?? []).map((r) => ({
-    title: r.title ?? "",
-    url: r.html_url ?? "https://www.federalregister.gov/",
-    date: r.publication_date ?? "",
-    type: r.type ?? "",
-  }));
-  return { docs, count: d.count ?? 0 };
+  const docs = (d.results ?? [])
+    // Anti-homónimos: el documento regulatorio debe mencionar a la entidad
+    .filter((r) => entityRelevance(name, r.title ?? "") >= 2)
+    .map((r) => ({
+      title: r.title ?? "",
+      url: r.html_url ?? "https://www.federalregister.gov/",
+      date: r.publication_date ?? "",
+      type: r.type ?? "",
+    }));
+  return { docs, count: docs.length };
 }
 
 async function fetchFda(name: string): Promise<{ approvals: number; recalls: number; recallItems: RegDoc[] }> {
@@ -489,10 +506,10 @@ async function runTalento(name: string, data: MoreData, L: GovSourceLog[]): Prom
   return { ...base, ok: true, results };
 }
 
-async function runApps(name: string, data: MoreData, L: GovSourceLog[]): Promise<SearchVectorResult> {
+async function runApps(name: string, data: MoreData, L: GovSourceLog[], domain?: string | null): Promise<SearchVectorResult> {
   const meta = VECTOR_META.find((v) => v.key === "apps")!;
   const base = { key: meta.key, label: meta.label, icon: meta.icon, query: name };
-  const apps = await withLog(L, "itunes", "iTunes Search API — apps y valoraciones", "itunes.apple.com/search (CORS directo)", () => fetchiTunes(name), "sin apps con ese nombre");
+  const apps = await withLog(L, "itunes", "iTunes Search API — apps y valoraciones", "itunes.apple.com/search (CORS directo)", () => fetchiTunes(name, domain), "sin apps con ese nombre");
   const found = apps ?? [];
   data.apps_count = found.length;
   data.apps_rating_count = found.reduce((a, x) => a + x.ratingCount, 0);
@@ -503,11 +520,11 @@ async function runApps(name: string, data: MoreData, L: GovSourceLog[]): Promise
   return { ...base, ok: true, results };
 }
 
-async function runCiencia(name: string, data: MoreData, L: GovSourceLog[]): Promise<SearchVectorResult> {
+async function runCiencia(name: string, data: MoreData, L: GovSourceLog[], domain?: string | null): Promise<SearchVectorResult> {
   const meta = VECTOR_META.find((v) => v.key === "ciencia")!;
   const base = { key: meta.key, label: meta.label, icon: meta.icon, query: name };
   const [oa, ct] = await Promise.all([
-    withLog(L, "openalex", "OpenAlex — trabajos científicos indexados", "api.openalex.org/works (CORS directo)", () => fetchOpenAlex(name), "sin papers con ese nombre"),
+    withLog(L, "openalex", "OpenAlex — trabajos científicos indexados", "api.openalex.org/works (CORS directo)", () => fetchOpenAlex(name, domain), "sin papers con ese nombre"),
     withLog(L, "clinicaltrials", "ClinicalTrials.gov v2 — ensayos patrocinados", "clinicaltrials.gov/api/v2/studies (CORS directo)", () => fetchTrials(name), "sin ensayos con ese patrocinador"),
   ]);
   const papers = oa?.papers ?? [];
@@ -568,14 +585,16 @@ async function runWeb(name: string, data: MoreData, L: GovSourceLog[]): Promise<
   return { ...base, ok: true, results };
 }
 
-async function runMercados(name: string, data: MoreData, L: GovSourceLog[]): Promise<SearchVectorResult> {
+async function runMercados(name: string, data: MoreData, L: GovSourceLog[], domain?: string | null): Promise<SearchVectorResult> {
   const meta = VECTOR_META.find((v) => v.key === "mercados")!;
   const base = { key: meta.key, label: meta.label, icon: meta.icon, query: name };
   const results: EvidenceItem[] = [];
 
   const yahoo = await withLog(L, "yahoo", "Yahoo Finance — cotización y noticias de mercado", "query1.finance.yahoo.com vía r.jina.ai", () => fetchYahoo(name), "sin cotización con ese nombre");
   if (yahoo) {
-    const eq = yahoo.quotes.find((q) => q.quoteType === "EQUITY") ?? null;
+    // Anti-homónimos: el ticker debe pertenecer a la entidad (nombre de la
+    // compañía, no una sigla casual) — se exige identidad probable.
+    const eq = yahoo.quotes.filter((q) => q.quoteType === "EQUITY").find((q) => entityRelevance(name, q.shortname ?? "", domain) >= 2) ?? null;
     if (eq?.symbol) {
       const trend = await withLog(L, "yahoo_chart", "Yahoo Finance — tendencia del precio (12 meses)", "query1.finance.yahoo.com/v8/finance/chart vía r.jina.ai", () => fetchYahooTrend(eq.symbol!), "serie sin datos");
       data.ticker = { symbol: eq.symbol, type: eq.quoteType ?? "EQUITY", exchange: eq.exchange ?? "", trend_1y: trend };
@@ -597,7 +616,7 @@ async function runMercados(name: string, data: MoreData, L: GovSourceLog[]): Pro
   }
 
   const cg = await withLog(L, "coingecko", "CoinGecko — activos cripto con ese nombre", "api.coingecko.com/api/v3/search (CORS directo)", async () => {
-    const coins = await fetchCoinGecko(name);
+    const coins = await fetchCoinGecko(name, domain);
     return { count: coins.length, coins };
   }, "sin activos con ese nombre");
   if (cg) {
@@ -649,27 +668,37 @@ const MORE_KEYS = ["talento", "apps", "ciencia", "web", "mercados", "regs"] as c
 
 export async function runMoreSearch(
   name: string,
-  onOne?: (v: SearchVectorResult) => void
+  onOne?: (v: SearchVectorResult) => void,
+  domain?: string | null
 ): Promise<MoreBundle> {
   const logs: GovSourceLog[] = [];
   const data: MoreData = {
     ...EMPTY_MORE_DATA,
-    domain: guessDomain(name),
-    domain_from_input: DOMAIN_RE.test(name.trim()),
+    domain: domain ?? guessDomain(name),
+    domain_from_input: domain ? true : DOMAIN_RE.test(name.trim()),
   };
 
-  const runners: Record<(typeof MORE_KEYS)[number], (d: MoreData, L: GovSourceLog[]) => Promise<SearchVectorResult>> = {
-    talento: (d, L) => runTalento(name, d, L),
-    apps: (d, L) => runApps(name, d, L),
-    ciencia: (d, L) => runCiencia(name, d, L),
-    web: (d, L) => runWeb(name, d, L),
-    mercados: (d, L) => runMercados(name, d, L),
-    regs: (d, L) => runRegs(name, d, L),
+  const runners: Record<(typeof MORE_KEYS)[number], (d: MoreData, L: GovSourceLog[], dom: string | null) => Promise<SearchVectorResult>> = {
+    talento: (d, L, dom) => runTalento(name, d, L),
+    apps: (d, L, dom) => runApps(name, d, L, dom),
+    ciencia: (d, L, dom) => runCiencia(name, d, L, dom),
+    web: (d, L, dom) => runWeb(name, d, L),
+    mercados: (d, L, dom) => runMercados(name, d, L, dom),
+    regs: (d, L, dom) => runRegs(name, d, L),
   };
+
+  // Vectores que SÍ requieren verificación de entidad en su evidencia
+  // (búsqueda por término). talento usa slugs exactos y web es infraestructura
+  // del dominio — ambos ya son exactos por construcción.
+  const NEEDS_VERIFY = new Set(["apps", "ciencia", "mercados", "regs"]);
 
   const vectors = await Promise.all(
     MORE_KEYS.map(async (k) => {
-      const v = await runners[k](data, logs);
+      let v = await runners[k](data, logs, data.domain);
+      if (v.ok && NEEDS_VERIFY.has(k)) {
+        const filt = filterRelevant(name, v.results, 1, data.domain);
+        v = { ...v, results: filt.items, stats: { ...filt.stats } };
+      }
       onOne?.(v);
       return v;
     })
@@ -688,11 +717,11 @@ export async function runMoreSearch(
 /** Búsqueda profunda con Tavily si el usuario aporta su clave (gratis: 1.000
  * créditos/mes). La clave vive SOLO en localStorage del navegador del usuario —
  * nunca se envía a ningún servidor de OpenGravity. */
-export async function runTavily(name: string, apiKey: string): Promise<SearchVectorResult> {
+export async function runTavily(name: string, apiKey: string, domain?: string | null): Promise<SearchVectorResult> {
   const base = { key: TAVILY_META.key, label: TAVILY_META.label, icon: TAVILY_META.icon, query: name };
   const queries = [
-    `${name} startup funding OR valuation OR round`,
-    `${name} lawsuit OR layoff OR fraud OR investigation OR scandal`,
+    `"${name}" startup funding OR valuation OR round`,
+    `"${name}" lawsuit OR layoff OR fraud OR investigation OR scandal`,
   ];
   try {
     const all: EvidenceItem[] = [];
@@ -709,7 +738,9 @@ export async function runTavily(name: string, apiKey: string): Promise<SearchVec
         if (r.url && r.title) all.push(item(r.title, r.url, r.content ?? "", r.published_date ?? ""));
       }
     }
-    return { ...base, ok: all.length > 0, results: all.slice(0, 8), error: all.length ? undefined : "sin resultados Tavily" };
+    // Capa anti-alucinación también para la búsqueda profunda del usuario
+    const filt = filterRelevant(name, all, 1, domain);
+    return { ...base, ok: filt.items.length > 0, results: filt.items.slice(0, 8), stats: { ...filt.stats }, error: filt.items.length ? undefined : "sin resultados Tavily que mencionen a la entidad" };
   } catch (e) {
     return {
       ...base,

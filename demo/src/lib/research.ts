@@ -19,6 +19,8 @@ export interface SearchVectorResult {
   ok: boolean;
   results: EvidenceItem[];
   error?: string;
+  /** Verificación de entidad del vector (anti-homónimos). */
+  stats?: import("./verify").VerificationStats;
 }
 
 export interface SearchResponse {

@@ -22,6 +22,7 @@
  */
 
 import { findingsOverlap, govStructuralSignalsStatic } from "@/lib/agents-gov-static";
+import { companySentence, entityRelevance, filterRelevant, mergeStats, type VerificationStats } from "@/lib/verify";
 import {
   fetchDocker,
   fetchGdelt,
@@ -102,6 +103,9 @@ async function fetchHN(name: string): Promise<HNHit[]> {
   return (data.hits ?? []).filter((h) => h.title);
 }
 
+const PERSON_HINTS =
+  /\b(inventor|physicist|actor|actress|singer|musician|footballer|player|politician|writer|author|poet|painter|artist|scientist|professor|philosopher|composer|athlete|engineer|architect|economist|mathematician)\b/i;
+
 interface GHRepo {
   full_name: string;
   html_url: string;
@@ -111,15 +115,14 @@ interface GHRepo {
   language: string | null;
 }
 
-async function fetchGitHub(name: string): Promise<GHRepo[]> {
+async function fetchGitHub(name: string, domain?: string | null): Promise<GHRepo[]> {
   const url = `https://api.github.com/search/repositories?q=${encodeURIComponent(
     name
   )}&sort=stars&order=desc&per_page=8`;
   const data = await jget<{ items?: GHRepo[] }>(url);
-  const q = name.toLowerCase();
   return (data.items ?? []).filter((r) => {
-    const hay = `${r.full_name} ${r.description ?? ""}`.toLowerCase();
-    return hay.includes(q);
+    const hay = `${r.full_name} ${r.description ?? ""}`;
+    return entityRelevance(name, hay, domain) >= 2;
   });
 }
 
@@ -130,7 +133,7 @@ interface WikiPage {
   touched?: string;
 }
 
-async function fetchWiki(name: string): Promise<WikiPage | null> {
+async function fetchWiki(name: string, domain?: string | null): Promise<WikiPage | null> {
   const search = await jget<{
     query?: { search?: { title: string; wordcount: number }[] };
   }>(
@@ -138,17 +141,26 @@ async function fetchWiki(name: string): Promise<WikiPage | null> {
       name
     )}&srlimit=3&format=json&origin=*`
   );
-  const hit = search.query?.search?.[0];
-  if (!hit) return null;
-  const page = await jget<{
-    query?: { pages?: Record<string, WikiPage> };
-  }>(
-    `https://en.wikipedia.org/w/api.php?action=query&prop=extracts|info&exintro=1&explaintext=1&inprop=url&titles=${encodeURIComponent(
-      hit.title
-    )}&format=json&origin=*`
+  // Anti-homónimos: solo candidatos cuyo TÍTULO menciona a la entidad.
+  const candidates = (search.query?.search ?? []).filter(
+    (c) => entityRelevance(name, c.title, domain) >= 2
   );
-  const pages = Object.values(page.query?.pages ?? {});
-  return pages[0] ?? null;
+  if (!candidates.length) return null;
+  for (const hit of candidates.slice(0, 2)) {
+    const page = await jget<{
+      query?: { pages?: Record<string, WikiPage> };
+    }>(
+      `https://en.wikipedia.org/w/api.php?action=query&prop=extracts|info&exintro=1&explaintext=1&inprop=url&titles=${encodeURIComponent(
+        hit.title
+      )}&format=json&origin=*`
+    );
+    const page0 = Object.values(page.query?.pages ?? {})[0];
+    if (!page0?.extract) continue;
+    // Anti-Nikola-Tesla: la primera oración debe DEFINIR una empresa
+    // ("… is an American manufacturer…"), no una persona/lugar/obra.
+    if (companySentence(page0.extract)) return page0;
+  }
+  return null;
 }
 
 interface WikiEntity {
@@ -184,10 +196,15 @@ async function fetchWikiData(name: string): Promise<{
         const desc = c.description?.value ?? "";
         const labelScore = label.toLowerCase().replace(/[^a-z0-9]/g, "") === q ? 2 : 0;
         const descScore = COMPANY_HINTS.test(desc) ? 1 : 0;
-        return { c, score: labelScore + descScore };
+        // Anti-homónimos y anti-personas: "Nikola" debe resolver a Nikola Corp,
+        // no a Nikola Tesla (descriptor de persona) ni a entidades sin relación.
+        const isPerson = PERSON_HINTS.test(desc) && !COMPANY_HINTS.test(desc);
+        const relevance = entityRelevance(name, `${label} ${desc}`);
+        const eligible = !isPerson && relevance >= 2 && (labelScore > 0 || COMPANY_HINTS.test(desc));
+        return { c, score: eligible ? labelScore + descScore + 1 : -1 };
       })
       .sort((a, b) => b.score - a.score);
-    const best = scored[0]?.c;
+    const best = scored[0]?.score >= 0 ? scored[0]?.c : undefined;
     if (!best) return { entity: null, founders: [], inception: null, website: null };
 
     const full = await jget<{
@@ -267,6 +284,12 @@ async function fetchDDG(name: string): Promise<{
         name
       )}&format=json&no_html=1&skip_disambig=1&t=opengravity_demo`
     );
+    // Anti-homónimos: el abstract debe describir a la entidad Y definirla como
+    // empresa; si DDG resuelve otra cosa (persona/lugar), se ignora el abstract.
+    const abstractOk =
+      Boolean(data.AbstractText) &&
+      entityRelevance(name, `${data.Heading ?? ""} ${data.AbstractText ?? ""}`) >= 2 &&
+      companySentence(data.AbstractText ?? "");
     const flat: { text: string; url: string }[] = [];
     for (const t of data.RelatedTopics ?? []) {
       if (t.Topics) {
@@ -279,8 +302,8 @@ async function fetchDDG(name: string): Promise<{
     }
     return {
       heading: data.Heading ?? null,
-      abstract: data.AbstractText ?? null,
-      abstractUrl: data.AbstractURL ?? null,
+      abstract: abstractOk ? data.AbstractText ?? null : null,
+      abstractUrl: abstractOk ? data.AbstractURL ?? null : null,
       topics: flat.slice(0, 12),
     };
   } catch {
@@ -305,7 +328,7 @@ function hnToItem(h: HNHit): EvidenceItem {
   return item(h.title ?? "", url, meta, h.created_at?.slice(0, 10));
 }
 
-async function runVector(key: string, name: string): Promise<SearchVectorResult> {
+async function runVector(key: string, name: string, domain?: string | null): Promise<SearchVectorResult> {
   const meta = VECTOR_META.find((v) => v.key === key)!;
   const base = { key, label: meta.label, icon: meta.icon, query: name };
 
@@ -376,7 +399,7 @@ async function runVector(key: string, name: string): Promise<SearchVectorResult>
     } else if (key === "risk") {
       const hn = (await fetchHN(name).catch(() => [])) as HNHit[];
       results = hn.filter((h) => RISK_RE.test(h.title ?? "")).slice(0, 4).map(hnToItem);
-      const wiki = await fetchWiki(name).catch(() => null);
+      const wiki = await fetchWiki(name, domain).catch(() => null);
       if (wiki?.extract && RISK_RE.test(wiki.extract)) {
         const sent = wiki.extract.split(/(?<=[.!?])\s+/).find((s) => RISK_RE.test(s)) ?? "";
         results.push(item(`${wiki.title} — riesgo citado en Wikipedia`, wiki.fullurl ?? `https://en.wikipedia.org/wiki/${wiki.title}`, sent));
@@ -399,11 +422,11 @@ async function runVector(key: string, name: string): Promise<SearchVectorResult>
           .map((g) => item(g.title, g.url, `${g.domain} — índice global de noticias GDELT`, g.date))
       );
     } else if (key === "product") {
-      const repos = (await fetchGitHub(name).catch(() => [])) as GHRepo[];
+      const repos = (await fetchGitHub(name, domain).catch(() => [])) as GHRepo[];
       results = repos.slice(0, 4).map((r) =>
         item(r.full_name, r.html_url, `${r.description ?? "(sin descripción)"} · ★${r.stargazers_count} · push ${r.pushed_at?.slice(0, 10)}${r.language ? ` · ${r.language}` : ""}`)
       );
-      const wiki = await fetchWiki(name).catch(() => null);
+      const wiki = await fetchWiki(name, domain).catch(() => null);
       if (wiki?.extract) {
         results.push(item(wiki.title, wiki.fullurl ?? `https://en.wikipedia.org/wiki/${wiki.title}`, wiki.extract.slice(0, 280)));
       }
@@ -443,7 +466,7 @@ async function runVector(key: string, name: string): Promise<SearchVectorResult>
       if (wd.website) {
         results.push(item(`Sitio oficial: ${hostOf(wd.website)}`, wd.website, "Dominio oficial declarado en Wikidata (P856)"));
       }
-      const wiki = await fetchWiki(name).catch(() => null);
+      const wiki = await fetchWiki(name, domain).catch(() => null);
       if (wiki?.extract) {
         const founderSent = wiki.extract.split(/(?<=[.!?])\s+/).find((s) => /found|co-found|founded by|creada por|fundad/i.test(s));
         if (founderSent) {
@@ -452,7 +475,11 @@ async function runVector(key: string, name: string): Promise<SearchVectorResult>
       }
     }
 
-    return { ...base, ok: true, results };
+    // CAPA ANTI-ALUCINACIÓN: solo entran hallazgos que mencionan a la entidad.
+    // Lo demás (homónimos, artículos genéricos, personas homónimas) se descarta
+    // y queda contado para el informe.
+    const filt = filterRelevant(name, results, 1, domain);
+    return { ...base, ok: true, results: filt.items, stats: { ...filt.stats } };
   } catch (e) {
     return {
       ...base,
@@ -466,16 +493,18 @@ async function runVector(key: string, name: string): Promise<SearchVectorResult>
 /** Lanza los 6 vectores en paralelo; reporta cada vector al terminar (UI en vivo). */
 export async function runAgentSearch(
   name: string,
-  onOne?: (v: SearchVectorResult) => void
-): Promise<{ vectors: SearchVectorResult[]; total: number }> {
+  onOne?: (v: SearchVectorResult) => void,
+  domain?: string | null
+): Promise<{ vectors: SearchVectorResult[]; total: number; verification: VerificationStats }> {
   const jobs = VECTOR_META.map(async (vm) => {
-    const v = await runVector(vm.key, name);
+    const v = await runVector(vm.key, name, domain);
     onOne?.(v);
     return v;
   });
   const vectors = await Promise.all(jobs);
   const total = vectors.reduce((acc, v) => acc + v.results.length, 0);
-  return { vectors, total };
+  const verification = mergeStats(vectors.map((v) => v.stats).filter((s): s is VerificationStats => Boolean(s)));
+  return { vectors, total, verification };
 }
 
 /* ------------------------------------------------------------------ */
@@ -507,12 +536,19 @@ export async function runAuditor(
   sector: string,
   vectors: SearchVectorResult[],
   gov?: GovPayload | null,
-  more?: MoreData | null
-): Promise<{ synthesis: Synthesis; fallback_used: boolean }> {
+  more?: MoreData | null,
+  domain?: string | null
+): Promise<{ synthesis: Synthesis; fallback_used: boolean; verification: VerificationStats }> {
   const payloads: VectorPayload[] = vectors.map((v) => ({ key: v.key, label: v.label, results: v.results }));
   const allEvidence = payloads.flatMap((v) => v.results);
   const signals: SynthesisSignal[] = [];
   const seen = new Set<string>();
+
+  // CAPA ANTI-ALUCINACIÓN — severidad por tipo de señal:
+  //   negativas (demandas, fraude, quiebra) → exigir IDENTIDAD FUERTE (nivel 3)
+  //   positivas (rondas, crecimiento)       → exigir nivel 2 (todos los términos)
+  // Atribuir fraude a la empresa equivocada es el peor fallo posible del oráculo.
+  const levelOf = (it: EvidenceItem) => entityRelevance(name, `${it.title} ${it.snippet}`, domain);
 
   // 1) Patrones keyword-based (mismo extractor heurístico del orquestador archivado)
   // Los informes de short-sellers y alegaciones se excluyen de los patrones
@@ -524,9 +560,13 @@ export async function runAuditor(
     // La URL forma parte del análisis: "deal with" en un enlace de
     // hindenburgresearch.com NO es una alianza comercial.
     const text = `${it.title} ${it.snippet} ${it.url}`;
+    const lvl = levelOf(it);
     for (const [re, finding, impact] of [...NEG, ...POS]) {
       if (re.test(text) && !seen.has(finding) && signals.length < 6) {
         if (impact > 0 && SHORT_SELLER_RE.test(text)) continue;
+        // Umbral de identidad por severidad de la señal
+        if (impact < 0 && lvl < 3) continue;
+        if (impact > 0 && lvl < 2) continue;
         seen.add(finding);
         signals.push({
           finding: `${finding} — hallazgo en ${it.host}`,
@@ -618,19 +658,56 @@ export async function runAuditor(
     wdEntity?.title.replace(" — ficha corporativa en Wikidata", "") ??
     (productVector?.results.find((r) => r.host === "en.wikipedia.org")?.title ?? null);
 
-  const summary = allEvidence.length
+  // Verificación de entidad agregada sobre TODA la evidencia de la misión
+  const verification = mergeStats(
+    vectors.map((v) => v.stats).filter((s): s is VerificationStats => Boolean(s))
+  );
+  const verifiedCount = verification.kept;
+
+  const verificationLine =
+    `Verificación de identidad: ${verifiedCount} de ${verification.raw} hallazgos mencionan a la entidad ` +
+    `(${verification.dropped} descartados como homónimos o ruido, ${verification.strong} con identidad fuerte).`;
+
+  // ESTADO HONESTO "SIN HUELLA": si tras el filtro no queda evidencia y no hay
+  // registros oficiales, el informe lo dice en voz alta — cero señales, cero
+  // métricas inventadas. Es el resultado correcto para LLCs privadas pequeñas.
+  const hasOfficial = Boolean(gov && (gov.companies.length || gov.edgar_mentions.length || gov.financials.length || gov.awards.length));
+  const hasMoreStructural = Boolean(more && (more.jobs_total > 0 || more.apps_count > 0 || more.papers_count > 0 || more.trials_count > 0 || more.fda_approvals > 0 || more.ticker));
+  if (verifiedCount === 0 && !hasOfficial && !hasMoreStructural) {
+    return {
+      synthesis: {
+        company_identified: null,
+        summary:
+          `SIN HUELLA PÚBLICA VERIFICABLE para "${name}". Los agentes rastrearon ${verification.raw} hallazgos en ~30 fuentes y NINGUNO menciona a la entidad ` +
+          `(los homónimos y el ruido fueron descartados por la verificación de identidad). Esto es lo esperable para una empresa privada o muy pequeña: ` +
+          `sin evidencia real no hay señales ni métricas — el oráculo no inventa datos. Sugerencias: (1) añade el dominio web propio para desambiguar homónimos, ` +
+          `(2) revisa la grafía exacta del nombre legal, (3) evalúala manualmente con los controles del motor.`,
+        signals: [],
+        estimated_metrics: { ltv_cac: null, months_runway: null, moe_growth: null, is_audited: false },
+        metric_confidence: "unknown",
+        is_fatal: false,
+      },
+      fallback_used: true,
+      verification,
+    };
+  }
+
+  const summary = verifiedCount > 0 || hasOfficial || hasMoreStructural
     ? `Los 12 vectores agénticos rastrearon ${allEvidence.length} hallazgos en fuentes públicas abiertas (Wikipedia, Wikidata, GitHub, Hacker News, DuckDuckGo, Stack Overflow, npm/PyPI/Docker, GDELT/Yahoo Finance) más las APIs especializadas de empleo, apps, ciencia, huella web, mercados y reguladores para "${name}"${
         sector ? ` (sector ${sector})` : ""
       }. ${companyIdentified ? `Entidad identificada: ${companyIdentified}. ` : ""}${
         stars > 0 ? `Huella GitHub: ${stars.toLocaleString("es")} ★. ` : "Sin huella GitHub relevante. "
       }${
         hnItems.length ? `Cobertura en Hacker News: ${hnItems.length} historias comunitarias. ` : ""
-      }El auditor heurístico extrae ${finalSignals.length} señales con impacto directo en el logit bayesiano, aplicando la asimetría de riesgo del oráculo: los patrones negativos pesan hasta −5 con el veto de política y solo el respaldo verificable empuja al alza. Ajusta las métricas a mano para calibrar el veredicto.`
+      }${verificationLine} El auditor heurístico extrae ${finalSignals.length} señales con impacto directo en el logit bayesiano: las negativas exigen identidad verificada (nivel fuerte), los datos de SEC/.gov entran como fusibles objetivos. Ajusta las métricas a mano para calibrar el veredicto.`
     : `Los agentes no encontraron rastro verificable para "${name}" en las fuentes públicas abiertas. Sin evidencia no hay señales: revisa el nombre (¿es una empresa muy pequeña o privada?) o evalúala manualmente con los controles del motor.`;
 
   const isFatal =
     finalSignals.some((s) => s.impact_magnitude <= -4) ||
-    allEvidence.filter((e) => /bankrupt|shut ?down|ceases? operations/i.test(`${e.title} ${e.snippet}`)).length >= 2;
+    // El veto fatal exige IDENTIDAD FUERTE: al menos 1 evidencia de nivel 3 o
+    // 2 de nivel 2 que hablen de colapso — los homónimos ya no pueden vetar.
+    allEvidence.filter((e) => /bankrupt|shut ?down|ceases? operations|fraud|scam|fraude|quiebra/i.test(`${e.title} ${e.snippet}`) && levelOf(e) >= 3).length >= 1 ||
+    allEvidence.filter((e) => /bankrupt|shut ?down|ceases? operations/i.test(`${e.title} ${e.snippet}`) && levelOf(e) === 2).length >= 2;
 
   // Policy layer del orquestador original: un hallazgo fatal activa el veto
   // POLICY_FATAL_VETO y entra al logit con el castigo máximo (−5), de modo que
@@ -674,13 +751,14 @@ export async function runAuditor(
   return {
     synthesis: {
       company_identified: companyIdentified ? clean(companyIdentified, 160) : null,
-      summary: clean(summary, 900),
+      summary: clean(summary, 1100),
       signals: finalSignals,
       estimated_metrics: { ltv_cac: null, months_runway: null, moe_growth: null, is_audited: false },
       metric_confidence: "unknown",
       is_fatal: Boolean(isFatal),
     },
     fallback_used: allEvidence.length === 0,
+    verification,
   };
 }
 

@@ -22,6 +22,7 @@ import {
   Printer,
   Scale,
   ScrollText,
+  ShieldCheck,
   Users,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -112,12 +113,14 @@ function Td({ children, right, mono, className }: { children: React.ReactNode; r
 export interface DossierProps {
   name: string;
   sector: string;
+  domain?: string;
   missionId: string;
   startedAt: string;
   finishedAt: string;
   vectors: SearchVectorResult[];
   gov: GovBundle | null;
   synth: Synthesis;
+  verification?: import("@/lib/verify").VerificationStats | null;
   fallbackUsed: boolean;
   biasSum: number;
   rawProb: number;
@@ -125,7 +128,7 @@ export interface DossierProps {
 }
 
 export function DossierReport(props: DossierProps) {
-  const { name, sector, missionId, startedAt, finishedAt, vectors, gov, synth, fallbackUsed, biasSum, rawProb, adjProb } = props;
+  const { name, sector, domain, missionId, startedAt, finishedAt, vectors, gov, synth, verification, fallbackUsed, biasSum, rawProb, adjProb } = props;
   const [copied, setCopied] = useState(false);
 
   const evidence = useMemo(() => {
@@ -152,6 +155,7 @@ export function DossierReport(props: DossierProps) {
     L.push(`- **Misión:** ${missionId} · OpenGravity DeerFlow/MiroFish`);
     L.push(`- **Inicio:** ${dt(startedAt)} → **Fin:** ${dt(finishedAt)}`);
     if (sector) L.push(`- **Sector declarado:** ${sector}`);
+    if (domain) L.push(`- **Dominio declarado (desambiguador):** ${domain}`);
     L.push(`- **Fuentes rastreadas:** ${totalSources} hallazgos · ${vectors.length + (gov?.log.length ?? 0)} vectores/scrapers`);
     L.push("");
     L.push(`## 0. Veredicto del auditor`);
@@ -160,6 +164,17 @@ export function DossierReport(props: DossierProps) {
     if (synth.is_fatal) L.push(`\n> ⛔ **POLICY_FATAL_VETO** — evidencia fatal: el veredicto se fuerza a DROP.`);
     L.push(`\nP(Hit) sin señales: **${(rawProb * 100).toFixed(1)}%** → con agentes: **${(adjProb * 100).toFixed(1)}%** (${adjProb >= rawProb ? "+" : ""}${((adjProb - rawProb) * 100).toFixed(1)} pp, suma logit ${biasSum >= 0 ? "+" : ""}${biasSum.toFixed(1)}).`);
     L.push("");
+    if (verification) {
+      L.push(`## 0-bis. Verificación de identidad (capa anti-homónimos)`);
+      L.push(`- Método: cada hallazgo debe demostrar que menciona a la entidad — frase exacta del nombre, dominio declarado, o todos sus términos significativos.`);
+      L.push(`- Resultado: **${verification.kept}/${verification.raw} hallazgos verificados** · ${verification.dropped} descartados como homónimos o ruido · ${verification.strong} con identidad fuerte (nivel 3).`);
+      if (verification.droppedSamples.length) {
+        L.push(`- Ejemplos de descartes (prueba del filtro):`);
+        for (const s of verification.droppedSamples.slice(0, 5)) L.push(`  - "${s.title}" — ${s.host}`);
+      }
+      L.push("", `> Regla del oráculo: sin verificación de identidad no hay señal — las señales negativas exigen identidad fuerte (frase exacta o dominio), las positivas identidad probable (todos los términos).`);
+      L.push("");
+    }
     L.push(`## 1. Mapa de investigación (dónde investigó)`);
     L.push(`| # | Fuente / scraper | Endpoint | Hallazgos | Latencia | Estado |`);
     L.push(`|---|---|---|---|---|---|`);
@@ -284,6 +299,7 @@ export function DossierReport(props: DossierProps) {
             <span>inicio: {dt(startedAt)}</span>
             <span>fin: {dt(finishedAt)}</span>
             {sector && <span>sector: {sector}</span>}
+            {domain && <span className="text-sky-400/90">dominio: {domain}</span>}
             <span className="text-amber-400/90">{totalSources} hallazgos · {vectors.length + (gov?.log.length ?? 0)} fuentes consultadas</span>
           </div>
         </header>
@@ -311,6 +327,54 @@ export function DossierReport(props: DossierProps) {
           </div>
           {fallbackUsed && <p className="text-[10px] text-orange-400/90">Nota: auditor LLM no disponible — se usó el extractor heurístico sobre la misma evidencia.</p>}
         </Section>
+
+        {/* 0-bis — verificación de identidad (anti-homónimos) */}
+        {verification && (
+          <Section n="00-bis" title="Verificación de identidad — qué fue descartado y por qué" icon={<ShieldCheck className="h-3.5 w-3.5" />}>
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+              <div className="rounded-lg border border-zinc-800 bg-zinc-950/60 p-2.5 text-center">
+                <div className="font-mono text-lg tabular-nums text-zinc-300">{verification.raw}</div>
+                <div className="text-[9px] uppercase tracking-wider text-zinc-600">hallazgos brutos</div>
+              </div>
+              <div className="rounded-lg border border-emerald-900/60 bg-emerald-950/20 p-2.5 text-center">
+                <div className="font-mono text-lg tabular-nums text-emerald-300">{verification.kept}</div>
+                <div className="text-[9px] uppercase tracking-wider text-zinc-600">mencionan a la entidad</div>
+              </div>
+              <div className="rounded-lg border border-red-900/60 bg-red-950/20 p-2.5 text-center">
+                <div className="font-mono text-lg tabular-nums text-red-300">{verification.dropped}</div>
+                <div className="text-[9px] uppercase tracking-wider text-zinc-600">descartados (homónimos/ruido)</div>
+              </div>
+              <div className="rounded-lg border border-sky-900/60 bg-sky-950/20 p-2.5 text-center">
+                <div className="font-mono text-lg tabular-nums text-sky-300">{verification.strong}</div>
+                <div className="text-[9px] uppercase tracking-wider text-zinc-600">identidad fuerte (nivel 3)</div>
+              </div>
+            </div>
+            <p className="text-[10px] leading-relaxed text-zinc-500">
+              Método: cada hallazgo debe demostrar que menciona a la entidad — <span className="text-zinc-400">frase exacta del nombre</span>,
+              <span className="text-zinc-400"> dominio declarado{domain ? ` (${domain})` : ""}</span> o <span className="text-zinc-400">todos sus términos significativos</span>.
+              Reglas del oráculo: señales NEGATIVAS exigen identidad fuerte (frase exacta o dominio) — nunca se atribuye un fraude, despido o quiebra a la empresa equivocada;
+              señales POSITIVAS exigen identidad probable; el VETO FATAL solo con evidencia verificada.
+              {verification.kept === 0 && (
+                <span className="mt-1 block rounded border border-amber-800/60 bg-amber-950/20 p-2 text-[10px] text-amber-300">
+                  Cobertura NULA: ninguna fuente pública menciona a «{name}» — resultado normal en LLCs privadas pequeñas. El informe no inventa datos;
+                  usa el dominio, revisa la grafía legal o evalúa manualmente.
+                </span>
+              )}
+            </p>
+            {verification.droppedSamples.length > 0 && (
+              <div>
+                <p className="mb-1 font-mono text-[10px] uppercase tracking-wider text-zinc-500">Muestra del descarte (prueba del filtro)</p>
+                <ul className="space-y-1">
+                  {verification.droppedSamples.slice(0, 5).map((s, i) => (
+                    <li key={i} className="rounded border border-zinc-800/80 bg-zinc-950/40 px-2 py-1 text-[10px] text-zinc-500">
+                      <span className="text-red-400/80">✕</span> “{s.title}” — <span className="font-mono text-zinc-600">{s.host}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </Section>
+        )}
 
         {/* 1 — mapa de investigación */}
         <Section n="01" title="Mapa de investigación — dónde investigó" icon={<ScrollText className="h-3.5 w-3.5" />}>

@@ -13,6 +13,7 @@ import { runGovStatic } from "@/lib/agents-gov-static";
 import { runMoreSearch, runTavily } from "@/lib/agents-more-static";
 import { DossierReport } from "@/components/demo/dossier";
 import { TAVILY_META, VECTOR_META, toGovPayload, type GovBundle, type GovSourceLog, type MoreData, type SearchVectorResult, type Synthesis } from "@/lib/research";
+import { mergeStats, type VerificationStats } from "@/lib/verify";
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import {
@@ -24,6 +25,7 @@ import {
   Loader2,
   Radar,
   ShieldAlert,
+  ShieldCheck,
   Sparkles,
   XCircle,
 } from "lucide-react";
@@ -53,16 +55,18 @@ interface AgentMissionProps {
 
 export function AgentMission({ onApply }: AgentMissionProps) {
   const [name, setName] = useState("");
+  const [domain, setDomain] = useState("");
   const [sector, setSector] = useState("");
   const [phase, setPhase] = useState<Phase>("idle");
   const [vectors, setVectors] = useState<SearchVectorResult[] | null>(null);
   const [gov, setGov] = useState<GovBundle | null>(null);
   const [total, setTotal] = useState(0);
   const [synth, setSynth] = useState<Synthesis | null>(null);
+  const [verification, setVerification] = useState<VerificationStats | null>(null);
   const [fallbackUsed, setFallbackUsed] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [applied, setApplied] = useState(false);
-  const [mission, setMission] = useState<{ id: string; name: string; sector: string; startedAt: string; finishedAt: string } | null>(null);
+  const [mission, setMission] = useState<{ id: string; name: string; sector: string; domain: string; startedAt: string; finishedAt: string } | null>(null);
   const [moreLogsFull, setMoreLogsFull] = useState<GovSourceLog[] | null>(null);
   const [tavilyKey, setTavilyKey] = useState("");
 
@@ -126,10 +130,12 @@ export function AgentMission({ onApply }: AgentMissionProps) {
       setPhase("error");
       return;
     }
+    const dom = domain.trim().toLowerCase();
     setPhase("searching");
     setVectors(null);
     setGov(null);
     setSynth(null);
+    setVerification(null);
     setApplied(false);
     setErrorMsg(null);
     setMission(null);
@@ -137,7 +143,7 @@ export function AgentMission({ onApply }: AgentMissionProps) {
 
     const missionId = `OG-${Date.now().toString(36).toUpperCase().slice(-6)}`;
     const startedAt = new Date().toISOString();
-    setMission({ id: missionId, name: q, sector: sector.trim(), startedAt, finishedAt: startedAt });
+    setMission({ id: missionId, name: q, sector: sector.trim(), domain: dom, startedAt, finishedAt: startedAt });
 
     let govBundle: GovBundle | null = null;
     try {
@@ -148,14 +154,14 @@ export function AgentMission({ onApply }: AgentMissionProps) {
             const base = prev ?? VECTOR_META.map((vm) => ({ key: vm.key, label: vm.label, icon: vm.icon, query: "", ok: false, results: [] }));
             return upsertVec(base, vec);
           });
-        }),
+        }, dom || null),
         runGovStatic(q),
         runMoreSearch(q, (vec) => {
           setVectors((prev) => {
             const base = prev ?? VECTOR_META.map((vm) => ({ key: vm.key, label: vm.label, icon: vm.icon, query: "", ok: false, results: [] }));
             return upsertVec(base, vec);
           });
-        }),
+        }, dom || null),
       ]);
 
       if (searchRes.status === "rejected") throw new Error("La búsqueda agéntica falló");
@@ -165,7 +171,7 @@ export function AgentMission({ onApply }: AgentMissionProps) {
       // Vector opt-in Tavily (clave local del usuario)
       let tavVec: SearchVectorResult | null = null;
       if (tavilyKey.trim()) {
-        tavVec = await runTavily(q, tavilyKey.trim());
+        tavVec = await runTavily(q, tavilyKey.trim(), dom || null);
       }
 
       let moreData = null as MoreData | null;
@@ -180,16 +186,20 @@ export function AgentMission({ onApply }: AgentMissionProps) {
       setVectors(allVectors);
       setTotal(allVectors.reduce((a, v) => a + v.results.length, 0));
 
+      // Verificación de identidad agregada (todos los vectores con filtro)
+      setVerification(mergeStats(allVectors.map((v) => v.stats).filter((s): s is VerificationStats => Boolean(s))));
+
       if (govRes.status === "fulfilled") {
         govBundle = govRes.value;
         setGov(govBundle);
       }
 
       setPhase("synth");
-      const { synthesis, fallback_used: fb } = await runAuditor(q, sector.trim(), allVectors, toGovPayload(govBundle), moreData);
+      const { synthesis, fallback_used: fb, verification: verif } = await runAuditor(q, sector.trim(), allVectors, toGovPayload(govBundle), moreData, dom || null);
       setSynth(synthesis);
+      setVerification(verif);
       setFallbackUsed(fb);
-      setMission({ id: missionId, name: q, sector: sector.trim(), startedAt, finishedAt: new Date().toISOString() });
+      setMission({ id: missionId, name: q, sector: sector.trim(), domain: dom, startedAt, finishedAt: new Date().toISOString() });
 
       // Auto-carga al motor: métricas solo si hay respaldo, señales siempre.
       const m = synthesis.estimated_metrics;
@@ -248,7 +258,7 @@ export function AgentMission({ onApply }: AgentMissionProps) {
 
         <CardContent className="space-y-5">
           {/* Entrada */}
-          <div className="grid gap-3 sm:grid-cols-[1fr_180px_auto]">
+          <div className="grid gap-3 sm:grid-cols-[1fr_140px_170px_auto]">
             <div className="space-y-1.5">
               <Label className="text-xs text-zinc-300">Nombre de la startup</Label>
               <Input
@@ -270,6 +280,17 @@ export function AgentMission({ onApply }: AgentMissionProps) {
                 aria-label="Sector de la startup (opcional)"
               />
             </div>
+            <div className="space-y-1.5">
+              <Label className="text-xs text-zinc-300">Dominio <span className="text-zinc-600">(opcional)</span></Label>
+              <Input
+                value={domain}
+                onChange={(e) => setDomain(e.target.value)}
+                placeholder="tuempresa.com"
+                className="h-9 border-zinc-700 bg-zinc-950/80 text-sm text-zinc-100 placeholder:text-zinc-600"
+                aria-label="Dominio web de la empresa (opcional, desambigua homónimos)"
+                onKeyDown={(e) => { if (e.key === "Enter" && !running) run(); }}
+              />
+            </div>
             <div className="flex items-end">
               <Button
                 className="h-9 w-full gap-2 bg-amber-400 px-4 font-semibold text-zinc-950 hover:bg-amber-300 sm:w-auto"
@@ -286,6 +307,12 @@ export function AgentMission({ onApply }: AgentMissionProps) {
               </Button>
             </div>
           </div>
+          <p className="text-[10px] leading-relaxed text-zinc-500">
+            <span className="text-zinc-400">Verificación de identidad activa:</span> todo hallazgo debe demostrar que habla de la
+            entidad investigada (frase exacta del nombre, dominio declarado o todos sus términos). Los homónimos y el ruido se
+            descartan y se contabilizan en el informe — el oráculo no atribuye hechos de otras empresas. Con LLCs privadas
+            pequeñas, declara el dominio para que los agentes distingan tu empresa de sus homónimas.
+          </p>
 
           {/* Tavily opt-in — la clave del usuario vive solo en su navegador */}
           <div className="flex flex-wrap items-center gap-2">
@@ -448,6 +475,12 @@ export function AgentMission({ onApply }: AgentMissionProps) {
                 {fallbackUsed && (
                   <Badge variant="outline" className="border-orange-800/60 bg-orange-950/30 font-mono text-[10px] text-orange-300">
                     fallback heurístico
+                  </Badge>
+                )}
+                {verification && (
+                  <Badge variant="outline" className="border-sky-800/60 bg-sky-950/30 font-mono text-[10px] text-sky-300">
+                    <ShieldCheck className="mr-1 h-2.5 w-2.5" />
+                    identidad: {verification.kept}/{verification.raw} verificados · {verification.dropped} descartados
                   </Badge>
                 )}
                 {synth.metric_confidence !== "unknown" && (
@@ -657,12 +690,14 @@ export function AgentMission({ onApply }: AgentMissionProps) {
               <DossierReport
                 name={mission.name}
                 sector={mission.sector}
+                domain={mission.domain}
                 missionId={mission.id}
                 startedAt={mission.startedAt}
                 finishedAt={mission.finishedAt}
                 vectors={vectors ?? []}
                 gov={govDisplay}
                 synth={synth}
+                verification={verification}
                 fallbackUsed={fallbackUsed}
                 biasSum={biasSum}
                 rawProb={rawProb ?? 0}
