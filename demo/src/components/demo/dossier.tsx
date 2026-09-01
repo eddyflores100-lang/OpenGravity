@@ -24,6 +24,7 @@ import {
   ScrollText,
   ShieldCheck,
   Users,
+  Radar,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -429,6 +430,57 @@ export function DossierReport(props: DossierProps) {
                 </ul>
               </div>
             )}
+          </Section>
+        )}
+
+        {/* 0-ter — OG-SCOUT: identidad resuelta (nuestro investigador) */}
+        {more?.identity && more.identity.candidates.length > 0 && (
+          <Section n="00-ter" title="OG-Scout — identidad de la entidad resuelta (arquitectura DeerFlow: planificar → investigar → verificar → reportar)" icon={<Radar className="h-3.5 w-3.5" />}>
+            <p className="text-[10px] leading-relaxed text-zinc-400">
+              <span className="font-mono text-amber-400/90">{more.identity.summary}</span>
+            </p>
+            <div className="space-y-2">
+              {more.identity.candidates.map((c) => (
+                <div key={c.host} className={`rounded-lg border p-2.5 ${c === more.identity?.selected ? "border-emerald-800/60 bg-emerald-950/20" : "border-zinc-800 bg-zinc-950/40"}`}>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <a href={c.url} target="_blank" rel="noreferrer" className="font-mono text-xs text-zinc-200 underline decoration-zinc-700 hover:text-amber-300">
+                      {c.host}
+                    </a>
+                    <span className="rounded border border-zinc-800 px-1.5 py-0.5 font-mono text-[9px] text-zinc-500">{c.score} pts</span>
+                    {c === more.identity?.selected && <span className="rounded border border-emerald-700/60 bg-emerald-950/40 px-1.5 py-0.5 font-mono text-[9px] text-emerald-300">SELECCIONADO</span>}
+                    {c.dnsAlive && <span className="font-mono text-[9px] text-zinc-600">DNS ✓</span>}
+                    <span className="font-mono text-[9px] text-zinc-600">{c.homepageFetched ? "homepage descargada ✓" : "homepage no accesible"}</span>
+                  </div>
+                  {c.homepageTitle && <p className="mt-1 text-[10px] text-zinc-500">título real de la página: «{c.homepageTitle}»</p>}
+                  <ul className="mt-1 space-y-0.5">
+                    {c.confirmations.map((x, i) => (
+                      <li key={i} className={`text-[10px] ${x.startsWith("HOMÓNIMO") ? "text-red-400/90" : "text-zinc-500"}`}>
+                        {x.startsWith("HOMÓNIMO") ? "⚠ " : "✓ "}
+                        {x}
+                      </li>
+                    ))}
+                    {!c.homepageFetched && <li className="text-[10px] text-zinc-600">✗ sin verificación de contenido — no se puede atribuir</li>}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            {more.identity.ambiguous && (
+              <p className="rounded border border-amber-800/60 bg-amber-950/20 p-2 text-[10px] text-amber-300">
+                Identidad AMBIGUA: varios candidatos con confirmación fuerte. El informe NO atribuye nada automáticamente — confirma la entidad correcta manualmente antes de presentar este dossier.
+              </p>
+            )}
+            {more.identity.githubLogin && (
+              <p className="text-[10px] text-zinc-500">
+                <span className="text-emerald-400/90">GitHub confirmado:</span>{" "}
+                <a href={`https://github.com/${more.identity.githubLogin}`} target="_blank" rel="noreferrer" className="text-zinc-300 underline decoration-zinc-700 hover:text-amber-300">
+                  @{more.identity.githubLogin}
+                </a>{" "}
+                — sus repositorios se listan como proyectos reales en la sección GitHub.
+              </p>
+            )}
+            <p className="text-[10px] leading-relaxed text-zinc-600">
+              Método del scout: F1 descubrimiento (búsqueda web real + GitHub API) → F2 verificación (descarga la homepage real de cada candidato y comprueba si el nombre legal aparece en su contenido; verificación circular sitio↔GitHub) → F3 selección solo con prueba de contenido. Un dominio que «parece» el nombre NO se atribuye: los homónimos quedan documentados como tales.
+            </p>
           </Section>
         )}
 

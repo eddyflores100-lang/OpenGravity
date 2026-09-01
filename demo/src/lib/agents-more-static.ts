@@ -21,6 +21,7 @@
  */
 
 import { jinaJson } from "@/lib/agents-gov-static";
+import { runScout } from "@/lib/og-scout";
 import {
   probeDomains,
   engineStructuralSignals,
@@ -701,13 +702,23 @@ export async function runMoreSearch(
     domain_from_input: domain ? true : DOMAIN_RE.test(name.trim()),
   };
 
-  // SONDA MULTI-TLD (adiós al .com forzado): antes de lanzar los vectores,
-  // verificamos con DNS real qué dominios candidatos existen. Si el usuario
-  // declaró dominio, ese manda; si no, se prueban variantes del nombre
-  // (.com/.es/.io/.net/.org/.co/.ai) y los dominios que el buscador encuentre.
+  // ═══ OG-SCOUT — FASE 0: NUESTRO INVESTIGADOR (arquitectura DeerFlow) ═══
+  // Antes de atribuir CUALQUIER cosa a la entidad, el scout descubre
+  // candidatos (búsqueda web real + GitHub), VERIFICA homepages reales y
+  // selecciona la identidad solo con prueba de contenido. El falso positivo
+  // del homónimo (sitio de otra empresa atribuido a la tuya) muere aquí.
+  const identity = await runScout(name, logs, domain ?? null);
+  data.identity = identity;
+  if (identity.selected) {
+    data.official_site = identity.selected.host;
+  }
+
+  // SONDA MULTI-TLD (transparencia): qué dominios candidatos existen por DNS.
+  // El dominio de trabajo es: declarado > seleccionado por el scout > null
+  // (JAMÁS el primer vivo de la sonda — eso atribuía homónimos).
   const probes = await probeDomains(name, domain ?? null, logs);
   data.domain_candidates = probes;
-  data.domain = domain ?? probes.find((p) => p.alive)?.domain ?? null;
+  data.domain = domain ?? identity.selected?.host ?? null;
 
   const runners: Record<(typeof MORE_KEYS)[number], (d: MoreData, L: GovSourceLog[], dom: string | null) => Promise<SearchVectorResult>> = {
     talento: (d, L, dom) => runTalento(name, d, L),

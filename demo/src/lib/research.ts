@@ -214,6 +214,8 @@ export interface MoreData {
   x_handles: string[];
   /** Hilos de Reddit encontrados vía DDG site:reddit.com. */
   reddit_mentions: number;
+  /** OG-Scout: identidad resuelta con evidencia (nuestro investigador DeerFlow-style). */
+  identity: import("./og-scout").IdentityResolution | null;
 }
 
 export const EMPTY_MORE_DATA: MoreData = {
@@ -245,6 +247,7 @@ export const EMPTY_MORE_DATA: MoreData = {
   github_stars_total: 0,
   x_handles: [],
   reddit_mentions: 0,
+  identity: null,
 };
 
 /** Resultado de runMoreSearch: 6 vectores nuevos + log por sub-fuente. */

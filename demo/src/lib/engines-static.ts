@@ -320,25 +320,17 @@ export async function runBuscador(name: string, data: MoreData, L: GovSourceLog[
       stats: { raw: 0, kept: 0, dropped: 0, droppedSamples: [], strong: 0 },
     };
   }
-  // Sitio oficial: hosts de resultados que parecen la entidad y resuelven en DNS
-  const candidates = [...new Set(hits.map((h) => hostOf(h.url)).filter((h) => h && hostLooksLikeEntity(h, name)))].slice(0, 3);
-  for (const c of candidates) {
-    try {
-      const alive = await dohAlive(c);
-      data.domain_candidates.push({ domain: c, alive, source: "buscador" });
-      if (alive && !data.official_site) data.official_site = c;
-    } catch {
-      /* red bloquea DoH: seguimos */
-    }
-  }
+  // NOTA: aquí NO se atribuye "sitio oficial" — un host que parece el nombre
+  // puede ser el de un homónimo (caso alice-labs.com). La identidad la resuelve
+  // OG-SCOUT descargando la homepage real y comprobando el nombre legal.
   const filt = filterRelevant(name, hits.map((h) => ev(h.title, h.url, h.snippet)), 1, dom);
   const results = [...filt.items];
   if (data.official_site) {
     results.unshift(
       ev(
-        `Sitio oficial detectado: ${data.official_site} (resuelve en DNS)`,
+        `Sitio de la entidad verificado por OG-Scout: ${data.official_site}`,
         `https://${data.official_site}`,
-        "Dominio extraído de resultados reales del buscador y verificado con Cloudflare DoH — identidad de la entidad"
+        "Dominio confirmado por el investigador OG-Scout: la homepage real menciona el nombre legal (verificación de contenido, no de parecido)"
       )
     );
   }
@@ -451,6 +443,7 @@ interface GhRepo {
   description: string | null;
   stargazers_count: number;
   pushed_at: string;
+  language?: string | null;
   owner: { login: string; type: string };
 }
 interface GhUser {
@@ -470,6 +463,31 @@ interface GhProfile {
 export async function runGithub(name: string, data: MoreData, L: GovSourceLog[], dom: string | null): Promise<SearchVectorResult> {
   const label = "GitHub: repos, org y usuarios";
   const base = { key: "github", label, icon: "🐙", query: name };
+  const results: EvidenceItem[] = [];
+  let stats = { raw: 0, kept: 0, dropped: 0, droppedSamples: [], strong: 0 } as ReturnType<typeof filterRelevant>["stats"];
+
+  // PRIORIDAD: si OG-Scout confirmó la org (por verificación circular o login),
+  // los PROYECTOS REALES salen de SUS repos — no de una búsqueda difusa.
+  const confirmedLogin = data.identity?.githubLogin ?? null;
+  if (confirmedLogin) {
+    const own = await withLog(L, "github-own-repos", `GitHub — PROYECTOS REALES de @${confirmedLogin} (org confirmada por OG-Scout)`, `api.github.com/users/${confirmedLogin}/repos (CORS directo)`, async () => {
+      const d = await jget<GhRepo[]>(`https://api.github.com/users/${confirmedLogin}/repos?sort=updated&per_page=8`);
+      return d;
+    });
+    for (const r of (own ?? []).slice(0, 6)) {
+      results.push(
+        ev(
+          `Proyecto real: ${r.full_name} — ${r.stargazers_count.toLocaleString("es")} ★`,
+          r.html_url,
+          `${r.description ?? "(sin descripción)"} · push ${r.pushed_at?.slice(0, 10)}${r.language ? ` · ${r.language}` : ""} — repo de la org confirmada por OG-Scout`,
+          r.pushed_at.slice(0, 10)
+        )
+      );
+    }
+    const ownStars = (own ?? []).reduce((a, r) => a + r.stargazers_count, 0);
+    if (ownStars > data.github_stars_total) data.github_stars_total = ownStars;
+    if ((own ?? []).length) data.github_repos_matched = Math.max(data.github_repos_matched, (own ?? []).length);
+  }
 
   const reposRes = await withLog(L, "github-repos", "GitHub Search — repositorios", "api.github.com/search/repositories (CORS directo)", async () => {
     const d = await jget<{ items?: GhRepo[]; total_count?: number }>(
@@ -477,8 +495,6 @@ export async function runGithub(name: string, data: MoreData, L: GovSourceLog[],
     );
     return d;
   });
-  const results: EvidenceItem[] = [];
-  let stats = { raw: 0, kept: 0, dropped: 0, droppedSamples: [], strong: 0 } as ReturnType<typeof filterRelevant>["stats"];
 
   if (reposRes) {
     const repos = reposRes.items ?? [];
@@ -571,7 +587,7 @@ export function engineStructuralSignals(data: MoreData): EngineFuse[] {
   const out: EngineFuse[] = [];
   if (data.official_site) {
     out.push({
-      finding: `Sitio oficial detectado y verificado por DNS: ${data.official_site} — presencia web real de la entidad`,
+      finding: `Sitio de la entidad VERIFICADO por OG-Scout: ${data.official_site} — la homepage real menciona el nombre legal (verificación de contenido, no de parecido de dominio)`,
       impact_magnitude: 0.4,
       polarity: "positive",
     });
