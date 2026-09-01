@@ -422,10 +422,8 @@ async function runVector(key: string, name: string, domain?: string | null): Pro
           .map((g) => item(g.title, g.url, `${g.domain} — índice global de noticias GDELT`, g.date))
       );
     } else if (key === "product") {
-      const repos = (await fetchGitHub(name, domain).catch(() => [])) as GHRepo[];
-      results = repos.slice(0, 4).map((r) =>
-        item(r.full_name, r.html_url, `${r.description ?? "(sin descripción)"} · ★${r.stargazers_count} · push ${r.pushed_at?.slice(0, 10)}${r.language ? ` · ${r.language}` : ""}`)
-      );
+      // GitHub tiene ahora su PROPIO vector (engines-static: repos + org + perfil).
+      // Aquí queda Wikipedia + distribución de software (npm/PyPI/Docker).
       const wiki = await fetchWiki(name, domain).catch(() => null);
       if (wiki?.extract) {
         results.push(item(wiki.title, wiki.fullurl ?? `https://en.wikipedia.org/wiki/${wiki.title}`, wiki.extract.slice(0, 280)));
@@ -491,12 +489,19 @@ async function runVector(key: string, name: string, domain?: string | null): Pro
 }
 
 /** Lanza los 6 vectores en paralelo; reporta cada vector al terminar (UI en vivo). */
+/* Claves de los 6 vectores base (los demás viven en agents-more-static). */
+const BASE_KEYS = ["funding", "news", "risk", "product", "community", "people"] as const;
+
 export async function runAgentSearch(
   name: string,
   onOne?: (v: SearchVectorResult) => void,
   domain?: string | null
 ): Promise<{ vectors: SearchVectorResult[]; total: number; verification: VerificationStats }> {
-  const jobs = VECTOR_META.map(async (vm) => {
+  // SOLO los 6 vectores base viven aquí. Los vectores de motores reales
+  // (buscador/bing/reddit/xsocial/github/mastodon) y especializados corren en
+  // runMoreSearch (agents-more-static) — iterar VECTOR_META entero los duplicaría.
+  const jobs = BASE_KEYS.map(async (key) => {
+    const vm = VECTOR_META.find((m) => m.key === key)!;
     const v = await runVector(vm.key, name, domain);
     onOne?.(v);
     return v;
@@ -578,13 +583,11 @@ export async function runAuditor(
     }
   }
 
-  // 2) Señal estructural: huella GitHub (producto y tracción técnica)
-  const productVector = vectors.find((v) => v.key === "product");
-  const repoItems = productVector?.results.filter((r) => r.host === "github.com") ?? [];
-  const stars = repoItems.reduce((acc, r) => {
-    const m = r.snippet.match(/★(\d+)/);
-    return acc + (m ? parseInt(m[1], 10) : 0);
-  }, 0);
+  // 2) Señal estructural: huella GitHub — ahora vector PROPIO (engines-static);
+  // las estrellas verificadas vienen de MoreData (repos filtrados por identidad).
+  const githubVector = vectors.find((v) => v.key === "github");
+  const repoItems = githubVector?.results.filter((r) => r.host === "github.com") ?? [];
+  const stars = more?.github_stars_total ?? 0;
   if (stars >= 1000) {
     signals.push({
       finding: `Tracción open-source verificable: ${stars.toLocaleString("es")} ★ acumuladas en ${repoItems.length} repositorios públicos`,
@@ -656,7 +659,7 @@ export async function runAuditor(
   const finalSignals = signals.slice(0, 8);
   const companyIdentified =
     wdEntity?.title.replace(" — ficha corporativa en Wikidata", "") ??
-    (productVector?.results.find((r) => r.host === "en.wikipedia.org")?.title ?? null);
+    (vectors.find((v) => v.key === "product")?.results.find((r) => r.host === "en.wikipedia.org")?.title ?? null);
 
   // Verificación de entidad agregada sobre TODA la evidencia de la misión
   const verification = mergeStats(
@@ -693,7 +696,7 @@ export async function runAuditor(
   }
 
   const summary = verifiedCount > 0 || hasOfficial || hasMoreStructural
-    ? `Los 12 vectores agénticos rastrearon ${allEvidence.length} hallazgos en fuentes públicas abiertas (Wikipedia, Wikidata, GitHub, Hacker News, DuckDuckGo, Stack Overflow, npm/PyPI/Docker, GDELT/Yahoo Finance) más las APIs especializadas de empleo, apps, ciencia, huella web, mercados y reguladores para "${name}"${
+    ? `Los ${VECTOR_META.length} vectores agénticos rastrearon ${allEvidence.length} hallazgos con MOTORES DE BÚSQUEDA REALES (DuckDuckGo HTML, Bing News, Reddit site:, X site:, GitHub API) y fuentes públicas (Wikipedia, Wikidata, Hacker News, Stack Overflow, npm/PyPI/Docker, GDELT/Yahoo Finance) más APIs especializadas de empleo, apps, ciencia, huella web, mercados y reguladores para "${name}"${
         sector ? ` (sector ${sector})` : ""
       }. ${companyIdentified ? `Entidad identificada: ${companyIdentified}. ` : ""}${
         stars > 0 ? `Huella GitHub: ${stars.toLocaleString("es")} ★. ` : "Sin huella GitHub relevante. "

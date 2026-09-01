@@ -68,6 +68,7 @@ export function AgentMission({ onApply }: AgentMissionProps) {
   const [applied, setApplied] = useState(false);
   const [mission, setMission] = useState<{ id: string; name: string; sector: string; domain: string; startedAt: string; finishedAt: string } | null>(null);
   const [moreLogsFull, setMoreLogsFull] = useState<GovSourceLog[] | null>(null);
+  const [moreDisplay, setMoreDisplay] = useState<MoreData | null>(null);
   const [tavilyKey, setTavilyKey] = useState("");
 
   // La clave Tavily vive solo en el navegador del usuario (localStorage).
@@ -147,7 +148,7 @@ export function AgentMission({ onApply }: AgentMissionProps) {
 
     let govBundle: GovBundle | null = null;
     try {
-      // Layer 1: 12 vectores (6 web + 6 especializados) + scrapers .gov/SEC, EN PARALELO.
+      // Layer 1: vectores (base + especializados + MOTORES REALES buscador/Bing/Reddit/X/GitHub) + scrapers .gov/SEC, EN PARALELO.
       const [searchRes, govRes, moreRes] = await Promise.allSettled([
         runAgentSearch(q, (vec) => {
           setVectors((prev) => {
@@ -180,9 +181,16 @@ export function AgentMission({ onApply }: AgentMissionProps) {
         moreData = moreRes.value.data;
         moreVectors = moreRes.value.vectors;
         setMoreLogsFull(moreRes.value.logs);
+        setMoreDisplay(moreRes.value.data);
       }
 
-      const allVectors = [...vs, ...moreVectors, ...(tavVec ? [tavVec] : [])];
+      // Fusión SIN duplicados por clave: los resultados de runMoreSearch (con
+      // datos reales) tienen prioridad sobre los placeholders del estado inicial.
+      const byKey = new Map<string, SearchVectorResult>();
+      for (const v of vs) byKey.set(v.key, v);
+      for (const v of moreVectors) byKey.set(v.key, v);
+      if (tavVec) byKey.set(tavVec.key, tavVec);
+      const allVectors = [...byKey.values()];
       setVectors(allVectors);
       setTotal(allVectors.reduce((a, v) => a + v.results.length, 0));
 
@@ -698,6 +706,7 @@ export function AgentMission({ onApply }: AgentMissionProps) {
                 gov={govDisplay}
                 synth={synth}
                 verification={verification}
+                more={moreDisplay}
                 fallbackUsed={fallbackUsed}
                 biasSum={biasSum}
                 rawProb={rawProb ?? 0}

@@ -164,6 +164,12 @@ export const VECTOR_META: { key: string; label: string; icon: string }[] = [
   { key: "web", label: "Huella web: dominio, DNS, archivo", icon: "🌐" },
   { key: "mercados", label: "Mercados: cotización y cripto", icon: "💹" },
   { key: "regs", label: "Reguladores: FedRegister, FDA", icon: "🏛️" },
+  { key: "buscador", label: "Buscador web real (DuckDuckGo HTML)", icon: "🔎" },
+  { key: "bing", label: "Noticias reales (Bing News)", icon: "🗞️" },
+  { key: "reddit", label: "Reddit: hilos públicos reales", icon: "🟣" },
+  { key: "xsocial", label: "X/Twitter: cuentas y posts públicos", icon: "✖️" },
+  { key: "github", label: "GitHub: repos, org y usuarios", icon: "🐙" },
+  { key: "mastodon", label: "Mastodon: red social abierta", icon: "🐘" },
 ];
 
 /** Vector opt-in Tavily (solo con clave del usuario). */
@@ -195,6 +201,19 @@ export interface MoreData {
   fedregister_count: number;
   fda_approvals: number;
   fda_recalls: number;
+  /* ── Motores de búsqueda reales + plataformas (engines-static) ── */
+  /** Sondas DNS (DoH) de candidatos de dominio: variantes del nombre × TLDs. */
+  domain_candidates: { domain: string; alive: boolean; source: "declarado" | "sonda" | "buscador" }[];
+  /** Sitio oficial detectado en resultados reales del buscador y verificado por DNS. */
+  official_site: string | null;
+  /** Organización/usuario de GitHub verificado (perfil exacto por construcción). */
+  github_org: { login: string; type: string; created_at: string; public_repos: number; followers: number } | null;
+  github_repos_matched: number;
+  github_stars_total: number;
+  /** Handles de X/Twitter encontrados en resultados reales site:x.com. */
+  x_handles: string[];
+  /** Hilos de Reddit encontrados vía DDG site:reddit.com. */
+  reddit_mentions: number;
 }
 
 export const EMPTY_MORE_DATA: MoreData = {
@@ -219,6 +238,13 @@ export const EMPTY_MORE_DATA: MoreData = {
   fedregister_count: 0,
   fda_approvals: 0,
   fda_recalls: 0,
+  domain_candidates: [],
+  official_site: null,
+  github_org: null,
+  github_repos_matched: 0,
+  github_stars_total: 0,
+  x_handles: [],
+  reddit_mentions: 0,
 };
 
 /** Resultado de runMoreSearch: 6 vectores nuevos + log por sub-fuente. */

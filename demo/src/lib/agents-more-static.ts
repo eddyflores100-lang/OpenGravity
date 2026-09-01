@@ -22,6 +22,16 @@
 
 import { jinaJson } from "@/lib/agents-gov-static";
 import {
+  probeDomains,
+  engineStructuralSignals,
+  runBuscador,
+  runBing,
+  runReddit,
+  runX,
+  runGithub,
+  runMastodon,
+} from "@/lib/engines-static";
+import {
   EMPTY_MORE_DATA,
   VECTOR_META,
   TAVILY_META,
@@ -547,10 +557,24 @@ async function runCiencia(name: string, data: MoreData, L: GovSourceLog[], domai
 async function runWeb(name: string, data: MoreData, L: GovSourceLog[]): Promise<SearchVectorResult> {
   const meta = VECTOR_META.find((v) => v.key === "web")!;
   const base = { key: meta.key, label: meta.label, icon: meta.icon, query: name };
-  const domain = data.domain ?? guessDomain(name);
+  // data.domain viene de la SONDA MULTI-TLD (probeDomains) o del dominio declarado:
+  // nunca se inventa un .com en silencio. Sin dominio verificado → honesto.
+  const domain = data.domain;
   const results: EvidenceItem[] = [];
-  if (!domain) return { ...base, ok: false, results: [], error: "sin dominio inferible" };
-  data.domain = domain;
+  if (!domain) {
+    const probed = data.domain_candidates.map((c) => `${c.domain}${c.alive ? " ✓resuelve" : " ✗"}`).join(", ") || "ninguno";
+    return {
+      ...base,
+      ok: true,
+      results: [
+        item(
+          "Sin dominio verificado para la entidad",
+          "https://dns.google/",
+          `Sonda DNS real sobre ${data.domain_candidates.length || 14} candidatos (${probed}). Ninguno resuelve — declara el dominio correcto en el formulario para verificar la huella web de TU empresa y no la de tus homónimos`
+        ),
+      ],
+    };
+  }
 
   const [doh, rdap, wb] = await Promise.all([
     withLog(L, "doh", "Cloudflare DoH — el dominio resuelve en DNS", "cloudflare-dns.com/dns-query (CORS directo)", () => fetchDoh(domain), "sin registros A"),
@@ -664,7 +688,7 @@ async function runRegs(name: string, data: MoreData, L: GovSourceLog[]): Promise
 
 /* ═══════════════════════ Orquestador de los vectores nuevos ════════════════ */
 
-const MORE_KEYS = ["talento", "apps", "ciencia", "web", "mercados", "regs"] as const;
+const MORE_KEYS = ["talento", "apps", "ciencia", "web", "mercados", "regs", "buscador", "bing", "reddit", "xsocial", "github", "mastodon"] as const;
 
 export async function runMoreSearch(
   name: string,
@@ -674,9 +698,16 @@ export async function runMoreSearch(
   const logs: GovSourceLog[] = [];
   const data: MoreData = {
     ...EMPTY_MORE_DATA,
-    domain: domain ?? guessDomain(name),
     domain_from_input: domain ? true : DOMAIN_RE.test(name.trim()),
   };
+
+  // SONDA MULTI-TLD (adiós al .com forzado): antes de lanzar los vectores,
+  // verificamos con DNS real qué dominios candidatos existen. Si el usuario
+  // declaró dominio, ese manda; si no, se prueban variantes del nombre
+  // (.com/.es/.io/.net/.org/.co/.ai) y los dominios que el buscador encuentre.
+  const probes = await probeDomains(name, domain ?? null, logs);
+  data.domain_candidates = probes;
+  data.domain = domain ?? probes.find((p) => p.alive)?.domain ?? null;
 
   const runners: Record<(typeof MORE_KEYS)[number], (d: MoreData, L: GovSourceLog[], dom: string | null) => Promise<SearchVectorResult>> = {
     talento: (d, L, dom) => runTalento(name, d, L),
@@ -685,11 +716,18 @@ export async function runMoreSearch(
     web: (d, L, dom) => runWeb(name, d, L),
     mercados: (d, L, dom) => runMercados(name, d, L, dom),
     regs: (d, L, dom) => runRegs(name, d, L),
+    buscador: (d, L, dom) => runBuscador(name, d, L, dom),
+    bing: (d, L, dom) => runBing(name, d, L, dom),
+    reddit: (d, L, dom) => runReddit(name, d, L, dom),
+    xsocial: (d, L, dom) => runX(name, d, L, dom),
+    github: (d, L, dom) => runGithub(name, d, L, dom),
+    mastodon: (d, L, dom) => runMastodon(name, d, L, dom),
   };
 
   // Vectores que SÍ requieren verificación de entidad en su evidencia
-  // (búsqueda por término). talento usa slugs exactos y web es infraestructura
-  // del dominio — ambos ya son exactos por construcción.
+  // (búsqueda por término). talento usa slugs exactos, web es infraestructura
+  // del dominio, y github/mastodon ya filtran internamente — exactos por
+  // construcción.
   const NEEDS_VERIFY = new Set(["apps", "ciencia", "mercados", "regs"]);
 
   const vectors = await Promise.all(
@@ -757,6 +795,11 @@ export async function runTavily(name: string, apiKey: string, domain?: string | 
  * fusibles .gov: datos duros primero, deduplicación en el auditor. */
 export function moreStructuralSignals(data: MoreData, name: string): SynthesisSignal[] {
   const out: SynthesisSignal[] = [];
+
+  // 0) FUSIBLES DE MOTORES REALES (buscador/Bing/Reddit/X/GitHub — engines-static)
+  for (const f of engineStructuralSignals(data)) {
+    out.push({ finding: f.finding, impact_magnitude: f.impact_magnitude, polarity: f.polarity, source_urls: [] });
+  }
 
   // 1) Contratación activa (ATS públicos)
   if (data.jobs_total >= 15) {

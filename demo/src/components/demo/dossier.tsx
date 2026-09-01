@@ -121,6 +121,7 @@ export interface DossierProps {
   gov: GovBundle | null;
   synth: Synthesis;
   verification?: import("@/lib/verify").VerificationStats | null;
+  more?: import("@/lib/research").MoreData | null;
   fallbackUsed: boolean;
   biasSum: number;
   rawProb: number;
@@ -128,7 +129,7 @@ export interface DossierProps {
 }
 
 export function DossierReport(props: DossierProps) {
-  const { name, sector, domain, missionId, startedAt, finishedAt, vectors, gov, synth, verification, fallbackUsed, biasSum, rawProb, adjProb } = props;
+  const { name, sector, domain, missionId, startedAt, finishedAt, vectors, gov, synth, verification, more, fallbackUsed, biasSum, rawProb, adjProb } = props;
   const [copied, setCopied] = useState(false);
 
   const evidence = useMemo(() => {
@@ -373,6 +374,61 @@ export function DossierReport(props: DossierProps) {
                 </ul>
               </div>
             )}
+            {/* Sonda multi-TLD + identidad digital verificada */}
+            {more && (more.domain_candidates.length > 0 || more.official_site || more.github_org || more.x_handles.length > 0) && (
+              <div className="rounded-lg border border-zinc-800 bg-zinc-950/40 p-2.5">
+                <p className="mb-1.5 font-mono text-[10px] uppercase tracking-wider text-zinc-500">Sonda DNS multi-TLD + identidad digital verificada</p>
+                {more.domain_candidates.length > 0 && (
+                  <div className="mb-1.5 flex flex-wrap gap-1">
+                    {more.domain_candidates.slice(0, 16).map((c) => (
+                      <span
+                        key={c.domain}
+                        className={`rounded border px-1.5 py-0.5 font-mono text-[9px] ${
+                          c.alive ? "border-emerald-800/60 bg-emerald-950/30 text-emerald-300" : "border-zinc-800 bg-zinc-950/60 text-zinc-600"
+                        }`}
+                        title={`fuente: ${c.source}${c.alive ? " — resuelve en DNS" : " — sin registro A"}`}
+                      >
+                        {c.domain} {c.alive ? "✓" : "✗"}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                <ul className="space-y-0.5 text-[10px] text-zinc-500">
+                  {more.official_site && (
+                    <li>
+                      <span className="text-emerald-400/90">sitio oficial:</span>{" "}
+                      <a href={`https://${more.official_site}`} target="_blank" rel="noreferrer" className="text-zinc-300 underline decoration-zinc-700 hover:text-amber-300">
+                        {more.official_site}
+                      </a>{" "}
+                      <span className="text-zinc-600">(encontrado por el buscador real y verificado con DNS — no adivinado)</span>
+                    </li>
+                  )}
+                  {more.github_org && (
+                    <li>
+                      <span className="text-emerald-400/90">github:</span>{" "}
+                      <a href={`https://github.com/${more.github_org.login}`} target="_blank" rel="noreferrer" className="text-zinc-300 underline decoration-zinc-700 hover:text-amber-300">
+                        @{more.github_org.login}
+                      </a>{" "}
+                      <span className="text-zinc-600">
+                        ({more.github_org.type}, desde {more.github_org.created_at.slice(0, 4)}, {more.github_org.public_repos} repos)
+                      </span>
+                    </li>
+                  )}
+                  {more.x_handles.length > 0 && (
+                    <li>
+                      <span className="text-emerald-400/90">x/twitter:</span>{" "}
+                      <span className="text-zinc-300">{more.x_handles.map((h) => `@${h}`).join(", ")}</span>{" "}
+                      <span className="text-zinc-600">(indexado públicamente)</span>
+                    </li>
+                  )}
+                  {more.reddit_mentions > 0 && (
+                    <li>
+                      <span className="text-emerald-400/90">reddit:</span> <span className="text-zinc-300">{more.reddit_mentions} hilo(s) público(s)</span>
+                    </li>
+                  )}
+                </ul>
+              </div>
+            )}
           </Section>
         )}
 
@@ -584,7 +640,7 @@ export function DossierReport(props: DossierProps) {
             <Badge variant="outline" className={`font-mono text-[10px] ${synth.metric_confidence === "found" ? "border-emerald-800/60 text-emerald-300" : synth.metric_confidence === "estimated" ? "border-amber-800/60 text-amber-300" : "border-zinc-700 text-zinc-500"}`}>confianza: {synth.metric_confidence === "found" ? "cifras encontradas" : synth.metric_confidence === "estimated" ? "estimadas" : "desconocida"}</Badge>
           </div>
           <ul className="mt-1 list-disc space-y-0.5 pl-4 text-[10px] text-zinc-500">
-            <li>Pipeline: Layer 1 harvesters ({VECTOR_META.length} vectores: web + talento/apps/ciencia/web/mercados/regs) + scrapers oficiales ({GOV_META.length} endpoints SEC EDGAR/USAspending + ~18 APIs de apoyo keyless) → Layer 2 auditor DeerFlow ({fallbackUsed ? "heurístico" : "LLM institucional con esquema estricto"}) → Layer 3 motor bayesiano v{ENGINE_VERSION}.</li>
+            <li>Pipeline: Layer 1 harvesters ({VECTOR_META.length} vectores: motores reales DDG/Bing/Reddit/X/GitHub + talento/apps/ciencia/web/mercados/regs) + scrapers oficiales ({GOV_META.length} endpoints SEC EDGAR/USAspending + ~18 APIs de apoyo keyless) + sonda DNS multi-TLD → Layer 2 auditor DeerFlow ({fallbackUsed ? "heurístico" : "LLM institucional con esquema estricto"}) → Layer 3 motor bayesiano v{ENGINE_VERSION}.</li>
             <li>Regla del oráculo: ninguna señal entra al logit sin URL verificable; el veto fatal (fraude/quiebra) fuerza DROP como el PolicyEngine original.</li>
             <li>SEC EDGAR y USAspending.gov son fuentes públicas y oficiales; el resto proviene de APIs abiertas keyless y búsqueda en vivo en esta misión.</li>
             <li>Misión {missionId} — {totalQueries} consultas registradas, {totalSources} hallazgos trazables. Todo el informe es exportable (Markdown/JSON) y auditable enlace a enlace.</li>
