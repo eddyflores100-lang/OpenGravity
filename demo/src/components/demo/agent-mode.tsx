@@ -57,6 +57,7 @@ interface AgentMissionProps {
 export function AgentMission({ onApply }: AgentMissionProps) {
   const [name, setName] = useState("");
   const [domain, setDomain] = useState("");
+  const [ghHandle, setGhHandle] = useState("");
   const [sector, setSector] = useState("");
   const [phase, setPhase] = useState<Phase>("idle");
   const [vectors, setVectors] = useState<SearchVectorResult[] | null>(null);
@@ -139,6 +140,7 @@ export function AgentMission({ onApply }: AgentMissionProps) {
       return;
     }
     const dom = domain.trim().toLowerCase();
+    const gh = ghHandle.trim().replace(/^@/, "");
     setPhase("searching");
     setVectors(null);
     setGov(null);
@@ -169,7 +171,7 @@ export function AgentMission({ onApply }: AgentMissionProps) {
             const base = prev ?? VECTOR_META.map((vm) => ({ key: vm.key, label: vm.label, icon: vm.icon, query: "", ok: false, results: [] }));
             return upsertVec(base, vec);
           });
-        }, dom || null),
+        }, dom || null, gh || null),
       ]);
 
       if (searchRes.status === "rejected") throw new Error("La búsqueda agéntica falló");
@@ -306,6 +308,17 @@ export function AgentMission({ onApply }: AgentMissionProps) {
                 onKeyDown={(e) => { if (e.key === "Enter" && !running) run(); }}
               />
             </div>
+            <div className="space-y-1.5">
+              <Label className="text-xs text-zinc-300">GitHub <span className="text-zinc-600">(opcional)</span></Label>
+              <Input
+                value={ghHandle}
+                onChange={(e) => setGhHandle(e.target.value)}
+                placeholder="@tuorganizacion"
+                className="h-9 border-zinc-700 bg-zinc-950/80 text-sm text-zinc-100 placeholder:text-zinc-600"
+                aria-label="Organización o usuario de GitHub de la empresa (opcional, desambigua homónimos)"
+                onKeyDown={(e) => { if (e.key === "Enter" && !running) run(); }}
+              />
+            </div>
             <div className="flex items-end">
               <Button
                 className="h-9 w-full gap-2 bg-amber-400 px-4 font-semibold text-zinc-950 hover:bg-amber-300 sm:w-auto"
@@ -326,7 +339,8 @@ export function AgentMission({ onApply }: AgentMissionProps) {
             <span className="text-zinc-400">Verificación de identidad activa:</span> todo hallazgo debe demostrar que habla de la
             entidad investigada (frase exacta del nombre, dominio declarado o todos sus términos). Los homónimos y el ruido se
             descartan y se contabilizan en el informe — el oráculo no atribuye hechos de otras empresas. Con LLCs privadas
-            pequeñas, declara el dominio para que los agentes distingan tu empresa de sus homónimas.
+            pequeñas, declara el dominio y la cuenta GitHub para que los agentes distingan TU empresa de sus homónimas: un dominio
+            que resuelve en DNS no prueba que sea tuyo (puede ser el de una empresa igual llamada en otro país).
           </p>
 
           {/* Tavily opt-in — la clave del usuario vive solo en su navegador */}

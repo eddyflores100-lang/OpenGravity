@@ -375,24 +375,47 @@ export function DossierReport(props: DossierProps) {
                 </ul>
               </div>
             )}
-            {/* Sonda multi-TLD + identidad digital verificada */}
-            {more && (more.domain_candidates.length > 0 || more.official_site || more.github_org || more.x_handles.length > 0) && (
+            {/* Sonda multi-TLD — existencia ≠ propiedad */}
+            {more && (more.domain_candidates.length > 0 || more.official_site || more.github_org || (more.github_candidates?.length ?? 0) > 0 || more.x_handles.length > 0) && (
               <div className="rounded-lg border border-zinc-800 bg-zinc-950/40 p-2.5">
-                <p className="mb-1.5 font-mono text-[10px] uppercase tracking-wider text-zinc-500">Sonda DNS multi-TLD + identidad digital verificada</p>
+                <p className="mb-1 font-mono text-[10px] uppercase tracking-wider text-zinc-500">Sonda DNS multi-TLD — existencia de dominio ≠ propiedad</p>
+                <p className="mb-1.5 text-[10px] leading-relaxed text-zinc-500">
+                  Cada chip muestra si el dominio <span className="text-zinc-400">resuelve en DNS</span> (que ALGUIEN lo registró) y
+                  qué hay realmente publicado ahí. Solo se marca <span className="text-emerald-400">VERIFICADO</span> cuando el
+                  contenido real de la web menciona a la entidad o hay verificación circular — un «✓ DNS» jamás prueba que el
+                  dominio sea de la empresa (los homónimos existen: misma marca, otro país).
+                </p>
                 {more.domain_candidates.length > 0 && (
                   <div className="mb-1.5 flex flex-wrap gap-1">
-                    {more.domain_candidates.slice(0, 16).map((c) => (
-                      <span
-                        key={c.domain}
-                        className={`rounded border px-1.5 py-0.5 font-mono text-[9px] ${
-                          c.alive ? "border-emerald-800/60 bg-emerald-950/30 text-emerald-300" : "border-zinc-800 bg-zinc-950/60 text-zinc-600"
-                        }`}
-                        title={`fuente: ${c.source}${c.alive ? " — resuelve en DNS" : " — sin registro A"}`}
-                      >
-                        {c.domain} {c.alive ? "✓" : "✗"}
-                      </span>
-                    ))}
+                    {more.domain_candidates.slice(0, 24).map((c) => {
+                      const style =
+                        c.status === "verificado"
+                          ? "border-emerald-700/70 bg-emerald-950/40 text-emerald-300"
+                          : c.status === "homónimo"
+                            ? "border-red-800/70 bg-red-950/30 text-red-300"
+                            : c.status === "sin-relación"
+                              ? "border-zinc-700 bg-zinc-950/60 text-zinc-400"
+                              : c.status === "caído" || c.status === "sin-probar"
+                                ? "border-amber-800/60 bg-amber-950/20 text-amber-300/90"
+                                : "border-zinc-800 bg-zinc-950/60 text-zinc-600";
+                      const chip =
+                        c.status === "verificado" ? "✓ VERIFICADA" : c.status === "homónimo" ? "⚠ HOMÓNIMO" : c.status === "sin-relación" ? "✕ sin relación" : c.status === "caído" ? "✕ caído" : c.status === "libre" ? "– libre" : "? sin probar";
+                      return (
+                        <span key={c.domain} className={`rounded border px-1.5 py-0.5 font-mono text-[9px] ${style}`} title={`${c.evidence} (fuente: ${c.source})`}>
+                          {c.domain} {chip}
+                        </span>
+                      );
+                    })}
                   </div>
+                )}
+                {more.domain_candidates.filter((c) => c.status === "homónimo").length > 0 && (
+                  <ul className="mb-1.5 space-y-0.5">
+                    {more.domain_candidates.filter((c) => c.status === "homónimo").slice(0, 4).map((c) => (
+                      <li key={c.domain} className="rounded border border-red-900/50 bg-red-950/20 px-2 py-1 text-[10px] text-red-300/90">
+                        ⚠ <span className="font-mono">{c.domain}</span> pertenece a OTRA empresa con nombre similar — NO se atribuye a «{name}». {c.evidence}
+                      </li>
+                    ))}
+                  </ul>
                 )}
                 <ul className="space-y-0.5 text-[10px] text-zinc-500">
                   {more.official_site && (
@@ -401,20 +424,43 @@ export function DossierReport(props: DossierProps) {
                       <a href={`https://${more.official_site}`} target="_blank" rel="noreferrer" className="text-zinc-300 underline decoration-zinc-700 hover:text-amber-300">
                         {more.official_site}
                       </a>{" "}
-                      <span className="text-zinc-600">(encontrado por el buscador real y verificado con DNS — no adivinado)</span>
+                      <span className="text-zinc-600">(verificado por contenido real de la homepage — no por parecido de dominio)</span>
                     </li>
                   )}
-                  {more.github_org && (
-                    <li>
-                      <span className="text-emerald-400/90">github:</span>{" "}
-                      <a href={`https://github.com/${more.github_org.login}`} target="_blank" rel="noreferrer" className="text-zinc-300 underline decoration-zinc-700 hover:text-amber-300">
-                        @{more.github_org.login}
-                      </a>{" "}
-                      <span className="text-zinc-600">
-                        ({more.github_org.type}, desde {more.github_org.created_at.slice(0, 4)}, {more.github_org.public_repos} repos)
-                      </span>
-                    </li>
-                  )}
+                  {(more.github_candidates?.length ?? 0) > 0
+                    ? more.github_candidates.slice(0, 3).map((c) => (
+                        <li key={c.login}>
+                          <span className={c.status === "sin-verificar" ? "text-amber-400/90" : "text-emerald-400/90"}>github:</span>{" "}
+                          <a href={c.html_url} target="_blank" rel="noreferrer" className="text-zinc-300 underline decoration-zinc-700 hover:text-amber-300">
+                            @{c.login}
+                          </a>{" "}
+                          <span className="text-zinc-600">
+                            ({c.type}
+                            {c.created_at ? `, desde ${c.created_at.slice(0, 4)}` : ""}
+                            {c.public_repos ? `, ${c.public_repos} repos` : ""}) —{" "}
+                            {c.status === "circular" ? (
+                              <span className="text-emerald-400/90">VERIFICADA por verificación circular</span>
+                            ) : c.status === "declarada" ? (
+                              <span className="text-emerald-400/90">declarada por el analista</span>
+                            ) : c.status === "contenido" ? (
+                              <span className="text-sky-400/90">nombre legal en el perfil (sin circular)</span>
+                            ) : (
+                              <span className="text-amber-400/90">SIN VERIFICAR — posible homónimo, no se atribuye</span>
+                            )}
+                          </span>
+                        </li>
+                      ))
+                    : more.github_org && (
+                        <li>
+                          <span className="text-emerald-400/90">github:</span>{" "}
+                          <a href={`https://github.com/${more.github_org.login}`} target="_blank" rel="noreferrer" className="text-zinc-300 underline decoration-zinc-700 hover:text-amber-300">
+                            @{more.github_org.login}
+                          </a>{" "}
+                          <span className="text-zinc-600">
+                            ({more.github_org.type}, desde {more.github_org.created_at.slice(0, 4)}, {more.github_org.public_repos} repos)
+                          </span>
+                        </li>
+                      )}
                   {more.x_handles.length > 0 && (
                     <li>
                       <span className="text-emerald-400/90">x/twitter:</span>{" "}

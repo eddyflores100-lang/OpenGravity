@@ -157,9 +157,13 @@ export interface IdentityResolution {
   selected: SiteCandidate | null;
   /** ≥2 candidatos empatados fuertes → el informe declara la ambigüedad. */
   ambiguous: boolean;
-  /** Org/usuario de GitHub confirmado (por perfil o verificación circular). */
+  /** Org/usuario de GitHub CONFIRMADO (contenido, circular o declarado).
+   *  Que el login se parezca al nombre NO confirma nada — cualquiera puede
+   *  registrar @empresa-nombre. Sin confirmación queda null. */
   githubLogin: string | null;
   githubConfirmations: string[];
+  /** TODAS las cuentas candidatas con su estado de verificación (para el informe). */
+  githubCandidates: import("@/lib/research").GithubCandidate[];
   /** Frase resumen para el informe. */
   summary: string;
 }
@@ -172,6 +176,7 @@ export const EMPTY_IDENTITY: IdentityResolution = {
   ambiguous: false,
   githubLogin: null,
   githubConfirmations: [],
+  githubCandidates: [],
   summary: "no ejecutado",
 };
 
@@ -207,11 +212,28 @@ interface GhUserLite {
   type: string;
 }
 
+interface GhProfileFull {
+  login: string;
+  type: string;
+  created_at: string;
+  public_repos: number;
+  followers: number;
+  html_url: string;
+  blog: string;
+  name: string | null;
+  bio: string | null;
+}
+
+/** Limpia las cachés de red entre misiones: cada investigación verifica en vivo. */
+export function clearScoutCaches(): void {
+  memo.clear();
+}
+
 /**
  * Ejecuta el ciclo completo del scout para un nombre de empresa.
  * Devuelve la identidad RESUELTA con evidencia, o ambigüedad honesta.
  */
-export async function runScout(name: string, L: GovSourceLog[], declaredDomain?: string | null): Promise<IdentityResolution> {
+export async function runScout(name: string, L: GovSourceLog[], declaredDomain?: string | null, ghHandle?: string | null): Promise<IdentityResolution> {
   const normalized = normalizeEntity(name);
   const compact = entityCompact(name);
   const tokens = normalized.split(" ").filter((t) => t.length >= 3);
@@ -223,6 +245,7 @@ export async function runScout(name: string, L: GovSourceLog[], declaredDomain?:
     ambiguous: false,
     githubLogin: null,
     githubConfirmations: [],
+    githubCandidates: [],
     summary: "",
   };
 
@@ -285,20 +308,34 @@ export async function runScout(name: string, L: GovSourceLog[], declaredDomain?:
     }
   }
 
-  // 1d. GitHub: usuarios/orgs cuyo login coincide con el nombre
-  const ghUsers = await logStep(L, "scout-gh-users", "OG-Scout F1 — GitHub: usuarios y organizaciones", "api.github.com/search/users (CORS directo)", () =>
+  // 1d. GitHub: TODAS las cuentas cuyo login coincide con el nombre son solo
+  //     CANDIDATAS — jamás identidad. Cualquiera puede registrar @mi-nombre
+  //     (caso real: @alicelabs-llc de un tercero vs @alicelabsllc del analista).
+  //     Se descargan los perfiles reales (máx 3) y la verificación ocurre en
+  //     F3 con contenido (nombre legal en el perfil) o verificación circular.
+  const ghUsers = await logStep(L, "scout-gh-users", "OG-Scout F1 — GitHub: cuentas candidatas (solo candidatas, sin atribuir)", "api.github.com/search/users (CORS directo)", () =>
     jget<{ items?: GhUserLite[] }>(`https://api.github.com/search/users?q=${encodeURIComponent(name)}&per_page=5`).then((d) => d.items ?? [])
   );
   const slugHyphen = normalized.replace(" ", "-");
-  const ghCandidate = (ghUsers ?? []).find(
-    (u) => u.login.replace(/[^a-z0-9]/gi, "").toLowerCase() === compact || u.login.toLowerCase() === slugHyphen || u.login.toLowerCase() === normalized.replace(" ", "")
-  );
-  // perfil real del candidato GitHub (bio, blog, repos)
-  let ghProfile: { login: string; type: string; blog: string; bio: string | null; name: string | null; public_repos: number; created_at: string; html_url: string } | null = null;
-  if (ghCandidate) {
-    ghProfile = await logStep(L, "scout-gh-profile", `OG-Scout F1 — GitHub perfil @${ghCandidate.login}`, `api.github.com/users/${ghCandidate.login} (CORS directo)`, () =>
-      jget<NonNullable<typeof ghProfile>>(`https://api.github.com/users/${ghCandidate.login}`)
+  const slugNoSpace = normalized.replace(" ", "");
+  const loginMatches = (login: string) => {
+    const c = login.replace(/[^a-z0-9]/gi, "").toLowerCase();
+    return c === compact || login.toLowerCase() === slugHyphen || c === slugNoSpace;
+  };
+  const ghLoginCandidates = (ghUsers ?? [])
+    .filter((u) => loginMatches(u.login) || entityRelevance(name, u.login, declaredDomain) >= 2)
+    .slice(0, 3);
+  // el handle declarado por el analista entra siempre (aunque el buscador no lo liste)
+  const declaredHandle = (ghHandle ?? "").trim().replace(/^@/, "");
+  if (declaredHandle && !ghLoginCandidates.some((u) => u.login.toLowerCase() === declaredHandle.toLowerCase())) {
+    ghLoginCandidates.unshift({ login: declaredHandle, type: "declarado por el analista" });
+  }
+  const ghProfiles: GhProfileFull[] = [];
+  for (const u of ghLoginCandidates.slice(0, 3)) {
+    const prof = await logStep(L, "scout-gh-profile", `OG-Scout F1 — GitHub perfil real @${u.login}`, `api.github.com/users/${u.login} (CORS directo)`, () =>
+      jget<GhProfileFull>(`https://api.github.com/users/${u.login}`)
     );
+    if (prof) ghProfiles.push(prof);
   }
 
   /* FASE 2 — VERIFICACIÓN REAL (homepage de cada candidato + circular) */
@@ -306,10 +343,41 @@ export async function runScout(name: string, L: GovSourceLog[], declaredDomain?:
   // Los dominios que Wikipedia declara van PRIMERO (máxima probabilidad de ser
   // el sitio oficial); después los del buscador. Presupuesto: 4 homepages.
   const toVerify = [...new Set([...wikiHosts, ...hosts])].slice(0, 4);
+
+  // Normalización www (movimiento real de analista): un dominio cuyo apex no
+  // tiene registros A pero cuyo www SÍ sirve contenido (CNAME a Firebase,
+  // AppEngine, hosting del registrador…) se verifica en su www — un sitio que
+  // vive en www nunca se da por muerto ni se confunde con un homónimo.
+  const bare = (h: string) => h.replace(/^www\./, "").toLowerCase();
+  const normalizedHosts: string[] = [];
+  for (const host of toVerify) {
+    if (!/^www\./.test(host)) {
+      let apexAlive = false;
+      try {
+        apexAlive = await dnsAlive(host);
+      } catch {
+        /* red bloquea DoH */
+      }
+      if (!apexAlive) {
+        let wwwAlive = false;
+        try {
+          wwwAlive = await dnsAlive(`www.${host}`);
+        } catch {
+          /* red bloquea DoH */
+        }
+        if (wwwAlive) {
+          normalizedHosts.push(`www.${host}`);
+          continue;
+        }
+      }
+    }
+    normalizedHosts.push(host);
+  }
+  const toVerifyNorm = [...new Set(normalizedHosts)].slice(0, 5);
   const candidates: SiteCandidate[] = [];
 
-  for (const host of toVerify) {
-    const srcHit = hits.find((h) => hostOf(h.url) === host);
+  for (const host of toVerifyNorm) {
+    const srcHit = hits.find((h) => bare(hostOf(h.url)) === bare(host));
     const cand: SiteCandidate = {
       host,
       url: `https://${host}`,
@@ -354,10 +422,11 @@ export async function runScout(name: string, L: GovSourceLog[], declaredDomain?:
     // Calidad del dominio: un dominio registrable propio vale; una subcarpeta
     // de plataforma de hosting o un dominio en venta NO es el sitio de una empresa.
     const HOSTING = /(vercel\.app|netlify\.app|pages\.dev|github\.io|webflow\.io|herokuapp\.com|firebaseapp\.com|wixsite\.com|weebly\.com|blogspot\.com|wordpress\.com|substack\.com|notion\.site|framer\.website|glitch\.me|railway\.app|onrender\.com|hugedomains\.com|afternic\.com|sedo\.com|dan\.com|godaddy\.com)$/;
-    const bareForExact = host.split(".")[0] ?? "";
+    const bareHost = bare(host);
+    const bareForExact = bareHost.split(".")[0] ?? "";
     if (HOSTING.test(host) || /for sale|hugedomains|compra de dominio|dominio en venta/i.test(cand.homepageTitle ?? "")) {
-      confirm(-2, `Penalización: ${host.includes(".") && HOSTING.test(host) ? "subdominio de plataforma de hosting (contenido de terceros, no sitio corporativo)" : "dominio en venta/parking — no opera la entidad"}`);
-    } else if (bareForExact.replace(/[^a-z0-9]/g, "") === compact || (declaredDomain && host === declaredDomain.replace(/^www\./, ""))) {
+      confirm(-2, `Penalización: ${HOSTING.test(host) ? "subdominio de plataforma de hosting (contenido de terceros, no sitio corporativo)" : "dominio en venta/parking — no opera la entidad"}`);
+    } else if (bareForExact.replace(/[^a-z0-9]/g, "") === compact || (declaredDomain && bareHost === bare(declaredDomain))) {
       confirm(1, `Dominio registrable propio: ${host} coincide exactamente con la identidad del nombre`);
     }
 
@@ -370,16 +439,29 @@ export async function runScout(name: string, L: GovSourceLog[], declaredDomain?:
     );
     if (page !== null && page !== undefined) {
       cand.homepageFetched = true;
-      const low = deaccent(page.toLowerCase());
       const mTitle = page.match(/^Title:\s*(.+)$/m);
       cand.homepageTitle = mTitle ? mTitle[1].trim().slice(0, 160) : null;
-      const pageLevel = entityRelevance(name, page, declaredDomain);
-      if (pageLevel >= 3) {
+      // contenido REAL sin metadatos del lector ni la URL del propio host
+      // (la URL no es mención de la entidad — evita homónimos falsos en 404)
+      const pageContent = page
+        .replace(/^Title:.*$/m, "")
+        .replace(/^URL Source:.*$/m, "")
+        .replace(/^Published Time:.*$/m, "")
+        .replace(/^Markdown Content:\s*$/m, "")
+        .trim();
+      const pageSubstantial = pageContent.length >= 40;
+      const hayNoHost = pageContent.split(host).join(" ").split(bareHost).join(" ");
+      const pageLevel = entityRelevance(name, hayNoHost, declaredDomain);
+      const isDeclaredHost = Boolean(declaredDomain && bareHost === bare(declaredDomain));
+      if (pageLevel >= 3 || (isDeclaredHost && pageLevel >= 2)) {
         cand.containsFullName = true;
-        confirm(3, `Homepage: la identidad de ${host} se verifica a nivel FUERTE en su contenido real (frase exacta o nombre+contexto de empresa)`);
+        confirm(3, `Homepage: la identidad de ${host} se verifica en su contenido real${isDeclaredHost ? " (dominio declarado por el analista + " : " ("}${pageLevel >= 3 ? "identidad fuerte" : "términos del nombre presentes"})`);
       } else if (pageLevel === 2) {
         cand.containsAllTokens = true;
         confirm(1, `Homepage: términos del nombre presentes en ${host} sin contexto de empresa — verificación débil`);
+      }
+      if (!pageSubstantial) {
+        confirm(-2, `SITIO VACÍO/404: ${host} resuelve en DNS pero no publica contenido real — no opera la entidad`);
       }
       // ¿Enlaza a GitHub? (verificación circular sitio→GitHub, sin requerir
       // perfil: basta que el login aparezca en los resultados de GitHub API —
@@ -392,20 +474,20 @@ export async function runScout(name: string, L: GovSourceLog[], declaredDomain?:
       }
     }
 
-    // HOMÓNIMO DETECTADO: la homepage existe pero NUNCA menciona el nombre →
-    // candidato con score bajo; si además el título real es de otra cosa, queda claro.
-    if (cand.homepageFetched && !cand.containsFullName && !cand.containsAllTokens) {
+    // HOMÓNIMO DETECTADO: la homepage existe, tiene contenido real y NUNCA
+    // menciona el nombre → candidato con score bajo; queda documentado.
+    if (cand.homepageFetched && !cand.containsFullName && !cand.containsAllTokens && (cand.confirmations.every((c) => !c.includes("SITIO VACÍO")))) {
       cand.confirmations.push(`HOMÓNIMO PROBABLE: la homepage de ${host} NO menciona «${name}» en su contenido real — probablemente es otra empresa`);
     }
 
-    // Verificación circular GitHub→sitio (campo blog del perfil)
-    if (ghProfile) {
-      const blog = (ghProfile.blog ?? "").replace(/^https?:\/\//, "").replace(/\/.*$/, "").replace(/^www\./, "").toLowerCase();
-      if (blog && blog === host.toLowerCase()) {
-        confirm(3, `Verificación circular: la org GitHub @${ghProfile.login} declara ${host} como su web (campo blog del perfil)`);
+    // Verificación circular GitHub→sitio (campo blog de CADA perfil candidato)
+    for (const prof of ghProfiles) {
+      const blog = (prof.blog ?? "").replace(/^https?:\/\//, "").replace(/\/.*$/, "").replace(/^www\./, "").toLowerCase();
+      if (blog && blog === bareHost) {
+        confirm(3, `Verificación circular: la cuenta GitHub @${prof.login} declara ${host} como su web (campo blog del perfil)`);
       }
-      if (ghProfile.name && deaccent(ghProfile.name.toLowerCase()).includes(normalized)) {
-        confirm(2, `GitHub @${ghProfile.login}: nombre del perfil «${ghProfile.name}» coincide con el nombre legal`);
+      if (prof.name && deaccent(prof.name.toLowerCase()).includes(normalized)) {
+        confirm(2, `GitHub @${prof.login}: nombre del perfil «${prof.name}» coincide con el nombre legal`);
       }
     }
 
@@ -416,19 +498,6 @@ export async function runScout(name: string, L: GovSourceLog[], declaredDomain?:
 
   /* FASE 3 — SELECCIÓN (con evidencia, o ambigüedad honesta) */
 
-  if (ghProfile) {
-    const blogHost = (ghProfile.blog ?? "").replace(/^https?:\/\//, "").replace(/\/.*$/, "").replace(/^www\./, "").toLowerCase();
-    const blogConfirmed = candidates.some((c) => c.host === blogHost);
-    const multiToken = normalized.includes(" ");
-    const loginExact = multiToken && (ghProfile.login.replace(/[^a-z0-9]/gi, "").toLowerCase() === compact || ghProfile.login.toLowerCase() === slugHyphen);
-    if (loginExact || blogConfirmed) {
-      out.githubLogin = ghProfile.login;
-      out.githubConfirmations.push(
-        `GitHub @${ghProfile.login} (${ghProfile.type}, desde ${ghProfile.created_at.slice(0, 4)}, ${ghProfile.public_repos} repos públicos)${loginExact ? " — login coincide con la identidad del nombre" : ""}${blogConfirmed ? ` — su campo blog declara ${blogHost} (verificación circular con el candidato web)` : ""}`,
-        ghProfile.html_url
-      );
-    }
-  }
   const sorted = [...candidates].sort((a, b) => b.score - a.score);
   const top = sorted[0];
   const second = sorted[1];
@@ -446,6 +515,81 @@ export async function runScout(name: string, L: GovSourceLog[], declaredDomain?:
     out.summary = top
       ? `Sin identidad confirmada: el mejor candidato (${top.host}, ${top.score} pts) no alcanzó la prueba de contenido real — el informe NO lo atribuye a «${name}»`
       : `Sin candidatos web para «${name}»: ningún dominio público coincide con la entidad`;
+  }
+
+  // ── VERIFICACIÓN de las cuentas GitHub candidatas (AHORA sí, con el sitio
+  // ya seleccionado): el estado de cada cuenta se decide con EVIDENCIA, nunca
+  // por parecido del login. Solo "circular" y "declarada" confirman identidad.
+  const verifiedHost = out.selected?.host ? bare(out.selected.host) : declaredDomain ? bare(declaredDomain) : null;
+  const profileByLogin = new Map(ghProfiles.map((p) => [p.login.toLowerCase(), p]));
+  for (const cand0 of ghLoginCandidates) {
+    const prof = profileByLogin.get(cand0.login.toLowerCase());
+    if (!prof) {
+      // perfil no descargable (p. ej. rate-limit HTTP 403 de api.github.com):
+      // la búsqueda SÍ muestra la cuenta, pero sin contenido no hay prueba —
+      // se lista como SIN VERIFICAR (y "declarada" si la aportó el analista).
+      const isDeclared0 = Boolean(declaredHandle) && cand0.login.toLowerCase() === declaredHandle.toLowerCase();
+      out.githubCandidates.push({
+        login: cand0.login,
+        type: cand0.type,
+        created_at: "",
+        public_repos: 0,
+        followers: 0,
+        blog: null,
+        name: null,
+        bio: null,
+        html_url: `https://github.com/${cand0.login}`,
+        status: isDeclared0 ? "declarada" : "sin-verificar",
+        evidence: isDeclared0
+          ? "handle declarado por el analista (perfil no descargable ahora: rate-limit de api.github.com en esta red) — la atribución es por declaración, sin verificación de contenido en esta misión"
+          : "la búsqueda de GitHub SÍ muestra la cuenta, pero el perfil no se pudo descargar (rate-limit HTTP 403 en esta red) — sin prueba de contenido NO se atribuye a la entidad",
+      });
+      continue;
+    }
+    const blogHost = (prof.blog ?? "").replace(/^https?:\/\//, "").replace(/\/.*$/, "").replace(/^www\./, "").toLowerCase();
+    const isDeclared = Boolean(declaredHandle) && prof.login.toLowerCase() === declaredHandle.toLowerCase();
+    const blogCircular = Boolean(verifiedHost && blogHost && blogHost === verifiedHost);
+    const siteLinks = Boolean(out.selected?.linksToGithub && out.selected.linksToGithub.toLowerCase() === prof.login.toLowerCase());
+    const contentLevel = entityRelevance(name, `${prof.name ?? ""} ${prof.bio ?? ""}`, declaredDomain);
+    const profNameMatches = Boolean(prof.name && deaccent(prof.name.toLowerCase()).includes(normalized));
+
+    let status: import("@/lib/research").GithubStatus = "sin-verificar";
+    let evidence = "solo coincide el login con el nombre — SIN verificación de contenido ni circular; puede ser la cuenta de un homónimo, NO se atribuye a la entidad";
+    if (isDeclared) {
+      status = "declarada";
+      evidence = "handle declarado por el analista en el formulario" + (blogCircular ? `; además su campo blog declara ${blogHost} (coincide con el sitio de la entidad)` : "");
+    } else if (blogCircular || siteLinks) {
+      status = "circular";
+      evidence = blogCircular
+        ? `verificación circular: el campo blog del perfil declara ${blogHost} — la misma web verificada de la entidad`
+        : `verificación circular: la homepage verificada ${out.selected?.host} enlaza a esta cuenta`;
+    } else if (contentLevel >= 3 || profNameMatches) {
+      status = "contenido";
+      evidence = `el perfil declara el nombre legal («${(prof.name ?? prof.bio ?? "").slice(0, 80)}») — coincidencia fuerte pero SIN verificación circular`;
+    }
+    out.githubCandidates.push({
+      login: prof.login,
+      type: prof.type,
+      created_at: prof.created_at,
+      public_repos: prof.public_repos,
+      followers: prof.followers,
+      blog: prof.blog || null,
+      name: prof.name,
+      bio: prof.bio,
+      html_url: prof.html_url,
+      status,
+      evidence,
+    });
+  }
+  const ghRank: Record<import("@/lib/research").GithubStatus, number> = { circular: 0, declarada: 1, contenido: 2, "sin-verificar": 3 };
+  const confirmedAccounts = out.githubCandidates
+    .filter((c) => c.status === "circular" || c.status === "declarada")
+    .sort((a, b) => ghRank[a.status] - ghRank[b.status]);
+  if (confirmedAccounts.length) {
+    out.githubLogin = confirmedAccounts[0].login;
+    for (const c of confirmedAccounts.slice(0, 3)) {
+      out.githubConfirmations.push(`GitHub @${c.login} (${c.type}, desde ${c.created_at.slice(0, 4)}, ${c.public_repos} repos públicos) — ${c.evidence}`, c.html_url);
+    }
   }
 
   // Fallback sin perfil (rate-limit de la API): el sitio VERIFICADO por el

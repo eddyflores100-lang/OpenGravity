@@ -21,9 +21,10 @@
  */
 
 import { jinaJson } from "@/lib/agents-gov-static";
-import { runScout } from "@/lib/og-scout";
+import { runScout, clearScoutCaches } from "@/lib/og-scout";
 import {
   probeDomains,
+  clearEngineCaches,
   engineStructuralSignals,
   runBuscador,
   runBing,
@@ -583,13 +584,33 @@ async function runWeb(name: string, data: MoreData, L: GovSourceLog[]): Promise<
     withLog(L, "wayback", "Wayback CDX — primer snapshot archivado", "web.archive.org/cdx (CORS directo)", () => fetchWayback(domain), "sin snapshots o red bloquea archive.org"),
   ]);
 
+  // Fallback www real de analista: un dominio puede tener el apex sin registro A
+  // (parking del registrador) mientras www.alicelabs.site sí sirve el sitio real
+  // (CNAME a Firebase/AppEngine/etc.). Si el apex está muerto, se prueba el www.
+  let workDomain = domain;
+  if (doh && !doh.alive && !/^www\./.test(domain)) {
+    const wwwDoh = await withLog(L, "doh-www", `Cloudflare DoH — respaldo www.${domain} (apex sin A)`, "cloudflare-dns.com/dns-query (CORS directo)", () => fetchDoh(`www.${domain}`), "www también sin registros A");
+    if (wwwDoh?.alive) {
+      workDomain = `www.${domain}`;
+      data.domain = workDomain;
+      results.push(
+        item(`El apex ${domain} NO tiene registros A, pero ${workDomain} SÍ está activo`, `https://dns.google/query?name=${workDomain}`, `Cloudflare DoH: apex aparcado/sin A (configura tu registrador); la web real opera en ${workDomain} con ${wwwDoh.answers} registro(s) A — la sonda lo detecta en vez de dar el dominio por muerto`)
+      );
+    }
+  }
+
   if (doh) {
-    data.domain_alive = doh.alive;
-    results.push(
-      doh.alive
-        ? item(`Dominio ${domain} ACTIVO — resuelve con ${doh.answers} registro(s) A`, `https://dns.google/query?name=${domain}`, "Cloudflare DNS-over-HTTPS: NOERROR con registros A (infraestructura web viva)")
-        : item(`Dominio ${domain} SIN resolución DNS`, `https://dns.google/query?name=${domain}`, "Cloudflare DoH: sin registros A — la web oficial declarada/inferida está caída o nunca existió (verificar TLD alternativo)")
-    );
+    data.domain_alive = doh.alive || workDomain !== domain;
+    if (doh.alive) {
+      results.push(
+        item(`Dominio ${domain} ACTIVO — resuelve con ${doh.answers} registro(s) A`, `https://dns.google/query?name=${domain}`, "Cloudflare DNS-over-HTTPS: NOERROR con registros A (infraestructura web viva)")
+      );
+    } else if (workDomain === domain) {
+      results.push(
+        item(`Dominio ${domain} SIN resolución DNS`, `https://dns.google/query?name=${domain}`, "Cloudflare DoH: sin registros A (tampoco en www) — la web declarada está caída o nunca publicó sitio (verificar TLD alternativo)")
+      );
+    }
+    // caso apex muerto + www vivo: el hallazgo ya quedó documentado arriba
   }
   if (rdap) {
     data.domain_registrar = rdap.registrar;
@@ -694,7 +715,8 @@ const MORE_KEYS = ["talento", "apps", "ciencia", "web", "mercados", "regs", "bus
 export async function runMoreSearch(
   name: string,
   onOne?: (v: SearchVectorResult) => void,
-  domain?: string | null
+  domain?: string | null,
+  ghHandle?: string | null
 ): Promise<MoreBundle> {
   const logs: GovSourceLog[] = [];
   const data: MoreData = {
@@ -702,21 +724,27 @@ export async function runMoreSearch(
     domain_from_input: domain ? true : DOMAIN_RE.test(name.trim()),
   };
 
+  // Cachés de red a cero: cada misión verifica EN VIVO (sin memoria de
+  // misiones anteriores — la identidad de una empresa nunca contamina otra).
+  clearEngineCaches();
+  clearScoutCaches();
+
   // ═══ OG-SCOUT — FASE 0: NUESTRO INVESTIGADOR (arquitectura DeerFlow) ═══
   // Antes de atribuir CUALQUIER cosa a la entidad, el scout descubre
   // candidatos (búsqueda web real + GitHub), VERIFICA homepages reales y
   // selecciona la identidad solo con prueba de contenido. El falso positivo
   // del homónimo (sitio de otra empresa atribuido a la tuya) muere aquí.
-  const identity = await runScout(name, logs, domain ?? null);
+  const identity = await runScout(name, logs, domain ?? null, ghHandle ?? null);
   data.identity = identity;
   if (identity.selected) {
     data.official_site = identity.selected.host;
   }
 
-  // SONDA MULTI-TLD (transparencia): qué dominios candidatos existen por DNS.
-  // El dominio de trabajo es: declarado > seleccionado por el scout > null
-  // (JAMÁS el primer vivo de la sonda — eso atribuía homónimos).
-  const probes = await probeDomains(name, domain ?? null, logs);
+  // SONDA MULTI-TLD (transparencia): qué dominios candidatos existen por DNS
+  // y QUÉ hay realmente en cada uno (verificación de contenido — un dominio
+  // vivo puede ser de un homónimo). El dominio de trabajo es: declarado >
+  // seleccionado por el scout > null (JAMÁS el primer vivo de la sonda).
+  const probes = await probeDomains(name, domain ?? null, logs, identity);
   data.domain_candidates = probes;
   data.domain = domain ?? identity.selected?.host ?? null;
 

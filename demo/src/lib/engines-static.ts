@@ -209,9 +209,9 @@ const ev = (title: string, url: string, snippet: string, date?: string): Evidenc
   date: date ?? "",
 });
 
-/* ── SONDA DE DOMINIOS multi-TLD (adiós al .com forzado) ──────────────────── */
+/* ── SONDA DE DOMINIOS multi-TLD (existencia ≠ propiedad) ─────────────────── */
 
-const PROBE_TLDS = ["com", "es", "io", "net", "org", "co", "ai"];
+const PROBE_TLDS = ["com", "es", "io", "net", "org", "co", "ai", "site", "dev", "app", "xyz"];
 
 async function dohAlive(domain: string): Promise<boolean> {
   const url = `https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(domain)}&type=A`;
@@ -226,6 +226,12 @@ async function dohAlive(domain: string): Promise<boolean> {
   const alive = d.Status === 0 && (d.Answer ?? []).some((a) => a.type === 1);
   jsonMemo.set(memoKey, alive);
   return alive;
+}
+
+/** Limpia las cachés de red entre misiones: cada investigación verifica en vivo. */
+export function clearEngineCaches(): void {
+  mdCache.clear();
+  jsonMemo.clear();
 }
 
 async function pool<T, R>(items: T[], n: number, fn: (t: T) => Promise<R>): Promise<R[]> {
@@ -249,42 +255,162 @@ function domainVariants(name: string): string[] {
   const bases = [...new Set([joined, hyphen])].filter((b) => b.length >= 3);
   const out: string[] = [];
   for (const b of bases) for (const tld of PROBE_TLDS) out.push(`${b}.${tld}`);
-  return out.slice(0, 14);
+  return out.slice(0, 22);
 }
 
+const pageLevelLabel = (lvl: number) => (lvl >= 3 ? "identidad fuerte" : lvl === 2 ? "términos del nombre" : "sin mención");
+
 /**
- * Sonda real de dominios: variantes del nombre × TLDs, verificadas con DNS
- * (Cloudflare DoH). Nada de adivinar .com en silencio: cada candidato queda
- * registrado con su estado para el informe.
+ * Sonda real de dominios: variantes del nombre × TLDs verificadas con DNS
+ * (Cloudflare DoH) — y para CADA dominio vivo, verificación de CONTENIDO:
+ * descargamos la homepage real y comprobamos si pertenece a la entidad.
+ * Un dominio que resuelve solo demuestra que ALGUIEN lo registró (caso real:
+ * alicelabs.ai es una consultora sueca, no la entidad) — el estado de cada
+ * candidato queda documentado con evidencia, homónimos incluidos.
  */
 export async function probeDomains(
   name: string,
   declared: string | null,
-  L?: GovSourceLog[]
+  L?: GovSourceLog[],
+  identity?: import("@/lib/og-scout").IdentityResolution | null
 ): Promise<MoreData["domain_candidates"]> {
   const t0 = Date.now();
+  const bare = (h: string) => h.replace(/^www\./, "").toLowerCase();
+  const declaredHost = declared ? bare(declared) : null;
+  const selectedHost = identity?.selected?.host ? bare(identity.selected.host) : null;
+
+  // 1) Universo de candidatos: declarado (apex + www, porque el sitio real
+  //    puede vivir en www con el apex aparcado) + variantes del nombre × TLDs
+  const variants = domainVariants(name).filter((d) => bare(d) !== declaredHost);
+  const universe: { domain: string; source: "declarado" | "sonda" }[] = [
+    ...(declaredHost ? [{ domain: declaredHost, source: "declarado" as const }, { domain: `www.${declaredHost}`, source: "declarado" as const }] : []),
+    ...variants.map((d) => ({ domain: d, source: "sonda" as const })),
+  ];
+
+  // 2) DNS real sobre todo el universo
+  const dns = await pool(universe, 6, async (u) => ({ ...u, alive: await dohAlive(u.domain).catch(() => false) }));
+  // si el apex declarado está vivo, la variante www es ruido — fuera
+  const apexAliveDeclared = declaredHost ? (dns.find((d) => d.domain === declaredHost)?.alive ?? false) : false;
+  const dnsList = apexAliveDeclared ? dns.filter((d) => d.domain !== `www.${declaredHost}`) : dns;
   const candidates: MoreData["domain_candidates"] = [];
-  if (declared) {
-    let alive = false;
-    try {
-      alive = await dohAlive(declared);
-    } catch {
-      alive = false;
+
+  // 3) Presupuesto de verificación de contenido: declarado/seleccionado
+  //    primero (memo: el scout ya descargó su homepage — sin refetch), luego vivos.
+  const aliveList = dnsList.filter((d) => d.alive);
+  const priority = aliveList.filter((d) => d.source === "declarado" || bare(d.domain) === selectedHost || d.domain === selectedHost);
+  const restAlive = aliveList.filter((d) => !priority.includes(d));
+  const FETCH_BUDGET = 6;
+  const toFetch = [...priority, ...restAlive].slice(0, FETCH_BUDGET);
+
+  const verified = await pool(toFetch, 3, async (d) => {
+    const page = await jinaText(`https://${d.domain}`, 20000).catch(() => null);
+    const mTitle = page?.match(/^Title:\s*(.+)$/m);
+    const title = mTitle ? mTitle[1].trim().slice(0, 140) : null;
+    // contenido REAL: se quitan los metadatos del lector (Title/URL Source/
+    // Published/Markdown Content) y el propio dominio — su URL no es mención
+    // de la entidad (evita homónimos falsos en páginas 404/vacías)
+    const content = page
+      ? page
+          .replace(/^Title:.*$/m, "")
+          .replace(/^URL Source:.*$/m, "")
+          .replace(/^Published Time:.*$/m, "")
+          .replace(/^Markdown Content:\s*$/m, "")
+          .trim()
+      : null;
+    const hayNoDomain = content ? content.split(d.domain).join(" ").split(bare(d.domain)).join(" ") : "";
+    const level = content ? entityRelevance(name, hayNoDomain, declared) : 0;
+    const isWwwVariant = Boolean(declaredHost && d.domain === `www.${declaredHost}`);
+    const PARKING = /for sale|hugedomains|sedo\.com|afternic|dan\.com|buy this domain|dominio en venta|compra este dominio/i;
+    let status: MoreData["domain_candidates"][number]["status"];
+    let evidence: string;
+    if (!content || content.length < 40) {
+      status = "caído";
+      evidence = `DNS activo pero la web está vacía o devuelve error (p. ej. 404) — dominio registrado y sin sitio operativo`;
+    } else if (PARKING.test(content)) {
+      status = "sin-relación";
+      evidence = `dominio EN VENTA / parking (${title ?? "página de subasta"}) — no opera ninguna empresa; no se atribuye a la entidad ni a nadie`;
+    } else if (d.source === "declarado") {
+      status = "verificado";
+      evidence = isWwwVariant
+        ? `variante www del dominio DECLARADO (el apex ${declaredHost} está aparcado/sin A): el contenido real de la web ${level >= 2 ? `menciona la identidad (${pageLevelLabel(level)})` : `NO menciona «${name}» — atribución solo por declaración`}`
+        : `dominio DECLARADO por el analista y el contenido real de la web menciona la identidad (${pageLevelLabel(level)})`;
+    } else if (bare(d.domain) === selectedHost) {
+      status = "verificado";
+      evidence = `verificado por OG-Scout: la homepage real menciona el nombre legal (${pageLevelLabel(level)})`;
+    } else if (level >= 2) {
+      status = "homónimo";
+      evidence = `la web muestra una empresa con nombre PARECIDO que no se puede atribuir a la entidad sin declaración o verificación circular — título real: «${title ?? "s/título"}»`;
+    } else {
+      // variante tolerante de grafía: "Alicelabs" también se escribe "Alice Labs"
+      // (marca con espacio/guion) — misma marca, otra empresa = homónimo real
+      const compactStr = entityCompact(name);
+      const escCh = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const fuzzyBrand =
+        compactStr.length >= 6
+          ? new RegExp(`\\b${compactStr.split("").map(escCh).join("[\\s-]?")}\\b`, "i")
+          : null;
+      if (fuzzyBrand && fuzzyBrand.test(hayNoDomain)) {
+        status = "homónimo";
+        evidence = `la web publica una marca con el mismo nombre en otra grafía («${title ?? "s/título"}») — homónimo real, NO se atribuye a la entidad sin declaración o verificación circular`;
+      } else {
+        status = "sin-relación";
+        evidence = `dominio vivo cuyo contenido real NO menciona a la entidad (parking u otra empresa) — título real: «${title ?? "s/título"}»`;
+      }
     }
-    candidates.push({ domain: declared, alive, source: "declarado" });
-  } else {
-    const variants = domainVariants(name);
-    const results = await pool(variants, 5, async (d) => ({ d, alive: await dohAlive(d) }));
-    for (const r of results) if (r) candidates.push({ domain: r.d, alive: r.alive, source: "sonda" });
+    return { domain: d.domain, alive: true, source: d.source, status, title, evidence };
+  });
+
+  const byDomain = new Map(verified.filter(Boolean).map((v) => [v.domain, v]));
+  for (const d of dnsList) {
+    const v = byDomain.get(d.domain);
+    if (v) {
+      candidates.push(v);
+      continue;
+    }
+    if (d.alive) {
+      candidates.push({
+        domain: d.domain,
+        alive: true,
+        source: d.source,
+        status: "sin-probar",
+        title: null,
+        evidence: "DNS activo — verificación de contenido no alcanzada en esta misión (presupuesto de red)",
+      });
+    } else if (d.source === "declarado") {
+      candidates.push({
+        domain: d.domain,
+        alive: false,
+        source: d.source,
+        status: "caído",
+        title: null,
+        evidence: `dominio DECLARADO sin registros A en ${d.domain.startsWith("www.") ? "el www" : "el apex"} — sin sitio operativo en esa dirección exacta (revisa el DNS de tu registrador; la sonda prueba también la variante www)`,
+      });
+    } else {
+      candidates.push({
+        domain: d.domain,
+        alive: false,
+        source: d.source,
+        status: "libre",
+        title: null,
+        evidence: "sin registros A en DNS: el dominio no está operativo (libre o nunca registrado)",
+      });
+    }
   }
+
+  // Orden honesto: verificado primero; homónimos bien visibles justo después.
+  const order: Record<string, number> = { verificado: 0, "homónimo": 1, "sin-relación": 2, "caído": 3, "sin-probar": 4, libre: 5 };
+  candidates.sort((a, b) => (order[a.status] ?? 9) - (order[b.status] ?? 9));
+
   if (L) {
+    const nHom = candidates.filter((c) => c.status === "homónimo").length;
     L.push({
       key: "probe",
-      label: `Sonda DNS multi-TLD — ${candidates.length} candidatos (${declared ? "dominio declarado" : "variantes del nombre"})`,
-      endpoint: "cloudflare-dns.com/dns-query (DoH, CORS directo)",
+      label: `Sonda DNS multi-TLD + verificación de contenido — ${candidates.length} candidatos`,
+      endpoint: "cloudflare-dns.com/dns-query (DoH) + homepages reales vía r.jina.ai",
       count: candidates.filter((c) => c.alive).length,
       ms: Date.now() - t0,
       ok: true,
+      error: nHom ? `${nHom} homónimo(s) detectado(s) y documentado(s)` : undefined,
     });
   }
   return candidates;
@@ -447,19 +573,6 @@ interface GhRepo {
   language?: string | null;
   owner: { login: string; type: string };
 }
-interface GhUser {
-  login: string;
-  type: string;
-  html_url: string;
-}
-interface GhProfile {
-  login: string;
-  type: string;
-  created_at: string;
-  public_repos: number;
-  followers: number;
-  html_url: string;
-}
 
 export async function runGithub(name: string, data: MoreData, L: GovSourceLog[], dom: string | null): Promise<SearchVectorResult> {
   const label = "GitHub: repos, org y usuarios";
@@ -467,11 +580,12 @@ export async function runGithub(name: string, data: MoreData, L: GovSourceLog[],
   const results: EvidenceItem[] = [];
   let stats = { raw: 0, kept: 0, dropped: 0, droppedSamples: [], strong: 0 } as ReturnType<typeof filterRelevant>["stats"];
 
-  // PRIORIDAD: si OG-Scout confirmó la org (por verificación circular o login),
-  // los PROYECTOS REALES salen de SUS repos — no de una búsqueda difusa.
+  // PRIORIDAD: si OG-Scout confirmó la org (por contenido, verificación
+  // circular o declaración), los PROYECTOS REALES salen de SUS repos — no de
+  // una búsqueda difusa.
   const confirmedLogin = data.identity?.githubLogin ?? null;
   if (confirmedLogin) {
-    const own = await withLog(L, "github-own-repos", `GitHub — PROYECTOS REALES de @${confirmedLogin} (org confirmada por OG-Scout)`, `api.github.com/users/${confirmedLogin}/repos (CORS directo)`, async () => {
+    const own = await withLog(L, "github-own-repos", `GitHub — PROYECTOS REALES de @${confirmedLogin} (identidad confirmada por OG-Scout)`, `api.github.com/users/${confirmedLogin}/repos (CORS directo)`, async () => {
       const d = await jget<GhRepo[]>(`https://api.github.com/users/${confirmedLogin}/repos?sort=updated&per_page=8`);
       return d;
     });
@@ -480,7 +594,7 @@ export async function runGithub(name: string, data: MoreData, L: GovSourceLog[],
         ev(
           `Proyecto real: ${r.full_name} — ${r.stargazers_count.toLocaleString("es")} ★`,
           r.html_url,
-          `${r.description ?? "(sin descripción)"} · push ${r.pushed_at?.slice(0, 10)}${r.language ? ` · ${r.language}` : ""} — repo de la org confirmada por OG-Scout`,
+          `${r.description ?? "(sin descripción)"} · push ${r.pushed_at?.slice(0, 10)}${r.language ? ` · ${r.language}` : ""} — repo de la cuenta con identidad confirmada`,
           r.pushed_at.slice(0, 10)
         )
       );
@@ -511,37 +625,24 @@ export async function runGithub(name: string, data: MoreData, L: GovSourceLog[],
     data.github_stars_total = filt.items.reduce((a, r) => a + (parseInt((r.title.match(/([\d.,]+)\s*★/) ?? [])[1]?.replace(/[.,]/g, ""), 10) || 0), 0);
   }
 
-  const usersRes = await withLog(L, "github-users", "GitHub Search — usuarios y organizaciones", "api.github.com/search/users (CORS directo)", async () => {
-    const d = await jget<{ items?: GhUser[] }>(
-      `https://api.github.com/search/users?q=${encodeURIComponent(name)}&per_page=5`
+  // Cuentas GitHub candidatas — verificadas por OG-Scout con EVIDENCIA
+  // (contenido del perfil, verificación circular o declaración del analista).
+  // Que el login se parezca NO prueba nada: cualquiera registra @mi-nombre.
+  const ghCands = data.identity?.githubCandidates ?? [];
+  data.github_candidates = ghCands;
+  for (const c of ghCands.slice(0, 3)) {
+    const verified = c.status === "circular" || c.status === "declarada";
+    results.unshift(
+      ev(
+        verified
+          ? `GitHub @${c.login} (${c.type}) — ${c.public_repos} repos públicos, ${c.followers} seguidores, desde ${c.created_at.slice(0, 4)} — IDENTIDAD VERIFICADA`
+          : `GitHub @${c.login} existe (${c.type}, ${c.public_repos} repos) — cuenta SIN VERIFICAR como «${name}»`,
+        c.html_url,
+        verified ? `${c.evidence} — antigüedad y actividad reales de la cuenta` : c.evidence
+      )
     );
-    return d.items ?? [];
-  });
-
-  // Perfil exacto: aceptamos solo si el login parece la entidad O la relevancia es >= 2
-  const users = usersRes ?? [];
-  const slugCompact = entityCompact(name);
-  const slugHyphen = normalizeEntity(name).replace(" ", "-");
-  const candidate = users.find(
-    (u) =>
-      u.login.replace(/[^a-z0-9]/gi, "").toLowerCase() === slugCompact ||
-      u.login.toLowerCase() === slugHyphen ||
-      entityRelevance(name, u.login, dom) >= 2
-  );
-  if (candidate) {
-    const prof = await withLog(L, "github-profile", `GitHub perfil @${candidate.login}`, `api.github.com/users/${candidate.login} (CORS directo)`, () =>
-      jget<GhProfile>(`https://api.github.com/users/${candidate.login}`)
-    );
-    if (prof) {
-      const years = Math.floor((Date.now() - new Date(prof.created_at).getTime()) / (864e5 * 365.25));
-      data.github_org = { login: prof.login, type: prof.type, created_at: prof.created_at, public_repos: prof.public_repos, followers: prof.followers };
-      results.unshift(
-        ev(
-          `GitHub @${prof.login} (${prof.type}) — ${prof.public_repos} repos públicos, ${prof.followers} seguidores, activo desde ${prof.created_at.slice(0, 4)} (${years} años)`,
-          prof.html_url,
-          "Perfil verificado por coincidencia de identidad del login — antigüedad y actividad reales de la cuenta"
-        )
-      );
+    if (verified && !data.github_org) {
+      data.github_org = { login: c.login, type: c.type, created_at: c.created_at, public_repos: c.public_repos, followers: c.followers };
     }
   }
 
@@ -597,7 +698,7 @@ export function engineStructuralSignals(data: MoreData): EngineFuse[] {
     const years = Math.floor((Date.now() - new Date(data.github_org.created_at).getTime()) / (864e5 * 365.25));
     if (years >= 2) {
       out.push({
-        finding: `Organización GitHub @${data.github_org.login} activa desde ${data.github_org.created_at.slice(0, 4)} (${years} años, ${data.github_org.public_repos} repos públicos, ${data.github_org.followers} seguidores) — infraestructura técnica real y antigua`,
+        finding: `Cuenta GitHub @${data.github_org.login} con IDENTIDAD VERIFICADA (${data.github_org.type}, desde ${data.github_org.created_at.slice(0, 4)}: ${years} años, ${data.github_org.public_repos} repos públicos, ${data.github_org.followers} seguidores) — confirmada por contenido/verificación circular, no por parecido de login`,
         impact_magnitude: 0.8,
         polarity: "positive",
       });

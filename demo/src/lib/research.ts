@@ -175,6 +175,47 @@ export const VECTOR_META: { key: string; label: string; icon: string }[] = [
 /** Vector opt-in Tavily (solo con clave del usuario). */
 export const TAVILY_META = { key: "deepweb", label: "Tavily: búsqueda profunda (tu clave)", icon: "🔎" };
 
+/** Estado de verificación de un dominio candidato:
+ *  - verificado: contenido real de la web menciona a la entidad (o la declaró el analista)
+ *  - homónimo: la web muestra OTRA empresa con nombre parecido (se cita la evidencia)
+ *  - sin-relación: dominio vivo cuyo contenido no menciona a la entidad (parking u otra cosa)
+ *  - caído: DNS vivo pero la web no responde o está vacía
+ *  - libre: sin registros A (disponible o nunca registrado)
+ *  - sin-probar: no se llegó a verificar (presupuesto de red) */
+export type DomainStatus = "verificado" | "homónimo" | "sin-relación" | "caído" | "libre" | "sin-probar";
+
+export interface DomainCandidate {
+  domain: string;
+  alive: boolean;
+  source: "declarado" | "sonda" | "buscador";
+  status: DomainStatus;
+  /** Título real de la homepage (evidencia legible). */
+  title: string | null;
+  /** Por qué tiene ese estado — defendible, con la prueba citada. */
+  evidence: string;
+}
+
+/** Estado de verificación de una cuenta GitHub candidata:
+ *  - declarada: el analista la declaró en el formulario
+ *  - circular: su campo blog (o el enlace en la web verificada) apunta al sitio verificado de la entidad
+ *  - contenido: el perfil declara el nombre legal (sin verificación circular)
+ *  - sin-verificar: solo coincide el login — puede ser un homónimo, NO se atribuye */
+export type GithubStatus = "declarada" | "circular" | "contenido" | "sin-verificar";
+
+export interface GithubCandidate {
+  login: string;
+  type: string;
+  created_at: string;
+  public_repos: number;
+  followers: number;
+  blog: string | null;
+  name: string | null;
+  bio: string | null;
+  html_url: string;
+  status: GithubStatus;
+  evidence: string;
+}
+
 /**
  * Datos estructurados que extraen los 6 vectores nuevos — entrada de los
  * fusibles objetivos del auditor (mismo patrón que GovPayload para .gov).
@@ -202,12 +243,17 @@ export interface MoreData {
   fda_approvals: number;
   fda_recalls: number;
   /* ── Motores de búsqueda reales + plataformas (engines-static) ── */
-  /** Sondas DNS (DoH) de candidatos de dominio: variantes del nombre × TLDs. */
-  domain_candidates: { domain: string; alive: boolean; source: "declarado" | "sonda" | "buscador" }[];
+  /** Sondas DNS (DoH) de candidatos de dominio: variantes del nombre × TLDs,
+   * cada una con verificación de CONTENIDO — un dominio que resuelve no prueba
+   * quién es su dueño (homónimos: alicelabs.ai = empresa sueca, no la entidad). */
+  domain_candidates: DomainCandidate[];
   /** Sitio oficial detectado en resultados reales del buscador y verificado por DNS. */
   official_site: string | null;
-  /** Organización/usuario de GitHub verificado (perfil exacto por construcción). */
+  /** Organización/usuario de GitHub confirmado SOLO con prueba de contenido o
+   * verificación circular (login parecido NO prueba identidad). */
   github_org: { login: string; type: string; created_at: string; public_repos: number; followers: number } | null;
+  /** Todas las cuentas GitHub candidatas con su estado de verificación. */
+  github_candidates: GithubCandidate[];
   github_repos_matched: number;
   github_stars_total: number;
   /** Handles de X/Twitter encontrados en resultados reales site:x.com. */
@@ -243,6 +289,7 @@ export const EMPTY_MORE_DATA: MoreData = {
   domain_candidates: [],
   official_site: null,
   github_org: null,
+  github_candidates: [],
   github_repos_matched: 0,
   github_stars_total: 0,
   x_handles: [],
