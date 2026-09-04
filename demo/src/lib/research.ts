@@ -169,6 +169,7 @@ export const VECTOR_META: { key: string; label: string; icon: string }[] = [
   { key: "reddit", label: "Reddit: hilos públicos reales", icon: "🟣" },
   { key: "xsocial", label: "X/Twitter: cuentas y posts públicos", icon: "✖️" },
   { key: "github", label: "GitHub: repos, org y usuarios", icon: "🐙" },
+  { key: "stackex", label: "Stack Exchange: red técnica Q&A", icon: "🧵" },
   { key: "mastodon", label: "Mastodon: red social abierta", icon: "🐘" },
 ];
 

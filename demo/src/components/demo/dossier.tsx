@@ -29,6 +29,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ENGINE_VERSION } from "@/lib/opengravity";
+import { buildIntelDossier } from "@/lib/triangulate";
 import {
   GOV_META,
   VECTOR_META,
@@ -149,6 +150,24 @@ export function DossierReport(props: DossierProps) {
   const eventFilings = edgarHits.filter((h) => /^(8-K|10-K|10-Q|20-F)/i.test(h.form));
   const awards = gov?.awards ?? [];
 
+  /* ── DOSSIER DE INTELIGENCIA: triangulación + RQI (motor algorítmico) ──── */
+  const intel = useMemo(
+    () =>
+      buildIntelDossier({
+        name,
+        sector,
+        vectors,
+        gov,
+        synth,
+        verification: verification ?? null,
+        more: more ?? null,
+        domain: domain ?? "",
+        startedAt,
+        finishedAt,
+      }),
+    [name, sector, vectors, gov, synth, verification, more, domain, startedAt, finishedAt]
+  );
+
   /* ── Markdown export ─────────────────────────────────────────────────── */
   const buildMarkdown = () => {
     const L: string[] = [];
@@ -159,6 +178,19 @@ export function DossierReport(props: DossierProps) {
     if (sector) L.push(`- **Sector declarado:** ${sector}`);
     if (domain) L.push(`- **Dominio declarado (desambiguador):** ${domain}`);
     L.push(`- **Fuentes rastreadas:** ${totalSources} hallazgos · ${vectors.length + (gov?.log.length ?? 0)} vectores/scrapers`);
+    L.push("");
+    L.push(`## 0-A. Dossier de inteligencia (OG-Oracle)`);
+    L.push(`- **RQI:** ${intel.rqi.total}/100 — grado ${intel.rqi.grade} (${intel.rqi.parts.map((p) => `${p.label} ${p.value}/${p.max}`).join(" · ")})`);
+    L.push(`- **Identidad:** ${intel.identityLine}`);
+    L.push(`- **Triangulación:** ${intel.corroborated.length} afirmación(es) CORROBORADA(S) por ≥2 dominios independientes · ${intel.unconfirmed.length} no confirmada(s)`);
+    for (const c of intel.corroborated) {
+      L.push(`  - ✓ ${c.finding} — fuentes: ${c.sources.map((s) => `${s.host}${s.date ? ` (${s.date})` : ""} ${s.url}`).join(" | ")}`);
+    }
+    for (const c of intel.unconfirmed) {
+      L.push(`  - ◌ ${c.finding} — fuente única: ${c.sources[0] ? `${c.sources[0].host} ${c.sources[0].url}` : "(n/d)"}`);
+    }
+    if (intel.mixed.length) L.push(`  - ⚖ Cobertura mixta: ${intel.mixed.map((m) => m.label).join(", ")}`);
+    if (intel.gaps.length) for (const g of intel.gaps) L.push(`  — Brecha: ${g}`);
     L.push("");
     L.push(`## 0. Veredicto del auditor`);
     if (synth.company_identified) L.push(`**Entidad identificada:** ${synth.company_identified}`);
@@ -257,10 +289,46 @@ export function DossierReport(props: DossierProps) {
     } catch { /* clipboard bloqueado */ }
   }
   function downloadJson() {
-    const blob = new Blob([JSON.stringify({ mission: missionId, name, sector, startedAt, finishedAt, vectors, gov, synthesis: synth, fallbackUsed, biasSum, rawProb, adjProb }, null, 2)], { type: "application/json" });
+    const dossier = {
+      format: "opengravity-intel-dossier/v2",
+      mission: missionId,
+      name,
+      sector,
+      declared: { domain: domain || null, generatedAt: intel.generatedAt },
+      startedAt,
+      finishedAt,
+      oracle: {
+        rqi: intel.rqi,
+        identity: intel.identityLine,
+        identity_resolution: more?.identity
+          ? {
+              summary: more.identity.summary,
+              selected: more.identity.selected?.host ?? null,
+              ambiguous: more.identity.ambiguous,
+              github: more.identity.githubLogin,
+              github_candidates: more.identity.githubCandidates,
+              candidates: more.identity.candidates,
+            }
+          : null,
+        claims: intel.claims,
+        corroborated: intel.corroborated.length,
+        unconfirmed: intel.unconfirmed.length,
+        mixed_coverage: intel.mixed,
+        gaps: intel.gaps,
+        coverage: intel.coverage,
+      },
+      verification,
+      synthesis: synth,
+      vectors: vectors.map((v) => ({ key: v.key, label: v.label, ok: v.ok, results: v.results, stats: v.stats ?? null })),
+      gov,
+      engine: { biasSum, rawProb, adjProb, fallbackUsed, version: ENGINE_VERSION },
+      methodology:
+        "Cada hallazgo conserva su URL y fuente; la identidad exige verificación de contenido (existencia DNS ≠ propiedad); las afirmaciones se triangulan con dominios independientes; el RQI es determinista y auditable.",
+    };
+    const blob = new Blob([JSON.stringify(dossier, null, 2)], { type: "application/json" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
-    a.download = `opengravity-informe-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${missionId}.json`;
+    a.download = `opengravity-dossier-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${missionId}.json`;
     a.click();
     URL.revokeObjectURL(a.href);
   }
@@ -306,8 +374,114 @@ export function DossierReport(props: DossierProps) {
           </div>
         </header>
 
-        {/* 0 — veredicto */}
-        <Section n="00" title="Veredicto del auditor" icon={<Bot className="h-3.5 w-3.5" />}>
+        {/* 0 — DOSSIER DE INTELIGENCIA (triangulación + RQI) */}
+        <Section n="00" title="Dossier de inteligencia — triangulación algorítmica de fuentes (OG-Oracle)" icon={<Radar className="h-3.5 w-3.5" />}>
+          <div className="flex flex-wrap items-center gap-4 rounded-lg border border-zinc-800 bg-zinc-950/60 px-4 py-3">
+            <div className="text-center">
+              <div className={`font-mono text-3xl font-bold tabular-nums ${intel.rqi.grade === "A" ? "text-emerald-300" : intel.rqi.grade === "B" ? "text-sky-300" : intel.rqi.grade === "C" ? "text-amber-300" : "text-red-300"}`}>
+                {intel.rqi.total}
+              </div>
+              <div className="font-mono text-[9px] uppercase tracking-wider text-zinc-600">RQI {intel.rqi.grade}</div>
+            </div>
+            <div className="min-w-[220px] flex-1 space-y-1">
+              {intel.rqi.parts.map((p) => (
+                <div key={p.key} className="flex items-center gap-2">
+                  <span className="w-32 shrink-0 truncate text-[9px] uppercase tracking-wider text-zinc-500">{p.label}</span>
+                  <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-zinc-900">
+                    <div
+                      className={`h-full rounded-full ${p.value >= p.max * 0.66 ? "bg-emerald-500/80" : p.value >= p.max * 0.33 ? "bg-amber-500/80" : "bg-red-500/70"}`}
+                      style={{ width: `${Math.round((p.value / p.max) * 100)}%` }}
+                    />
+                  </div>
+                  <span className="w-10 shrink-0 text-right font-mono text-[9px] tabular-nums text-zinc-500">{p.value}/{p.max}</span>
+                  <span className="hidden w-56 shrink-0 truncate text-[9px] text-zinc-600 md:block" title={p.note}>{p.note}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <p className="text-[10px] leading-relaxed text-zinc-500">
+            <span className="text-zinc-400">Cómo se calcula (determinista, auditable):</span> cobertura de vectores 30 pts · solidez de identidad 25 ·
+            triangulación 25 · frescura 15 · registro oficial 5. Cada afirmación es <span className="text-emerald-400">CORROBORADA</span> cuando ≥2 dominios
+            independientes la reportan; con una sola fuente queda <span className="text-amber-400">NO CONFIRMADA</span>. Identidad: {intel.identityLine}
+          </p>
+
+          {intel.claims.length === 0 ? (
+            <p className="rounded-lg border border-zinc-800 bg-zinc-950/60 p-3 text-[10px] text-zinc-500">
+              Sin afirmaciones clasificables: la evidencia verificada no cubre ningún tema de la taxonomía (talento, financiación, producto, riesgo,
+              comunidad, mercado, regulación). Para entidades privadas pequeñas esto es lo esperable — el informe no rellena huecos con suposiciones.
+            </p>
+          ) : (
+            <div className="space-y-2">
+              {intel.corroborated.length > 0 && (
+                <div>
+                  <p className="mb-1 font-mono text-[10px] uppercase tracking-wider text-emerald-400/90">✓ Corroboradas — ≥2 dominios independientes ({intel.corroborated.length})</p>
+                  <div className="space-y-1.5">
+                    {intel.corroborated.map((c) => (
+                      <div key={c.topic} className="rounded-lg border border-emerald-900/50 bg-emerald-950/20 p-2.5">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="text-[11px] text-zinc-200">{c.icon} {c.finding}</span>
+                          <Badge variant="outline" className="border-emerald-800/60 px-1.5 py-0 font-mono text-[8px] text-emerald-400">CORROBORADA ×{c.independentDomains}</Badge>
+                          {c.polarity !== "neutral" && (
+                            <Badge variant="outline" className={`px-1.5 py-0 font-mono text-[8px] ${c.polarity === "positive" ? "border-emerald-800/60 text-emerald-400" : "border-red-800/60 text-red-400"}`}>
+                              {c.polarity === "positive" ? "tono +" : "tono −"}
+                            </Badge>
+                          )}
+                        </div>
+                        <ul className="mt-1 space-y-0.5">
+                          {c.sources.map((s, i) => (
+                            <li key={i} className="truncate text-[10px] text-zinc-500">
+                              <a href={s.url} target="_blank" rel="noreferrer" className="underline decoration-zinc-700 hover:text-amber-300">{s.title}</a>
+                              {" "}<span className="font-mono text-zinc-600">[{s.host} · {s.vector}{s.date ? ` · ${s.date}` : ""}]</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {intel.unconfirmed.length > 0 && (
+                <div>
+                  <p className="mb-1 font-mono text-[10px] uppercase tracking-wider text-amber-400/90">◌ No confirmadas — una sola fuente ({intel.unconfirmed.length})</p>
+                  <div className="space-y-1">
+                    {intel.unconfirmed.map((c) => (
+                      <div key={c.topic} className="rounded-lg border border-zinc-800 bg-zinc-950/40 p-2">
+                        <span className="text-[10px] text-zinc-400">{c.icon} {c.finding}</span>
+                        <ul className="mt-0.5 space-y-0.5">
+                          {c.sources.map((s, i) => (
+                            <li key={i} className="truncate text-[10px] text-zinc-600">
+                              <a href={s.url} target="_blank" rel="noreferrer" className="underline decoration-zinc-800 hover:text-amber-300">{s.title}</a>
+                              {" "}<span className="font-mono">[{s.host}{s.date ? ` · ${s.date}` : ""}]</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {intel.mixed.length > 0 && (
+                <p className="rounded-lg border border-amber-900/50 bg-amber-950/20 p-2.5 text-[10px] text-amber-300/90">
+                  ⚖ Cobertura mixta en: {intel.mixed.map((m) => `${m.label} (señales + y − a la vez)`).join("; ")}. El oráculo no promedia: ambas direcciones quedan documentadas con sus fuentes.
+                </p>
+              )}
+            </div>
+          )}
+
+          {intel.gaps.length > 0 && (
+            <div>
+              <p className="mb-1 font-mono text-[10px] uppercase tracking-wider text-zinc-500">Brechas de cobertura (lo que NO se encontró — honesto)</p>
+              <ul className="space-y-0.5">
+                {intel.gaps.slice(0, 8).map((g, i) => (
+                  <li key={i} className="text-[10px] text-zinc-600">— {g}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </Section>
+
+        {/* 0-bis — veredicto */}
+        <Section n="01" title="Veredicto del auditor" icon={<Bot className="h-3.5 w-3.5" />}>
           {synth.company_identified && (
             <p className="text-[11px] text-zinc-400"><span className="text-zinc-600">Entidad identificada:</span> {synth.company_identified}</p>
           )}
@@ -330,9 +504,9 @@ export function DossierReport(props: DossierProps) {
           {fallbackUsed && <p className="text-[10px] text-orange-400/90">Nota: auditor LLM no disponible — se usó el extractor heurístico sobre la misma evidencia.</p>}
         </Section>
 
-        {/* 0-bis — verificación de identidad (anti-homónimos) */}
+        {/* 02 — verificación de identidad (anti-homónimos) */}
         {verification && (
-          <Section n="00-bis" title="Verificación de identidad — qué fue descartado y por qué" icon={<ShieldCheck className="h-3.5 w-3.5" />}>
+          <Section n="02" title="Verificación de identidad — qué fue descartado y por qué" icon={<ShieldCheck className="h-3.5 w-3.5" />}>
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
               <div className="rounded-lg border border-zinc-800 bg-zinc-950/60 p-2.5 text-center">
                 <div className="font-mono text-lg tabular-nums text-zinc-300">{verification.raw}</div>
@@ -481,7 +655,7 @@ export function DossierReport(props: DossierProps) {
 
         {/* 0-ter — OG-SCOUT: identidad resuelta (nuestro investigador) */}
         {more?.identity && more.identity.candidates.length > 0 && (
-          <Section n="00-ter" title="OG-Scout — identidad de la entidad resuelta (arquitectura DeerFlow: planificar → investigar → verificar → reportar)" icon={<Radar className="h-3.5 w-3.5" />}>
+          <Section n="03" title="OG-Scout — identidad de la entidad resuelta (arquitectura DeerFlow: planificar → investigar → verificar → reportar)" icon={<Radar className="h-3.5 w-3.5" />}>
             <p className="text-[10px] leading-relaxed text-zinc-400">
               <span className="font-mono text-amber-400/90">{more.identity.summary}</span>
             </p>

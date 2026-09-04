@@ -324,8 +324,13 @@ export async function probeDomains(
     let status: MoreData["domain_candidates"][number]["status"];
     let evidence: string;
     if (!content || content.length < 40) {
-      status = "caído";
-      evidence = `DNS activo pero la web está vacía o devuelve error (p. ej. 404) — dominio registrado y sin sitio operativo`;
+      if (d.source === "declarado") {
+        status = "sin-probar";
+        evidence = `dominio DECLARADO por el analista — la verificación de contenido no estuvo disponible en esta red (lector saturado); atribución por declaración`;
+      } else {
+        status = "caído";
+        evidence = `DNS activo pero la web está vacía o devuelve error (p. ej. 404) — dominio registrado y sin sitio operativo`;
+      }
     } else if (PARKING.test(content)) {
       status = "sin-relación";
       evidence = `dominio EN VENTA / parking (${title ?? "página de subasta"}) — no opera ninguna empresa; no se atribuye a la entidad ni a nadie`;
@@ -675,6 +680,57 @@ export async function runMastodon(name: string, data: MoreData, L: GovSourceLog[
     return { ...base, ok: true, results: [], stats: filt.stats };
   }
   return { ...base, ok: true, results: filt.items.slice(0, 4), stats: filt.stats };
+}
+
+/* ── VECTOR: Stack Exchange (Q&A técnica, CORS nativo, 300 req/día anónimas) ─ */
+
+interface SeQuestion {
+  title: string;
+  link: string;
+  score: number;
+  answer_count: number;
+  is_answered: boolean;
+  creation_date: number;
+  tags?: string[];
+}
+
+export async function runStackEx(name: string, data: MoreData, L: GovSourceLog[], dom: string | null): Promise<SearchVectorResult> {
+  const label = "Stack Exchange: red técnica Q&A";
+  const base = { key: "stackex", label, icon: "🧵", query: name };
+  const items = await withLog(L, "stackex", label, "api.stackexchange.com/2.3/search/advanced (CORS directo — cuota anónima por IP)", async () => {
+    const res = await fetch(
+      `https://api.stackexchange.com/2.3/search/advanced?order=desc&sort=relevance&q=${encodeURIComponent(name)}&site=stackoverflow&pagesize=10`,
+      { signal: AbortSignal.timeout(10000), headers: { Accept: "application/json" } }
+    );
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const d = (await res.json()) as { items?: SeQuestion[]; quota_remaining?: number };
+    return d.items ?? [];
+  }, "sin resultados o cuota agotada en esta red");
+  const dated = (items ?? []).map((q) =>
+    ev(
+      `Stack Overflow: ${clean(q.title, 110)} — ${q.score} votos, ${q.answer_count} respuesta(s)${q.is_answered ? ", resuelta" : ""}`,
+      q.link,
+      `Pregunta real de la red Stack Exchange${q.tags?.length ? ` · tags: ${q.tags.slice(0, 4).join(", ")}` : ""} — evidencia de presencia técnica`,
+      new Date(q.creation_date * 1000).toISOString().slice(0, 10)
+    )
+  );
+  const filt = filterRelevant(name, dated, 1, dom);
+  data.stackexchange_items = filt.items.length;
+  if (!filt.items.length) {
+    return {
+      ...base,
+      ok: true,
+      results: [
+        ev(
+          `Sin menciones técnicas en Stack Overflow para "${name}"`,
+          `https://stackoverflow.com/search?q=${encodeURIComponent(name)}`,
+          `Búsqueda real en la API de Stack Exchange (${(items ?? []).length} preguntas revisadas, ninguna sobre la entidad tras el filtro de identidad) — sin presencia técnica comunitaria; dato defendible, no un fallo`
+        ),
+      ],
+      stats: filt.stats,
+    };
+  }
+  return { ...base, ok: true, results: filt.items.slice(0, 6), stats: filt.stats };
 }
 
 /* ── Fusibles estructurales (entra al auditor vía moreStructuralSignals) ──── */

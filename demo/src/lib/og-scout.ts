@@ -505,12 +505,22 @@ export async function runScout(name: string, L: GovSourceLog[], declaredDomain?:
   // homepage o verificación circular) Y score ≥ 4. Con solo «el dominio parece
   // el nombre» NO se atribuye nada — los homónimos se documentan.
   const strongContent = (c: SiteCandidate) => c.containsFullName || c.linksToGithub || c.confirmations.some((x) => x.includes("circular"));
+  const declaredBare = declaredDomain ? bare(declaredDomain) : null;
+  const contradicted = (c: SiteCandidate | undefined) => Boolean(c && c.confirmations.some((x) => x.includes("HOMÓNIMO PROBABLE") || x.includes("SITIO VACÍO")));
   if (top && top.score >= 4 && strongContent(top) && !(second && second.score === top.score && strongContent(second))) {
     out.selected = top;
     out.summary = `Identidad resuelta: ${top.host} (puntos ${top.score}) — ${top.confirmations.length} confirmaciones reales`;
   } else if (top && second && top.score >= 4 && second.score >= 4 && strongContent(top) && strongContent(second)) {
     out.ambiguous = true;
     out.summary = `Identidad AMBIGUA: ${top.host} y ${second.host} empatan con confirmación fuerte — el informe NO atribuye ninguna; revisa manualmente`;
+  } else if (top && declaredBare && bare(top.host) === declaredBare && !contradicted(top)) {
+    // El analista DECLARÓ este dominio: si la red no permitió verificar el
+    // contenido (lector caído/rate-limit), la atribución es por declaración,
+    // dicho explícitamente — nunca se atribuye un homónimo por silencio.
+    out.selected = top;
+    out.summary = `Identidad por DECLARACIÓN del analista: ${top.host} (${top.confirmations.length} confirmaciones de infraestructura; verificación de contenido ${
+      top.homepageFetched ? "sin mención clara del nombre en la página" : "no disponible en esta red"
+    }) — atribuida por declaración, no por contenido`;
   } else {
     out.summary = top
       ? `Sin identidad confirmada: el mejor candidato (${top.host}, ${top.score} pts) no alcanzó la prueba de contenido real — el informe NO lo atribuye a «${name}»`

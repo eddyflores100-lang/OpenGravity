@@ -32,6 +32,7 @@ import {
   runX,
   runGithub,
   runMastodon,
+  runStackEx,
 } from "@/lib/engines-static";
 import {
   EMPTY_MORE_DATA,
@@ -710,7 +711,7 @@ async function runRegs(name: string, data: MoreData, L: GovSourceLog[]): Promise
 
 /* ═══════════════════════ Orquestador de los vectores nuevos ════════════════ */
 
-const MORE_KEYS = ["talento", "apps", "ciencia", "web", "mercados", "regs", "buscador", "bing", "reddit", "xsocial", "github", "mastodon"] as const;
+const MORE_KEYS = ["talento", "apps", "ciencia", "web", "mercados", "regs", "buscador", "bing", "reddit", "xsocial", "github", "stackex", "mastodon"] as const;
 
 export async function runMoreSearch(
   name: string,
@@ -760,6 +761,7 @@ export async function runMoreSearch(
     reddit: (d, L, dom) => runReddit(name, d, L, dom),
     xsocial: (d, L, dom) => runX(name, d, L, dom),
     github: (d, L, dom) => runGithub(name, d, L, dom),
+    stackex: (d, L, dom) => runStackEx(name, d, L, dom),
     mastodon: (d, L, dom) => runMastodon(name, d, L, dom),
   };
 

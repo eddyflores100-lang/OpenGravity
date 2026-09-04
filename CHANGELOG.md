@@ -3,6 +3,41 @@
 All notable changes to OpenGravity are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com); versioning is `MAJOR.MINOR.PATCH` starting at the V10 calibration line.
 
+## [11.0.0] — 2026-09-04
+
+### Added — OG-Oracle: motor de inteligencia algorítmica ✨
+- **Dossier de Inteligencia (sección 00 del informe):** la evidencia verificada
+  se agrupa en afirmaciones temáticas (contratación, financiación, producto,
+  riesgo, comunidad, mercado, regulación) y se **triangula**: una afirmación es
+  `CORROBORADA` cuando ≥2 dominios independientes la reportan; con una sola
+  fuente queda `NO CONFIRMADA`. Cobertura mixta (+ y − a la vez) se declara
+  sin promediar.
+- **RQI — Research Quality Index (0-100, determinista y auditable):**
+  cobertura de vectores 30 · solidez de identidad 25 · triangulación 25 ·
+  frescura 15 · registro oficial 5. Desglose visible en la UI y en el export.
+- **Brechas de cobertura honestas:** lo que NO se encontró se lista (vectores
+  vacíos/fallidos, métricas ausentes, identidad sin cerrar).
+- **Export JSON v2 (`opengravity-intel-dossier/v2`):** misión completa con
+  afirmaciones + fuentes + URL + fechas, resolución de identidad (candidatos,
+  homónimos, estados), RQI desglosado, señales del auditor y registro .gov.
+- **Nuevo conector: Stack Exchange API** (CORS nativo, cuota anónima honesta
+  con degradación visible) — presencia técnica Q&A de la entidad.
+- Dominio declarado sin verificación de contenido disponible (lector
+  saturado) se atribuye **por declaración**, dicho explícitamente — un
+  homónimo jamás se atribuye por silencio.
+
+### Fixed — identidad digital: existencia ≠ propiedad
+- La sonda DNS multi-TLD ya no presenta "resuelve" como propiedad: cada
+  dominio vivo se descarga y se clasifica con evidencia (`verificado`,
+  `homónimo`, `en venta/parking`, `sin relación`, `caído`, `libre`).
+- Caso real corregido: `alicelabs.ai` (consultora sueca homónima) se cita con
+  su título real; `alicelabs.com` en venta; el sitio del usuario
+  `www.alicelabs.site` se verifica por contenido y fallback `www` cuando el
+  apex está aparcado.
+- Cuentas GitHub: el parecido del login ya no confirma identidad — estados
+  `declarada / circular / contenido / sin-verificar`; bajo rate-limit (403)
+  se listan sin atribuir.
+
 ## [10.5.0] — 2026-08-31
 
 ### Security 🔴→✅
