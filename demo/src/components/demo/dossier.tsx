@@ -34,6 +34,7 @@ import {
   GOV_META,
   VECTOR_META,
   type GovBundle,
+  type GovSourceLog,
   type SearchVectorResult,
   type Synthesis,
 } from "@/lib/research";
@@ -128,10 +129,14 @@ export interface DossierProps {
   biasSum: number;
   rawProb: number;
   adjProb: number;
+  /** Registro unificado de fuentes consultadas (con timestamps) — panel y export. */
+  sourceLogs?: GovSourceLog[];
+  /** Profundidad de la misión (rápida/estándar/profunda). */
+  depth?: string;
 }
 
 export function DossierReport(props: DossierProps) {
-  const { name, sector, domain, missionId, startedAt, finishedAt, vectors, gov, synth, verification, more, fallbackUsed, biasSum, rawProb, adjProb } = props;
+  const { name, sector, domain, missionId, startedAt, finishedAt, vectors, gov, synth, verification, more, fallbackUsed, biasSum, rawProb, adjProb, sourceLogs, depth } = props;
   const [copied, setCopied] = useState(false);
 
   const evidence = useMemo(() => {
@@ -191,6 +196,21 @@ export function DossierReport(props: DossierProps) {
     }
     if (intel.mixed.length) L.push(`  - ⚖ Cobertura mixta: ${intel.mixed.map((m) => m.label).join(", ")}`);
     if (intel.gaps.length) for (const g of intel.gaps) L.push(`  — Brecha: ${g}`);
+    if (more?.timeline?.length) {
+      L.push("");
+      L.push(`## 0-B. Línea de tiempo verificable de la entidad`);
+      for (const t of more.timeline) L.push(`- ${t.date.slice(0, 10)} — ${t.label} *(fuente: ${t.source}, ${t.url})*`);
+    }
+    if (more?.followups?.length) {
+      L.push("");
+      L.push(`## 0-C. Segunda ola — consultas de seguimiento (la misión se re-planeó con lo verificado)`);
+      for (const f of more.followups) L.push(`- [${f.angle}] «${f.query}» → ${f.found} hallazgo(s) que mencionan a la entidad`);
+    }
+    if (sourceLogs?.length) {
+      L.push("");
+      L.push(`## 0-D. Fuentes consultadas (${sourceLogs.length} consultas reales, con cadena de custodia temporal)`);
+      for (const s of sourceLogs) L.push(`- [${s.ok ? (s.count > 0 ? "OK" : "VACÍA") : "FALLO"}] ${s.label} — ${s.endpoint} · ${s.ms}ms · ${s.count} resultado(s)${s.at ? ` · ${s.at}` : ""}${s.error ? ` · ${s.error}` : ""}`);
+    }
     L.push("");
     L.push(`## 0. Veredicto del auditor`);
     if (synth.company_identified) L.push(`**Entidad identificada:** ${synth.company_identified}`);
@@ -290,11 +310,12 @@ export function DossierReport(props: DossierProps) {
   }
   function downloadJson() {
     const dossier = {
-      format: "opengravity-intel-dossier/v2",
+      format: "opengravity-intel-dossier/v3",
       mission: missionId,
       name,
       sector,
       declared: { domain: domain || null, generatedAt: intel.generatedAt },
+      depth: depth ?? "estandar",
       startedAt,
       finishedAt,
       oracle: {
@@ -310,20 +331,33 @@ export function DossierReport(props: DossierProps) {
               candidates: more.identity.candidates,
             }
           : null,
+        encyclopedia: more?.wiki ?? null,
         claims: intel.claims,
         corroborated: intel.corroborated.length,
         unconfirmed: intel.unconfirmed.length,
         mixed_coverage: intel.mixed,
         gaps: intel.gaps,
         coverage: intel.coverage,
+        timeline: more?.timeline ?? [],
+        followup_wave: more?.followups ?? [],
       },
       verification,
       synthesis: synth,
       vectors: vectors.map((v) => ({ key: v.key, label: v.label, ok: v.ok, results: v.results, stats: v.stats ?? null })),
       gov,
+      sources_consulted: (sourceLogs ?? gov?.log ?? []).map((s) => ({
+        key: s.key,
+        label: s.label,
+        endpoint: s.endpoint,
+        ok: s.ok,
+        count: s.count,
+        ms: s.ms,
+        at: s.at ?? null,
+        error: s.error ?? null,
+      })),
       engine: { biasSum, rawProb, adjProb, fallbackUsed, version: ENGINE_VERSION },
       methodology:
-        "Cada hallazgo conserva su URL y fuente; la identidad exige verificación de contenido (existencia DNS ≠ propiedad); las afirmaciones se triangulan con dominios independientes; el RQI es determinista y auditable.",
+        "Cada hallazgo conserva su URL y fuente; la identidad exige verificación de contenido (existencia DNS ≠ propiedad, DoH dual Cloudflare+Google); las afirmaciones se triangulan con dominios independientes; la enciclopedia (Wikidata P856) actúa como 3.ª fuente de identidad; cada fuente consultada queda registrada con estado, latencia y timestamp; el RQI es determinista y auditable.",
     };
     const blob = new Blob([JSON.stringify(dossier, null, 2)], { type: "application/json" });
     const a = document.createElement("a");
@@ -479,6 +513,41 @@ export function DossierReport(props: DossierProps) {
             </div>
           )}
         </Section>
+
+        {/* 0-B — LÍNEA DE TIEMPO VERIFICABLE (oráculo: cronología con fuente) */}
+        {more?.timeline && more.timeline.length > 0 && (
+          <Section n="0-B" title="Línea de tiempo verificable de la entidad — cada evento con su fuente" icon={<ScrollText className="h-3.5 w-3.5" />}>
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse">
+                <thead>
+                  <tr>
+                    <Th>Fecha</Th>
+                    <Th>Evento verificado</Th>
+                    <Th>Fuente</Th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {more.timeline.map((t, i) => (
+                    <tr key={i}>
+                      <Td mono className="whitespace-nowrap text-zinc-400">{t.date.slice(0, 10)}</Td>
+                      <Td>
+                        {t.label}
+                        <a href={t.url} target="_blank" rel="noopener noreferrer" className="ml-1.5 inline-flex align-middle text-zinc-600 hover:text-amber-300" aria-label={`Abrir fuente del evento: ${t.label}`}>
+                          <ExternalLink className="h-2.5 w-2.5" />
+                        </a>
+                      </Td>
+                      <Td mono className="whitespace-nowrap text-zinc-500">{t.source}</Td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="text-[10px] text-zinc-600">
+              Cronología fusionada de infraestructura (RDAP · Wayback · certificados TLS), identidad (GitHub), comunidad (HN · Reddit · Stack Exchange) y prensa — solo eventos fechados y verificables; sin eventos no hay fila.
+              {more.followups.length > 0 && ` Segunda ola ejecutada: ${more.followups.length} consulta(s) de seguimiento (${more.followups.reduce((a, f) => a + f.found, 0)} hallazgos nuevos).`}
+            </p>
+          </Section>
+        )}
 
         {/* 0-bis — veredicto */}
         <Section n="01" title="Veredicto del auditor" icon={<Bot className="h-3.5 w-3.5" />}>

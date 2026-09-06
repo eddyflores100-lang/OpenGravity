@@ -73,7 +73,41 @@ export interface GovSourceLog {
   ok: boolean;
   count: number;
   ms: number;
+  /** Momento real de la consulta (ISO) — cadena de custodia temporal. */
+  at?: string;
   error?: string;
+}
+
+/** Profundidad de la misión del oráculo (controla presupuesto de red y segunda ola). */
+export type MissionDepth = "rapida" | "estandar" | "profunda";
+
+/** Evento verificable en la línea de tiempo de la entidad (cada uno con fuente). */
+export interface TimelineEvent {
+  date: string; // ISO o YYYY-MM-DD (ordenable)
+  label: string;
+  source: string;
+  url: string;
+}
+
+/** Enciclopedia: página Wikipedia + entidad Wikidata con sitios oficiales declarados. */
+export interface WikiInfo {
+  page_title: string | null;
+  page_url: string | null;
+  extract: string;
+  /** Sitio oficial declarado por la enciclopedia (infobox / Wikidata P856). */
+  official_site: string | null;
+  wikidata_id: string | null;
+  wikidata_url: string | null;
+  wikidata_description: string | null;
+  /** El sitio declarado por la enciclopedia coincide con la identidad verificada. */
+  corroborates_identity: boolean;
+}
+
+/** Consulta de seguimiento de la segunda ola (profundidad "profunda"). */
+export interface FollowUp {
+  angle: string;
+  query: string;
+  found: number;
 }
 
 export interface EdgarHit {
@@ -171,7 +205,20 @@ export const VECTOR_META: { key: string; label: string; icon: string }[] = [
   { key: "github", label: "GitHub: repos, org y usuarios", icon: "🐙" },
   { key: "stackex", label: "Stack Exchange: red técnica Q&A", icon: "🧵" },
   { key: "mastodon", label: "Mastodon: red social abierta", icon: "🐘" },
+  { key: "enciclopedia", label: "Enciclopedia: Wikipedia y Wikidata", icon: "📚" },
+  { key: "hn", label: "Hacker News: historias y puntos", icon: "🧡" },
+  { key: "archivo", label: "Archivo: Wayback + certificados CT", icon: "🗄️" },
+  { key: "noticiasg", label: "Noticias globales: Google News + GDELT", icon: "🌍" },
+  { key: "paquetes", label: "Paquetes: crates.io (ecosistema Rust)", icon: "📥" },
 ];
+
+/** Vectores que corre cada profundidad (null = todos). La "profunda" añade
+ * la segunda ola de consultas de seguimiento y amplía el presupuesto de sonda. */
+export const DEPTH_KEYS: Record<MissionDepth, string[] | null> = {
+  rapida: ["talento", "apps", "ciencia", "web", "mercados", "regs", "buscador", "bing", "reddit", "xsocial", "github", "stackex", "mastodon", "enciclopedia", "hn"],
+  estandar: null,
+  profunda: null,
+};
 
 /** Vector opt-in Tavily (solo con clave del usuario). */
 export const TAVILY_META = { key: "deepweb", label: "Tavily: búsqueda profunda (tu clave)", icon: "🔎" };
@@ -263,6 +310,27 @@ export interface MoreData {
   reddit_mentions: number;
   /** OG-Scout: identidad resuelta con evidencia (nuestro investigador DeerFlow-style). */
   identity: import("./og-scout").IdentityResolution | null;
+  /* ── v12 — conectores ampliados (oráculo: más APIs, más scrapers) ── */
+  /** Wikipedia + Wikidata: página de la entidad y sitio oficial declarado (P856). */
+  wiki: WikiInfo | null;
+  /** Historias de Hacker News (Algolia) que mencionan a la entidad. */
+  hn_stories: number;
+  hn_points_total: number;
+  /** Posts de Reddit vía PullPush (archivo público, API nativa). */
+  pullpush_posts: number;
+  /** Paquete publicado en crates.io (Rust) con descargas. */
+  crates_found: boolean;
+  crates_downloads: number | null;
+  /** Wayback: último snapshot visto y nº de años con capturas. */
+  wayback_last_year: number | null;
+  wayback_years_active: number;
+  /** Subdominios reales observados en Certificate Transparency (crt.sh). */
+  crt_subdomains: string[];
+  crt_first_year: number | null;
+  /** Línea de tiempo verificable: infraestructura + comunidad + prensa, con fuente. */
+  timeline: TimelineEvent[];
+  /** Segunda ola (profundidad "profunda"): consultas de seguimiento y hallazgos. */
+  followups: FollowUp[];
 }
 
 export const EMPTY_MORE_DATA: MoreData = {
@@ -296,6 +364,18 @@ export const EMPTY_MORE_DATA: MoreData = {
   x_handles: [],
   reddit_mentions: 0,
   identity: null,
+  wiki: null,
+  hn_stories: 0,
+  hn_points_total: 0,
+  pullpush_posts: 0,
+  crates_found: false,
+  crates_downloads: null,
+  wayback_last_year: null,
+  wayback_years_active: 0,
+  crt_subdomains: [],
+  crt_first_year: null,
+  timeline: [],
+  followups: [],
 };
 
 /** Resultado de runMoreSearch: 6 vectores nuevos + log por sub-fuente. */

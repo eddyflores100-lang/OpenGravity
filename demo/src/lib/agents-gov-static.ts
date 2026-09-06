@@ -107,7 +107,7 @@ export async function runGovStatic(
 ): Promise<GovBundle> {
   const LOG: GovSourceLog[] = [];
   const log = (key: string, label: string, endpoint: string, ok: boolean, count: number, ms: number, error?: string) =>
-    LOG.push({ key, label, endpoint, ok, count, ms, error });
+    LOG.push({ key, label, endpoint, ok, count, ms, at: new Date().toISOString(), error });
 
   /* 1 — FTS */
   onStep?.("SEC EDGAR: búsqueda global de filings…");

@@ -22,19 +22,30 @@
 
 import { jinaJson } from "@/lib/agents-gov-static";
 import { runScout, clearScoutCaches } from "@/lib/og-scout";
+import { resetNetLedger, resetNetMemos } from "@/lib/net";
 import {
   probeDomains,
   clearEngineCaches,
   engineStructuralSignals,
   runBuscador,
   runBing,
-  runReddit,
   runX,
   runGithub,
   runMastodon,
   runStackEx,
 } from "@/lib/engines-static";
 import {
+  runEnciclopedia,
+  runHN,
+  runRedditPP,
+  runArchivo,
+  runNoticiasG,
+  runPaquetes,
+  runFollowUpWave,
+  buildTimeline,
+} from "@/lib/connectors-extra";
+import {
+  DEPTH_KEYS,
   EMPTY_MORE_DATA,
   VECTOR_META,
   TAVILY_META,
@@ -126,10 +137,10 @@ async function withLog<T>(
         : out
           ? 1
           : 0;
-    L.push({ key, label, endpoint, ok: true, count, ms: Date.now() - t0, error: count === 0 ? zeroNote : undefined });
+    L.push({ key, label, endpoint, ok: true, count, ms: Date.now() - t0, at: new Date().toISOString(), error: count === 0 ? zeroNote : undefined });
     return out;
   } catch (e) {
-    L.push({ key, label, endpoint, ok: false, count: 0, ms: Date.now() - t0, error: e instanceof Error ? e.message : "error" });
+    L.push({ key, label, endpoint, ok: false, count: 0, ms: Date.now() - t0, at: new Date().toISOString(), error: e instanceof Error ? e.message : "error" });
     return null;
   }
 }
@@ -711,13 +722,33 @@ async function runRegs(name: string, data: MoreData, L: GovSourceLog[]): Promise
 
 /* ═══════════════════════ Orquestador de los vectores nuevos ════════════════ */
 
-const MORE_KEYS = ["talento", "apps", "ciencia", "web", "mercados", "regs", "buscador", "bing", "reddit", "xsocial", "github", "stackex", "mastodon"] as const;
+const MORE_KEYS = [
+  "talento",
+  "apps",
+  "ciencia",
+  "web",
+  "mercados",
+  "regs",
+  "buscador",
+  "bing",
+  "reddit",
+  "xsocial",
+  "github",
+  "stackex",
+  "mastodon",
+  "enciclopedia",
+  "hn",
+  "archivo",
+  "noticiasg",
+  "paquetes",
+] as const;
 
 export async function runMoreSearch(
   name: string,
   onOne?: (v: SearchVectorResult) => void,
   domain?: string | null,
-  ghHandle?: string | null
+  ghHandle?: string | null,
+  depth: import("@/lib/research").MissionDepth = "estandar"
 ): Promise<MoreBundle> {
   const logs: GovSourceLog[] = [];
   const data: MoreData = {
@@ -725,10 +756,12 @@ export async function runMoreSearch(
     domain_from_input: domain ? true : DOMAIN_RE.test(name.trim()),
   };
 
-  // Cachés de red a cero: cada misión verifica EN VIVO (sin memoria de
-  // misiones anteriores — la identidad de una empresa nunca contamina otra).
+  // Cachés y ledger de salud a cero: cada misión verifica EN VIVO (sin memoria
+  // de misiones anteriores — la identidad de una empresa nunca contamina otra).
   clearEngineCaches();
   clearScoutCaches();
+  resetNetLedger();
+  resetNetMemos();
 
   // ═══ OG-SCOUT — FASE 0: NUESTRO INVESTIGADOR (arquitectura DeerFlow) ═══
   // Antes de atribuir CUALQUIER cosa a la entidad, el scout descubre
@@ -745,7 +778,7 @@ export async function runMoreSearch(
   // y QUÉ hay realmente en cada uno (verificación de contenido — un dominio
   // vivo puede ser de un homónimo). El dominio de trabajo es: declarado >
   // seleccionado por el scout > null (JAMÁS el primer vivo de la sonda).
-  const probes = await probeDomains(name, domain ?? null, logs, identity);
+  const probes = await probeDomains(name, domain ?? null, logs, identity, depth === "profunda" ? 10 : depth === "estandar" ? 8 : 6);
   data.domain_candidates = probes;
   data.domain = domain ?? identity.selected?.host ?? null;
 
@@ -758,11 +791,16 @@ export async function runMoreSearch(
     regs: (d, L, dom) => runRegs(name, d, L),
     buscador: (d, L, dom) => runBuscador(name, d, L, dom),
     bing: (d, L, dom) => runBing(name, d, L, dom),
-    reddit: (d, L, dom) => runReddit(name, d, L, dom),
+    reddit: (d, L, dom) => runRedditPP(name, d, L, dom),
     xsocial: (d, L, dom) => runX(name, d, L, dom),
     github: (d, L, dom) => runGithub(name, d, L, dom),
     stackex: (d, L, dom) => runStackEx(name, d, L, dom),
     mastodon: (d, L, dom) => runMastodon(name, d, L, dom),
+    enciclopedia: (d, L, dom) => runEnciclopedia(name, d, L, dom),
+    hn: (d, L, dom) => runHN(name, d, L, dom),
+    archivo: (d, L, dom) => runArchivo(name, d, L, dom),
+    noticiasg: (d, L, dom) => runNoticiasG(name, d, L, dom),
+    paquetes: (d, L, dom) => runPaquetes(name, d, L, dom),
   };
 
   // Vectores que SÍ requieren verificación de entidad en su evidencia
@@ -771,8 +809,13 @@ export async function runMoreSearch(
   // construcción.
   const NEEDS_VERIFY = new Set(["apps", "ciencia", "mercados", "regs"]);
 
+  // Presupuesto por profundidad: "rápida" corre el núcleo de 15 vectores
+  // (sin archivo/noticiasg/paquetes — los más lentos), "estándar" corre los
+  // 18 y "profunda" añade la segunda ola de consultas de seguimiento.
+  const runKeys: string[] = DEPTH_KEYS[depth] ?? [...MORE_KEYS];
+
   const vectors = await Promise.all(
-    MORE_KEYS.map(async (k) => {
+    MORE_KEYS.filter((k) => runKeys.includes(k)).map(async (k) => {
       let v = await runners[k](data, logs, data.domain);
       if (v.ok && NEEDS_VERIFY.has(k)) {
         const filt = filterRelevant(name, v.results, 1, data.domain);
@@ -782,6 +825,21 @@ export async function runMoreSearch(
       return v;
     })
   );
+
+  // SEGUNDA OLA (solo "profunda"): la misión se re-planea con lo verificado —
+  // ángulos de analista (financiación/riesgo/producto/clientes) + site: del
+  // sitio verificado. Cada consulta real queda contada en data.followups.
+  if (depth === "profunda") {
+    try {
+      const v = await runFollowUpWave(name, data, data.domain, onOne);
+      if (v) vectors.push(v);
+    } catch {
+      /* la segunda ola nunca tumba la misión */
+    }
+  }
+
+  // LÍNEA DE TIEMPO VERIFICABLE — eventos fechados de toda la misión, con fuente.
+  data.timeline = buildTimeline(data, vectors, name);
 
   return {
     ok: vectors.some((v) => v.ok && v.results.length > 0),
@@ -840,6 +898,77 @@ export function moreStructuralSignals(data: MoreData, name: string): SynthesisSi
   // 0) FUSIBLES DE MOTORES REALES (buscador/Bing/Reddit/X/GitHub — engines-static)
   for (const f of engineStructuralSignals(data)) {
     out.push({ finding: f.finding, impact_magnitude: f.impact_magnitude, polarity: f.polarity, source_urls: [] });
+  }
+
+  // 0-b) FUSIBLES v12 — enciclopedia, comunidad técnica, archivo, paquetes
+  if (data.wiki?.corroborates_identity) {
+    out.push({
+      finding: `IDENTIDAD triple-verificada: la enciclopedia (${data.wiki.wikidata_id ? `Wikidata ${data.wiki.wikidata_id}` : "Wikipedia"}) declara ${data.wiki.official_site} como sitio oficial — coincide con el sitio verificado por contenido (3.ª fuente independiente)`,
+      impact_magnitude: 0.6,
+      polarity: "positive",
+      source_urls: [],
+    });
+  } else if (data.wiki?.official_site && !data.official_site && !data.identity?.selected) {
+    out.push({
+      finding: `La enciclopedia declara ${data.wiki.official_site} como sitio oficial de «${name}» — candidato de identidad SIN verificación de contenido todavía (declara el dominio para cerrar la verificación)`,
+      impact_magnitude: 0.2,
+      polarity: "positive",
+      source_urls: [],
+    });
+  } else if (data.wiki?.official_site && data.wiki.page_title && !data.wiki.corroborates_identity && (data.official_site || data.identity?.selected)) {
+    out.push({
+      finding: `CONFLICTO de identidad documentado: la enciclopedia declara ${data.wiki.official_site} pero el sitio verificado es ${data.official_site ?? data.identity?.selected?.host} — posible marca diversificada, homónimo enciclopédico o datos desactualizados; se investiga, no se asume`,
+      impact_magnitude: -0.4,
+      polarity: "negative",
+      source_urls: [],
+    });
+  }
+  if (data.hn_stories >= 15 && data.hn_points_total >= 300) {
+    out.push({
+      finding: `Tracción en la comunidad técnica: ${data.hn_stories} historias en Hacker News con ${data.hn_points_total.toLocaleString("es")} puntos acumulados (Algolia) — la industria está hablando de la entidad`,
+      impact_magnitude: 0.7,
+      polarity: "positive",
+      source_urls: [],
+    });
+  } else if (data.hn_stories >= 5 && data.hn_points_total >= 60) {
+    out.push({
+      finding: `Presencia en Hacker News: ${data.hn_stories} historias, ${data.hn_points_total} puntos (índice Algolia real)`,
+      impact_magnitude: 0.3,
+      polarity: "positive",
+      source_urls: [],
+    });
+  }
+  if (data.pullpush_posts >= 5) {
+    out.push({
+      finding: `Discusión orgánica en Reddit: ${data.pullpush_posts} hilos recuperados del archivo público (PullPush) — comunidad hablando de la entidad sin marketing de por medio`,
+      impact_magnitude: 0.3,
+      polarity: "positive",
+      source_urls: [],
+    });
+  }
+  if (data.crates_downloads !== null && data.crates_downloads >= 1000) {
+    out.push({
+      finding: `Distribución Rust verificable: ${(data.crates_downloads ?? 0).toLocaleString("es")} descargas del paquete principal en crates.io`,
+      impact_magnitude: 0.3,
+      polarity: "positive",
+      source_urls: [],
+    });
+  }
+  if (data.wayback_years_active >= 10 && data.domain) {
+    out.push({
+      finding: `Historial archivado continuo: ${data.wayback_years_active} años con capturas en Wayback (${data.wayback_first_year}–${data.wayback_last_year ?? "hoy"}) — negocio operativo de larga data, no una LLC de papel`,
+      impact_magnitude: 0.3,
+      polarity: "positive",
+      source_urls: [],
+    });
+  }
+  if (data.crt_subdomains.length >= 4) {
+    out.push({
+      finding: `Infraestructura real observada en Certificate Transparency: ${data.crt_subdomains.length} subdominios con certificados TLS públicos (${data.crt_subdomains.slice(0, 4).join(", ")}…)`,
+      impact_magnitude: 0.2,
+      polarity: "positive",
+      source_urls: [],
+    });
   }
 
   // 1) Contratación activa (ATS públicos)

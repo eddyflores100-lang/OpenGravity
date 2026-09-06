@@ -41,21 +41,38 @@ function release() {
   if (w) w();
 }
 
-/** GET de una página como markdown vía r.jina.ai (semáforo conc-3 + memo). */
+/** GET de una página como markdown vía r.jina.ai (semáforo conc-3 + memo).
+ *  Reintento con backoff: 401/429/5xx transitorios del lector anónimo son
+ *  reales (medidos: 401 "bad IP reputation" que responde 200 al reintento). */
 async function jinaText(url: string, ms = 32000): Promise<string> {
   if (mdCache.has(url)) return mdCache.get(url) as string;
   slot();
   await new Promise<void>((r) => setTimeout(r, 0));
   try {
-    const res = await fetch(JINA + url, {
-      signal: AbortSignal.timeout(ms),
-      headers: { "X-Return-Format": "markdown", ...jinaHeaders() },
-      cache: "no-store",
-    });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const text = await res.text();
-    mdCache.set(url, text);
-    return text;
+    let lastErr: unknown = null;
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        const res = await fetch(JINA + url, {
+          signal: AbortSignal.timeout(ms),
+          headers: { "X-Return-Format": "markdown", ...jinaHeaders() },
+          cache: "no-store",
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const text = await res.text();
+        mdCache.set(url, text);
+        return text;
+      } catch (e) {
+        lastErr = e;
+        const http = /HTTP (\d+)/.exec(e instanceof Error ? e.message : "")?.[1];
+        const retryable = http === undefined || ["401", "403", "429"].includes(http) || Number(http) >= 500;
+        if (attempt === 0 && retryable) {
+          await new Promise<void>((r) => setTimeout(r, 900 + Math.floor(Math.random() * 400)));
+          continue;
+        }
+        throw e;
+      }
+    }
+    throw lastErr;
   } finally {
     release();
   }
@@ -92,7 +109,7 @@ async function withLog<T>(
         : out
           ? 1
           : 0;
-    L.push({ key, label, endpoint, count: Number.isFinite(count) ? count : 1, ms: Date.now() - t0, ok: true });
+    L.push({ key, label, endpoint, count: Number.isFinite(count) ? count : 1, ms: Date.now() - t0, at: new Date().toISOString(), ok: true });
     return out;
   } catch (e) {
     L.push({
@@ -101,6 +118,7 @@ async function withLog<T>(
       endpoint,
       count: 0,
       ms: Date.now() - t0,
+      at: new Date().toISOString(),
       ok: false,
       error: `${e instanceof Error ? e.message : "error"}${zeroNote ? ` — ${zeroNote}` : ""}`,
     });
@@ -214,16 +232,33 @@ const ev = (title: string, url: string, snippet: string, date?: string): Evidenc
 const PROBE_TLDS = ["com", "es", "io", "net", "org", "co", "ai", "site", "dev", "app", "xyz"];
 
 async function dohAlive(domain: string): Promise<boolean> {
-  const url = `https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(domain)}&type=A`;
   const memoKey = `doh:${domain}`;
   if (jsonMemo.has(memoKey)) return jsonMemo.get(memoKey) as boolean;
-  const res = await fetch(url, {
-    signal: AbortSignal.timeout(6000),
-    headers: { Accept: "application/dns-json" },
-  });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const d = (await res.json()) as { Status?: number; Answer?: { type?: number }[] };
-  const alive = d.Status === 0 && (d.Answer ?? []).some((a) => a.type === 1);
+  // DoH DUAL — fiabilidad ante todo: Cloudflare primero (exige Accept
+  // application/dns-json EXACTO); si falla o se agota, Google (dns.google/
+  // resolve, CORS ✓ verificado) responde. Un proveedor caído no mata la sonda.
+  const providers = [
+    { base: "https://cloudflare-dns.com/dns-query", accept: "application/dns-json" },
+    { base: "https://dns.google/resolve", accept: "application/json" },
+  ];
+  let alive = false;
+  let lastErr: unknown = null;
+  for (const p of providers) {
+    try {
+      const res = await fetch(`${p.base}?name=${encodeURIComponent(domain)}&type=A`, {
+        signal: AbortSignal.timeout(6000),
+        headers: { Accept: p.accept },
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const d = (await res.json()) as { Status?: number; Answer?: { type?: number }[] };
+      alive = d.Status === 0 && (d.Answer ?? []).some((a) => a.type === 1);
+      lastErr = null;
+      break;
+    } catch (e) {
+      lastErr = e;
+    }
+  }
+  if (lastErr) throw lastErr;
   jsonMemo.set(memoKey, alive);
   return alive;
 }
@@ -272,7 +307,8 @@ export async function probeDomains(
   name: string,
   declared: string | null,
   L?: GovSourceLog[],
-  identity?: import("@/lib/og-scout").IdentityResolution | null
+  identity?: import("@/lib/og-scout").IdentityResolution | null,
+  budget = 6
 ): Promise<MoreData["domain_candidates"]> {
   const t0 = Date.now();
   const bare = (h: string) => h.replace(/^www\./, "").toLowerCase();
@@ -299,7 +335,7 @@ export async function probeDomains(
   const aliveList = dnsList.filter((d) => d.alive);
   const priority = aliveList.filter((d) => d.source === "declarado" || bare(d.domain) === selectedHost || d.domain === selectedHost);
   const restAlive = aliveList.filter((d) => !priority.includes(d));
-  const FETCH_BUDGET = 6;
+  const FETCH_BUDGET = budget;
   const toFetch = [...priority, ...restAlive].slice(0, FETCH_BUDGET);
 
   const verified = await pool(toFetch, 3, async (d) => {
@@ -414,6 +450,7 @@ export async function probeDomains(
       endpoint: "cloudflare-dns.com/dns-query (DoH) + homepages reales vía r.jina.ai",
       count: candidates.filter((c) => c.alive).length,
       ms: Date.now() - t0,
+      at: new Date().toISOString(),
       ok: true,
       error: nHom ? `${nHom} homónimo(s) detectado(s) y documentado(s)` : undefined,
     });

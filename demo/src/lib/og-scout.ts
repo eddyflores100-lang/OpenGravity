@@ -71,10 +71,10 @@ async function logStep<T>(L: GovSourceLog[], key: string, label: string, endpoin
   try {
     const out = await fn();
     const count = Array.isArray(out) ? out.length : out ? 1 : 0;
-    L.push({ key, label, endpoint, count, ms: Date.now() - t0, ok: true });
+    L.push({ key, label, endpoint, count, ms: Date.now() - t0, at: new Date().toISOString(), ok: true });
     return out;
   } catch (e) {
-    L.push({ key, label, endpoint, count: 0, ms: Date.now() - t0, ok: false, error: e instanceof Error ? e.message : "error" });
+    L.push({ key, label, endpoint, count: 0, ms: Date.now() - t0, at: new Date().toISOString(), ok: false, error: e instanceof Error ? e.message : "error" });
     return null;
   }
 }
@@ -185,24 +185,37 @@ export const EMPTY_IDENTITY: IdentityResolution = {
 async function dnsAlive(domain: string): Promise<boolean> {
   const key = `doh:${domain}`;
   if (memo.has(key)) return memo.get(key) as boolean;
-  // DoH JSON se agota bajo ráfaga: un reintento evita falsos "sin DNS"
-  for (let attempt = 0; attempt < 2; attempt++) {
+  // DoH DUAL — Cloudflare primero, Google de respaldo (CORS ✓ verificado):
+  // un proveedor caído no produce falsos "sin DNS" en el veredicto de identidad.
+  const providers = [
+    { base: "https://cloudflare-dns.com/dns-query", accept: "application/dns-json" },
+    { base: "https://dns.google/resolve", accept: "application/json" },
+  ];
+  for (const p of providers) {
     try {
-      const res = await fetch(`https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(domain)}&type=A`, {
+      const res = await fetch(`${p.base}?name=${encodeURIComponent(domain)}&type=A`, {
         signal: AbortSignal.timeout(6000),
-        headers: { Accept: "application/dns-json" },
+        headers: { Accept: p.accept },
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const d = (await res.json()) as { Status?: number; Answer?: { type?: number }[] };
       const alive = d.Status === 0 && (d.Answer ?? []).some((a) => a.type === 1);
       memo.set(key, alive);
       return alive;
-    } catch (e) {
-      if (attempt === 1) throw e;
-      await new Promise<void>((r) => setTimeout(r, 900));
+    } catch {
+      /* siguiente proveedor */
     }
   }
-  return false;
+  // ambos fallaron: reintentar Cloudflare una vez más antes de rendirse
+  const res = await fetch(`https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(domain)}&type=A`, {
+    signal: AbortSignal.timeout(6000),
+    headers: { Accept: "application/dns-json" },
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const d = (await res.json()) as { Status?: number; Answer?: { type?: number }[] };
+  const alive = d.Status === 0 && (d.Answer ?? []).some((a) => a.type === 1);
+  memo.set(key, alive);
+  return alive;
 }
 
 /* ── OG-SCOUT: el investigador ─────────────────────────────────────────────── */
@@ -618,6 +631,7 @@ export async function runScout(name: string, L: GovSourceLog[], declaredDomain?:
     endpoint: "fase 1-2-3 (descubrimiento → verificación → selección)",
     count: candidates.length,
     ms: 0,
+    at: new Date().toISOString(),
     ok: true,
     error: out.summary,
   });

@@ -1,7 +1,56 @@
 # Changelog
 
-All notable changes to OpenGravity are documented here.
+All notable changes are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com); versioning is `MAJOR.MINOR.PATCH` starting at the V10 calibration line.
+
+## [12.0.0] — 2026-09-06
+
+### Added — Oráculo v12: fiabilidad medible + conectores ampliados 🔭
+- **Capa de red fiable (`lib/net.ts`):** ledger de salud por consulta (estado,
+  latencia, URL real, vía y timestamp ISO), reintentos con backoff exponencial
+  y jitter sobre 401/403/429/5xx, semáforo de concurrencia para el lector.
+  Caso real medido: el 401 transitorio "bad IP reputation" de r.jina.ai
+  responde 200 al reintento — sin reintento la misión perdía fuentes.
+- **DoH DUAL:** Cloudflare primero y Google (`dns.google/resolve`, CORS ✓)
+  como respaldo en la sonda de dominios y el scout de identidad — un
+  proveedor caído ya no produce falsos "sin DNS".
+- **Panel "Fuentes consultadas — cadena de custodia":** en vivo durante la
+  misión; cada consulta real con su URL, latencia, hora UTC y resultado
+  (verde con datos · ámbar 0 honesto · rojo bloqueada/error), fallos incluidos.
+- **Vector enciclopedia (Wikipedia + Wikidata):** búsqueda es/en, extracto,
+  enlaces externos del artículo y **P856 de Wikidata** (sitio oficial
+  declarado). Si coincide con el sitio verificado por OG-Scout → identidad
+  **triple-verificada** (contenido + circular + enciclopedia); si difiere,
+  conflicto documentado, no promediado.
+- **Vector Hacker News (Algolia, CORS ✓):** historias + puntos + comentarios
+  reales; tracción técnica cuantificable.
+- **Reddit nativo vía PullPush:** archivo público con API JSON (fallback al
+  vector DDG existente); degradación honesta donde la red lo bloquea (403
+  documentado desde datacenter).
+- **Vector archivo (Wayback + Certificate Transparency):** años con capturas
+  (CDX colapsado por año), último snapshot visitable y subdominios reales de
+  los logs públicos de TLS (crt.sh vía lector) — infraestructura real contra
+  "LLC de papel".
+- **Vector noticias globales:** Google News RSS (lector) + GDELT DOC 2.0 con
+  reintento y respaldo por lector (geobloqueo documentado).
+- **Vector paquetes (crates.io):** distribución en el ecosistema Rust.
+- **Profundidad de misión (rápida / estándar / profunda):** presupuesto de
+  red escalonado (6/8/10 homepages en la sonda) y en "profunda" la **segunda
+  ola**: la misión se re-planea con lo verificado y lanza consultas de
+  seguimiento por ángulos de analista (financiación, riesgo, producto,
+  clientes + site: del sitio verificado), cada una contada en el informe.
+- **Línea de tiempo verificable (sección 0-B):** cronología fusionada de
+  eventos fechados — RDAP, certificados, Wayback, GitHub, HN, Reddit, prensa —
+  cada evento con su URL de fuente.
+- **Badge RQI en el resumen del auditor** con nº de afirmaciones corroboradas.
+- **Export JSON v3** (`opengravity-intel-dossier/v3`): añade profundidad,
+  enciclopedia, línea de tiempo, segunda ola y `sources_consulted` con
+  timestamps; Markdown con secciones 0-B/0-C/0-D.
+
+### Changed
+- Reddit/X/GitHub/buscardores: reintento con backoff en el lector; logs de
+  sub-fuente con `at` (timestamp ISO) para cadena de custodia.
+- `probeDomains` acepta presupuesto de contenido por profundidad.
 
 ## [11.0.0] — 2026-09-04
 

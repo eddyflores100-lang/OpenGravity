@@ -41,7 +41,7 @@ export function Nav() {
             OpenGravity
           </span>
           <Badge variant="outline" className="hidden font-mono text-[10px] text-zinc-400 border-zinc-700 sm:inline-flex">
-            v11.0.0
+            v12.0.0
           </Badge>
         </a>
         <nav className="hidden items-center gap-6 text-sm text-zinc-400 md:flex">

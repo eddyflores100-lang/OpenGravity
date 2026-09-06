@@ -12,7 +12,9 @@ import { runAgentSearch, runAuditor } from "@/lib/agents-static";
 import { runGovStatic } from "@/lib/agents-gov-static";
 import { runMoreSearch, runTavily } from "@/lib/agents-more-static";
 import { DossierReport } from "@/components/demo/dossier";
-import { TAVILY_META, VECTOR_META, toGovPayload, type GovBundle, type GovSourceLog, type MoreData, type SearchVectorResult, type Synthesis } from "@/lib/research";
+import { DEPTH_KEYS, TAVILY_META, VECTOR_META, toGovPayload, type GovBundle, type GovSourceLog, type MissionDepth, type MoreData, type SearchVectorResult, type Synthesis } from "@/lib/research";
+import { netLedger, type NetEntry } from "@/lib/net";
+import { buildIntelDossier } from "@/lib/triangulate";
 import { mergeStats, type VerificationStats } from "@/lib/verify";
 import { setJinaKey } from "@/lib/jina-auth";
 import { useEffect, useMemo, useState } from "react";
@@ -25,6 +27,7 @@ import {
   Landmark,
   Loader2,
   Radar,
+  ScrollText,
   ShieldAlert,
   ShieldCheck,
   Sparkles,
@@ -73,6 +76,9 @@ export function AgentMission({ onApply }: AgentMissionProps) {
   const [moreDisplay, setMoreDisplay] = useState<MoreData | null>(null);
   const [tavilyKey, setTavilyKey] = useState("");
   const [jinaKeyInput, setJinaKeyInput] = useState("");
+  // Oráculo v12: profundidad de la misión + ledger de salud de la red en vivo
+  const [depth, setDepth] = useState<MissionDepth>("estandar");
+  const [netEntries, setNetEntries] = useState<NetEntry[]>([]);
 
   // La clave Tavily vive solo en el navegador del usuario (localStorage).
   useEffect(() => {
@@ -99,6 +105,63 @@ export function AgentMission({ onApply }: AgentMissionProps) {
   };
 
   const running = phase === "searching" || phase === "synth";
+
+  // Ledger de salud EN VIVO: mientras corren los agentes, el panel de fuentes
+  // se refresca con cada consulta real (estado, latencia, timestamp, URL).
+  useEffect(() => {
+    if (!running) return;
+    setNetEntries(netLedger());
+    const t = setInterval(() => setNetEntries(netLedger()), 700);
+    return () => clearInterval(t);
+  }, [running]);
+
+  /* Registro unificado de fuentes consultadas: ledger de net.ts (conectores
+   * v12, llega en vivo) + logs L de los motores existentes (al terminar).
+   * Cada fila: estado real, latencia, URL y timestamp — la cadena de
+   * custodia que un oráculo debe mostrar, fallos incluidos. */
+  const fuentesUnificadas = useMemo(() => {
+    const merged: (GovSourceLog & { via?: string })[] = [];
+    const seen = new Set<string>();
+    const push = (l: GovSourceLog & { via?: string }) => {
+      const k = `${l.key}|${l.endpoint}`;
+      if (seen.has(k)) return;
+      seen.add(k);
+      merged.push(l);
+    };
+    for (const e of netEntries) {
+      push({ key: e.key, label: e.label, endpoint: e.endpoint, ok: e.status === "ok" || e.status === "empty", count: e.count, ms: e.ms, at: e.at, error: e.error, via: e.via });
+    }
+    for (const l of [...(gov?.log ?? []), ...(moreLogsFull ?? [])]) push(l);
+    return merged;
+  }, [netEntries, gov, moreLogsFull]);
+
+  const fuenteStats = useMemo(() => {
+    const ok = fuentesUnificadas.filter((f) => f.ok && f.count > 0).length;
+    const empty = fuentesUnificadas.filter((f) => f.ok && f.count === 0).length;
+    const bad = fuentesUnificadas.filter((f) => !f.ok);
+    return { ok, empty, bad: bad.length, total: fuentesUnificadas.length };
+  }, [fuentesUnificadas]);
+
+  /** Intel express para el badge del resumen (mismo motor determinista del dossier). */
+  const intelQuick = useMemo(() => {
+    if (!synth || !vectors || !mission) return null;
+    try {
+      return buildIntelDossier({
+        name: name.trim(),
+        sector: sector.trim(),
+        vectors,
+        gov,
+        synth,
+        verification,
+        more: moreDisplay,
+        domain: domain.trim() || mission.domain,
+        startedAt: mission.startedAt,
+        finishedAt: mission.finishedAt,
+      });
+    } catch {
+      return null;
+    }
+  }, [synth, vectors, gov, verification, moreDisplay, mission, name, sector, domain]);
 
   const biasSum = useMemo(
     () => (synth ? synth.signals.reduce((a, s) => a + s.impact_magnitude, 0) : 0),
@@ -150,6 +213,7 @@ export function AgentMission({ onApply }: AgentMissionProps) {
     setErrorMsg(null);
     setMission(null);
     setMoreLogsFull(null);
+    setNetEntries([]);
 
     const missionId = `OG-${Date.now().toString(36).toUpperCase().slice(-6)}`;
     const startedAt = new Date().toISOString();
@@ -171,7 +235,7 @@ export function AgentMission({ onApply }: AgentMissionProps) {
             const base = prev ?? VECTOR_META.map((vm) => ({ key: vm.key, label: vm.label, icon: vm.icon, query: "", ok: false, results: [] }));
             return upsertVec(base, vec);
           });
-        }, dom || null, gh || null),
+        }, dom || null, gh || null, depth),
       ]);
 
       if (searchRes.status === "rejected") throw new Error("La búsqueda agéntica falló");
@@ -264,12 +328,13 @@ export function AgentMission({ onApply }: AgentMissionProps) {
           </div>
           <CardDescription className="mt-1 text-xs leading-relaxed">
             Escribe <span className="text-zinc-200">solo el nombre</span>: los agentes rastrean el mercado
-            debajo de las piedras con <span className="text-amber-300/90">~30 APIs públicas gratuitas y scrapers
-            oficiales</span> — búsqueda web, SEC EDGAR (filings y finanzas XBRL reales), USAspending.gov
-            (contratos federales), boards de empleo, App Store, OpenAlex, ClinicalTrials.gov, DNS/RDAP/Wayback,
-            Yahoo Finance, CoinGecko, Federal Register y openFDA — y entregan un{" "}
-            <span className="text-zinc-200">informe completo exportable</span> con señales, deudas, proyectos y
-            cadena de custodia. Pipeline DeerFlow/MiroFish del repo corriendo en vivo; después puedes ajustar todo a mano.
+            debajo de las piedras con <span className="text-amber-300/90">~40 APIs públicas gratuitas y scrapers
+            oficiales</span> — búsqueda web, enciclopedia (Wikipedia + Wikidata P856), Hacker News, Reddit (PullPush),
+            SEC EDGAR (filings y finanzas XBRL reales), USAspending.gov, boards de empleo, App Store, OpenAlex,
+            ClinicalTrials.gov, DNS dual (Cloudflare + Google), RDAP, Wayback, certificados TLS (crt.sh), Google News,
+            GDELT, Yahoo Finance, CoinGecko, crates.io, Federal Register y openFDA — y entregan un{" "}
+            <span className="text-zinc-200">informe completo exportable</span> con línea de tiempo verificable,
+            fuentes con cadena de custodia y RQI auditable. Cada consulta real queda registrada — incluso los fallos.
           </CardDescription>
         </CardHeader>
 
@@ -335,6 +400,32 @@ export function AgentMission({ onApply }: AgentMissionProps) {
               </Button>
             </div>
           </div>
+          {/* Profundidad del oráculo — presupuesto de red y segunda ola */}
+          <div className="flex flex-wrap items-center gap-2" role="radiogroup" aria-label="Profundidad de la investigación">
+            <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">Profundidad:</span>
+            {([
+              { k: "rapida", lbl: "⚡ Rápida", hint: "15 vectores · sin segunda ola" },
+              { k: "estandar", lbl: "⚖ Estándar", hint: "18 vectores · archivo + noticias globales" },
+              { k: "profunda", lbl: "🎯 Profunda", hint: "+ segunda ola de seguimiento · sonda ampliada" },
+            ] as { k: MissionDepth; lbl: string; hint: string }[]).map((d) => (
+              <button
+                key={d.k}
+                role="radio"
+                aria-checked={depth === d.k}
+                disabled={running}
+                onClick={() => setDepth(d.k)}
+                className={`rounded-lg border px-3 py-1.5 text-left transition-colors disabled:opacity-50 ${
+                  depth === d.k
+                    ? "border-amber-700/70 bg-amber-950/40"
+                    : "border-zinc-800 bg-zinc-950/40 hover:border-zinc-700"
+                }`}
+              >
+                <span className={`block text-[11px] font-medium ${depth === d.k ? "text-amber-300" : "text-zinc-300"}`}>{d.lbl}</span>
+                <span className="block text-[9px] leading-tight text-zinc-600">{d.hint}</span>
+              </button>
+            ))}
+          </div>
+
           <p className="text-[10px] leading-relaxed text-zinc-500">
             <span className="text-zinc-400">Verificación de identidad activa:</span> todo hallazgo debe demostrar que habla de la
             entidad investigada (frase exacta del nombre, dominio declarado o todos sus términos). Los homónimos y el ruido se
@@ -395,7 +486,10 @@ export function AgentMission({ onApply }: AgentMissionProps) {
           {(running || vectors) && (
             <>
               <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
-                {VECTOR_META.map((vm, i) => {
+                {VECTOR_META.filter((vm) => {
+                  const dk = DEPTH_KEYS[depth];
+                  return !dk || dk.includes(vm.key);
+                }).map((vm, i) => {
                   const done = vectors?.find((v) => v.key === vm.key);
                   const count = done?.results.length ?? 0;
                   return (
@@ -476,6 +570,52 @@ export function AgentMission({ onApply }: AgentMissionProps) {
                   Cada uno con endpoint, latencia y estado reales en el mapa del informe.
                 </p>
               )}
+
+              {/* FUENTES CONSULTADAS — ledger de salud en vivo (fiabilidad medible) */}
+              {fuentesUnificadas.length > 0 && (
+                <div className="rounded-lg border border-zinc-800 bg-zinc-950/60 p-3" aria-live="polite">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <p className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-zinc-400">
+                      <ScrollText className="h-3 w-3 text-amber-400/80" />
+                      Fuentes consultadas — cadena de custodia ({fuenteStats.total})
+                    </p>
+                    <div className="flex flex-wrap gap-1.5 font-mono text-[9px]">
+                      <span className="rounded bg-emerald-950/50 px-1.5 py-0.5 text-emerald-300">{fuenteStats.ok} con datos</span>
+                      <span className="rounded bg-amber-950/40 px-1.5 py-0.5 text-amber-300">{fuenteStats.empty} vacías (0 honesto)</span>
+                      {fuenteStats.bad > 0 && <span className="rounded bg-red-950/40 px-1.5 py-0.5 text-red-300">{fuenteStats.bad} bloqueadas/error</span>}
+                    </div>
+                  </div>
+                  <div className="mt-2 max-h-44 space-y-0.5 overflow-y-auto pr-1">
+                    {fuentesUnificadas.map((f, i) => {
+                      const failed = !f.ok;
+                      const emptyRow = f.ok && f.count === 0;
+                      const dot = failed ? "bg-red-400" : emptyRow ? "bg-amber-400" : "bg-emerald-400";
+                      return (
+                        <div key={`${f.key}|${f.endpoint}|${i}`} className="flex items-center gap-2 text-[10px] leading-snug">
+                          <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${dot}`} aria-hidden />
+                          <span className="w-44 shrink-0 truncate text-zinc-300" title={f.label}>{f.label}</span>
+                          <a
+                            href={f.endpoint.startsWith("http") ? f.endpoint : undefined}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="min-w-0 flex-1 truncate font-mono text-[9px] text-zinc-600 hover:text-amber-300"
+                            title={`${f.endpoint}${f.error ? ` — ${f.error}` : ""}`}
+                          >
+                            {f.endpoint.length > 90 ? `${f.endpoint.slice(0, 90)}…` : f.endpoint}
+                          </a>
+                          <span className="shrink-0 font-mono text-[9px] text-zinc-500">
+                            {f.count} · {f.ms}ms{f.at ? ` · ${f.at.slice(11, 19)}` : ""}{f.error ? ` · ${failed ? f.error.slice(0, 60) : ""}` : ""}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <p className="mt-1.5 text-[9px] leading-relaxed text-zinc-600">
+                    Cada consulta real queda registrada con su URL, latencia y hora (UTC) — incluyendo las que fallan o devuelven 0:
+                    la fiabilidad del oráculo no se promete, se muestra. Verde = con datos · ámbar = consultada sin resultados · rojo = bloqueada o error.
+                  </p>
+                </div>
+              )}
             </>
           )}
 
@@ -532,6 +672,24 @@ export function AgentMission({ onApply }: AgentMissionProps) {
                   <Badge variant="outline" className="border-sky-800/60 bg-sky-950/30 font-mono text-[10px] text-sky-300">
                     <ShieldCheck className="mr-1 h-2.5 w-2.5" />
                     identidad: {verification.kept}/{verification.raw} verificados · {verification.dropped} descartados
+                  </Badge>
+                )}
+                {intelQuick && (
+                  <Badge
+                    variant="outline"
+                    className={`font-mono text-[10px] ${
+                      intelQuick.rqi.grade === "A"
+                        ? "border-emerald-800/60 bg-emerald-950/30 text-emerald-300"
+                        : intelQuick.rqi.grade === "B"
+                          ? "border-sky-800/60 bg-sky-950/30 text-sky-300"
+                          : intelQuick.rqi.grade === "C"
+                            ? "border-amber-800/60 bg-amber-950/30 text-amber-300"
+                            : "border-red-800/60 bg-red-950/30 text-red-300"
+                    }`}
+                    title={`Research Quality Index — ${intelQuick.rqi.parts.map((p) => `${p.label} ${p.value}/${p.max}`).join(" · ")}`}
+                  >
+                    <Radar className="mr-1 h-2.5 w-2.5" />
+                    RQI {intelQuick.rqi.total}/{intelQuick.rqi.grade} · {intelQuick.corroborated.length} afirmación(es) corroborada(s)
                   </Badge>
                 )}
                 {synth.metric_confidence !== "unknown" && (
@@ -754,6 +912,8 @@ export function AgentMission({ onApply }: AgentMissionProps) {
                 biasSum={biasSum}
                 rawProb={rawProb ?? 0}
                 adjProb={adjProb ?? 0}
+                sourceLogs={fuentesUnificadas.map((f) => ({ key: f.key, label: f.label, endpoint: f.endpoint, ok: f.ok, count: f.count, ms: f.ms, at: f.at, error: f.error }))}
+                depth={depth}
               />
             </motion.div>
           )}
