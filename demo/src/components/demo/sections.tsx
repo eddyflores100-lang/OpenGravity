@@ -18,7 +18,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
-export const GITHUB_URL = "https://github.com/alicelabsllc/OpenGravity";
+export const GITHUB_URL = "https://github.com/eddyflores100-lang/OpenGravity";
 
 export function fadeUp(delay = 0) {
   return {
@@ -317,7 +317,7 @@ export function FinalCta() {
           <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">
             <Button size="lg" className="gap-2 bg-amber-400 font-semibold text-zinc-950 hover:bg-amber-300">
               <Github className="h-4 w-4" />
-              github.com/alicelabsllc/OpenGravity
+              github.com/eddyflores100-lang/OpenGravity
             </Button>
           </a>
           <a href="#simulador">

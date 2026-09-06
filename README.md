@@ -16,9 +16,9 @@ agents challenge the number with real-world evidence.
 [![FastAPI](https://img.shields.io/badge/FastAPI-Oracle%20API-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![Next.js](https://img.shields.io/badge/Next.js-Dashboard-black?logo=next.js&logoColor=white)](./ui)
 [![Tests](https://img.shields.io/badge/tests-12%20passing-brightgreen)](./tests)
-[![Live Demo](https://img.shields.io/badge/demo-live%20on%20GitHub%20Pages-amber?logo=github&logoColor=white)](https://alicelabsllc.github.io/OpenGravity/)
+[![Live Demo](https://img.shields.io/badge/demo-live%20on%20GitHub%20Pages-amber?logo=github&logoColor=white)](https://eddyflores100-lang.github.io/OpenGravity/)
 
-**🌐 Try it live — no install, no keys:** **[alicelabsllc.github.io/OpenGravity](https://alicelabsllc.github.io/OpenGravity/)**
+**🌐 Try it live — no install, no keys:** **[eddyflores100-lang.github.io/OpenGravity](https://eddyflores100-lang.github.io/OpenGravity/)**
 Type a startup name and the agent squad crawls Wikipedia, Wikidata, GitHub,
 Hacker News and DuckDuckGo in your browser, then feeds the Bayesian engine.
 Full source of the demo: [`demo/`](./demo).
@@ -90,7 +90,7 @@ mathematically coherent way, and every bias applied is reported back
 ### Docker (recommended)
 
 ```bash
-git clone https://github.com/alicelabsllc/OpenGravity.git
+git clone https://github.com/eddyflores100-lang/OpenGravity.git
 cd OpenGravity
 cp .env.example .env          # add your Telegram token & keys
 docker compose up --build
@@ -238,7 +238,7 @@ OpenGravity is source-available under the
 [AliceLabs Proprietary License](./LICENSE): you can read, run and study it for
 non-commercial purposes. Contributions (bug fixes, docs, calibration data) are
 welcome — see [CONTRIBUTING.md](./CONTRIBUTING.md). Commercial licenses:
-contact via [github.com/alicelabsllc](https://github.com/alicelabsllc).
+contact via [github.com/eddyflores100-lang](https://github.com/eddyflores100-lang).
 
 ## ⭐ Support the project
 

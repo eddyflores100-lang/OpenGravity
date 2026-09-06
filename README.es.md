@@ -69,7 +69,7 @@ devuelve reportado (`agent_bias_applied`).
 ### Docker (recomendado)
 
 ```bash
-git clone https://github.com/alicelabsllc/OpenGravity.git
+git clone https://github.com/eddyflores100-lang/OpenGravity.git
 cd OpenGravity
 cp .env.example .env          # añade tu token de Telegram y claves
 docker compose up --build
@@ -184,7 +184,7 @@ OpenGravity es *source-available* bajo la [Licencia Propietaria AliceLabs](./LIC
 puedes leerlo, ejecutarlo y estudiarlo con fines no comerciales. Las
 contribuciones (bug fixes, docs, datos de calibración) son bienvenidas — ver
 [CONTRIBUTING.md](./CONTRIBUTING.md). Licencias comerciales:
-[github.com/alicelabsllc](https://github.com/alicelabsllc).
+[github.com/eddyflores100-lang](https://github.com/eddyflores100-lang).
 
 ## ⭐ Apoya el proyecto
 

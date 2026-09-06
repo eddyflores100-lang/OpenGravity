@@ -1,7 +1,7 @@
 /**
  * OpenGravity V10.5.0 — TypeScript port of scoring.py
  * Faithful reproduction of the Bayesian engine (Truth Monolith V9.7.1 calibration).
- * Source of truth: github.com/alicelabsllc/OpenGravity/blob/main/scoring.py
+ * Source of truth: github.com/eddyflores100-lang/OpenGravity/blob/main/scoring.py
  */
 
 export const ENGINE_VERSION = "10.5.0";

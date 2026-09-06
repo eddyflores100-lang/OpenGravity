@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 /**
  * Static export for GitHub Pages.
- * Served at https://alicelabsllc.github.io/OpenGravity/ → basePath must match
+ * Served at https://eddyflores100-lang.github.io/OpenGravity/ → basePath must match
  * the repository name exactly (case-sensitive).
  */
 const nextConfig: NextConfig = {

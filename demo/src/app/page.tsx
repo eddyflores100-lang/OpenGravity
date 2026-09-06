@@ -290,7 +290,7 @@ export default function Home() {
       `Monte Carlo n=${mc.iterations}: media ${(mc.mean * 100).toFixed(1)}% · P10 ${(mc.p10 * 100).toFixed(1)}% · P50 ${(mc.p50 * 100).toFixed(1)}% · P90 ${(mc.p90 * 100).toFixed(1)}%`,
       `Veredictos: WINNER ${((mc.verdicts.winner / mc.iterations) * 100).toFixed(1)}% · INVEST ${((mc.verdicts.invest / mc.iterations) * 100).toFixed(1)}% · REVIEW ${((mc.verdicts.review / mc.iterations) * 100).toFixed(1)}% · DROP ${((mc.verdicts.drop / mc.iterations) * 100).toFixed(1)}%`,
       ``,
-      `github.com/alicelabsllc/OpenGravity`,
+      `github.com/eddyflores100-lang/OpenGravity`,
     ];
     const text = lines.join("\n");
     const done = () => toast({ title: "Resumen copiado", description: "Pégalo en tu memo de inversión." });

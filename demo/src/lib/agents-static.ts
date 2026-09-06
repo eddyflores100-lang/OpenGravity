@@ -18,7 +18,7 @@
  *   Layer 3 · el motor bayesiano re-puntúa con Σ impactos (src/lib/opengravity.ts).
  *
  * Todas las fuentes son keyless y con CORS abierto — verificado para
- * Origin https://alicelabsllc.github.io.
+ * Origin https://eddyflores100-lang.github.io.
  */
 
 import { findingsOverlap, govStructuralSignalsStatic } from "@/lib/agents-gov-static";

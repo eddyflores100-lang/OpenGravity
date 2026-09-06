@@ -45,7 +45,7 @@ Open an issue **before** building anything in the 💬 column.
 Prereqs: Python 3.12+, Node 20+, Docker (optional but recommended).
 
 ```bash
-git clone https://github.com/alicelabsllc/OpenGravity.git
+git clone https://github.com/eddyflores100-lang/OpenGravity.git
 cd OpenGravity
 
 # Backend
@@ -115,7 +115,7 @@ chore: bump undici to 7.1
 
 **Do not open a public issue for security problems** (leaked keys, injection,
 auth bypass). Contact AliceLabs privately via
-[github.com/alicelabsllc](https://github.com/alicelabsllc) with reproduction
+[github.com/eddyflores100-lang](https://github.com/eddyflores100-lang) with reproduction
 steps. We acknowledge reports within 72 hours.
 
 ---

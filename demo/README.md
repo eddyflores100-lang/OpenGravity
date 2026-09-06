@@ -2,7 +2,7 @@
 
 Demo 100% estática del motor de due diligence bayesiano OpenGravity, publicada en:
 
-**https://alicelabsllc.github.io/OpenGravity/**
+**https://eddyflores100-lang.github.io/OpenGravity/**
 
 ## Qué corre en el navegador
 
