@@ -110,6 +110,29 @@ export interface FollowUp {
   found: number;
 }
 
+/* ── v13 — scraping del sitio verificado + triangulación científica ────── */
+
+/** Hallazgo del scraping del SITIO VERIFICADO (nunca de homónimos).
+ *  Cada hallazgo lleva la URL real de la subpágina donde se encontró. */
+export interface SiteFinding {
+  kind: "contacto" | "blog" | "equipo" | "clientes" | "redes";
+  label: string;
+  url: string;
+  detail: string;
+}
+
+/** Organización registrada en OpenAlex (base académica mundial, registro ROR).
+ *  Legitimidad verificable: la entidad existe como organización con producción
+ *  científica agregada. */
+export interface OpenAlexOrg {
+  ror: string;
+  name: string;
+  country: string | null;
+  works_count: number;
+  cited_by_count: number;
+  url: string;
+}
+
 export interface EdgarHit {
   cik: string;
   form: string;
@@ -210,12 +233,13 @@ export const VECTOR_META: { key: string; label: string; icon: string }[] = [
   { key: "archivo", label: "Archivo: Wayback + certificados CT", icon: "🗄️" },
   { key: "noticiasg", label: "Noticias globales: Google News + GDELT", icon: "🌍" },
   { key: "paquetes", label: "Paquetes: crates.io (ecosistema Rust)", icon: "📥" },
+  { key: "sitio", label: "Sitio verificado: scraping propio (about/equipo/blog/contacto)", icon: "🕸️" },
 ];
 
 /** Vectores que corre cada profundidad (null = todos). La "profunda" añade
  * la segunda ola de consultas de seguimiento y amplía el presupuesto de sonda. */
 export const DEPTH_KEYS: Record<MissionDepth, string[] | null> = {
-  rapida: ["talento", "apps", "ciencia", "web", "mercados", "regs", "buscador", "bing", "reddit", "xsocial", "github", "stackex", "mastodon", "enciclopedia", "hn"],
+  rapida: ["talento", "apps", "ciencia", "web", "mercados", "regs", "buscador", "bing", "reddit", "xsocial", "github", "stackex", "mastodon", "enciclopedia", "hn", "sitio"],
   estandar: null,
   profunda: null,
 };
@@ -331,6 +355,18 @@ export interface MoreData {
   timeline: TimelineEvent[];
   /** Segunda ola (profundidad "profunda"): consultas de seguimiento y hallazgos. */
   followups: FollowUp[];
+  /* ── v13 — scraping del sitio verificado + triangulación científica ── */
+  /** Hallazgos del scraping del sitio VERIFICADO (contacto, equipo, blog,
+   * clientes, redes) — cada uno con la URL real de la subpágina. */
+  site_findings: SiteFinding[];
+  /** Nº de subpáginas del sitio verificado realmente descargadas. */
+  site_pages_scanned: number;
+  /** Últimas entradas del feed RSS/Atom del sitio (si expone). */
+  blog_posts: { title: string; url: string }[];
+  /** Papers adicionales corroborados en CrossRef (2.ª base bibliográfica). */
+  crossref_papers: number;
+  /** Organización con registro ROR en OpenAlex (legitimidad académica). */
+  openalex_org: OpenAlexOrg | null;
 }
 
 export const EMPTY_MORE_DATA: MoreData = {
@@ -376,6 +412,11 @@ export const EMPTY_MORE_DATA: MoreData = {
   crt_first_year: null,
   timeline: [],
   followups: [],
+  site_findings: [],
+  site_pages_scanned: 0,
+  blog_posts: [],
+  crossref_papers: 0,
+  openalex_org: null,
 };
 
 /** Resultado de runMoreSearch: 6 vectores nuevos + log por sub-fuente. */

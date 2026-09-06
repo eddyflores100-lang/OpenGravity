@@ -23,6 +23,50 @@
 /** Estado de una fuente consultada. */
 export type NetStatus = "ok" | "empty" | "blocked" | "error";
 
+/* ── CIRCUIT BREAKER por conector (v13) ──────────────────────────────────
+ * Si un conector acumula fallos consecutivos dentro de la misma misión se
+ * abre su breaker: el resto de la misión NO vuelve a gastar presupuesto de
+ * red en él (falla en <1ms con estado "blocked") y el panel de fuentes lo
+ * muestra. Un analista humano también deja de golpear una puerta cerrada.
+ * Se resetea con el ledger en cada misión nueva. */
+
+const BREAKER_THRESHOLD = 3;
+
+interface BreakerState {
+  fails: number;
+  open: boolean;
+  trippedAt?: string;
+}
+
+const breakers = new Map<string, BreakerState>();
+
+function breakerOpen(key: string): boolean {
+  return breakers.get(key)?.open ?? false;
+}
+
+function recordFail(key: string): void {
+  const b = breakers.get(key) ?? { fails: 0, open: false };
+  b.fails++;
+  if (b.fails >= BREAKER_THRESHOLD && !b.open) {
+    b.open = true;
+    b.trippedAt = nowIso();
+  }
+  breakers.set(key, b);
+}
+
+function recordOk(key: string): void {
+  const b = breakers.get(key);
+  if (b) {
+    b.fails = 0;
+    b.open = false;
+  }
+}
+
+/** Instantánea del estado de los breakers de esta misión (auditable en el export). */
+export function breakerSnapshot(): { key: string; fails: number; open: boolean; trippedAt: string | null }[] {
+  return [...breakers.entries()].map(([key, b]) => ({ key, fails: b.fails, open: b.open, trippedAt: b.trippedAt ?? null }));
+}
+
 export interface NetEntry {
   key: string;
   label: string;
@@ -46,9 +90,10 @@ export function netLedger(): NetEntry[] {
   return [...ledger];
 }
 
-/** Pone el ledger a cero al empezar una misión (nunca contamina otra). */
+/** Pone el ledger y los breakers a cero al empezar una misión (nunca contamina otra). */
 export function resetNetLedger(): void {
   ledger.length = 0;
+  breakers.clear();
 }
 
 function log(entry: NetEntry): void {
@@ -94,6 +139,12 @@ export interface NetOpts<T = unknown> {
   retries?: number;
   /** Cómo contar resultados (para el ledger). Por defecto 1 si hay datos. */
   count?: (data: T) => number;
+  /** Validación de forma (v13): si la API responde 200 pero con una estructura
+   * inesperada (p.ej. una página HTML de error con status 200), NO entra a las
+   * señales — se registra como error "respuesta no reconocida" y no se reintenta
+   * (la forma no cambia entre intentos). Fiabilidad: los conectores validan lo
+   * que esperan ANTES de usarlo. */
+  shape?: (data: T) => boolean;
 }
 
 /** GET JSON directo (CORS abierto) con reintentos y registro de salud. */
@@ -102,18 +153,32 @@ export async function jsonGet<T>(url: string, opts: NetOpts<T>): Promise<T> {
   const t0 = Date.now();
   let lastHttp: number | undefined;
   let lastErr: unknown;
+  // Circuit breaker: si ya está abierto, falla sin gastar red.
+  if (breakerOpen(key)) {
+    log({ key, label, endpoint: url, via: "directo", status: "blocked", ms: 0, count: 0, at: nowIso(), error: "circuit-breaker abierto (fallos consecutivos previos en esta misión)" });
+    throw new Error(`breaker:${key}`);
+  }
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
       const res = await fetch(url, { signal: AbortSignal.timeout(ms), headers: { Accept: "application/json" }, cache: "no-store" });
       lastHttp = res.status;
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = (await res.json()) as T;
+      if (opts.shape && !opts.shape(data)) {
+        // Forma inesperada: error de fiabilidad, sin reintento (la forma no cambia entre intentos).
+        recordFail(key);
+        log({ key, label, endpoint: url, via: "directo", status: "error", http: res.status, ms: Date.now() - t0, count: 0, at: nowIso(), error: "respuesta no reconocida (forma inesperada)" });
+        throw new Error("shape");
+      }
       const count = opts.count ? opts.count(data) : 1;
+      recordOk(key);
       log({ key, label, endpoint: url, via: "directo", status: count === 0 ? "empty" : "ok", http: res.status, ms: Date.now() - t0, count, at: nowIso() });
       return data;
     } catch (e) {
       lastErr = e;
-      const http = /HTTP (\d+)/.exec(e instanceof Error ? e.message : "")?.[1];
+      const msgText = e instanceof Error ? e.message : "";
+      if (msgText === "shape") break; // ya registrado arriba, no reintentar
+      const http = /HTTP (\d+)/.exec(msgText)?.[1];
       lastHttp = http ? Number(http) : undefined;
       if (attempt < retries && retryable(lastHttp, e)) {
         await sleep(700 * Math.pow(2, attempt) + Math.floor(Math.random() * 250));
@@ -123,7 +188,8 @@ export async function jsonGet<T>(url: string, opts: NetOpts<T>): Promise<T> {
     }
   }
   const msg = lastErr instanceof Error ? lastErr.message : "error";
-  const blocked = lastHttp !== undefined && (lastHttp === 401 || lastHttp === 403 || lastHttp === 429);
+  if (msg !== "shape") recordFail(key);
+  const blocked = (lastHttp !== undefined && (lastHttp === 401 || lastHttp === 403 || lastHttp === 429)) || msg.startsWith("breaker:");
   log({ key, label, endpoint: url, via: "directo", status: blocked ? "blocked" : "error", http: lastHttp, ms: Date.now() - t0, count: 0, at: nowIso(), error: msg });
   throw lastErr;
 }
@@ -137,6 +203,11 @@ export async function readerGet(url: string, opts: NetOpts<string>): Promise<str
   const t0 = Date.now();
   let lastHttp: number | undefined;
   let lastErr: unknown;
+  // Circuit breaker (comparte registro con el JSON directo: mismo conector lógico).
+  if (breakerOpen(key)) {
+    log({ key, label, endpoint: url, via: "r.jina.ai", status: "blocked", ms: 0, count: 0, at: nowIso(), error: "circuit-breaker abierto (fallos consecutivos previos en esta misión)" });
+    throw new Error(`breaker:${key}`);
+  }
   await readerSlot();
   try {
     for (let attempt = 0; attempt <= retries; attempt++) {
@@ -145,6 +216,7 @@ export async function readerGet(url: string, opts: NetOpts<string>): Promise<str
         lastHttp = res.status;
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const text = await res.text();
+        recordOk(key);
         log({ key, label, endpoint: url, via: "r.jina.ai", status: text.length < 40 ? "empty" : "ok", http: res.status, ms: Date.now() - t0, count: 1, at: nowIso() });
         return text;
       } catch (e) {
@@ -159,6 +231,7 @@ export async function readerGet(url: string, opts: NetOpts<string>): Promise<str
       }
     }
     const msg = lastErr instanceof Error ? lastErr.message : "error";
+    recordFail(key);
     const blocked = lastHttp !== undefined && (lastHttp === 401 || lastHttp === 403 || lastHttp === 429);
     log({ key, label, endpoint: url, via: "r.jina.ai", status: blocked ? "blocked" : "error", http: lastHttp, ms: Date.now() - t0, count: 0, at: nowIso(), error: msg });
     throw lastErr;

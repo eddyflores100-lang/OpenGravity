@@ -41,6 +41,7 @@ import {
   runArchivo,
   runNoticiasG,
   runPaquetes,
+  runSitio,
   runFollowUpWave,
   buildTimeline,
 } from "@/lib/connectors-extra";
@@ -259,6 +260,44 @@ async function fetchOpenAlex(name: string, domain?: string | null): Promise<{ pa
       url: p.doi || p.id || "https://openalex.org/",
     }));
   return { papers, total: d.meta?.count ?? 0 };
+}
+
+/** CrossRef (v13) — 2.ª base bibliográfica INDEPENDIENTE (registro oficial de
+ *  DOI de las editoriales). Dos bases de datos científicas que coinciden =
+ *  triangulación real, el mismo criterio que aplicamos a dominios. */
+async function fetchCrossRef(name: string, domain?: string | null): Promise<{ papers: PaperOut[]; total: number }> {
+  const d = await mget<{
+    message?: { "total-results"?: number; items?: { DOI?: string; title?: string[]; issued?: { "date-parts"?: number[][] }; "is-referenced-by-count"?: number; URL?: string }[] };
+  }>(
+    `https://api.crossref.org/works?query.bibliographic=${encodeURIComponent(name)}&rows=6&select=DOI,title,issued,is-referenced-by-count,URL&mailto=opengravity.demo@alicelabs.dev`
+  );
+  const papers = (d.message?.items ?? [])
+    .filter((p) => entityRelevance(name, p.title?.[0] ?? "", domain) >= 2)
+    .map((p) => ({
+      title: p.title?.[0] ?? "",
+      year: p.issued?.["date-parts"]?.[0]?.[0] ?? null,
+      cited: p["is-referenced-by-count"] ?? 0,
+      url: p.URL || (p.DOI ? `https://doi.org/${p.DOI}` : "https://www.crossref.org/"),
+    }));
+  return { papers, total: d.message?.["total-results"] ?? 0 };
+}
+
+/** OpenAlex institutions (v13) — registro organizacional ROR: la entidad existe
+ *  como organización en la base académica mundial, con producción agregada. */
+async function fetchOpenAlexOrg(name: string): Promise<import("@/lib/research").OpenAlexOrg | null> {
+  const d = await mget<{ results?: { id?: string; ror?: string; display_name?: string; country_code?: string; works_count?: number; cited_by_count?: number }[] }>(
+    `https://api.openalex.org/institutions?search=${encodeURIComponent(name)}&per-page=3&mailto=opengravity.demo@alicelabs.dev`
+  );
+  const org = (d.results ?? []).find((o) => entityRelevance(name, o.display_name ?? "") >= 2);
+  if (!org) return null;
+  return {
+    ror: org.ror ?? org.id ?? "",
+    name: org.display_name ?? "",
+    country: org.country_code ?? null,
+    works_count: org.works_count ?? 0,
+    cited_by_count: org.cited_by_count ?? 0,
+    url: org.ror || org.id || "https://openalex.org/",
+  };
 }
 
 interface TrialOut { nct: string; title: string; status: string; sponsor: string }
@@ -547,25 +586,54 @@ async function runApps(name: string, data: MoreData, L: GovSourceLog[], domain?:
 async function runCiencia(name: string, data: MoreData, L: GovSourceLog[], domain?: string | null): Promise<SearchVectorResult> {
   const meta = VECTOR_META.find((v) => v.key === "ciencia")!;
   const base = { key: meta.key, label: meta.label, icon: meta.icon, query: name };
-  const [oa, ct] = await Promise.all([
+  // v13: 4 sub-fuentes — OpenAlex works + CrossRef (DOS bases bibliográficas
+  // independientes) + OpenAlex institutions (registro ROR) + ClinicalTrials.
+  const [oa, cr, org, ct] = await Promise.all([
     withLog(L, "openalex", "OpenAlex — trabajos científicos indexados", "api.openalex.org/works (CORS directo)", () => fetchOpenAlex(name, domain), "sin papers con ese nombre"),
+    withLog(L, "crossref", "CrossRef — registro oficial de DOI (2.ª base independiente)", "api.crossref.org/works (CORS directo)", () => fetchCrossRef(name, domain), "sin papers con ese nombre"),
+    withLog(L, "openalex-org", "OpenAlex institutions — registro organizacional (ROR)", "api.openalex.org/institutions (CORS directo)", () => fetchOpenAlexOrg(name), "sin registro de organización"),
     withLog(L, "clinicaltrials", "ClinicalTrials.gov v2 — ensayos patrocinados", "clinicaltrials.gov/api/v2/studies (CORS directo)", () => fetchTrials(name), "sin ensayos con ese patrocinador"),
   ]);
   const papers = oa?.papers ?? [];
+  const cpapers = cr?.papers ?? [];
   const trials = ct?.trials ?? [];
   // Conteo honesto: solo papers cuyo título menciona el nombre (evita el ruido
   // de coincidencias genéricas — p.ej. "Nikola Tesla" para "Nikola").
   data.papers_count = papers.length;
+  data.crossref_papers = cpapers.length;
+  data.openalex_org = org ?? null;
   data.trials_count = ct?.total ?? 0;
 
   const results: EvidenceItem[] = papers.map((p) =>
     item(`Paper indexado en OpenAlex: ${p.title.slice(0, 90)}`, p.url, `${p.year ?? "s/f"} · ${p.cited} citas — base científica verificable`)
   );
+  for (const p of cpapers.slice(0, 3)) {
+    results.push(item(`Paper con DOI oficial (CrossRef): ${p.title.slice(0, 80)}`, p.url, `${p.year ?? "s/f"} · ${p.cited} citas — registro primario de la editorial`));
+  }
+  // Triangulación científica explícita: dos bases independientes que coinciden.
+  if (papers.length && cpapers.length) {
+    results.push(
+      item(
+        `✓ Triangulación científica: ${papers.length} papers en OpenAlex + ${cpapers.length} en CrossRef`,
+        "https://api.crossref.org/works",
+        "Dos bases bibliográficas INDEPENDIENTES registran producción científica de la entidad — el mismo criterio de corroboración que aplicamos a dominios"
+      )
+    );
+  }
+  if (org) {
+    results.push(
+      item(
+        `Organización registrada en OpenAlex (ROR): ${org.name}`,
+        org.url,
+        `país: ${org.country ?? "—"} · ${org.works_count.toLocaleString("es")} trabajos indexados · ${org.cited_by_count.toLocaleString("es")} citas acumuladas — legitimidad verificable en la base académica mundial`
+      )
+    );
+  }
   for (const t of trials.slice(0, 3)) {
     results.push(item(`Ensayo clínico ${t.nct}: ${t.title.slice(0, 80)}`, `https://clinicaltrials.gov/study/${t.nct}`, `Patrocinador: ${t.sponsor || name} · estado: ${t.status || "—"} — registro público oficial`));
   }
-  if (!results.length) results.push(item("Sin papers ni ensayos con ese nombre", "https://openalex.org/", "OpenAlex y ClinicalTrials.gov sin coincidencias relevantes"));
-  return { ...base, ok: true, results };
+  if (!results.length) results.push(item("Sin papers ni ensayos con ese nombre", "https://openalex.org/", "OpenAlex, CrossRef y ClinicalTrials.gov sin coincidencias relevantes"));
+  return { ...base, ok: true, results: results.slice(0, 10) };
 }
 
 async function runWeb(name: string, data: MoreData, L: GovSourceLog[]): Promise<SearchVectorResult> {
@@ -741,6 +809,7 @@ const MORE_KEYS = [
   "archivo",
   "noticiasg",
   "paquetes",
+  "sitio",
 ] as const;
 
 export async function runMoreSearch(
@@ -801,6 +870,7 @@ export async function runMoreSearch(
     archivo: (d, L, dom) => runArchivo(name, d, L, dom),
     noticiasg: (d, L, dom) => runNoticiasG(name, d, L, dom),
     paquetes: (d, L, dom) => runPaquetes(name, d, L, dom),
+    sitio: (d, L, dom) => runSitio(name, d, L, dom, depth === "profunda" ? 6 : depth === "estandar" ? 4 : 3),
   };
 
   // Vectores que SÍ requieren verificación de entidad en su evidencia
@@ -809,9 +879,9 @@ export async function runMoreSearch(
   // construcción.
   const NEEDS_VERIFY = new Set(["apps", "ciencia", "mercados", "regs"]);
 
-  // Presupuesto por profundidad: "rápida" corre el núcleo de 15 vectores
-  // (sin archivo/noticiasg/paquetes — los más lentos), "estándar" corre los
-  // 18 y "profunda" añade la segunda ola de consultas de seguimiento.
+  // Presupuesto por profundidad: "rápida" corre el núcleo de 16 vectores
+  // (con el scraping del sitio verificado, presupuesto reducido), "estándar"
+  // corre los 19 y "profunda" añade la segunda ola de consultas de seguimiento.
   const runKeys: string[] = DEPTH_KEYS[depth] ?? [...MORE_KEYS];
 
   const vectors = await Promise.all(
@@ -966,6 +1036,58 @@ export function moreStructuralSignals(data: MoreData, name: string): SynthesisSi
     out.push({
       finding: `Infraestructura real observada en Certificate Transparency: ${data.crt_subdomains.length} subdominios con certificados TLS públicos (${data.crt_subdomains.slice(0, 4).join(", ")}…)`,
       impact_magnitude: 0.2,
+      polarity: "positive",
+      source_urls: [],
+    });
+  }
+
+  // 0-c) FUSIBLES v13 — triangulación científica, registro ROR y scraping del sitio verificado
+  if (data.papers_count > 0 && data.crossref_papers > 0) {
+    out.push({
+      finding: `Triangulación científica: producción académica de la entidad presente en DOS bases bibliográficas independientes (OpenAlex: ${data.papers_count}, CrossRef/DOI: ${data.crossref_papers})`,
+      impact_magnitude: 0.4,
+      polarity: "positive",
+      source_urls: [],
+    });
+  }
+  if (data.openalex_org) {
+    out.push({
+      finding: `Organización con registro ROR en la base académica mundial: ${data.openalex_org.name} (${data.openalex_org.country ?? "—"}) — ${data.openalex_org.works_count.toLocaleString("es")} trabajos, ${data.openalex_org.cited_by_count.toLocaleString("es")} citas acumuladas`,
+      impact_magnitude: 0.3,
+      polarity: "positive",
+      source_urls: [],
+    });
+  }
+  if (data.site_findings.some((f) => f.kind === "contacto")) {
+    out.push({
+      finding: `Verificabilidad directa: el sitio verificado publica correos de contacto de su propio dominio (${data.site_findings.find((f) => f.kind === "contacto")?.detail}) — canal de comunicación auditable`,
+      impact_magnitude: 0.2,
+      polarity: "positive",
+      source_urls: [],
+    });
+  }
+  const teamFinding = data.site_findings.find((f) => f.kind === "equipo");
+  if (teamFinding) {
+    out.push({
+      finding: `Equipo real declarado en el sitio verificado: ${teamFinding.detail} — personas con cargo, no una LLC de papel`,
+      impact_magnitude: 0.3,
+      polarity: "positive",
+      source_urls: [],
+    });
+  }
+  if (data.blog_posts.length >= 3) {
+    out.push({
+      finding: `Producto vivo: el feed del sitio verificado publica entradas recientes (${data.blog_posts[0]?.title ?? ""}…)`,
+      impact_magnitude: 0.2,
+      polarity: "positive",
+      source_urls: [],
+    });
+  }
+  const clientsFinding = data.site_findings.find((f) => f.kind === "clientes");
+  if (clientsFinding) {
+    out.push({
+      finding: `Clientes/partners declarados por el propio sitio verificado: ${clientsFinding.detail}`,
+      impact_magnitude: 0.3,
       polarity: "positive",
       source_urls: [],
     });

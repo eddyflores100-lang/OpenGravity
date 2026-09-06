@@ -33,6 +33,7 @@ import type {
   GovSourceLog,
   MoreData,
   SearchVectorResult,
+  SiteFinding,
   TimelineEvent,
   WikiInfo,
 } from "@/lib/research";
@@ -695,4 +696,159 @@ export function buildTimeline(data: MoreData, vectors: SearchVectorResult[], nam
 
   ev.sort((a, b) => a.date.localeCompare(b.date));
   return ev.slice(0, 26);
+}
+
+/* ═══════════ SITIO VERIFICADO — scraping propio de subpáginas (v13) ═══════════
+ *
+ * El rasgo que ninguna búsqueda genérica tiene: NO buscamos el nombre en
+ * internet, DESCARGAMOS las subpáginas canónicas del sitio ya VERIFICADO por
+ * contenido (OG-Scout) y extraemos evidencia primaria:
+ *
+ *   /about, /about-us → qué dice la empresa de sí misma, correos de contacto
+ *   /team             → personas y cargos reales (señal de equipo)
+ *   /contact          → verificabilidad (email del dominio, dirección)
+ *   /blog             → feed RSS/Atom → últimas entradas reales (vida del producto)
+ *
+ * REGLA DE IDENTIDAD: si no hay sitio VERIFICADO, no se raspa NADA. Un
+ * homónimo jamás aporta hallazgos — el scraper no opera a ciegas.
+ * Todo hallazgo conserva la URL real de la subpágina donde se encontró.
+ */
+
+const ROLE_RE = /(ceo|cto|coo|cfo|cmo|cro|founder|co-founder|funder|presidente|fundador|director|gerente|manager|engineer|ingenier|developer|desarrollador|head of|chief|lead|vp |designer|diseñador|scientist|científico|research|partner|socio|analyst|consultant|sales|marketing|product|operaciones)/i;
+
+export async function runSitio(
+  name: string,
+  data: MoreData,
+  L: GovSourceLog[],
+  dom: string | null,
+  budget = 4
+): Promise<SearchVectorResult> {
+  const label = "Sitio verificado: scraping propio (about/equipo/blog/contacto)";
+  const base = { key: "sitio", label, icon: "🕸️", query: data.identity?.selected?.host ?? dom ?? name };
+
+  const site = data.identity?.selected?.host ?? (data.domain && data.identity?.selected ? bare(data.domain) : null);
+  if (!site) {
+    return {
+      ...base,
+      ok: true,
+      results: [
+        item(
+          "Sin sitio verificado — el scraper de subpáginas no opera",
+          "https://github.com/eddyflores100-lang/OpenGravity/blob/main/demo/src/lib/connectors-extra.ts",
+          "Este scraper SOLO descarga subpáginas del sitio verificado por contenido (OG-Scout). Sin identidad confirmada no hay scraping: cero hallazgos de homónimos"
+        ),
+      ],
+    };
+  }
+
+  const origin = `https://${site}`;
+  const paths = ["/about", "/contact", "/team", "/blog", "/about-us", "/careers"].slice(0, Math.max(2, Math.min(6, budget)));
+  const findings: SiteFinding[] = [];
+  const emails = new Set<string>();
+  const team = new Set<string>();
+  const clients = new Set<string>();
+  const socials = new Set<string>();
+  let feedUrl: string | null = null;
+
+  for (const p of paths) {
+    const url = origin + p;
+    let md: string;
+    try {
+      md = await readerGet(url, { key: "sitio-verificado", label: `Sitio verificado — scraping de ${p}`, ms: 18000, retries: 1 });
+    } catch {
+      continue; // la subpágina no existe (404) o la red falló — queda en el ledger
+    }
+    data.site_pages_scanned++;
+    if (md.length < 60) continue;
+
+    // 1) correos de contacto del propio dominio (verificabilidad real)
+    const bareSite = bare(site).replace(/\./g, "\\.");
+    for (const m of md.matchAll(new RegExp(`[a-z0-9._%+-]+@([a-z0-9-]+\\.)*${bareSite}\\b`, "gi"))) emails.add(m[0].toLowerCase());
+    for (const m of md.matchAll(/mailto:([a-z0-9._%+-]+@[a-z0-9.-]+)/gi)) {
+      if (new RegExp(`@([a-z0-9-]+\\.)*${bareSite}$`, "i").test(m[1])) emails.add(m[1].toLowerCase());
+    }
+
+    // 2) equipo: patrones de nombre + cargo en markdown
+    for (const m of md.matchAll(/\*\*([A-ZÁÉÍÓÚÑ][\wà-ú'’.-]+(?:\s+[A-ZÁÉÍÓÚÑ][\wà-ú'’.-]+){1,3})\*\*\s*[—\-–:·]*\s*([^\n*]{3,48})/g)) {
+      if (ROLE_RE.test(m[2]) && !/©|privacy|terms|cookie/i.test(m[2])) team.add(`${m[1]} — ${clean(m[2], 40)}`);
+    }
+    for (const m of md.matchAll(/(?:^|\n)[-•*]\s*([A-ZÁÉÍÓÚÑ][\wà-ú'’.-]+(?:\s+[A-ZÁÉÍÓÚÑ][\wà-ú'’.-]+){1,3})\s*[—\-–:·]\s*([^\n]{3,48})/g)) {
+      if (ROLE_RE.test(m[2]) && !/©|privacy|terms|cookie/i.test(m[2])) team.add(`${m[1]} — ${clean(m[2], 40)}`);
+    }
+
+    // 3) clientes / partners declarados por el propio sitio
+    if (/trusted by|our clients|our customers|clients include|nuestros clientes|confían en nosotros|partners include/i.test(md)) {
+      const seg = md.split(/trusted by|our clients|our customers|clients include|nuestros clientes|confían en nosotros|partners include/i)[1] ?? "";
+      for (const m of seg.matchAll(/(?:^|\n)[-•*]\s*([A-ZÁÉÍÓÚÑ][^\n]{1,40})/g)) clients.add(clean(m[1], 40));
+      const alt = seg.match(/((?:[A-Z][\w&.-]{2,20}\s*(?:,\s*|and\s|y\s)?){2,6})/);
+      if (alt && !clients.size) alt[1].split(/,\s*|\s+and\s+|\s+y\s+/).filter(Boolean).slice(0, 5).forEach((c) => clients.add(clean(c, 40)));
+    }
+
+    // 4) redes sociales declaradas por el sitio (LinkedIn, X)
+    for (const m of md.matchAll(/\[([^\]]*)\]\((https?:\/\/(?:[a-z-]+\.)?(?:linkedin\.com\/(?:company|in)\/[\w-]+|(?:x|twitter)\.com\/[A-Za-z0-9_]{2,15}))\)/gi)) {
+      socials.add(m[2]);
+    }
+
+    // 5) feed RSS/Atom del blog
+    if (!feedUrl) {
+      for (const m of md.matchAll(/\[[^\]]*(?:rss|feed|atom)[^\]]*\]\(([^)]+)\)/gi)) {
+        if (/feed|rss|atom/i.test(m[1])) {
+          feedUrl = m[1].startsWith("http") ? m[1] : origin + (m[1].startsWith("/") ? m[1] : "/" + m[1]);
+          break;
+        }
+      }
+      if (!feedUrl && /\bblog\b/i.test(md) && p === "/blog") feedUrl = `${origin}/feed`;
+    }
+  }
+
+  // Feed del blog: una descarga extra máx (presupuesto) — títulos reales.
+  const posts: { title: string; url: string }[] = [];
+  if (feedUrl) {
+    try {
+      const raw = await readerGet(feedUrl, { key: "sitio-verificado", label: "Sitio verificado — feed del blog (RSS/Atom)", ms: 15000, retries: 1 });
+      const seen = new Set<string>();
+      const titleOk = (t: string) => t.length > 8 && !seen.has(t) && !/^!\[|^image\s*\d/i.test(t) && !/^(home|logo|menú|menu|skip al|ir al)/i.test(t);
+      for (const m of raw.matchAll(/<title>(?:<!\[CDATA\[)?([^<\]]+)(?:\]\]>)?<\/title>/gi)) {
+        const t = clean(m[1], 90);
+        if (titleOk(t)) {
+          seen.add(t);
+          posts.push({ title: t, url: feedUrl });
+        }
+        if (posts.length >= 5) break;
+      }
+      if (!posts.length) {
+        for (const m of raw.matchAll(/\[([^\]]{10,90})\]\((https?:\/\/[^)]+)\)/g)) {
+          const t = clean(m[1], 90);
+          if (titleOk(t) && !/\.(png|jpe?g|svg|webp|gif)([?\/]|$)/i.test(m[2])) {
+            seen.add(t);
+            posts.push({ title: t, url: m[2] });
+          }
+          if (posts.length >= 5) break;
+        }
+      }
+      if (posts.length) findings.push({ kind: "blog", label: `Blog activo — ${posts.length} entradas recientes en el feed`, url: feedUrl, detail: posts.map((p) => p.title).join(" · ") });
+    } catch {
+      // el feed declarado no responde — honesto, queda en el ledger
+    }
+  }
+
+  if (emails.size) findings.push({ kind: "contacto", label: `Correos de contacto del dominio (${emails.size})`, url: `${origin}/contact`, detail: [...emails].slice(0, 4).join(", ") });
+  if (team.size) findings.push({ kind: "equipo", label: `Equipo declarado en el sitio (${team.size} personas con cargo)`, url: `${origin}/team`, detail: [...team].slice(0, 4).join(" · ") });
+  if (clients.size) findings.push({ kind: "clientes", label: `Clientes/partners declarados por el sitio (${clients.size})`, url: `${origin}/about`, detail: [...clients].slice(0, 5).join(", ") });
+  if (socials.size) findings.push({ kind: "redes", label: `Redes oficiales declaradas por el sitio (${socials.size})`, url: origin, detail: [...socials].slice(0, 3).join(", ") });
+
+  data.site_findings = findings;
+  data.blog_posts = posts.slice(0, 5);
+
+  const results: EvidenceItem[] = findings.map((f) => item(`Sitio verificado — ${f.label}`, f.url, f.detail));
+  if (!results.length) {
+    results.push(
+      item(
+        `Subpáginas del sitio verificado escaneadas (${data.site_pages_scanned}) sin hallazgos específicos`,
+        origin,
+        `Scraping real de ${paths.slice(0, data.site_pages_scanned).join(" ") || paths.join(" ")} — el sitio no expone contacto en texto plano, equipo estructurado ni feed del blog (también es un dato defendible: presencia web mínima)`
+      )
+    );
+  }
+  return { ...base, ok: true, results: results.slice(0, 6) };
 }

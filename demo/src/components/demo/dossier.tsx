@@ -18,6 +18,7 @@ import {
   Download,
   ExternalLink,
   FileText,
+  Globe2,
   Landmark,
   Printer,
   Scale,
@@ -211,6 +212,15 @@ export function DossierReport(props: DossierProps) {
       L.push(`## 0-D. Fuentes consultadas (${sourceLogs.length} consultas reales, con cadena de custodia temporal)`);
       for (const s of sourceLogs) L.push(`- [${s.ok ? (s.count > 0 ? "OK" : "VACÍA") : "FALLO"}] ${s.label} — ${s.endpoint} · ${s.ms}ms · ${s.count} resultado(s)${s.at ? ` · ${s.at}` : ""}${s.error ? ` · ${s.error}` : ""}`);
     }
+    if ((more?.site_pages_scanned ?? 0) > 0 || (more?.site_findings?.length ?? 0) > 0 || more?.openalex_org) {
+      L.push("");
+      L.push(`## 0-E. Evidencia primaria — scraping directo del sitio verificado + triangulación científica`);
+      if ((more?.site_pages_scanned ?? 0) > 0) L.push(`- Subpáginas descargadas del sitio VERIFICADO (${more?.identity?.selected?.host ?? domain ?? "—"}): ${more!.site_pages_scanned} — cero scraping sobre homónimos`);
+      for (const f of more?.site_findings ?? []) L.push(`- [${f.kind}] ${f.label} — ${f.detail} (fuente: ${f.url})`);
+      for (const b of more?.blog_posts ?? []) L.push(`- blog: «${b.title}» ${b.url}`);
+      if ((more?.papers_count ?? 0) > 0 && (more?.crossref_papers ?? 0) > 0) L.push(`- ✓ Triangulación científica: ${more!.papers_count} paper(s) en OpenAlex + ${more!.crossref_papers} en CrossRef (dos bases independientes)`);
+      if (more?.openalex_org) L.push(`- Registro ROR (OpenAlex): ${more.openalex_org.name} (${more.openalex_org.country ?? "—"}) — ${more.openalex_org.works_count} trabajos, ${more.openalex_org.cited_by_count} citas — ${more.openalex_org.url}`);
+    }
     L.push("");
     L.push(`## 0. Veredicto del auditor`);
     if (synth.company_identified) L.push(`**Entidad identificada:** ${synth.company_identified}`);
@@ -310,7 +320,7 @@ export function DossierReport(props: DossierProps) {
   }
   function downloadJson() {
     const dossier = {
-      format: "opengravity-intel-dossier/v3",
+      format: "opengravity-intel-dossier/v4",
       mission: missionId,
       name,
       sector,
@@ -341,6 +351,24 @@ export function DossierReport(props: DossierProps) {
         timeline: more?.timeline ?? [],
         followup_wave: more?.followups ?? [],
       },
+      /* v4 — evidencia primaria del sitio verificado + triangulación científica */
+      site_scrape: more
+        ? {
+            verified_site: more.identity?.selected?.host ?? more.domain ?? null,
+            pages_scanned: more.site_pages_scanned,
+            findings: more.site_findings,
+            blog_posts: more.blog_posts,
+          }
+        : null,
+      science: more
+        ? {
+            openalex_papers: more.papers_count,
+            crossref_papers: more.crossref_papers,
+            independent_databases_agree: more.papers_count > 0 && more.crossref_papers > 0,
+            openalex_org_ror: more.openalex_org,
+            trials: more.trials_count,
+          }
+        : null,
       verification,
       synthesis: synth,
       vectors: vectors.map((v) => ({ key: v.key, label: v.label, ok: v.ok, results: v.results, stats: v.stats ?? null })),
@@ -357,7 +385,7 @@ export function DossierReport(props: DossierProps) {
       })),
       engine: { biasSum, rawProb, adjProb, fallbackUsed, version: ENGINE_VERSION },
       methodology:
-        "Cada hallazgo conserva su URL y fuente; la identidad exige verificación de contenido (existencia DNS ≠ propiedad, DoH dual Cloudflare+Google); las afirmaciones se triangulan con dominios independientes; la enciclopedia (Wikidata P856) actúa como 3.ª fuente de identidad; cada fuente consultada queda registrada con estado, latencia y timestamp; el RQI es determinista y auditable.",
+        "Cada hallazgo conserva su URL y fuente; la identidad exige verificación de contenido (existencia DNS ≠ propiedad, DoH dual Cloudflare+Google); las afirmaciones se triangulan con dominios independientes; la enciclopedia (Wikidata P856) actúa como 3.ª fuente de identidad; la producción científica se contrasta en DOS bases bibliográficas independientes (OpenAlex + CrossRef/DOI); el scraper de subpáginas solo opera sobre el sitio VERIFICADO (cero scraping de homónimos); cada conector tiene reintentos con backoff, circuit breaker y validación de forma de respuesta; cada fuente consultada queda registrada con estado, latencia y timestamp; el RQI es determinista y auditable.",
     };
     const blob = new Blob([JSON.stringify(dossier, null, 2)], { type: "application/json" });
     const a = document.createElement("a");
@@ -546,6 +574,44 @@ export function DossierReport(props: DossierProps) {
               Cronología fusionada de infraestructura (RDAP · Wayback · certificados TLS), identidad (GitHub), comunidad (HN · Reddit · Stack Exchange) y prensa — solo eventos fechados y verificables; sin eventos no hay fila.
               {more.followups.length > 0 && ` Segunda ola ejecutada: ${more.followups.length} consulta(s) de seguimiento (${more.followups.reduce((a, f) => a + f.found, 0)} hallazgos nuevos).`}
             </p>
+          </Section>
+        )}
+
+        {/* 0-C — SCRAPING DEL SITIO VERIFICADO (v13: evidencia primaria, no búsqueda) */}
+        {((more?.site_findings?.length ?? 0) > 0 || (more?.site_pages_scanned ?? 0) > 0 || (more?.openalex_org ?? null)) && (
+          <Section n="0-C" title="Evidencia primaria — scraping directo del sitio verificado y triangulación científica" icon={<Globe2 className="h-3.5 w-3.5" />}>
+            {(more?.site_pages_scanned ?? 0) > 0 && (
+              <p className="text-[10px] text-zinc-500">
+                El oráculo DESCARGÓ {more?.site_pages_scanned} subpágina(s) del sitio VERIFICADO ({more?.identity?.selected?.host ?? domain ?? "—"}) — about · contacto · equipo · blog — y extrajo evidencia primaria. Regla: sin sitio verificado no hay scraping (cero datos de homónimos).
+              </p>
+            )}
+            {(more?.site_findings?.length ?? 0) > 0 && (
+              <ul className="space-y-1">
+                {more!.site_findings.map((f, i) => (
+                  <li key={i} className="flex flex-wrap items-baseline gap-x-1.5 text-[11px]">
+                    <Badge variant="outline" className="border-sky-800/60 font-mono text-[9px] uppercase text-sky-300">{f.kind}</Badge>
+                    <span className="text-zinc-300">{f.label}</span>
+                    <span className="text-zinc-500">— {f.detail}</span>
+                    <a href={f.url} target="_blank" rel="noopener noreferrer" className="text-zinc-600 hover:text-amber-300" aria-label={`Abrir subpágina de ${f.kind}`}>
+                      <ExternalLink className="h-2.5 w-2.5" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {(more?.blog_posts?.length ?? 0) > 0 && (
+              <p className="text-[10px] text-zinc-500">Feed del blog: {more!.blog_posts.map((b) => `«${b.title}»`).join(" · ")}</p>
+            )}
+            {(more?.papers_count ?? 0) > 0 && (more?.crossref_papers ?? 0) > 0 && (
+              <p className="rounded-lg border border-emerald-900/50 bg-emerald-950/20 px-3 py-2 text-[10px] text-emerald-200">
+                ✓ Triangulación científica: {more!.papers_count} paper(s) en OpenAlex + {more!.crossref_papers} en CrossRef (dos bases bibliográficas INDEPENDIENTES) — el mismo criterio de corroboración que aplicamos a dominios.
+              </p>
+            )}
+            {more?.openalex_org && (
+              <p className="text-[10px] text-zinc-500">
+                Registro ROR en OpenAlex: <a href={more.openalex_org.url} target="_blank" rel="noopener noreferrer" className="text-sky-400 hover:underline">{more.openalex_org.name}</a> ({more.openalex_org.country ?? "—"}) — {more.openalex_org.works_count.toLocaleString("es")} trabajos · {more.openalex_org.cited_by_count.toLocaleString("es")} citas acumuladas.
+              </p>
+            )}
           </Section>
         )}
 
@@ -981,7 +1047,7 @@ export function DossierReport(props: DossierProps) {
             <Badge variant="outline" className={`font-mono text-[10px] ${synth.metric_confidence === "found" ? "border-emerald-800/60 text-emerald-300" : synth.metric_confidence === "estimated" ? "border-amber-800/60 text-amber-300" : "border-zinc-700 text-zinc-500"}`}>confianza: {synth.metric_confidence === "found" ? "cifras encontradas" : synth.metric_confidence === "estimated" ? "estimadas" : "desconocida"}</Badge>
           </div>
           <ul className="mt-1 list-disc space-y-0.5 pl-4 text-[10px] text-zinc-500">
-            <li>Pipeline: Layer 1 harvesters ({VECTOR_META.length} vectores: motores reales DDG/Bing/Reddit/X/GitHub + talento/apps/ciencia/web/mercados/regs) + scrapers oficiales ({GOV_META.length} endpoints SEC EDGAR/USAspending + ~18 APIs de apoyo keyless) + sonda DNS multi-TLD → Layer 2 auditor DeerFlow ({fallbackUsed ? "heurístico" : "LLM institucional con esquema estricto"}) → Layer 3 motor bayesiano v{ENGINE_VERSION}.</li>
+            <li>Pipeline: Layer 1 harvesters ({VECTOR_META.length} vectores: motores reales DDG/Bing/Reddit/X/GitHub + talento/apps/ciencia/web/mercados/regs + scraper del sitio verificado) + scrapers oficiales ({GOV_META.length} endpoints SEC EDGAR/USAspending + ~20 APIs de apoyo keyless) + sonda DNS multi-TLD → Layer 2 auditor DeerFlow ({fallbackUsed ? "heurístico" : "LLM institucional con esquema estricto"}) → Layer 3 motor bayesiano v{ENGINE_VERSION}.</li>
             <li>Regla del oráculo: ninguna señal entra al logit sin URL verificable; el veto fatal (fraude/quiebra) fuerza DROP como el PolicyEngine original.</li>
             <li>SEC EDGAR y USAspending.gov son fuentes públicas y oficiales; el resto proviene de APIs abiertas keyless y búsqueda en vivo en esta misión.</li>
             <li>Misión {missionId} — {totalQueries} consultas registradas, {totalSources} hallazgos trazables. Todo el informe es exportable (Markdown/JSON) y auditable enlace a enlace.</li>

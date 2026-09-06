@@ -404,8 +404,8 @@ export function AgentMission({ onApply }: AgentMissionProps) {
           <div className="flex flex-wrap items-center gap-2" role="radiogroup" aria-label="Profundidad de la investigación">
             <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">Profundidad:</span>
             {([
-              { k: "rapida", lbl: "⚡ Rápida", hint: "15 vectores · sin segunda ola" },
-              { k: "estandar", lbl: "⚖ Estándar", hint: "18 vectores · archivo + noticias globales" },
+              { k: "rapida", lbl: "⚡ Rápida", hint: "16 vectores · núcleo + sitio verificado" },
+              { k: "estandar", lbl: "⚖ Estándar", hint: "19 vectores · archivo + noticias globales" },
               { k: "profunda", lbl: "🎯 Profunda", hint: "+ segunda ola de seguimiento · sonda ampliada" },
             ] as { k: MissionDepth; lbl: string; hint: string }[]).map((d) => (
               <button

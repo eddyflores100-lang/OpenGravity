@@ -3,6 +3,56 @@
 All notable changes are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com); versioning is `MAJOR.MINOR.PATCH` starting at the V10 calibration line.
 
+## [13.0.0] — 2026-09-06
+
+### Added — Oráculo v13: evidencia primaria (scraping del sitio verificado) + triangulación científica + circuit breaker 🕸️
+- **Migración de repo:** `alicelabsllc` dejó de existir en GitHub (404 sin
+  auth — cuenta eliminada/suspendida). Proyecto re-creado en
+  `eddyflores100-lang/OpenGravity` con historial completo; demo desplegada en
+  `https://eddyflores100-lang.github.io/OpenGravity/` vía rama `gh-pages`
+  (Pages legacy por branch, independiente de Actions). Todas las referencias
+  actualizadas (README×2, LICENSE contacto, CONTRIBUTING, demo). El nombre
+  legal AliceLabs LLC se conserva como titular de la licencia.
+- **Vector `sitio` — scraping propio del sitio VERIFICADO:** el oráculo ya no
+  solo busca el nombre en internet — DESCARGA las subpáginas canónicas del
+  sitio verificado por contenido (about · contacto · equipo · blog) vía lector
+  y extrae evidencia primaria: correos de contacto del propio dominio,
+  personas con cargo (equipo real), clientes/partners declarados, redes
+  oficiales y **feed RSS/Atom** con las últimas entradas del blog. Regla de
+  identidad intacta: sin sitio verificado no hay scraping — cero datos de
+  homónimos. Presupuesto por profundidad (3/4/6 subpáginas).
+- **Triangulación científica en DOS bases independientes:** CrossRef (registro
+  oficial de DOI de las editoriales) junto a OpenAlex — si ambas registran
+  producción de la entidad, el dossier lo marca con el mismo criterio de
+  corroboración usado con dominios. Nuevo registro organizacional **ROR**
+  (OpenAlex institutions): país, trabajos indexados y citas acumuladas.
+- **Circuit breaker por conector (`net.ts`):** 3 fallos consecutivos en la
+  misma misión abren el breaker — el conector deja de gastar presupuesto de
+  red (falla en <1ms, aparece como bloqueado en el panel con su motivo) y el
+  resto de la misión sigue. Se resetea con el ledger en cada misión.
+- **Validación de forma de respuesta:** los conectores JSON pueden declarar
+  `shape()` — una respuesta 200 con estructura inesperada (p.ej. página de
+  error HTML) NO entra a señales: se registra "respuesta no reconocida" sin
+  reintentos. Fiabilidad: se valida lo que se espera ANTES de usarlo.
+- **Export v4 (`opengravity-intel-dossier/v4`):** añade bloques `site_scrape`
+  (sitio verificado, páginas escaneadas, hallazgos, entradas del blog) y
+  `science` (papers por base, acuerdo entre bases independientes, registro
+  ROR, ensayos) + metodología ampliada.
+- **Sección 0-C del dossier:** "Evidencia primaria — scraping directo del sitio
+  verificado y triangulación científica" (hallazgos por tipo con enlace a la
+  subpágina real, feed del blog, corroboración científica, registro ROR);
+  bloque 0-E equivalente en el export Markdown.
+- **Nuevas señales estructurales al logit:** triangulación científica (+0.4),
+  registro ROR (+0.3), contacto verificable en el dominio (+0.2), equipo real
+  declarado (+0.3), blog vivo (+0.2), clientes declarados (+0.3).
+- **Vectores:** 18 → **19** (núcleo "rápida" 15 → 16 con el scraper del sitio).
+
+### Verificación empírica (sondas CORS, commit v13)
+- `registry.npmjs.org` ✓ `*` · `api.npmjs.org` ✓ `*` · `pypi.org` ✓ `*` ·
+  `api.openalex.org` ✓ `*` (works+institutions) · `api.crossref.org` ✓ `*` ·
+  `boards-api.greenhouse.io` ✓ `*` · `api.lever.co` ✓ `*` · SEC efts ✗ 403 sin
+  CORS (se queda vía lector/.gov existente) · archive.org ✗ timeout (descartado).
+
 ## [12.0.0] — 2026-09-06
 
 ### Added — Oráculo v12: fiabilidad medible + conectores ampliados 🔭
