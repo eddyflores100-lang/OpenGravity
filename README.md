@@ -10,7 +10,7 @@ Turn unit economics into a calibrated probability of success — then let autono
 agents challenge the number with real-world evidence.
 
 [![License](https://img.shields.io/badge/license-AliceLabs%20Proprietary-red)](./LICENSE)
-[![Version](https://img.shields.io/badge/version-10.5.0-blue)](./CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-13.0.0-blue)](./CHANGELOG.md)
 [![Python](https://img.shields.io/badge/python-3.12+-informational?logo=python&logoColor=white)](./requirements.txt)
 [![Node](https://img.shields.io/badge/node-20+-informational?logo=nodedotjs&logoColor=white)](./package.json)
 [![FastAPI](https://img.shields.io/badge/FastAPI-Oracle%20API-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
