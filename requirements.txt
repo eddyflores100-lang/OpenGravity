@@ -1,4 +1,4 @@
-# OpenGravity V10.5 — Python backend requirements
+# OpenGravity V13.0.0 — Python backend requirements
 # Install: pip install -r requirements.txt
 
 fastapi>=0.115,<1.0
